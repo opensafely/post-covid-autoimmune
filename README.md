@@ -1,4 +1,4 @@
-# post-covid-autoimmue
+# post-covid-autoimmune
 
 This is the code and configuration for post-covid-autoimmue.
 
