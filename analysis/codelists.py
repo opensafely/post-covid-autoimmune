@@ -53,8 +53,6 @@ smoking_unclear = codelist_from_csv(
     category_column="Category",
 )
 
-
-
 # BMI
 bmi_obesity_snomed_clinical = codelist_from_csv(
     "codelists/user-elsie_horne-bmi_obesity_snomed.csv",
@@ -187,7 +185,6 @@ astadm_primis = codelist_from_csv(
     system="snomed",
     column="code",
 )
-
 # Asthma systemic steroid prescription codes
 astrx_primis = codelist_from_csv(
     "codelists/primis-covid19-vacc-uptake-astrx.csv",
@@ -412,7 +409,7 @@ crohn_code_snomed = codelist_from_csv(
     system="snomed",
     column="id",
 )
-crohn_code_ctv3 = codelist_from_csv(
+crohn_code_ctv = codelist_from_csv(
     "codelists/opensafely-inflammatory-bowel-disease.csv",
     system="ctv3",
     column="CTV3ID",

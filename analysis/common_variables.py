@@ -152,9 +152,6 @@ def generate_common_variables(index_date_variable,end_date_variable):
         "incidence" : 0.001
         },
     ),
-
-
-
     ## Ethnicity 
     cov_cat_ethnicity=patients.categorised_as(
         helpers.generate_ethnicity_dictionary(6),
@@ -420,12 +417,12 @@ def generate_common_variables(index_date_variable,end_date_variable):
         return_expectations={"incidence": 0.01},
     ),
     ##############################################################################################################################
-    ## Define autoimune outcomes                                                                                                 #
+    ## Define autoimune outcomes                                                                                                ##
     ##############################################################################################################################
     #################################################################################################
-    # Outcome group 1: Inflammatory arthritis                                                       #
+    ## Outcome group 1: Inflammatory arthritis                                                      ##
     #################################################################################################
-    # Outcome component: Reumatoid arthritis
+    ## Outcome component: Reumatoid arthritis
     out_date_ra = patients.with_these_clinical_events(
         ra_code,
         returning="date",
@@ -433,12 +430,12 @@ def generate_common_variables(index_date_variable,end_date_variable):
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Outcome component: Undifferentiated inflamatory arthritis
+    ## Outcome component: Undifferentiated inflamatory arthritis
     out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code ,
         returning="date",
@@ -446,12 +443,12 @@ def generate_common_variables(index_date_variable,end_date_variable):
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Outcome component: Psoriatic arthritis 
+    ## Outcome component: Psoriatic arthritis 
     out_date_pa= patients.with_these_clinical_events(
         pa_code ,
         returning="date",
@@ -459,12 +456,12 @@ def generate_common_variables(index_date_variable,end_date_variable):
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Outcome component: Axial spondyloarthritis 
+    ## Outcome component: Axial spondyloarthritis 
     out_date_axial= patients.with_these_clinical_events(
         axial_code,
         returning="date",
@@ -472,207 +469,338 @@ def generate_common_variables(index_date_variable,end_date_variable):
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Outcome grouping 1: Inflammatory arthritis
-    first_date_out_grp_infl_arthritis=patients.with_these_clinical_events(
-        any_infl_arthritis_code,
-        returning="date",
-        date_format="YYYY-MM-DD",
-        find_first_match_in_period=True,
-        return_expectations={"incidence": 0.1, "date": {"earliest": "1900-01-01"}},
+    ## Outcome group 1: To be expanded once the other outcome components are avilable
+    out_date_grp1_ifa=patients.minimum_of(
+        "out_date_ra", "out_date_undiff_eia","out_date_pa","out_date_axial"
     ),
     #################################################################################################
-    # Outcome group 2: Connective tissue disorders                                                  #
+    ## Outcome group 2: Connective tissue disorders                                                ##
     #################################################################################################
-    # Systematic lupus erythematosus
+    ## Systematic lupus erythematosus
     out_date_sle= patients.with_these_clinical_events(
         sle_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Sjogren’s syndrome
+    ## Sjogren’s syndrome
     out_date_sjs= patients.with_these_clinical_events(
         sjs_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Systemic sclerosis/scleroderma
+    ## Systemic sclerosis/scleroderma
     out_date_sss= patients.with_these_clinical_events(
         sss_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Inflammatory myositis/polymyositis/dermatolomyositis
+    ## Inflammatory myositis/polymyositis/dermatolomyositis
     out_date_im= patients.with_these_clinical_events(
         im_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Mixed Connective Tissue Disease
+    ## Mixed Connective Tissue Disease
     out_date_mctd= patients.with_these_clinical_events(
         mctd_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Antiphospholipid syndrome
+    ## Antiphospholipid syndrome
     out_date_as= patients.with_these_clinical_events(
         as_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Outcome grouping 2: Connective tissue disorders
-    first_date_out_grp_ctd=patients.with_these_clinical_events(
-        any_ctd_code,
-        returning="date",
-        date_format="YYYY-MM-DD",
-        find_first_match_in_period=True,
-        return_expectations={"incidence": 0.1, "date": {"earliest": "1900-01-01"}},
+    ## Outcome group 2: to be expanded once the other outcome components are avilable
+    out_date_grp2_ctd=patients.minimum_of(
+        "out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im","out_date_mctd","out_date_as"
     ),
     #################################################################################################
-    # Outcome group 3: Inflammatory skin disease                                                    #
+    ## Outcome group 3: Inflammatory skin disease                                                  ##
     #################################################################################################
-    # Psoriasis
+    ## Psoriasis
     out_date_psoriasis= patients.with_these_clinical_events(
         psoriasis_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Hydradenitis suppurativa
+    ## Hydradenitis suppurativa
     out_date_hs= patients.with_these_clinical_events(
         psoriasis_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
+    ## Outcome group 3: to be expanded once the other outcome components are avilable
+    out_date_grp3_agi=patients.minimum_of(
+        "out_date_psoriasis", "out_date_hs"
+    ),
     ##################################################################################################
-    # Outcome group 4: Autoimmune GI / Inflammatory bowel disease                                    #
+    ## Outcome group 4: Autoimmune GI / Inflammatory bowel disease                                  ##
     ##################################################################################################
-    # Crohn’s disease
-    out_date_crohn_snomed= patients.with_these_clinical_events(
+    ## Crohn’s disease snomed
+    temp_out_date_crohn_snomed= patients.with_these_clinical_events(
         crohn_code_snomed,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    out_date_crohn_ctv3= patients.with_these_clinical_events(
-        crohn_code_ctv3,
+     # Crohn’s disease ctv3
+    temp_out_date_crohn_ctv= patients.with_these_clinical_events(
+        crohn_code_ctv,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Ulcerative colitis
+    ## Crohn’s disease combined
+    out_date_crohn=patients.minimum_of(
+        "temp_out_date_crohn_snomed", "temp_out_date_crohn_ctv"
+    ),
+    ## Ulcerative colitis
     out_date_uc= patients.with_these_clinical_events(
         uc_code,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
-            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
             "incidence": 0.3,
         },
     ),
-    # Celiac disease
+    ## Celiac disease
+    ## Outcome group 4: to be expanded once the other outcome components are avilable
+    out_date_grp4_agi=patients.minimum_of(
+        "out_date_crohn", "out_date_uc"
+    ),
     ##################################################################################################
-    # Outcome group 5: Thyroid diseases                                                              #
+    ## Outcome group 5: Thyroid diseases                                                              #
     ##################################################################################################
-    # Addison’s disease 
-    # Grave’s disease
-    # Hashimoto’s thyroiditis
-    # Thyroid toxicosis / hyper thyroid
+    ## Addison’s disease 
+    out_date_addison= patients.with_these_clinical_events(
+        addison_code,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## Grave’s disease
+    ## Hashimoto’s thyroiditis
+    ## Thyroid toxicosis / hyper thyroid
+
+    ## Outcome group 5: Thyroid diseases - to be expanded once the other outcome components are avilable
+    out_date_grp6_atv=patients.minimum_of(
+        "out_date_addison"
+    ),
     ##################################################################################################
-    # Outcome group 6: Autoimmune vasculitis                                                         #
+    ## Outcome group 6: Autoimmune vasculitis                                                       ##
     ##################################################################################################
-    # ANCA-associated
-    # Giant cell arteritis
-    # IgA (immunoglobulin A) vasculitis
-    # Polymyalgia Rheumatica (PMR)
+    ## ANCA-associated
+    out_date_anca= patients.with_these_clinical_events(
+        anca_code,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## Giant cell arteritis
+    out_date_gca= patients.with_these_clinical_events(
+        gca_code,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## IgA (immunoglobulin A) vasculitis
+    ## Polymyalgia Rheumatica (PMR)
+    out_date_pmr= patients.with_these_clinical_events(
+        pmr_code,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    
+    ##  Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
+    out_date_grp6_trd=patients.minimum_of(
+        "out_date_anca", "out_date_gca","out_date_pmr"
+    ),
     ##################################################################################################
-    # Outcome group 7: Hematologic Diseases                                                          #
+    ## Outcome group 7: Hematologic Diseases                                                        ##
     ##################################################################################################
-    # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
-    # Pernicious anaemia
-    # Aplastic Anaemia
-    # Autoimmune haemolytic anaemia 
+    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
+    ## Pernicious anaemia
+    ## Aplastic Anaemia snomed
+    temp_out_date_apa_snomed= patients.with_these_clinical_events(
+        apa_code_snomed,
+        returning="date",
+       between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## Aplastic Anaemia ctv3
+    temp_out_date_apa_ctv= patients.with_these_clinical_events(
+        apa_code_ctv,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## Aplastic Anaemia combined
+    out_date_apa=patients.minimum_of(
+        "temp_out_date_apa_snomed", "temp_out_date_apa_ctv"
+    ),
+    ## Autoimmune haemolytic anaemia 
+
+    ## Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
+    out_date_grp7_he=patients.minimum_of(
+        "out_date_apa"
+    ),
     ##################################################################################################
-    # Outcome group 8: Inflammatory neuromuscular disease                                            #
+    ## Outcome group 8: Inflammatory neuromuscular disease                                          ##
     ##################################################################################################
-    # Guillain Barre
-    # Multiple Sclerosis
-    # Myasthenia gravis
-    # Longitudinal myelitis
+    ## Guillain Barre snomed
+    temp_out_date_glb_snomed= patients.with_these_clinical_events(
+        glb_code_snomed,
+        returning="date",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ## Guillain Barre icd10
+    temp_out_date_glb_icd= patients.admitted_to_hospital(
+        with_these_diagnoses=glb_code_icd,
+        returning="date_admitted",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.1,
+        },
+    ),
+    ## Guillain Barre combined
+    out_date_glb=patients.minimum_of(
+        "temp_out_date_glb_snomed", "temp_out_date_glb_icd"
+    ),
+    ## Multiple Sclerosis
+    ## Myasthenia gravis
+    ## Longitudinal myelitis
+
+    ## Outcome group 8:  Inflammatory neuromuscular disease - to be expanded once codelist for other outcome components are available
+    out_date_grp8_ind=patients.minimum_of(
+        "out_date_glb"
+    ),
 
     )
     return dynamic_variables
