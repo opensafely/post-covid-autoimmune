@@ -419,6 +419,68 @@ def generate_common_variables(index_date_variable,end_date_variable):
         returning='binary_flag', 
         return_expectations={"incidence": 0.01},
     ),
-
+    ##############################################################################################################################
+    ## Define autoimune outcomes                                                                                                 #
+    ##############################################################################################################################
+    # Outcome component: Reumatoid arthritis
+    out_date_ra = patients.with_these_clinical_events(
+        ra_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Outcome component: Undifferentiated inflamatory arthritis
+    out_date_undiff_eia = patients.with_these_clinical_events(
+        undiff_eia_code ,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Outcome component: Psoriatic arthritis 
+    out_date_pa= patients.with_these_clinical_events(
+        pa_code ,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Outcome component: Axial spondyloarthritis 
+    out_date_axial= patients.with_these_clinical_events(
+        axial_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Outcome grouping 1: Inflammatory arthritis
+    first_date_out_grp_infl_arthritis=patients.with_these_clinical_events(
+        any_infl_arthritis_code,
+        returning="date",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={"incidence": 0.1, "date": {"earliest": "1900-01-01"}},
+    ),
     )
     return dynamic_variables

@@ -304,3 +304,33 @@ pregnancy_snomed_clinical = codelist_from_csv(
     system="snomed",
     column="code",
 )
+# Autoimmune disease codes
+# Outcome components for outcome grouping 1: Inflammatory arthritis
+# Reumatoid arthritis
+ra_code = codelist_from_csv(
+    "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
+    system="snomed",
+    column="code",
+)
+# Undifferentiated inflamatory arthritis
+undiff_eia_code = codelist_from_csv(
+    "codelists/user-markdrussell-undiff-eia.csv",
+    system="snomed",
+    column="code",
+)
+# Psoriatic arthritis
+pa_code = codelist_from_csv(
+    "codelists/user-markdrussell-psoriatic-arthritis.csv",
+    system = "snomed",
+    column = "code",
+)
+# Axial spondyloarthritis
+axial_code = codelist_from_csv(
+    "codelists/user-markdrussell-axial-spondyloarthritis.csv",
+    system = "snomed",
+    column = "code",
+)
+# outcome grouping 1: Inflammatory arthritis
+any_infl_arthritis_code = combine_codelists(
+     ra_code, undiff_eia_code, pa_code, axial_code
+)
