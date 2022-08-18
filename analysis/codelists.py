@@ -304,8 +304,10 @@ pregnancy_snomed_clinical = codelist_from_csv(
     system="snomed",
     column="code",
 )
-# Autoimmune disease codes
-# Outcome components for outcome grouping 1: Inflammatory arthritis
+##################################################################################################################################
+# Autoimmune disease codes                                                                                                       #
+################################################################################################################################## 
+# # Outcome components for outcome grouping 1: Inflammatory arthritis
 # Reumatoid arthritis
 ra_code = codelist_from_csv(
     "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
@@ -333,4 +335,45 @@ axial_code = codelist_from_csv(
 # outcome grouping 1: Inflammatory arthritis
 any_infl_arthritis_code = combine_codelists(
      ra_code, undiff_eia_code, pa_code, axial_code
+)
+# Outcome components for outcome grouping 2: Connective tissue disorders
+# Systematic lupus erythematosu
+sle_code = codelist_from_csv(
+    "codelists/user-markdrussell-systemic-sclerosisscleroderma.csv",
+    system="snomed",
+    column="code",
+)
+#Sjogren’s syndrome
+sjogren_syndrome_code = codelist_from_csv(
+    "codelists/user-markdrussell-sjogrens-syndrome.csv",
+    system="snomed",
+    column="code",
+)
+#Systemic sclerosis/scleroderma
+sss_code = codelist_from_csv(
+    "codelists/user-markdrussell-systemic-sclerosisscleroderma.csv",
+    system="snomed",
+    column="code",
+)
+# Inflammatory myositis/polymyositis/dermatolomyositis
+infl_myositis_code = codelist_from_csv(
+    "codelists/user-markdrussell-inflammatory-myositis.csv",
+    system="snomed",
+    column="code",
+)
+# Mixed Connective Tissue Disease
+mctd_code = codelist_from_csv(
+    "codelists/user-markdrussell-mctd.csv",
+    system="snomed",
+    column="code",
+)
+# Antiphospholipid syndrome
+as_code = codelist_from_csv(
+    "codelists/user-markdrussell-antiphospholipid-syndrome.csv",
+    system="snomed",
+    column="code",
+)
+# outcome grouping 1: Connective tissue disorders
+any_ctd_code = combine_codelists(
+     sle_code, sjogren_syndrome_code, sss_code, infl_myositis_code, mctd_code, as_code
 )
