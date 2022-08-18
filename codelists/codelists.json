@@ -275,6 +275,144 @@
       "url": "https://codelists.opensafely.org/codelist/user/RochelleKnight/pregnancy_and_birth_snomed/1d46bcb3/",
       "downloaded_at": "2022-08-18 15:55:56.718490Z",
       "sha": "3dec4001ddd33ddaf16ce92ec450c2206880ec40"
+    },
+    "user-markdrussell-new-rheumatoid-arthritis.csv": {
+      "id": "user/markdrussell/new-rheumatoid-arthritis/68f9eaf6",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/new-rheumatoid-arthritis/68f9eaf6/",
+      "downloaded_at": "2022-08-18 16:33:20.898886Z",
+      "sha": "37439970e54dd5729e186ffbe6a3c78385403128"
+    },
+    "user-markdrussell-undiff-eia.csv": {
+      "id": "user/markdrussell/undiff-eia/459a5829",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/undiff-eia/459a5829/",
+      "downloaded_at": "2022-08-18 16:33:21.099783Z",
+      "sha": "bb2bfbfdcd1631a27ef9c1faf5ba9c95b8beaf27"
+    },
+    "user-markdrussell-psoriatic-arthritis.csv": {
+      "id": "user/markdrussell/psoriatic-arthritis/36db048c",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/psoriatic-arthritis/36db048c/",
+      "downloaded_at": "2022-08-18 16:33:21.300161Z",
+      "sha": "9d687b4d51997d665f5fd151fcacd95f01989058"
+    },
+    "user-markdrussell-axial-spondyloarthritis.csv": {
+      "id": "user/markdrussell/axial-spondyloarthritis/4fea77c1",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/axial-spondyloarthritis/4fea77c1/",
+      "downloaded_at": "2022-08-18 16:33:21.535012Z",
+      "sha": "1be5b037a893a67c611f938ac96fb41f48e01905"
+    },
+    "opensafely-systemic-lupus-erythematosus-sle.csv": {
+      "id": "opensafely/systemic-lupus-erythematosus-sle/36bdb2c7",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/systemic-lupus-erythematosus-sle/36bdb2c7/",
+      "downloaded_at": "2022-08-18 16:33:21.736806Z",
+      "sha": "a7354e610e9ccc2f22f8e8b9b1a7c329a971aa7c"
+    },
+    "user-markdrussell-sjogrens-syndrome.csv": {
+      "id": "user/markdrussell/sjogrens-syndrome/34284496",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/sjogrens-syndrome/34284496/",
+      "downloaded_at": "2022-08-18 16:33:22.018410Z",
+      "sha": "602cebb179a02154df383f806d8ad89f63020f7c"
+    },
+    "user-markdrussell-systemic-sclerosisscleroderma.csv": {
+      "id": "user/markdrussell/systemic-sclerosisscleroderma/1b18d161",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/systemic-sclerosisscleroderma/1b18d161/",
+      "downloaded_at": "2022-08-18 16:33:22.227517Z",
+      "sha": "1f6c696c7617d897dfa702ade9d5f7fc727d918e"
+    },
+    "user-markdrussell-inflammatory-myositis.csv": {
+      "id": "user/markdrussell/inflammatory-myositis/4d37b7cb",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/inflammatory-myositis/4d37b7cb/",
+      "downloaded_at": "2022-08-18 16:33:22.416701Z",
+      "sha": "0f6d7ae111aad747f1aba3018a04e360b04a0577"
+    },
+    "user-markdrussell-antiphospholipid-syndrome.csv": {
+      "id": "user/markdrussell/antiphospholipid-syndrome/1dcb9157",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/antiphospholipid-syndrome/1dcb9157/",
+      "downloaded_at": "2022-08-18 16:33:22.645929Z",
+      "sha": "19d5dbc26ec741526631cda282f3881e59089a2e"
+    },
+    "opensafely-psoriasis.csv": {
+      "id": "opensafely/psoriasis/01091de1",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/psoriasis/01091de1/",
+      "downloaded_at": "2022-08-18 16:33:22.891313Z",
+      "sha": "9bcaf40cef8b3624037e8b4ed318cefa62f8cc8c"
+    },
+    "opensafely-hidradenitis-suppurativa.csv": {
+      "id": "opensafely/hidradenitis-suppurativa/4560cb6d",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/hidradenitis-suppurativa/4560cb6d/",
+      "downloaded_at": "2022-08-18 16:33:23.137030Z",
+      "sha": "9bd57a9e5e4de0aefda6e4cf52f1a152c21d6638"
+    },
+    "opensafely-inflammatory-bowel-disease-snomed.csv": {
+      "id": "opensafely/inflammatory-bowel-disease-snomed/693b3e7a",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/inflammatory-bowel-disease-snomed/693b3e7a/",
+      "downloaded_at": "2022-08-18 16:33:23.358271Z",
+      "sha": "b26d718c8b0ae40c4de452e18597f1e6531335ef"
+    },
+    "opensafely-ulcerative-colitis.csv": {
+      "id": "opensafely/ulcerative-colitis/3b49ad2a",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/ulcerative-colitis/3b49ad2a/",
+      "downloaded_at": "2022-08-18 16:33:23.592074Z",
+      "sha": "9add66e0b6b15665c772806314c2f481ed56c468"
+    },
+    "primis-covid19-vacc-uptake-addis_cod.csv": {
+      "id": "primis-covid19-vacc-uptake/addis_cod/v.1.5.3",
+      "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/addis_cod/v.1.5.3/",
+      "downloaded_at": "2022-08-18 16:33:23.858674Z",
+      "sha": "5a7f84908af4745bf67c54945e467f1b99d7aaeb"
+    },
+    "user-markdrussell-anca-vasculitis.csv": {
+      "id": "user/markdrussell/anca-vasculitis/66472b00",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/anca-vasculitis/66472b00/",
+      "downloaded_at": "2022-08-18 16:33:24.096050Z",
+      "sha": "1e2f35997d3fc4f1e50ddc302bd950c019e06c11"
+    },
+    "user-markdrussell-giant-cell-arteritis.csv": {
+      "id": "user/markdrussell/giant-cell-arteritis/317584a0",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/giant-cell-arteritis/317584a0/",
+      "downloaded_at": "2022-08-18 16:33:24.375435Z",
+      "sha": "70f0bfd84350b5471f25f0b1f6df45cab315aca1"
+    },
+    "user-markdrussell-polymyalgia-rheumatica.csv": {
+      "id": "user/markdrussell/polymyalgia-rheumatica/23311143",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/polymyalgia-rheumatica/23311143/",
+      "downloaded_at": "2022-08-18 16:33:24.673553Z",
+      "sha": "3daf932a315f127f935867353d16cac470556b15"
+    },
+    "opensafely-aplastic-anaemia-snomed.csv": {
+      "id": "opensafely/aplastic-anaemia-snomed/48138b63",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/aplastic-anaemia-snomed/48138b63/",
+      "downloaded_at": "2022-08-18 16:33:24.881002Z",
+      "sha": "bde67c9124f271b70c5af88848bd9d4d972e84e0"
+    },
+    "opensafely-guillain-barre.csv": {
+      "id": "opensafely/guillain-barre/7aaddd74",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/guillain-barre/7aaddd74/",
+      "downloaded_at": "2022-08-18 16:33:25.214358Z",
+      "sha": "b0ae8229051f38d5d3b76c9c7bf2621c2973bd34"
+    },
+    "opensafely-multiple-sclerosis-v2.csv": {
+      "id": "opensafely/multiple-sclerosis-v2/063627df",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/multiple-sclerosis-v2/063627df/",
+      "downloaded_at": "2022-08-18 16:33:25.439384Z",
+      "sha": "e89c12f28e67e5c8dedd322f936a279cc837c564"
+    },
+    "opensafely-guillain-barre-syndrome-icd10.csv": {
+      "id": "opensafely/guillain-barre-syndrome-icd10/4b41b700",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/guillain-barre-syndrome-icd10/4b41b700/",
+      "downloaded_at": "2022-08-18 16:33:25.652150Z",
+      "sha": "c5ba370a4a584a06172c98533db62622a9029af7"
+    },
+    "opensafely-aplastic-anaemia.csv": {
+      "id": "opensafely/aplastic-anaemia/58ac196d",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/aplastic-anaemia/58ac196d/",
+      "downloaded_at": "2022-08-18 16:33:25.956894Z",
+      "sha": "bd34ff54f789dce031e3581006cc0befcee0b35c"
+    },
+    "opensafely-inflammatory-bowel-disease.csv": {
+      "id": "opensafely/inflammatory-bowel-disease/6c560cb6",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/inflammatory-bowel-disease/6c560cb6/",
+      "downloaded_at": "2022-08-18 16:33:26.190437Z",
+      "sha": "cd2175107ab3e81151fc31cd8ffd754ce5902f8b"
     }
   }
 }
