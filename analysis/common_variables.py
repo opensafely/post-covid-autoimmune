@@ -422,6 +422,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ##############################################################################################################################
     ## Define autoimune outcomes                                                                                                 #
     ##############################################################################################################################
+    #################################################################################################
+    # Outcome group 1: Inflammatory arthritis                                                       #
+    #################################################################################################
     # Outcome component: Reumatoid arthritis
     out_date_ra = patients.with_these_clinical_events(
         ra_code,
@@ -482,5 +485,194 @@ def generate_common_variables(index_date_variable,end_date_variable):
         find_first_match_in_period=True,
         return_expectations={"incidence": 0.1, "date": {"earliest": "1900-01-01"}},
     ),
+    #################################################################################################
+    # Outcome group 2: Connective tissue disorders                                                  #
+    #################################################################################################
+    # Systematic lupus erythematosus
+    out_date_sle= patients.with_these_clinical_events(
+        sle_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Sjogren’s syndrome
+    out_date_sjs= patients.with_these_clinical_events(
+        sjs_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Systemic sclerosis/scleroderma
+    out_date_sss= patients.with_these_clinical_events(
+        sss_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Inflammatory myositis/polymyositis/dermatolomyositis
+    out_date_im= patients.with_these_clinical_events(
+        im_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Mixed Connective Tissue Disease
+    out_date_mctd= patients.with_these_clinical_events(
+        mctd_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Antiphospholipid syndrome
+    out_date_as= patients.with_these_clinical_events(
+        as_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Outcome grouping 2: Connective tissue disorders
+    first_date_out_grp_ctd=patients.with_these_clinical_events(
+        any_ctd_code,
+        returning="date",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={"incidence": 0.1, "date": {"earliest": "1900-01-01"}},
+    ),
+    #################################################################################################
+    # Outcome group 3: Inflammatory skin disease                                                    #
+    #################################################################################################
+    # Psoriasis
+    out_date_psoriasis= patients.with_these_clinical_events(
+        psoriasis_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Hydradenitis suppurativa
+    out_date_hs= patients.with_these_clinical_events(
+        psoriasis_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    ##################################################################################################
+    # Outcome group 4: Autoimmune GI / Inflammatory bowel disease                                    #
+    ##################################################################################################
+    # Crohn’s disease
+    out_date_crohn_snomed= patients.with_these_clinical_events(
+        crohn_code_snomed,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    out_date_crohn_ctv3= patients.with_these_clinical_events(
+        crohn_code_ctv3,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Ulcerative colitis
+    out_date_uc= patients.with_these_clinical_events(
+        uc_code,
+        returning="date",
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": "1900-01-01", "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Celiac disease
+    ##################################################################################################
+    # Outcome group 5: Thyroid diseases                                                              #
+    ##################################################################################################
+    # Addison’s disease 
+    # Grave’s disease
+    # Hashimoto’s thyroiditis
+    # Thyroid toxicosis / hyper thyroid
+    ##################################################################################################
+    # Outcome group 6: Autoimmune vasculitis                                                         #
+    ##################################################################################################
+    # ANCA-associated
+    # Giant cell arteritis
+    # IgA (immunoglobulin A) vasculitis
+    # Polymyalgia Rheumatica (PMR)
+    ##################################################################################################
+    # Outcome group 7: Hematologic Diseases                                                          #
+    ##################################################################################################
+    # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
+    # Pernicious anaemia
+    # Aplastic Anaemia
+    # Autoimmune haemolytic anaemia 
+    ##################################################################################################
+    # Outcome group 8: Inflammatory neuromuscular disease                                            #
+    ##################################################################################################
+    # Guillain Barre
+    # Multiple Sclerosis
+    # Myasthenia gravis
+    # Longitudinal myelitis
+
     )
     return dynamic_variables
