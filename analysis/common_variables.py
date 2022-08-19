@@ -422,7 +422,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     #################################################################################################
     ## Outcome group 1: Inflammatory arthritis                                                      ##
     #################################################################################################
-    ## Outcome component: Reumatoid arthritis
+    ## Reumatoid arthritis
     out_date_ra = patients.with_these_clinical_events(
         ra_code,
         returning="date",
@@ -435,7 +435,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome component: Undifferentiated inflamatory arthritis
+    ## Undifferentiated inflamatory arthritis
     out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code ,
         returning="date",
@@ -448,7 +448,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome component: Psoriatic arthritis 
+    ## Psoriatic arthritis 
     out_date_pa= patients.with_these_clinical_events(
         pa_code ,
         returning="date",
@@ -461,7 +461,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome component: Axial spondyloarthritis 
+    ##  Axial spondyloarthritis 
     out_date_axial= patients.with_these_clinical_events(
         axial_code,
         returning="date",
@@ -474,7 +474,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome group 1: To be expanded once the other outcome components are avilable
+    ## Outcome group 1
     out_date_grp1_ifa=patients.minimum_of(
         "out_date_ra", "out_date_undiff_eia","out_date_pa","out_date_axial"
     ),
@@ -559,7 +559,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome group 2: to be expanded once the other outcome components are avilable
+    ## Outcome group 2
     out_date_grp2_ctd=patients.minimum_of(
         "out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im","out_date_mctd","out_date_as"
     ),
@@ -592,7 +592,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## Outcome group 3: to be expanded once the other outcome components are avilable
+    ## Outcome group 3
     out_date_grp3_agi=patients.minimum_of(
         "out_date_psoriasis", "out_date_hs"
     ),
@@ -668,7 +668,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Thyroid toxicosis / hyper thyroid
 
     ## Outcome group 5: Thyroid diseases - to be expanded once the other outcome components are avilable
-    out_date_grp6_atv=patients.minimum_of(
+    out_date_grp5_atv=patients.minimum_of(
         "out_date_addison"
     ),
     ##################################################################################################
@@ -700,7 +700,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             "incidence": 0.3,
         },
     ),
-    ## IgA (immunoglobulin A) vasculitis
+    ## IgA (immunoglobulin A) vasculitis: codelist link doesn't work
     ## Polymyalgia Rheumatica (PMR)
     out_date_pmr= patients.with_these_clinical_events(
         pmr_code,
@@ -757,7 +757,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Autoimmune haemolytic anaemia 
 
     ## Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
-    out_date_grp7_he=patients.minimum_of(
+    out_date_grp7_htd=patients.minimum_of(
         "out_date_apa"
     ),
     ##################################################################################################
