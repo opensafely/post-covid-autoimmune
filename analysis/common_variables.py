@@ -801,6 +801,11 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_grp8_ind=patients.minimum_of(
         "out_date_glb"
     ),
-
+    
+    ## Define primary outcome: composite auto-immune outcome
+    out_date_composite_ai=patients.minimum_of(
+        "out_date_grp1_ifa", "out_date_grp2_ctd", "out_date_grp3_agi", "out_date_grp4_agi", 
+        "out_date_grp5_atv", "out_date_grp6_trd", "out_date_grp7_htd", "out_date_grp8_ind"
+    ),
     )
     return dynamic_variables

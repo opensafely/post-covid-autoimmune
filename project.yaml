@@ -68,3 +68,48 @@ actions:
       highly_sensitive:
         cohort: output/input_vaccinated.feather
 
+  ## Preproces data - prevax 
+
+  preprocess_data_prevax:
+    run: r:latest analysis/preprocess/preprocess_data.R prevax
+    needs:
+    - generate_index_dates
+    - generate_study_population_prevax
+    outputs:
+      moderately_sensitive:
+        describe: output/not-for-review/describe_input_prevax_*.txt
+        descrive_venn: output/not-for-review/describe_venn_prevax.txt
+      highly_sensitive:
+        cohort: output/input_prevax.rds
+        venn: output/venn_prevax.rds
+
+  ## Preproces data - vaccinated 
+
+  preprocess_data_vaccinated:
+    run: r:latest analysis/preprocess/preprocess_data.R vaccinated
+    needs:
+    - generate_index_dates
+    - generate_study_population_vaccinated
+    outputs:
+      moderately_sensitive:
+        describe: output/not-for-review/describe_input_vaccinated_*.txt
+        descrive_venn: output/not-for-review/describe_venn_vaccinated.txt
+      highly_sensitive:
+        cohort: output/input_vaccinated.rds
+        venn: output/venn_vaccinated.rds
+
+  ## Preproces data - unvaccinated 
+
+  preprocess_data_unvaccinated:
+    run: r:latest analysis/preprocess/preprocess_data.R unvaccinated
+    needs:
+    - generate_index_dates
+    - generate_study_population_unvaccinated
+    outputs:
+      moderately_sensitive:
+        describe: output/not-for-review/describe_input_unvaccinated_*.txt
+        descrive_venn: output/not-for-review/describe_venn_unvaccinated.txt
+      highly_sensitive:
+        cohort: output/input_unvaccinated.rds
+        venn: output/venn_unvaccinated.rds
+

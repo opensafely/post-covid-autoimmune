@@ -22,6 +22,8 @@ defaults_list <- list(
 # cohort_to_run <- c("vaccinated", "electively_unvaccinated")
 # analyses <- c("main", "subgroups")
 
+cohort <- c("prevax", "vaccinated", "unvaccinated")
+
 # create action functions ----
 
 ############################
@@ -79,6 +81,27 @@ convert_comment_actions <-function(yaml.txt){
 # #################################################
 # ## Function for typical actions to analyse data #
 # #################################################
+# # Preprocess data 
+apply_preprocess <- function(cohort){
+  splice(
+    comment(glue("Preproces data - {cohort}")),
+    action(
+      name = glue("preprocess_data_{cohort}"),
+      run = "r:latest analysis/preprocess/preprocess_data.R",
+      arguments = c(cohort),
+      needs = list("generate_index_dates", 
+                   glue("generate_study_population_{cohort}")),
+      moderately_sensitive = list(
+          describe = glue("output/not-for-review/describe_input_{cohort}_*.txt"),
+          descrive_venn = glue("output/not-for-review/describe_venn_{cohort}.txt")
+        ),
+      highly_sensitive = list(
+          cohort = glue("output/input_{cohort}.rds"),
+          venn = glue("output/venn_{cohort}.rds")
+        )
+      )
+    )
+}
 # # Updated to a typical action running Cox models for one outcome
 # apply_model_function <- function(outcome, cohort){
 #   splice(
@@ -127,10 +150,6 @@ convert_comment_actions <-function(yaml.txt){
 #     )
 #   )
 # }
-
-
-
-
 
 ##########################################################
 ## Define and combine all actions into a list of actions #
@@ -201,10 +220,14 @@ actions_list <- splice(
     highly_sensitive = list(
       cohort = glue("output/input_vaccinated.feather")
     )
+  ),
+  ##comment("Proprocess data"),
+  splice(
+    unlist(lapply(cohort, function(x) apply_preprocess(cohort = x)), recursive = FALSE)
   )
 )
   
-  
+
   # #comment("Generate dummy data for study_definition - index"),
   # action(
   #   name = "generate_study_population_index",
