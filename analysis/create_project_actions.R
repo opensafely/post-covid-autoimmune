@@ -22,7 +22,7 @@ defaults_list <- list(
 # cohort_to_run <- c("vaccinated", "electively_unvaccinated")
 # analyses <- c("main", "subgroups")
 
-cohort <- c("prevax", "vaccinated", "unvaccinated")
+cohort <- c("prevax", "vax", "unvax")
 
 # create action functions ----
 
@@ -195,11 +195,11 @@ actions_list <- splice(
 
   #comment("Generate dummy data for study_definition - unvaccinated"),
   action(
-    name = "generate_study_population_unvaccinated",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_unvaccinated --output-format feather",
+    name = "generate_study_population_unvax",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_unvax --output-format feather",
     needs = list("vax_eligibility_inputs","generate_index_dates"),
     highly_sensitive = list(
-      cohort = glue("output/input_unvaccinated.feather")
+      cohort = glue("output/input_unvax.feather")
     )
   ),
   #comment("Generate dummy data for study_definition - prevax"),
@@ -214,11 +214,11 @@ actions_list <- splice(
   
   #comment("Generate dummy data for study_definition - vaccinated"),
   action(
-    name = "generate_study_population_vaccinated",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_vaccinated --output-format feather",
+    name = "generate_study_population_vax",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_vax --output-format feather",
     needs = list("generate_index_dates","vax_eligibility_inputs"),
     highly_sensitive = list(
-      cohort = glue("output/input_vaccinated.feather")
+      cohort = glue("output/input_vax.feather")
     )
   ),
   ##comment("Proprocess data"),
