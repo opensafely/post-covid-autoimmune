@@ -98,6 +98,8 @@ message("COVID19 severity determined successfully")
 
 
 df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
+                    has_follow_up_previous_6months,
+                    dereg_date,
                     starts_with("end_date_"),
                     contains("sub_"), # Subgroups
                     contains("exp_"), # Exposures
@@ -107,7 +109,7 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     #contains("step"), # diabetes steps
                     contains("vax_date_eligible"), # Vaccination eligibility
                     contains("vax_date_"), # Vaccination dates and vax type 
-                    #contains("vax_cat_")# Vaccination products
+                    contains("vax_cat_")# Vaccination products
 )
 
 
