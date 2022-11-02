@@ -35,7 +35,7 @@ jsonlite::write_json(study_dates, path = "output/study_dates.json", auto_unbox =
 
 # create jcvi_groups ----
 jcvi_groups <- 
-tribble(
+  tribble(
     ~group, ~definition,
     "01", "longres_group AND vax_jcvi_age_1 > 65",
     "02", "vax_jcvi_age_1 >=80",
@@ -50,13 +50,13 @@ tribble(
     "11", "vax_jcvi_age_2 >=30",
     "12", "vax_jcvi_age_2 >=18",
     "99", "DEFAULT",
-)
+  )
 
 readr::write_csv(jcvi_groups,here::here( "output","vax_jcvi_groups.csv"))
 
 # create elig_dates ----
 elig_dates <-
-tribble(
+  tribble(
     ~date, ~description, ~jcvi_groups,
     "2020-12-08", "vax_cat_jcvi_group='01' OR vax_cat_jcvi_group='02'", "01, 02",
     "2021-01-18", "vax_cat_jcvi_group='03' OR vax_cat_jcvi_group='04'", "03, 04",
@@ -87,6 +87,6 @@ tribble(
     "2021-06-16", "vax_jcvi_age_2 >= 21 AND vax_jcvi_age_2 < 23", "12",
     "2021-06-18", "vax_jcvi_age_2 >= 18 AND vax_jcvi_age_2 < 21", "12",
     "2100-12-31", "DEFAULT", "NA",
-)
+  )
 
 readr::write_csv(elig_dates, here::here("output","vax_eligible_dates.csv"))

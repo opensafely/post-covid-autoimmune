@@ -95,7 +95,32 @@ def generate_common_variables(index_date_variable,end_date_variable):
         "tmp_exp_date_covid19_confirmed_sgss","tmp_exp_date_covid19_confirmed_snomed","tmp_exp_date_covid19_confirmed_hes","tmp_exp_date_covid19_confirmed_death"
     ),
 
-    # Define subgroups (for variables that don't have a corresponding covariate only)
+    ## POPULATION SELECTION VARIABLES ------------------------------------------------------
+    has_follow_up_previous_6months=patients.registered_with_one_practice_between(
+        start_date=f"{index_date_variable} - 6 months",
+        end_date=f"{index_date_variable}",
+        return_expectations={"incidence": 0.95},
+    ),
+
+    has_died = patients.died_from_any_cause(
+        on_or_before = f"{index_date_variable}",
+        returning="binary_flag",
+        return_expectations={"incidence": 0.01}
+    ),
+
+    registered_at_start = patients.registered_as_of(f"{index_date_variable}",
+    ),
+    dereg_date=patients.date_deregistered_from_all_supported_practices(
+        
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        date_format = 'YYYY-MM-DD',
+        return_expectations={
+        "date": {"earliest": study_dates["pandemic_start"], "latest": "today"},
+        "rate": "uniform",
+        "incidence": 0.01
+    },
+    ),
+    ## Define subgroups (for variables that don't have a corresponding covariate only)
     ## COVID-19 severity
     sub_date_covid19_hospital=patients.admitted_to_hospital(
         with_these_primary_diagnoses=covid_codes,
@@ -801,6 +826,11 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_grp8_ind=patients.minimum_of(
         "out_date_glb"
     ),
-
+    
+    ## Define primary outcome: composite auto-immune outcome
+    out_date_composite_ai=patients.minimum_of(
+        "out_date_grp1_ifa", "out_date_grp2_ctd", "out_date_grp3_agi", "out_date_grp4_agi", 
+        "out_date_grp5_atv", "out_date_grp6_trd", "out_date_grp7_htd", "out_date_grp8_ind"
+    ),
     )
     return dynamic_variables
