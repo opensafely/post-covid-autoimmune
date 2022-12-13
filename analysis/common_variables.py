@@ -436,11 +436,12 @@ def generate_common_variables(index_date_variable,end_date_variable):
             },
         ),
 
-    ## Healthcare worker    
-    cov_bin_healthcare_worker=patients.with_healthcare_worker_flag_on_covid_vaccine_record(
-        returning='binary_flag', 
-        return_expectations={"incidence": 0.01},
-    ),
+    # ## Healthcare worker    
+    # cov_bin_healthcare_worker=patients.with_healthcare_worker_flag_on_covid_vaccine_record(
+    #     on_or_before=f"{index_date_variable} -1 day",
+    #     returning='binary_flag', 
+    #     return_expectations={"incidence": 0.01},
+    # ),
     ##############################################################################################################################
     ## Define autoimune outcomes                                                                                                ##
     ##############################################################################################################################
