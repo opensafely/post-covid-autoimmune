@@ -324,6 +324,12 @@
       "downloaded_at": "2022-08-18 16:33:22.416701Z",
       "sha": "0f6d7ae111aad747f1aba3018a04e360b04a0577"
     },
+    "user-markdrussell-mctd.csv": {
+      "id": "user/markdrussell/mctd/529d37b7",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/mctd/529d37b7/",
+      "downloaded_at": "2022-08-18 17:42:51.886706Z",
+      "sha": "5f89ff2519385010aa3c662f63b17892f5de2ade"
+    },
     "user-markdrussell-antiphospholipid-syndrome.csv": {
       "id": "user/markdrussell/antiphospholipid-syndrome/1dcb9157",
       "url": "https://codelists.opensafely.org/codelist/user/markdrussell/antiphospholipid-syndrome/1dcb9157/",
@@ -348,17 +354,35 @@
       "downloaded_at": "2022-08-18 16:33:23.358271Z",
       "sha": "b26d718c8b0ae40c4de452e18597f1e6531335ef"
     },
+    "opensafely-crohns-disease.csv": {
+      "id": "opensafely/crohns-disease/223a39f5",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/crohns-disease/223a39f5/",
+      "downloaded_at": "2022-12-13 15:22:17.084503Z",
+      "sha": "63230a0cc37cc199ffd4920cfcbe6d3188c602bf"
+    },
     "opensafely-ulcerative-colitis.csv": {
       "id": "opensafely/ulcerative-colitis/3b49ad2a",
       "url": "https://codelists.opensafely.org/codelist/opensafely/ulcerative-colitis/3b49ad2a/",
       "downloaded_at": "2022-08-18 16:33:23.592074Z",
       "sha": "9add66e0b6b15665c772806314c2f481ed56c468"
     },
-    "primis-covid19-vacc-uptake-addis_cod.csv": {
-      "id": "primis-covid19-vacc-uptake/addis_cod/v.1.5.3",
-      "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/addis_cod/v.1.5.3/",
-      "downloaded_at": "2022-08-18 16:33:23.858674Z",
-      "sha": "5a7f84908af4745bf67c54945e467f1b99d7aaeb"
+    "user-markdrussell-celiaccoeliac-disease.csv": {
+      "id": "user/markdrussell/celiaccoeliac-disease/18bb4db7",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/celiaccoeliac-disease/18bb4db7/",
+      "downloaded_at": "2022-12-13 15:22:18.145751Z",
+      "sha": "aaa9d95a05329138470a786854a855fed6835e88"
+    },
+    "user-markdrussell-graves-disease.csv": {
+      "id": "user/markdrussell/graves-disease/7fabda81",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/graves-disease/7fabda81/",
+      "downloaded_at": "2022-12-13 15:22:18.673880Z",
+      "sha": "c3a4fcab259f329e95e2688a8646aef50be9df32"
+    },
+    "user-markdrussell-hashimotos-thyroiditis-autoimmune-thyroiditis.csv": {
+      "id": "user/markdrussell/hashimotos-thyroiditis-autoimmune-thyroiditis/669c674c",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/hashimotos-thyroiditis-autoimmune-thyroiditis/669c674c/",
+      "downloaded_at": "2022-12-13 15:22:19.190596Z",
+      "sha": "016f1066fd88428cc7f17428c718ed0fc1febf54"
     },
     "user-markdrussell-anca-vasculitis.csv": {
       "id": "user/markdrussell/anca-vasculitis/66472b00",
@@ -372,17 +396,41 @@
       "downloaded_at": "2022-08-18 16:33:24.375435Z",
       "sha": "70f0bfd84350b5471f25f0b1f6df45cab315aca1"
     },
+    "user-markdrussell-iga-immunoglobulin-a-vasculitis.csv": {
+      "id": "user/markdrussell/iga-immunoglobulin-a-vasculitis/0a219e0e",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/iga-immunoglobulin-a-vasculitis/0a219e0e/",
+      "downloaded_at": "2022-12-13 15:22:22.841032Z",
+      "sha": "aab3e4877fc708f49571b7348e571ad2d1a5e9dc"
+    },
     "user-markdrussell-polymyalgia-rheumatica.csv": {
       "id": "user/markdrussell/polymyalgia-rheumatica/23311143",
       "url": "https://codelists.opensafely.org/codelist/user/markdrussell/polymyalgia-rheumatica/23311143/",
       "downloaded_at": "2022-08-18 16:33:24.673553Z",
       "sha": "3daf932a315f127f935867353d16cac470556b15"
     },
+    "user-markdrussell-immune-thrombocytopenia-idiopathic-thrombocytopenic-purpura.csv": {
+      "id": "user/markdrussell/immune-thrombocytopenia-idiopathic-thrombocytopenic-purpura/4d8cf417",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/immune-thrombocytopenia-idiopathic-thrombocytopenic-purpura/4d8cf417/",
+      "downloaded_at": "2022-12-13 15:22:25.889571Z",
+      "sha": "e50fac966ef0540541bfee6c7873460534197e71"
+    },
+    "user-markdrussell-pernicious-anaemia.csv": {
+      "id": "user/markdrussell/pernicious-anaemia/347d80e2",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/pernicious-anaemia/347d80e2/",
+      "downloaded_at": "2022-12-13 15:22:26.439619Z",
+      "sha": "e72520f69bcd61f9988a50fb864e17983365726f"
+    },
     "opensafely-aplastic-anaemia-snomed.csv": {
       "id": "opensafely/aplastic-anaemia-snomed/48138b63",
       "url": "https://codelists.opensafely.org/codelist/opensafely/aplastic-anaemia-snomed/48138b63/",
       "downloaded_at": "2022-08-18 16:33:24.881002Z",
       "sha": "bde67c9124f271b70c5af88848bd9d4d972e84e0"
+    },
+    "user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv": {
+      "id": "user/markdrussell/autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia/1b6e0dad",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia/1b6e0dad/",
+      "downloaded_at": "2022-12-13 15:22:27.452374Z",
+      "sha": "d8c88d1570e17aa7cf07e1617984b3d4a4e4444f"
     },
     "opensafely-guillain-barre.csv": {
       "id": "opensafely/guillain-barre/7aaddd74",
@@ -396,11 +444,197 @@
       "downloaded_at": "2022-08-18 16:33:25.439384Z",
       "sha": "e89c12f28e67e5c8dedd322f936a279cc837c564"
     },
+    "user-markdrussell-myasthenia-gravis.csv": {
+      "id": "user/markdrussell/myasthenia-gravis/025e9a78",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/myasthenia-gravis/025e9a78/",
+      "downloaded_at": "2022-12-13 15:22:29.007726Z",
+      "sha": "38399fe8fa895ad59baa533fdcc5a6b12dc01aff"
+    },
+    "user-markdrussell-longitudinal-myelitis-longitudinal-extensive-transverse-myelitis.csv": {
+      "id": "user/markdrussell/longitudinal-myelitis-longitudinal-extensive-transverse-myelitis/694f2742",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/longitudinal-myelitis-longitudinal-extensive-transverse-myelitis/694f2742/",
+      "downloaded_at": "2022-12-13 15:22:29.524396Z",
+      "sha": "e81a23b195ecd68303b57526eb1035f0a998ed6f"
+    },
+    "user-markdrussell-clinically-isolated-syndrome.csv": {
+      "id": "user/markdrussell/clinically-isolated-syndrome/503fb40d",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/clinically-isolated-syndrome/503fb40d/",
+      "downloaded_at": "2022-12-13 15:22:30.029516Z",
+      "sha": "74a65429503042b5024207133fba9ab306efada8"
+    },
+    "user-josephignace-inflammatory-arthritis-rheumatoid-arthritis-icd10.csv": {
+      "id": "user/josephignace/inflammatory-arthritis-rheumatoid-arthritis-icd10/07bab167",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-arthritis-rheumatoid-arthritis-icd10/07bab167/",
+      "downloaded_at": "2022-12-13 15:48:31.846616Z",
+      "sha": "a3f83cbba7dda7e029304b441559db2374b0d269"
+    },
+    "user-josephignace-inflammatory-arthritis-psoriatic-arthritis-icd10.csv": {
+      "id": "user/josephignace/inflammatory-arthritis-psoriatic-arthritis-icd10/584e8af2",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-arthritis-psoriatic-arthritis-icd10/584e8af2/",
+      "downloaded_at": "2022-12-13 15:48:32.092964Z",
+      "sha": "575c191e633757a1d90a4e43d9bc388733344bd7"
+    },
+    "user-josephignace-inflammatory-arthritis-axial-spondyloarthritis-icd10.csv": {
+      "id": "user/josephignace/inflammatory-arthritis-axial-spondyloarthritis-icd10/6eab3e31",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-arthritis-axial-spondyloarthritis-icd10/6eab3e31/",
+      "downloaded_at": "2022-12-13 15:48:32.307108Z",
+      "sha": "b890cbc35eaa0bfa9980a940c7caa05c5f932008"
+    },
+    "user-josephignace-connective-tissue-disorders-systematic-lupus-erythematosus.csv": {
+      "id": "user/josephignace/connective-tissue-disorders-systematic-lupus-erythematosus/3aa04b60",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/connective-tissue-disorders-systematic-lupus-erythematosus/3aa04b60/",
+      "downloaded_at": "2022-12-13 15:48:32.578111Z",
+      "sha": "583c3a6be37cf840a908bd994667d1abcaec689c"
+    },
+    "user-josephignace-connective-tissue-disorders-sjogrens-syndrome.csv": {
+      "id": "user/josephignace/connective-tissue-disorders-sjogrens-syndrome/2190d82b",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/connective-tissue-disorders-sjogrens-syndrome/2190d82b/",
+      "downloaded_at": "2022-12-13 15:48:32.838140Z",
+      "sha": "cecc1243366197c05619143a0ef5d20a013d0d43"
+    },
+    "user-josephignace-connective-tissue-disorders-systemic-sclerosisscleroderma.csv": {
+      "id": "user/josephignace/connective-tissue-disorders-systemic-sclerosisscleroderma/088164f6",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/connective-tissue-disorders-systemic-sclerosisscleroderma/088164f6/",
+      "downloaded_at": "2022-12-13 15:48:33.127671Z",
+      "sha": "a76662667b184b68b5b408e9c8166455e4099f9c"
+    },
+    "user-josephignace-connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis.csv": {
+      "id": "user/josephignace/connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis/6f71f1c0",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis/6f71f1c0/",
+      "downloaded_at": "2022-12-13 15:48:33.357495Z",
+      "sha": "6364cdf43c743d58919bb25dfe8713e0aacebdee"
+    },
+    "user-josephignace-connective-tissue-disorders-mixed-connective-tissue-disease.csv": {
+      "id": "user/josephignace/connective-tissue-disorders-mixed-connective-tissue-disease/56627e8b",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/connective-tissue-disorders-mixed-connective-tissue-disease/56627e8b/",
+      "downloaded_at": "2022-12-13 15:48:33.582460Z",
+      "sha": "60ca495bcd22c303077a81e8738bf01cb84ab03c"
+    },
+    "user-josephignace-inflammatory-skin-disease-psoriasis.csv": {
+      "id": "user/josephignace/inflammatory-skin-disease-psoriasis/715dfe27",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-skin-disease-psoriasis/715dfe27/",
+      "downloaded_at": "2022-12-13 15:48:33.781397Z",
+      "sha": "06b1f7352d53d0242b7d2f76d3ecc686b63a55ef"
+    },
+    "user-josephignace-inflammatory-skin-disease-hidradenitis-suppurativa-icd10.csv": {
+      "id": "user/josephignace/inflammatory-skin-disease-hidradenitis-suppurativa-icd10/4827742b",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-skin-disease-hidradenitis-suppurativa-icd10/4827742b/",
+      "downloaded_at": "2022-12-13 15:48:33.985280Z",
+      "sha": "eff1fae309e90396cbd33088a8aa4dc8c7ee81fd"
+    },
+    "user-josephignace-autoimmune-gi-inflammatory-bowel-disease-crohns-disease-icd10.csv": {
+      "id": "user/josephignace/autoimmune-gi-inflammatory-bowel-disease-crohns-disease-icd10/134c64ce",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-crohns-disease-icd10/134c64ce/",
+      "downloaded_at": "2022-12-13 15:48:34.200773Z",
+      "sha": "5f8d06debb92ea88d23e1ebf60e451b40eb21a7a"
+    },
+    "user-josephignace-autoimmune-gi-inflammatory-bowel-disease-ulcerative-colitis-icd10.csv": {
+      "id": "user/josephignace/autoimmune-gi-inflammatory-bowel-disease-ulcerative-colitis-icd10/4005cb4c",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-ulcerative-colitis-icd10/4005cb4c/",
+      "downloaded_at": "2022-12-13 15:48:34.431058Z",
+      "sha": "bf6e0ba314f5e8af821fcd3f7a36a94ed55a3771"
+    },
+    "user-josephignace-autoimmune-gi-inflammatory-bowel-disease-celiac-disease-icd10.csv": {
+      "id": "user/josephignace/autoimmune-gi-inflammatory-bowel-disease-celiac-disease-icd10/7cf91a8b",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-celiac-disease-icd10/7cf91a8b/",
+      "downloaded_at": "2022-12-13 15:48:34.670765Z",
+      "sha": "43e25b402959623e5bf5de99583b1deb14d366ea"
+    },
+    "user-josephignace-thyroid-diseases-addisons-disease-icd10.csv": {
+      "id": "user/josephignace/thyroid-diseases-addisons-disease-icd10/79e7b54c",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/thyroid-diseases-addisons-disease-icd10/79e7b54c/",
+      "downloaded_at": "2022-12-13 15:48:34.902742Z",
+      "sha": "4b5bf86332b1a0f65a622e4473e7b95e56789849"
+    },
+    "user-josephignace-thyroid-diseases-graves-disease-icd10.csv": {
+      "id": "user/josephignace/thyroid-diseases-graves-disease-icd10/26f65817",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/thyroid-diseases-graves-disease-icd10/26f65817/",
+      "downloaded_at": "2022-12-13 15:48:35.157791Z",
+      "sha": "fac061a7f19a4ea435e4e8fcebd632469aa912ee"
+    },
+    "user-josephignace-thyroid-diseases-hashimoto-thyroiditis-icd10.csv": {
+      "id": "user/josephignace/thyroid-diseases-hashimoto-thyroiditis-icd10/23ee5bd5",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/thyroid-diseases-hashimoto-thyroiditis-icd10/23ee5bd5/",
+      "downloaded_at": "2022-12-13 15:48:35.367244Z",
+      "sha": "3f602944659e890aa9f66fe8404d18b8570e1d13"
+    },
+    "user-josephignace-autoimmune-vasculitis-anca-associated.csv": {
+      "id": "user/josephignace/autoimmune-vasculitis-anca-associated/0de6e4e2",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-vasculitis-anca-associated/0de6e4e2/",
+      "downloaded_at": "2022-12-13 15:48:35.604416Z",
+      "sha": "703188752d7af6dd8f3d6556be0508e5588467be"
+    },
+    "user-josephignace-autoimmune-vasculitis-giant-cell-arteritis.csv": {
+      "id": "user/josephignace/autoimmune-vasculitis-giant-cell-arteritis/74d771ac",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-vasculitis-giant-cell-arteritis/74d771ac/",
+      "downloaded_at": "2022-12-13 15:48:35.822852Z",
+      "sha": "498b81d695705e67b3c145bb6de0097546513f04"
+    },
+    "user-josephignace-autoimmune-vasculitis-iga-immunoglobulin-a-vasculitis.csv": {
+      "id": "user/josephignace/autoimmune-vasculitis-iga-immunoglobulin-a-vasculitis/5bc7fe77",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-vasculitis-iga-immunoglobulin-a-vasculitis/5bc7fe77/",
+      "downloaded_at": "2022-12-13 15:48:36.040875Z",
+      "sha": "139124bb08d5f5f70ebf27721214cc4636a43082"
+    },
+    "user-josephignace-autoimmune-vasculitis-polymyalgia-rheumatica-pmr.csv": {
+      "id": "user/josephignace/autoimmune-vasculitis-polymyalgia-rheumatica-pmr/42b88b42",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-vasculitis-polymyalgia-rheumatica-pmr/42b88b42/",
+      "downloaded_at": "2022-12-13 15:48:36.271901Z",
+      "sha": "e90f6c2bb6a1fdf02bc0b068dfaa94c13d737954"
+    },
+    "user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv": {
+      "id": "user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d/",
+      "downloaded_at": "2022-12-13 15:48:36.502133Z",
+      "sha": "3ba491d9c7a3fc08436d3b010524783c53c27871"
+    },
+    "user-josephignace-hematologic-diseases-pernicious-anaemia-icd10.csv": {
+      "id": "user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b/",
+      "downloaded_at": "2022-12-13 15:48:36.763824Z",
+      "sha": "942717218b28119922e776e0e85e30eba8936063"
+    },
+    "user-josephignace-hematologic-diseases-aplastic-anaemia-icd10.csv": {
+      "id": "user/josephignace/hematologic-diseases-aplastic-anaemia-icd10/778a31a2",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-aplastic-anaemia-icd10/778a31a2/",
+      "downloaded_at": "2022-12-13 15:48:37.017033Z",
+      "sha": "9169370300b3fdc5d25937a78d154ecf81388663"
+    },
+    "user-josephignace-hematologic-diseases-autoimmune-haemolytic-anaemia-icd10.csv": {
+      "id": "user/josephignace/hematologic-diseases-autoimmune-haemolytic-anaemia-icd10/5e7abe6d",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-autoimmune-haemolytic-anaemia-icd10/5e7abe6d/",
+      "downloaded_at": "2022-12-13 15:48:37.251997Z",
+      "sha": "53739d1f9232c0030960c382327015a06d4da8dd"
+    },
     "opensafely-guillain-barre-syndrome-icd10.csv": {
       "id": "opensafely/guillain-barre-syndrome-icd10/4b41b700",
       "url": "https://codelists.opensafely.org/codelist/opensafely/guillain-barre-syndrome-icd10/4b41b700/",
       "downloaded_at": "2022-08-18 16:33:25.652150Z",
       "sha": "c5ba370a4a584a06172c98533db62622a9029af7"
+    },
+    "user-yinghuiwei-multiple-sclerosis.csv": {
+      "id": "user/yinghuiwei/multiple-sclerosis/47c8cee2",
+      "url": "https://codelists.opensafely.org/codelist/user/yinghuiwei/multiple-sclerosis/47c8cee2/",
+      "downloaded_at": "2022-12-13 15:48:37.695854Z",
+      "sha": "de6b1f9688f0dd08fb69436c204f6357175c24bb"
+    },
+    "user-josephignace-inflammatory-neuromuscular-disease-myasthenia-gravis-icd10.csv": {
+      "id": "user/josephignace/inflammatory-neuromuscular-disease-myasthenia-gravis-icd10/2c5bd803",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-neuromuscular-disease-myasthenia-gravis-icd10/2c5bd803/",
+      "downloaded_at": "2022-12-13 15:48:37.948452Z",
+      "sha": "8614228192dd1cb1d8daf0151a70bbb8a9d15298"
+    },
+    "user-josephignace-inflammatory-neuromuscular-disease-longitudinal-myelitis-icd10.csv": {
+      "id": "user/josephignace/inflammatory-neuromuscular-disease-longitudinal-myelitis-icd10/45160eec",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-neuromuscular-disease-longitudinal-myelitis-icd10/45160eec/",
+      "downloaded_at": "2022-12-13 15:48:38.178937Z",
+      "sha": "bbde5aa9227690c69617f2b0d286892df32526d9"
+    },
+    "user-josephignace-inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10.csv": {
+      "id": "user/josephignace/inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10/3c8c57c7",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10/3c8c57c7/",
+      "downloaded_at": "2022-12-13 15:48:38.396518Z",
+      "sha": "f7024aeff33215fbcc8079b9dca466ef43563dc8"
     },
     "opensafely-aplastic-anaemia.csv": {
       "id": "opensafely/aplastic-anaemia/58ac196d",
@@ -414,11 +648,11 @@
       "downloaded_at": "2022-08-18 16:33:26.190437Z",
       "sha": "cd2175107ab3e81151fc31cd8ffd754ce5902f8b"
     },
-    "user-markdrussell-mctd.csv": {
-      "id": "user/markdrussell/mctd/529d37b7",
-      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/mctd/529d37b7/",
-      "downloaded_at": "2022-08-18 17:42:51.886706Z",
-      "sha": "5f89ff2519385010aa3c662f63b17892f5de2ade"
+    "primis-covid19-vacc-uptake-addis_cod.csv": {
+      "id": "primis-covid19-vacc-uptake/addis_cod/v.1.5.3",
+      "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/addis_cod/v.1.5.3/",
+      "downloaded_at": "2022-08-18 16:33:23.858674Z",
+      "sha": "5a7f84908af4745bf67c54945e467f1b99d7aaeb"
     }
   }
 }

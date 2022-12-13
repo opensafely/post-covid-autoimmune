@@ -301,7 +301,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
         on_or_before=f"{index_date_variable} -1 day",
         return_expectations={"incidence": 0.1},
     ),
-    ### HES APC
+    ### HES APC
     tmp_cov_bin_obesity_hes=patients.admitted_to_hospital(
         returning='binary_flag',
         with_these_diagnoses=bmi_obesity_icd10,
@@ -698,7 +698,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
         "out_date_addison"
     ),
     ##################################################################################################
-    ## Outcome group 6: Autoimmune vasculitis                                                       ##
+    ## Outcome group 6: Autoimmune vasculitis                                                       ##
     ##################################################################################################
     ## ANCA-associated
     out_date_anca= patients.with_these_clinical_events(
