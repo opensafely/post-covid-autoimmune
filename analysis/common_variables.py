@@ -1294,7 +1294,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ),
     ## Autoimmune haemolytic anaemia combined
     out_date_aha =patients.minimum_of(
-        "temp_out_date_aha_snomed", "temp_out_date_aha_ctv"
+        "temp_out_date_aha_snomed", "temp_out_date_aha_hes"
     ),
     ## Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
     out_date_grp7_htd=patients.minimum_of(
