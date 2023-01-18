@@ -838,7 +838,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     # ),
     ## Inflammatory bowel disease combined
     out_date_ibd=patients.minimum_of(
-        "temp_out_date_ibd_snomed", "temp_out_ibd_ctv"
+        "temp_out_date_ibd_snomed", "temp_out_date_ibd_ctv"
     ),
     ## Crohn’s disease snomed
     temp_out_date_crohn_snomed= patients.with_these_clinical_events(
