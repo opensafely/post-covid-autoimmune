@@ -519,8 +519,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
         },
     ),
     ## Psoriatic arthritis combining primary care and secondary care
-    out_date_ra=patients.minimum_of(
-        "temp_out_date_ra_snomed", "temp_out_date_ra_hes"
+    out_date_pa=patients.minimum_of(
+        "temp_out_date_pa_snomed", "temp_out_date_pa_hes"
     ),
     ##  Axial spondyloarthritis - primary care
     temp_out_date_axial_snomed= patients.with_these_clinical_events(
