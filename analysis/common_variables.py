@@ -1067,7 +1067,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
         "temp_out_date_anca_snomed", "temp_out_date_anca_hes"
     ),
     ## Giant cell arteritis - snomed
-    out_date_gca_snomed= patients.with_these_clinical_events(
+    temp_out_date_gca_snomed= patients.with_these_clinical_events(
         gca_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{end_date_variable}"],
