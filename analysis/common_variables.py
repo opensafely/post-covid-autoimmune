@@ -811,7 +811,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
         },
     ),
     ## Inflammatory bowel disease (combined UC and Crohn's) - CTV3
-    temp_out_date_ibd_ctv3= patients.with_these_clinical_events(
+    temp_out_date_ibd_ctv= patients.with_these_clinical_events(
         ibd_code_ctv3,
         returning="date",
         between=[f"{index_date_variable}",f"{end_date_variable}"],
