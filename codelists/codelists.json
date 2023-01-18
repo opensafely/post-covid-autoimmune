@@ -324,12 +324,6 @@
       "downloaded_at": "2022-08-18 16:33:22.416701Z",
       "sha": "0f6d7ae111aad747f1aba3018a04e360b04a0577"
     },
-    "user-markdrussell-mctd.csv": {
-      "id": "user/markdrussell/mctd/529d37b7",
-      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/mctd/529d37b7/",
-      "downloaded_at": "2022-08-18 17:42:51.886706Z",
-      "sha": "5f89ff2519385010aa3c662f63b17892f5de2ade"
-    },
     "user-markdrussell-antiphospholipid-syndrome.csv": {
       "id": "user/markdrussell/antiphospholipid-syndrome/1dcb9157",
       "url": "https://codelists.opensafely.org/codelist/user/markdrussell/antiphospholipid-syndrome/1dcb9157/",
@@ -647,6 +641,12 @@
       "url": "https://codelists.opensafely.org/codelist/opensafely/inflammatory-bowel-disease/6c560cb6/",
       "downloaded_at": "2022-08-18 16:33:26.190437Z",
       "sha": "cd2175107ab3e81151fc31cd8ffd754ce5902f8b"
+    },
+    "user-markdrussell-mctd.csv": {
+      "id": "user/markdrussell/mctd/529d37b7",
+      "url": "https://codelists.opensafely.org/codelist/user/markdrussell/mctd/529d37b7/",
+      "downloaded_at": "2022-08-18 17:42:51.886706Z",
+      "sha": "5f89ff2519385010aa3c662f63b17892f5de2ade"
     },
     "primis-covid19-vacc-uptake-addis_cod.csv": {
       "id": "primis-covid19-vacc-uptake/addis_cod/v.1.5.3",

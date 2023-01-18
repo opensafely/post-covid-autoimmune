@@ -53,7 +53,6 @@ opensafely/systemic-lupus-erythematosus-sle/36bdb2c7
 user/markdrussell/sjogrens-syndrome/34284496
 user/markdrussell/systemic-sclerosisscleroderma/1b18d161
 user/markdrussell/inflammatory-myositis/4d37b7cb
-user/markdrussell/mctd/529d37b7
 user/markdrussell/antiphospholipid-syndrome/1dcb9157
 opensafely/psoriasis/01091de1
 opensafely/hidradenitis-suppurativa/4560cb6d
@@ -87,7 +86,7 @@ user/josephignace/connective-tissue-disorders-inflammatory-myositispolymyositisd
 user/josephignace/connective-tissue-disorders-mixed-connective-tissue-disease/56627e8b
 user/josephignace/inflammatory-skin-disease-psoriasis/715dfe27
 user/josephignace/inflammatory-skin-disease-hidradenitis-suppurativa-icd10/4827742b
-# user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohn/7224b1b6
+#user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohn/7224b1b6
 user/josephignace/autoimmune-gi-inflammatory-bowel-disease-crohns-disease-icd10/134c64ce
 user/josephignace/autoimmune-gi-inflammatory-bowel-disease-ulcerative-colitis-icd10/4005cb4c
 user/josephignace/autoimmune-gi-inflammatory-bowel-disease-celiac-disease-icd10/7cf91a8b
@@ -107,7 +106,6 @@ user/yinghuiwei/multiple-sclerosis/47c8cee2
 user/josephignace/inflammatory-neuromuscular-disease-myasthenia-gravis-icd10/2c5bd803
 user/josephignace/inflammatory-neuromuscular-disease-longitudinal-myelitis-icd10/45160eec
 user/josephignace/inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10/3c8c57c7
-opensafely/guillain-barre-syndrome-icd10/4b41b700
 opensafely/aplastic-anaemia/58ac196d
 opensafely/inflammatory-bowel-disease/6c560cb6
 user/markdrussell/mctd/529d37b7

@@ -308,186 +308,409 @@ pregnancy_snomed_clinical = codelist_from_csv(
 ##################################################################################################
 # Outcome group 1:  Inflammatory arthritis                                                       #
 ##################################################################################################
-# Reumatoid arthritis
-ra_code = codelist_from_csv(
+# Reumatoid arthritis - snomed
+ra_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
     system="snomed",
     column="code",
 )
-# Undifferentiated inflamatory arthritis
-undiff_eia_code = codelist_from_csv(
+# Reumatoid arthritis - icd
+ra_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-arthritis-rheumatoid-arthritis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Undifferentiated inflamatory arthritis - snomed
+undiff_eia_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-undiff-eia.csv",
     system="snomed",
     column="code",
 )
-# Psoriatic arthritis
-pa_code = codelist_from_csv(
+# undifferentiated inflmatory arthritis - no icd10 codelist for this disease, 14 Dec 2022 YW
+
+# Psoriatic arthritis - snomed
+pa_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-psoriatic-arthritis.csv",
     system = "snomed",
     column = "code",
 )
-# Axial spondyloarthritis
-axial_code = codelist_from_csv(
+# Psoriatic arthritis - icd10 
+pa_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-arthritis-psoriatic-arthritis-icd10.csv",
+    system = "icd10",
+    column = "code",
+)
+# Axial spondyloarthritis - snomed
+axial_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-axial-spondyloarthritis.csv",
     system = "snomed",
     column = "code",
 )
-# outcome grouping 1: Inflammatory arthritis
-any_infl_arthritis_code = combine_codelists(
-     ra_code, undiff_eia_code, pa_code, axial_code
+# Axial spondyloarthritis - hes
+axial_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-arthritis-axial-spondyloarthritis-icd10.csv",
+    system = "icd10",
+    column = "code",
 )
-
 ##################################################################################################
 # Outcome group 2:  Connective tissue disorders                                                  #
 ##################################################################################################
-# Systematic lupus erythematosu
-sle_code = codelist_from_csv(
+# Systematic lupus erythematosu - snomed
+sle_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-systemic-sclerosisscleroderma.csv",
     system="snomed",
     column="code",
 )
-#Sjogren’s syndrome
-sjs_code = codelist_from_csv(
+# Systematic lupus erythematosu - hes
+sle_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-connective-tissue-disorders-systematic-lupus-erythematosus.csv",
+    system="icd10",
+    column="code",
+)
+#Sjogren’s syndrome - snomed
+sjs_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-sjogrens-syndrome.csv",
     system="snomed",
     column="code",
 )
-#Systemic sclerosis/scleroderma
-sss_code = codelist_from_csv(
+#Sjogren’s syndrome - hes
+sjs_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-connective-tissue-disorders-sjogrens-syndrome.csv",
+    system="icd10",
+    column="code",
+)
+#Systemic sclerosis/scleroderma - snomed
+sss_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-systemic-sclerosisscleroderma.csv",
     system="snomed",
     column="code",
 )
-# Inflammatory myositis/polymyositis/dermatolomyositis
-im_code = codelist_from_csv(
+#Systemic sclerosis/scleroderma - hes
+sss_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-connective-tissue-disorders-systemic-sclerosisscleroderma.csv",
+    system="hes",
+    column="code",
+)
+# Inflammatory myositis/polymyositis/dermatolomyositis - snomed
+im_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-inflammatory-myositis.csv",
     system="snomed",
     column="code",
 )
-# Mixed Connective Tissue Disease
-mctd_code = codelist_from_csv(
+# Inflammatory myositis/polymyositis/dermatolomyositis - hes
+im_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis.csv",
+    system="hes",
+    column="code",
+)
+# Mixed Connective Tissue Disease - snomed
+mctd_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-mctd.csv",
     system="snomed",
     column="code",
 )
-# Antiphospholipid syndrome
-as_code = codelist_from_csv(
+# Mixed Connective Tissue Disease - hes
+mctd_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-connective-tissue-disorders-mixed-connective-tissue-disease.csv",
+    system="snomed",
+    column="code",
+)
+# Antiphospholipid syndrome - snomed
+as_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-antiphospholipid-syndrome.csv",
     system="snomed",
     column="code",
 )
-# outcome grouping 2: Connective tissue disorders
-any_ctd_code = combine_codelists(
-     sle_code, sjs_code, sss_code, im_code, mctd_code, as_code
-)
+# Antiphospholipid syndrome - no icd10 code
 ##################################################################################################
-# Outcome group 3:  Inflammatory skin disease                                                    #
+# Outcome group 3: Inflammatory skin disease                                                     #
 ##################################################################################################
-# Psoriasis
-psoriasis_code = codelist_from_csv(
+## Psoriasis - primary care - ctv3
+psoriasis_code_ctv = codelist_from_csv(
     "codelists/opensafely-psoriasis.csv",
-    system="snomed",
+    system="ctv3",
     column="code",
 )
-# Hydradenitis suppurativa
-hs_code = codelist_from_csv(
+## Psoriasis - secondary care - icd10
+psoriasis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-skin-disease-psoriasis.csv",
+    system="icd10",
+    column="code",
+)
+## Hydradenitis suppurativa - ctv3
+hs_code_ctv = codelist_from_csv(
     "codelists/opensafely-hidradenitis-suppurativa.csv",
     system="ctv3",
     column="CTV3ID",
 )
-# # outcome grouping 3: Connective tissue disorders # unable to combine snomed and ctv3 code as they are different system
-# # this can be done outside study definition
-# any_isd_code = combine_codelists(
-#      psoriasis_code, hs_code
-# )
+## Hydradenitis suppurativa - hes
+hs_code_hes = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-skin-disease-hidradenitis-suppurativa-icd10.csv",
+    system="icd10",
+    column="code",
+)
 ##################################################################################################
 # Outcome group 4: Autoimmune GI/Inflammatory bowel disease                                      #
 ##################################################################################################
-# Crohn's disease
-crohn_code_snomed = codelist_from_csv(
+# Inflammatory bowel disease (combined UC and Crohn's) - snomed
+ibd_code_snomed = codelist_from_csv(
     "codelists/opensafely-inflammatory-bowel-disease-snomed.csv",
     system="snomed",
     column="id",
 )
-crohn_code_ctv = codelist_from_csv(
+# Inflammatory bowel disease (combined UC and Crohn's) - ctv3
+ibd_code_ctv3 = codelist_from_csv(
     "codelists/opensafely-inflammatory-bowel-disease.csv",
     system="ctv3",
     column="CTV3ID",
 )
-# Ulcerative colitis
-uc_code = codelist_from_csv(
+# YW notes 17 Jan 2023: the ICD10 codelist for IBD doesn't work: 
+# https://www.opencodelists.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns/7224b1b6/
+
+# Crohn's disease - snomed
+crohn_code_snomed = codelist_from_csv(
+    "codelists/opensafely-crohns-disease.csv",
+    system="snomed",
+    column="code",
+)
+# Crohn's disease - hes
+crohn_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-gi-inflammatory-bowel-disease-crohns-disease-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Ulcerative colitis - snomed
+uc_code_snomed = codelist_from_csv(
     "codelists/opensafely-ulcerative-colitis.csv",
     system="snomed",
     column="code",
 )
-# Celiac disease 
-
+# Ulcerative colitis - hes
+uc_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-gi-inflammatory-bowel-disease-ulcerative-colitis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Celiac disease - snomed
+celiac_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-celiaccoeliac-disease.csv",
+    system="snomed",
+    column="code",
+)
+# Celiac disease - hes
+celiac_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-gi-inflammatory-bowel-disease-celiac-disease-icd10.csv",
+    system="icd10",
+    column="code",
+)
 ##################################################################################################
 # Outcome group 5: Thyroid diseases                                                              #
 ##################################################################################################
-# Addison’s disease 
-addison_code = codelist_from_csv(
+# Addison’s disease - snomed
+addison_code_snomed = codelist_from_csv(
     "codelists/primis-covid19-vacc-uptake-addis_cod.csv",
     system="snomed",
     column="code",
 )
-# Grave’s disease
-# Hashimoto’s thyroiditis
-# Thyroid toxicosis / hyper thyroid
+# Addison’s disease - hes
+addison_code_icd= codelist_from_csv(
+    "codelists/user-josephignace-thyroid-diseases-graves-disease-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Grave’s disease - snomed
+grave_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-graves-disease.csv",
+    system="snomed",
+    column="code",
+)
+# Grave’s disease - hes
+grave_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-thyroid-diseases-graves-disease-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Hashimoto’s thyroiditis - snomed
+hashimoto_thyroiditis_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-hashimotos-thyroiditis-autoimmune-thyroiditis.csv",
+    system="snomed",
+    column="code",
+)
+# Hashimoto’s thyroiditis - hes
+hashimoto_thyroiditis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-thyroid-diseases-hashimoto-thyroiditis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Thyroid toxicosis / hyper thyroid - YW: This seems to have been taken out from the excel spreadsheet 13/Dec/2022
 ##################################################################################################
 # Outcome group 6: Autoimmune vasculitis                                                          #
 ##################################################################################################
-# ANCA-associated
-anca_code = codelist_from_csv(
+# ANCA-associated - snomed
+anca_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-anca-vasculitis.csv",
     system="snomed",
     column="code",
 )
-# Giant cell arteritis
-gca_code = codelist_from_csv(
+# ANCA-associated - hes
+anca_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-vasculitis-anca-associated.csv",
+    system="icd10",
+    column="code",
+)
+# Giant cell arteritis - snomed
+gca_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-anca-vasculitis.csv",
     system="snomed",
     column="code",
 )
-# IgA (immunoglobulin A) vasculitis
-# Polymyalgia Rheumatica (PMR)
-pmr_code = codelist_from_csv(
+# Giant cell arteritis - hes
+gca_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-vasculitis-giant-cell-arteritis.csv",
+    system="icd10",
+    column="code",
+)
+# IgA (immunoglobulin A) vasculitis - snomed
+iga_vasculitis_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-iga-immunoglobulin-a-vasculitis.csv",
+    system="snomed",
+    column="code",
+)
+# IgA (immunoglobulin A) vasculitis - hes
+iga_vasculitis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-vasculitis-iga-immunoglobulin-a-vasculitis.csv",
+    system="icd10",
+    column="code",
+)
+# Polymyalgia Rheumatica (PMR) - snomed
+pmr_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
     system="snomed",
+    column="code",
+)
+# Polymyalgia Rheumatica (PMR) - hes
+pmr_code_icd = codelist_from_csv(
+    "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
+    system="icd10",
     column="code",
 )
 ##################################################################################################
 # Outcome group 7: Hematologic Diseases                                                          #
 ##################################################################################################
-# Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
-# Pernicious anaemia
-# Aplastic Anaemia
+# Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - snomed
+immune_thromb_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-immune-thrombocytopenia-idiopathic-thrombocytopenic-purpura.csv",
+    system="snomed",
+    column="code",
+)
+# Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
+immune_thromb_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Pernicious anaemia - snomed
+pernicious_anaemia_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-pernicious-anaemia.csv",
+    system="snomed",
+    column="code",
+)
+# Pernicious anaemia - hes
+pernicious_anaemia_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-hematologic-diseases-pernicious-anaemia-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Aplastic Anaemia - snomed
 apa_code_snomed = codelist_from_csv(
     "codelists/opensafely-aplastic-anaemia-snomed.csv",
     system="snomed",
     column="id",
 )
+# Aplastic Anaemia - ctv3
 apa_code_ctv = codelist_from_csv(
     "codelists/opensafely-aplastic-anaemia.csv",
     system="ctv3",
     column="CTV3ID",
 )
-# Autoimmune haemolytic anaemia 
-
+# Aplastic Anaemia - hes
+apa_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-hematologic-diseases-aplastic-anaemia-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Autoimmune haemolytic anaemia - snomed
+aha_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv",
+    system="snomd",
+    column="code",
+)
+# Autoimmune haemolytic anaemia - hes
+aha_code_icd = codelist_from_csv(
+    "codelists/user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv",
+    system="icd10",
+    column="code",
+)
 ##################################################################################################
 # Outcome group 8: Inflammatory neuromuscular disease                                            #
 ##################################################################################################
-# Guillain Barre
+# Guillain Barre - snomed
 glb_code_snomed = codelist_from_csv(
     "codelists/opensafely-guillain-barre.csv",
     system="snomed",
     column="code",
 )
-glb_code_icd = codelist_from_csv(
+# Guillain Barre - hes
+glb_code_hes = codelist_from_csv(
     "codelists/opensafely-guillain-barre-syndrome-icd10.csv",
     system="icd10",
     column="code",
 )
-# Multiple Sclerosis
-# Myasthenia gravis
-# Longitudinal myelitis
+# Multiple Sclerosis - snomed
+multiple_sclerosis_code_snomed = codelist_from_csv(
+    "codelists/opensafely-multiple-sclerosis-v2.csv",
+    system="snomed",
+    column="code",
+)
+# Multiple Sclerosis - hes
+multiple_sclerosis_code_icd = codelist_from_csv(
+    "codelists/user-yinghuiwei-multiple-sclerosis.csv",
+    system="icd10",
+    column="code",
+)
+# Myasthenia gravis - snomed
+myasthenia_gravis_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-myasthenia-gravis.csv",
+    system="snomed",
+    column="code",
+)
+# Myasthenia gravis - hes
+myasthenia_gravis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-neuromuscular-disease-myasthenia-gravis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Longitudinal myelitis - snomed
+longit_myelitis_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-longitudinal-myelitis-longitudinal-extensive-transverse-myelitis.csv",
+    system="snomed",
+    column="code",
+)
+# Longitudinal myelitis - hes
+longit_myelitis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-neuromuscular-disease-longitudinal-myelitis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+# Clinically isolated syndrome - snomed
+cis_code_snomed = codelist_from_csv(
+    "codelists/user-markdrussell-clinically-isolated-syndrome.csv",
+    system="snomed",
+    column="code",
+)
+# Clinically isolated syndrome - hes
+cis_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10.csv",
+    system="icd10",
+    column="code",
+)
