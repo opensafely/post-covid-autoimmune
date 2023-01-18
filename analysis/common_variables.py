@@ -475,7 +475,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ),
     ## Reumatoid arthritis combining primary care and secondary care
     out_date_ra=patients.minimum_of(
-        "out_date_ra_snomed", "out_date_ra_hes"
+        "temp_out_date_ra_snomed", "temp_out_date_ra_hes"
     ),
     ## Undifferentiated inflamatory arthritis - primary care
     out_date_undiff_eia = patients.with_these_clinical_events(
@@ -1156,7 +1156,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_pmr=patients.minimum_of(
         "temp_out_date_pmr_snomed", "temp_out_date_pmr_hes"
     ),
-    ##  Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
+    ##  Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
     out_date_grp6_trd=patients.minimum_of(
         "out_date_anca", "out_date_gca","out_date_iga_vasculitis","out_date_pmr"
     ),
