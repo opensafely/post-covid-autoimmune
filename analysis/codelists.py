@@ -388,7 +388,7 @@ sss_code_snomed = codelist_from_csv(
 #Systemic sclerosis/scleroderma - hes
 sss_code_hes = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-systemic-sclerosisscleroderma.csv",
-    system="hes",
+    system="icd10",
     column="code",
 )
 # Inflammatory myositis/polymyositis/dermatolomyositis - snomed
@@ -400,7 +400,7 @@ im_code_snomed = codelist_from_csv(
 # Inflammatory myositis/polymyositis/dermatolomyositis - hes
 im_code_hes = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis.csv",
-    system="hes",
+    system="icd10",
     column="code",
 )
 # Mixed Connective Tissue Disease - snomed
@@ -412,7 +412,7 @@ mctd_code_snomed = codelist_from_csv(
 # Mixed Connective Tissue Disease - hes
 mctd_code_hes = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-mixed-connective-tissue-disease.csv",
-    system="snomed",
+    system="icd10",
     column="code",
 )
 # Antiphospholipid syndrome - snomed
@@ -642,7 +642,7 @@ apa_code_icd = codelist_from_csv(
 # Autoimmune haemolytic anaemia - snomed
 aha_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv",
-    system="snomd",
+    system="snomed",
     column="code",
 )
 # Autoimmune haemolytic anaemia - hes
