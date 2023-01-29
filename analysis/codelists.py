@@ -315,7 +315,7 @@ ra_code_snomed = codelist_from_csv(
     column="code",
 )
 # Reumatoid arthritis - icd
-ra_code_hes = codelist_from_csv(
+ra_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-arthritis-rheumatoid-arthritis-icd10.csv",
     system="icd10",
     column="code",
@@ -335,7 +335,7 @@ pa_code_snomed = codelist_from_csv(
     column = "code",
 )
 # Psoriatic arthritis - icd10 
-pa_code_hes = codelist_from_csv(
+pa_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-arthritis-psoriatic-arthritis-icd10.csv",
     system = "icd10",
     column = "code",
@@ -347,7 +347,7 @@ axial_code_snomed = codelist_from_csv(
     column = "code",
 )
 # Axial spondyloarthritis - hes
-axial_code_hes = codelist_from_csv(
+axial_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-arthritis-axial-spondyloarthritis-icd10.csv",
     system = "icd10",
     column = "code",
@@ -362,7 +362,7 @@ sle_code_snomed = codelist_from_csv(
     column="code",
 )
 # Systematic lupus erythematosu - hes
-sle_code_hes = codelist_from_csv(
+sle_code_icd = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-systematic-lupus-erythematosus.csv",
     system="icd10",
     column="code",
@@ -374,7 +374,7 @@ sjs_code_snomed = codelist_from_csv(
     column="code",
 )
 #Sjogren’s syndrome - hes
-sjs_code_hes = codelist_from_csv(
+sjs_code_icd = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-sjogrens-syndrome.csv",
     system="icd10",
     column="code",
@@ -386,7 +386,7 @@ sss_code_snomed = codelist_from_csv(
     column="code",
 )
 #Systemic sclerosis/scleroderma - hes
-sss_code_hes = codelist_from_csv(
+sss_code_icd = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-systemic-sclerosisscleroderma.csv",
     system="icd10",
     column="code",
@@ -398,7 +398,7 @@ im_code_snomed = codelist_from_csv(
     column="code",
 )
 # Inflammatory myositis/polymyositis/dermatolomyositis - hes
-im_code_hes = codelist_from_csv(
+im_code_icd = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-inflammatory-myositispolymyositisdermatolomyositis.csv",
     system="icd10",
     column="code",
@@ -410,7 +410,7 @@ mctd_code_snomed = codelist_from_csv(
     column="code",
 )
 # Mixed Connective Tissue Disease - hes
-mctd_code_hes = codelist_from_csv(
+mctd_code_icd = codelist_from_csv(
     "codelists/user-josephignace-connective-tissue-disorders-mixed-connective-tissue-disease.csv",
     system="icd10",
     column="code",
@@ -444,7 +444,7 @@ hs_code_ctv = codelist_from_csv(
     column="CTV3ID",
 )
 ## Hydradenitis suppurativa - hes
-hs_code_hes = codelist_from_csv(
+hs_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-skin-disease-hidradenitis-suppurativa-icd10.csv",
     system="icd10",
     column="code",
@@ -661,7 +661,7 @@ glb_code_snomed = codelist_from_csv(
     column="code",
 )
 # Guillain Barre - hes
-glb_code_hes = codelist_from_csv(
+glb_code_icd = codelist_from_csv(
     "codelists/opensafely-guillain-barre-syndrome-icd10.csv",
     system="icd10",
     column="code",

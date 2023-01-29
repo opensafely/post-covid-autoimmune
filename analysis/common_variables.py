@@ -452,7 +452,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_ra_snomed = patients.with_these_clinical_events(
         ra_code_snomed,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -463,8 +464,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ),
     temp_out_date_ra_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=ra_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=ra_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -481,7 +483,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code_snomed,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -496,7 +499,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pa_snomed= patients.with_these_clinical_events(
         pa_code_snomed,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -508,8 +512,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Psoriatic arthritis - hes
     temp_out_date_pa_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=pa_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=pa_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -526,7 +531,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_axial_snomed= patients.with_these_clinical_events(
         axial_code_snomed,
         returning="date",
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -538,8 +544,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Axial spondyloarthritis -  hes
     temp_out_date_axial_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=axial_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=axial_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -575,8 +582,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Systematic lupus erythematosus - hes
     temp_out_date_sle_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=sle_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=sle_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -605,8 +613,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Sjogren’s syndrome - hes
     temp_out_date_sjs_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=sjs_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=sjs_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -635,8 +644,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Systemic sclerosis/scleroderma - hes
     temp_out_date_sss_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=sss_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=sss_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -665,8 +675,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Inflammatory myositis/polymyositis/dermatolomyositis - hes
     temp_out_date_im_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=im_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=im_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -695,8 +706,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Mixed Connective Tissue Disease - hes
     temp_out_date_mctd_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=mctd_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=mctd_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -747,7 +759,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_psoriasis_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=psoriasis_code_icd,
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -776,8 +789,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Hydradenitis suppurativa - secondary care - hes
     temp_out_date_hs_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=hs_code_hes,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=hs_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -857,7 +871,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_crohn_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=crohn_code_icd,
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -886,8 +901,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Ulcerative colitis - secondary care - hes
     temp_out_date_uc_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=uc_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=uc_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -917,7 +933,8 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_celiac_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=celiac_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -953,8 +970,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
      ## Addison’s disease - hes
     temp_out_date_addison_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=addison_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=addison_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -983,8 +1001,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Grave’s disease - hes
     temp_out_date_grave_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=grave_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=grave_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1013,8 +1032,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Hashimoto’s thyroiditis - hes
     temp_out_date_hashimoto_thyroiditis_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=hashimoto_thyroiditis_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses=hashimoto_thyroiditis_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1052,8 +1072,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## ANCA-associated - hes
     temp_out_date_anca_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= anca_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= anca_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1082,8 +1103,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Giant cell arteritis - hes
     temp_out_date_gca_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= gca_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= gca_code_icd,
+        #on_or_after=f"{index_date_variable}",
+         between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1112,8 +1134,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## IgA (immunoglobulin A) vasculitis - hes
     temp_out_date_iga_vasculitis_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= iga_vasculitis_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= iga_vasculitis_code_icd,
+        #on_or_after=f"{index_date_variable}",
+         between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1142,8 +1165,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ##  Polymyalgia Rheumatica (PMR) - hes
     temp_out_date_pmr_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= pmr_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= pmr_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1179,8 +1203,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
     temp_out_date_immune_thromb_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= immune_thromb_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= immune_thromb_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1209,8 +1234,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Pernicious anaemia - hes
     temp_out_date_pernicious_anaemia_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= pernicious_anaemia_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= pernicious_anaemia_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1227,7 +1253,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_apa_snomed= patients.with_these_clinical_events(
         apa_code_snomed,
         returning="date",
-       between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1252,7 +1278,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Aplastic Anaemia - hes
     temp_out_date_apa_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= apa_code_icd ,
+        with_these_primary_diagnoses= apa_code_icd,
         on_or_after=f"{index_date_variable}",
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
@@ -1282,8 +1308,9 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ## Autoimmune haemolytic anaemia - hes
     temp_out_date_aha_hes =patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses= aha_code_icd ,
-        on_or_after=f"{index_date_variable}",
+        with_these_primary_diagnoses= aha_code_icd,
+        #on_or_after=f"{index_date_variable}",
+        between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1318,7 +1345,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ),
     ## Guillain Barre - icd10
     temp_out_date_glb_hes= patients.admitted_to_hospital(
-        with_these_diagnoses=glb_code_hes,
+        with_these_diagnoses=glb_code_icd,
         returning="date_admitted",
         between=[f"{index_date_variable}",f"{end_date_variable}"],
         date_format="YYYY-MM-DD",
