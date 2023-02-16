@@ -10,3 +10,5 @@ venv/
 .Rhistory
 .Rproj.user/
 post-covid-autoimmune.Rproj
+analysis/workspace.code-workspace
+analysis/Untitled.ipynb
