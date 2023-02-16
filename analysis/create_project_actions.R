@@ -176,10 +176,10 @@ actions_list <- splice(
   #comment("Generate dummy data for study_definition - population_prelim"),
   action(
     name = "generate_study_population_prelim",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_prelim --output-format feather",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_prelim --output-format csv.gz",
     needs = list("vax_eligibility_inputs"),
     highly_sensitive = list(
-      cohort = glue("output/input_prelim.feather")
+      cohort = glue("output/input_prelim.csv.gz")
     )
   ),
   #comment("Generate dates for all study cohorts"),
@@ -188,7 +188,7 @@ actions_list <- splice(
     run = "r:latest analysis/prelim.R",
     needs = list("vax_eligibility_inputs","generate_study_population_prelim"),
     highly_sensitive = list(
-      index_dates = glue("output/index_dates.csv")
+      index_dates = glue("output/index_dates.csv.gz")
     )
   ),
 
@@ -196,29 +196,29 @@ actions_list <- splice(
   #comment("Generate dummy data for study_definition - unvaccinated"),
   action(
     name = "generate_study_population_unvax",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_unvax --output-format feather",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_unvax --output-format csv.gz",
     needs = list("vax_eligibility_inputs","generate_index_dates"),
     highly_sensitive = list(
-      cohort = glue("output/input_unvax.feather")
+      cohort = glue("output/input_unvax.csv.gz")
     )
   ),
   #comment("Generate dummy data for study_definition - prevax"),
   action(
     name = "generate_study_population_prevax",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_prevax --output-format feather",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_prevax --output-format csv.gz",
     needs = list("vax_eligibility_inputs","generate_index_dates"),
     highly_sensitive = list(
-      cohort = glue("output/input_prevax.feather")
+      cohort = glue("output/input_prevax.csv.gz")
     )
   ),
   
   #comment("Generate dummy data for study_definition - vaccinated"),
   action(
     name = "generate_study_population_vax",
-    run = "cohortextractor:latest generate_cohort --study-definition study_definition_vax --output-format feather",
+    run = "cohortextractor:latest generate_cohort --study-definition study_definition_vax --output-format csv.gz",
     needs = list("generate_index_dates","vax_eligibility_inputs"),
     highly_sensitive = list(
-      cohort = glue("output/input_vax.feather")
+      cohort = glue("output/input_vax.csv.gz")
     )
   ),
   ##comment("Proprocess data"),
@@ -231,9 +231,9 @@ actions_list <- splice(
   # #comment("Generate dummy data for study_definition - index"),
   # action(
   #   name = "generate_study_population_index",
-  #   run = "cohortextractor:latest generate_cohort --study-definition study_definition_index --output-format feather",
+  #   run = "cohortextractor:latest generate_cohort --study-definition study_definition_index --output-format csv.gz",
   #   highly_sensitive = list(
-  #     cohort = glue("output/input_index.feather")
+  #     cohort = glue("output/input_index.csv.gz")
   #   )
   # ), 
 
