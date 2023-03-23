@@ -1,3 +1,4 @@
+
 # Create output directory ------------------------------------------------------
 
 fs::dir_create(here::here("lib"))
@@ -46,18 +47,18 @@ cohorts <- c("vax","unvax","prevax")
 
 ## Outcomes for which we will RUN ALL analyses
 
-outcomes_runall <- c("out_date_depression", 
-                     "out_date_anxiety_general", 
-                     "out_date_serious_mental_illness")
+outcomes_runall <- c("out_date_grp1_ifa", 
+                     "out_date_grp2_ctd", 
+                     "out_date_grp3_isd")
 
 ## Outcomes for which we will RUN MAIN analyses only
 
 outcomes_runmain <- c(outcomes_runall, 
-                      "out_date_self_harm",
-                      "out_date_anxiety_ptsd", 
-                      "out_date_eating_disorders", 
-                      "out_date_suicide", 
-                      "out_date_addiction")
+                      "out_date_grp4_agi_ibd",
+                      "out_date_grp5_atv",
+                      "out_date_grp6_trd",
+                      "out_date_grp7_htd",
+                      "out_date_grp8_ind")
 
 # Add active analyses ----------------------------------------------------------
 
