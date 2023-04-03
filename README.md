@@ -1,4 +1,4 @@
-${post-covid-autoimmune}
+# post-covid-autoimmune
 
 You can run this project via [Gitpod](https://gitpod.io) in a web browser by clicking on this badge: [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/opensafely/post-covid-autoimmue)
 
