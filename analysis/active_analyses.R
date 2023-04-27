@@ -45,7 +45,7 @@ cohorts <- c("vax","unvax","prevax")
 
 # Specify outcomes -------------------------------------------------------------
 
-## Outcomes for which we will RUN ALL analyses
+## Outcomes for which we will RUN ALL analyses: Main analyses + subgroup analyses
 
 outcomes_runall <- c("out_date_grp1_ifa", 
                      "out_date_grp2_ctd", 
