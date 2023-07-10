@@ -576,12 +576,6 @@
       "downloaded_at": "2022-12-13 15:48:36.271901Z",
       "sha": "e90f6c2bb6a1fdf02bc0b068dfaa94c13d737954"
     },
-    "user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv": {
-      "id": "user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d",
-      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d/",
-      "downloaded_at": "2022-12-13 15:48:36.502133Z",
-      "sha": "3ba491d9c7a3fc08436d3b010524783c53c27871"
-    },
     "user-josephignace-hematologic-diseases-pernicious-anaemia-icd10.csv": {
       "id": "user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b",
       "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b/",
@@ -653,6 +647,18 @@
       "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/addis_cod/v.1.5.3/",
       "downloaded_at": "2022-08-18 16:33:23.858674Z",
       "sha": "5a7f84908af4745bf67c54945e467f1b99d7aaeb"
+    },
+    "user-elsie_horne-cocp_dmd.csv": {
+      "id": "user/elsie_horne/cocp_dmd/1666a7a3",
+      "url": "https://codelists.opensafely.org/codelist/user/elsie_horne/cocp_dmd/1666a7a3/",
+      "downloaded_at": "2023-07-10 22:00:11.605127Z",
+      "sha": "8327c8ec4d2a3f1fcec7ffaa76a3e79cc1e5974a"
+    },
+    "user-elsie_horne-hrt_dmd.csv": {
+      "id": "user/elsie_horne/hrt_dmd/19196799",
+      "url": "https://codelists.opensafely.org/codelist/user/elsie_horne/hrt_dmd/19196799/",
+      "downloaded_at": "2023-07-10 22:00:11.824134Z",
+      "sha": "14aff592668a703f02cc68aa54c7ebab0774c62f"
     }
   }
 }

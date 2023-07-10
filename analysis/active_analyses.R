@@ -78,7 +78,12 @@ cohorts <- c("vax","unvax","prevax")
 
 outcomes_runall <- c("out_date_grp1_ifa", 
                      "out_date_grp2_ctd", 
-                     "out_date_grp3_isd")
+                     "out_date_grp3_isd",
+                     "out_date_grp4_agi_ibd",
+                     "out_date_grp5_atv", 
+                     "out_date_grp6_trd", 
+                     "out_date_grp7_htd", 
+                     "out_date_grp8_ind")
 
 # ## Outcomes for which we will RUN MAIN analyses only
 # 
@@ -565,5 +570,3 @@ if (length(unique(df$name))==nrow(df)) {
 } else {
   stop(paste0("ERROR: names must be unique in active analyses table"))
 }
-
-

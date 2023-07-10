@@ -603,12 +603,13 @@ immune_thromb_code_snomed = codelist_from_csv(
     system="snomed",
     column="code",
 )
-# Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
-immune_thromb_code_icd = codelist_from_csv(
-    "codelists/user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv",
-    system="icd10",
-    column="code",
-)
+# YW 10 July 2023
+# # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
+# immune_thromb_code_icd = codelist_from_csv(
+#     "codelists/user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv",
+#     system="icd10",
+#     column="code",
+# )
 # Pernicious anaemia - snomed
 pernicious_anaemia_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-pernicious-anaemia.csv",
@@ -713,4 +714,15 @@ cis_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-neuromuscular-disease-clinically-isolated-syndrome-icd10.csv",
     system="icd10",
     column="code",
+)
+
+cocp_dmd = codelist_from_csv(
+    "codelists/user-elsie_horne-cocp_dmd.csv",
+    system="snomed",
+    column="dmd_id",
+)
+hrt_dmd = codelist_from_csv(
+    "codelists/user-elsie_horne-hrt_dmd.csv",
+    system="snomed",
+    column="dmd_id",
 )
