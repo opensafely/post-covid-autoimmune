@@ -28,9 +28,8 @@ import study_definition_helper_functions as helpers
 pandemic_start = study_dates["pandemic_start"]
 # Define common variables function
 
-def generate_common_variables(index_date_variable,end_date_variable):
+def generate_common_variables(index_date_variable,exposure_end_date_variable,outcome_end_date_variable):
     dynamic_variables = dict(
-    
 # DEFINE EXPOSURES ------------------------------------------------------
 
     ## Date of positive SARS-COV-2 PCR antigen test
@@ -40,7 +39,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
         returning="date",
         find_first_match_in_period=True,
         date_format="YYYY-MM-DD",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{exposure_end_date_variable}"],
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
@@ -55,7 +54,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
             covid_primary_care_sequalae,
         ),
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{exposure_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -68,7 +67,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     tmp_exp_date_covid19_confirmed_hes=patients.admitted_to_hospital(
         with_these_diagnoses=covid_codes,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{exposure_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -81,7 +80,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     tmp_exp_date_covid19_confirmed_death=patients.with_these_codes_on_death_certificate(
         covid_codes,
         returning="date_of_death",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{exposure_end_date_variable}"],
         match_only_underlying_cause=True,
         date_format="YYYY-MM-DD",
         return_expectations={
@@ -112,7 +111,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     ),
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format = 'YYYY-MM-DD',
         return_expectations={
         "date": {"earliest": study_dates["pandemic_start"], "latest": "today"},
@@ -452,7 +451,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_ra_snomed = patients.with_these_clinical_events(
         ra_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -464,7 +463,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_ra_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=ra_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -481,7 +480,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -496,7 +495,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pa_snomed= patients.with_these_clinical_events(
         pa_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -509,7 +508,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pa_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=pa_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -526,7 +525,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_axial_snomed= patients.with_these_clinical_events(
         axial_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -539,7 +538,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_axial_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=axial_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -563,7 +562,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sle_snomed= patients.with_these_clinical_events(
         sle_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -576,7 +575,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sle_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=sle_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -593,7 +592,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sjs_snomed= patients.with_these_clinical_events(
         sjs_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -606,7 +605,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sjs_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=sjs_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -623,7 +622,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sss_snomed= patients.with_these_clinical_events(
         sss_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -636,7 +635,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_sss_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=sss_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -653,7 +652,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_im_snomed = patients.with_these_clinical_events(
         im_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -666,7 +665,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_im_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=im_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -683,7 +682,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_mctd_snomed= patients.with_these_clinical_events(
         mctd_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -696,7 +695,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_mctd_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=mctd_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -713,7 +712,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     out_date_as = patients.with_these_clinical_events(
         as_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -734,7 +733,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_psoriasis_ctv= patients.with_these_clinical_events(
         psoriasis_code_ctv,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -747,7 +746,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_psoriasis_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=psoriasis_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -764,7 +763,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_hs_ctv= patients.with_these_clinical_events(
         hs_code_ctv,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -777,7 +776,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_hs_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=hs_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -801,7 +800,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_ibd_snomed= patients.with_these_clinical_events(
         ibd_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -814,7 +813,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_ibd_ctv= patients.with_these_clinical_events(
         ibd_code_ctv3,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -844,7 +843,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_crohn_snomed= patients.with_these_clinical_events(
         crohn_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -857,7 +856,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_crohn_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=crohn_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -874,7 +873,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_uc_snomed= patients.with_these_clinical_events(
         uc_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -887,7 +886,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_uc_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=uc_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -904,7 +903,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_celiac_snomed= patients.with_these_clinical_events(
         celiac_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -917,7 +916,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_celiac_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=celiac_code_icd ,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -941,7 +940,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_addison_snomed= patients.with_these_clinical_events(
         addison_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -954,7 +953,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_addison_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=addison_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -971,7 +970,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_grave_snomed= patients.with_these_clinical_events(
         grave_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -984,7 +983,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_grave_hes=patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=grave_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1001,7 +1000,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_hashimoto_thyroiditis_snomed = patients.with_these_clinical_events(
         hashimoto_thyroiditis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1014,7 +1013,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_hashimoto_thyroiditis_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses=hashimoto_thyroiditis_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1040,7 +1039,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_anca_snomed= patients.with_these_clinical_events(
         anca_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1053,7 +1052,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_anca_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= anca_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1070,7 +1069,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_gca_snomed= patients.with_these_clinical_events(
         gca_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1083,7 +1082,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_gca_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= gca_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1100,7 +1099,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_iga_vasculitis_snomed= patients.with_these_clinical_events(
         iga_vasculitis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1113,7 +1112,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_iga_vasculitis_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= iga_vasculitis_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1130,7 +1129,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pmr_snomed= patients.with_these_clinical_events(
         pmr_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1143,7 +1142,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pmr_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= pmr_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1167,7 +1166,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_immune_thromb_snomed= patients.with_these_clinical_events(
         immune_thromb_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1180,7 +1179,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_immune_thromb_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= immune_thromb_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1197,7 +1196,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pernicious_anaemia_snomed= patients.with_these_clinical_events(
         pernicious_anaemia_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1210,7 +1209,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_pernicious_anaemia_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= pernicious_anaemia_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1227,7 +1226,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_apa_snomed= patients.with_these_clinical_events(
         apa_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1240,7 +1239,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_apa_ctv= patients.with_these_clinical_events(
         apa_code_ctv,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1253,7 +1252,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_apa_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= apa_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1270,7 +1269,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_aha_snomed= patients.with_these_clinical_events(
         aha_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1283,7 +1282,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_aha_hes =patients.admitted_to_hospital(
         returning="date_admitted",
         with_these_primary_diagnoses= aha_code_icd,
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1307,7 +1306,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_glb_snomed= patients.with_these_clinical_events(
         glb_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1320,7 +1319,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_glb_hes= patients.admitted_to_hospital(
         with_these_diagnoses=glb_code_icd,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1337,7 +1336,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_multiple_sclerosis_snomed= patients.with_these_clinical_events(
         multiple_sclerosis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1350,7 +1349,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_multiple_sclerosis_hes= patients.admitted_to_hospital(
         with_these_diagnoses=multiple_sclerosis_code_icd,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1367,7 +1366,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_myasthenia_gravis_snomed= patients.with_these_clinical_events(
         myasthenia_gravis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1380,7 +1379,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_myasthenia_gravis_hes= patients.admitted_to_hospital(
         with_these_diagnoses=myasthenia_gravis_code_icd,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1397,7 +1396,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_longit_myelitis_snomed= patients.with_these_clinical_events(
         longit_myelitis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1410,7 +1409,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_longit_myelitis_hes= patients.admitted_to_hospital(
         with_these_diagnoses=longit_myelitis_code_icd,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1427,7 +1426,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_cis_snomed= patients.with_these_clinical_events(
         cis_code_snomed,
         returning="date",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={
@@ -1440,7 +1439,7 @@ def generate_common_variables(index_date_variable,end_date_variable):
     temp_out_date_cis_hes= patients.admitted_to_hospital(
         with_these_diagnoses=cis_code_icd,
         returning="date_admitted",
-        between=[f"{index_date_variable}",f"{end_date_variable}"],
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
         return_expectations={

@@ -11,7 +11,7 @@ print(length(args))
 if(length(args)==0){
   # use for interactive testing
   # cohort_name <- "prevax"
-   cohort_name <- "vax"
+  cohort_name <- "vax"
   # cohort_name <- "unvax"
 } else {
   cohort_name <- args[[1]]
