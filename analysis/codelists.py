@@ -714,3 +714,14 @@ cis_code_icd = codelist_from_csv(
     system="icd10",
     column="code",
 )
+
+cocp_dmd = codelist_from_csv(
+    "codelists/user-elsie_horne-cocp_dmd.csv",
+    system="snomed",
+    column="dmd_id",
+)
+hrt_dmd = codelist_from_csv(
+    "codelists/user-elsie_horne-hrt_dmd.csv",
+    system="snomed",
+    column="dmd_id",
+)

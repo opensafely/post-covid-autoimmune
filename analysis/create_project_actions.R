@@ -16,11 +16,41 @@ defaults_list <- list(
   expectations= list(population_size=1000L)
 )
 
-# active_analyses <- read_rds("lib/active_analyses.rds")
-# active_analyses_table <- subset(active_analyses, active_analyses$active =="TRUE")
-# outcomes_model <- active_analyses_table$outcome_variable %>% str_replace("out_date_", "")
-# cohort_to_run <- c("vaccinated", "electively_unvaccinated")
-# analyses <- c("main", "subgroups")
+# Define active analyses -------------------------------------------------------
+
+active_analyses <- read_rds("lib/active_analyses.rds")
+active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
+cohorts <- unique(active_analyses$cohort)
+
+# # Define active analysis with failed models 
+# active_analyses_failed <-read_rds("lib/active_analyses_failed.rds")
+
+# Determine which outputs are ready --------------------------------------------
+
+success <- readxl::read_excel("../post-covid-outcome-tracker.xlsx",
+                              sheet = "autoimmune",
+                              col_types = c("text","text", "text", "text", "text", "text",
+                                            "text", "text", "text", "text", "text",
+                                            "text", "text", 
+                                            "text", "text", "text", "text","text","text","text","text",
+                                            "skip", "skip"))
+
+success <- tidyr::pivot_longer(success,
+                               cols = setdiff(colnames(success),c("outcome","cohort")),
+                               names_to = "analysis") 
+
+success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
+# add cov_bin_overall_gi_and_symptoms to priorhistory and prioroperations analysis
+success <- success %>%
+  mutate(suffix = case_when(
+    grepl("priorhistory", analysis) ~ "-cov_bin_overall_gi_and_symptoms",
+    grepl("prioroperations", analysis) ~ "-cov_bin_gi_operations",
+    TRUE ~ ""
+  )) %>%
+  unite(name, cohort, analysis, outcome, sep = "-") %>%
+  mutate(name = paste0("cohort_", name, suffix))
+
+success <- success[grepl("success",success$value, ignore.case = TRUE),]
 
 cohort <- c("prevax", "vax", "unvax")
 
@@ -98,6 +128,66 @@ preprocess_data <- function(cohort){
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}.rds"),
         venn = glue("output/venn_{cohort}.rds")
+      )
+    )
+  )
+}
+
+# Create function for data cleaning --------------------------------------------
+
+stage1_data_cleaning <- function(cohort){
+  splice(
+    comment(glue("Stage 1 - data cleaning - {cohort}")),
+    action(
+      name = glue("stage1_data_cleaning_{cohort}"),
+      run = glue("r:latest analysis/preprocess/stage1_data_cleaning.R"),
+      arguments = c(cohort),
+      needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
+      moderately_sensitive = list(
+        consort = glue("output/consort_{cohort}.csv"),
+        consort_rounded = glue("output/consort_{cohort}_rounded.csv")
+      ),
+      highly_sensitive = list(
+        cohort = glue("output/input_{cohort}_stage1.rds")
+      )
+    )
+  )
+}
+
+# Create function to make Table 1 ----------------------------------------------
+
+table1 <- function(cohort){
+  splice(
+    comment(glue("Table 1 - {cohort}")),
+    action(
+      name = glue("table1_{cohort}"),
+      run = "r:latest analysis/descriptives/table1.R",
+      arguments = c(cohort),
+      needs = list(glue("stage1_data_cleaning_{cohort}")),
+      moderately_sensitive = list(
+        table1 = glue("output/table1_{cohort}.csv"),
+        table1_rounded = glue("output/table1_{cohort}_rounded.csv")
+      )
+    )
+  )
+}
+
+# Create function to make Table 2 ----------------------------------------------
+
+table2 <- function(cohort){
+  
+  table2_names <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$name))
+  
+  splice(
+    comment(glue("Table 2 - {cohort}")),
+    action(
+      name = glue("table2_{cohort}"),
+      run = "r:latest analysis/descriptives/table2.R",
+      arguments = c(cohort),
+      needs = c(as.list(paste0("make_model_input-",table2_names))),
+      moderately_sensitive = list(
+        table2 = glue("output/table2_{cohort}.csv"),
+        table2_rounded = glue("output/table2_{cohort}_rounded.csv")
       )
     )
   )
@@ -224,7 +314,31 @@ actions_list <- splice(
   ##comment("Preprocess data"),
   splice(
     unlist(lapply(cohort, function(x) preprocess_data(cohort = x)), recursive = FALSE)
+  ),
+  
+  ## Stage 1 - data cleaning -----------------------------------------------------------
+  splice(
+    unlist(lapply(cohorts, 
+                  function(x) stage1_data_cleaning(cohort = x)), 
+           recursive = FALSE
+    )
+  ),
+  
+  ## Table 1 -------------------------------------------------------------------
+  splice(
+    unlist(lapply(unique(active_analyses$cohort), 
+                  function(x) table1(cohort = x)), 
+           recursive = FALSE
+    )
   )
+  # ## Table 2 -------------------------------------------------------------------
+  # 
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) table2(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # )
 )
 
 
