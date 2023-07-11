@@ -576,6 +576,12 @@
       "downloaded_at": "2022-12-13 15:48:36.271901Z",
       "sha": "e90f6c2bb6a1fdf02bc0b068dfaa94c13d737954"
     },
+    "user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv": {
+      "id": "user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d/",
+      "downloaded_at": "2023-07-11 10:24:52.548046Z",
+      "sha": "3ba491d9c7a3fc08436d3b010524783c53c27871"
+    },
     "user-josephignace-hematologic-diseases-pernicious-anaemia-icd10.csv": {
       "id": "user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b",
       "url": "https://codelists.opensafely.org/codelist/user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b/",

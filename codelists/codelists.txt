@@ -97,7 +97,7 @@ user/josephignace/autoimmune-vasculitis-anca-associated/0de6e4e2
 user/josephignace/autoimmune-vasculitis-giant-cell-arteritis/74d771ac
 user/josephignace/autoimmune-vasculitis-iga-immunoglobulin-a-vasculitis/5bc7fe77
 user/josephignace/autoimmune-vasculitis-polymyalgia-rheumatica-pmr/42b88b42
-#user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d
+user/josephignace/hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10/29a9180d
 user/josephignace/hematologic-diseases-pernicious-anaemia-icd10/5b72c22b
 user/josephignace/hematologic-diseases-aplastic-anaemia-icd10/778a31a2
 user/josephignace/hematologic-diseases-autoimmune-haemolytic-anaemia-icd10/5e7abe6d

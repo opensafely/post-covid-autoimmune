@@ -1192,27 +1192,22 @@ def generate_common_variables(index_date_variable,exposure_end_date_variable,out
             "incidence": 0.3,
         },
     ),
-    # YW 10 July 2023
-    # ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
-    # temp_out_date_immune_thromb_hes =patients.admitted_to_hospital(
-    #     returning="date_admitted",
-    #     with_these_primary_diagnoses= immune_thromb_code_icd,
-    #     between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
-    #     date_format="YYYY-MM-DD",
-    #     find_first_match_in_period=True,
-    #     return_expectations={
-    #         "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
-    #         "rate": "uniform",
-    #         "incidence": 0.3,
-    #     },
-    # ),
-    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - combined
-    # out_date_immune_thromb=patients.minimum_of(
-    #     "temp_out_date_immune_thromb_snomed", "temp_out_date_immune_thromb_hes"
-    # ),
-    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - combined
+    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
+    temp_out_date_immune_thromb_hes =patients.admitted_to_hospital(
+        returning="date_admitted",
+        with_these_primary_diagnoses= immune_thromb_code_icd,
+        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
+    # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - combined
     out_date_immune_thromb=patients.minimum_of(
-        "temp_out_date_immune_thromb_snomed"
+        "temp_out_date_immune_thromb_snomed", "temp_out_date_immune_thromb_hes"
     ),
     ## Pernicious anaemia - snomed
     temp_out_date_pernicious_anaemia_snomed= patients.with_these_clinical_events(
