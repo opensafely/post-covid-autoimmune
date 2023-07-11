@@ -603,13 +603,12 @@ immune_thromb_code_snomed = codelist_from_csv(
     system="snomed",
     column="code",
 )
-# YW 10 July 2023
-# # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
-# immune_thromb_code_icd = codelist_from_csv(
-#     "codelists/user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv",
-#     system="icd10",
-#     column="code",
-# )
+# Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
+immune_thromb_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-hematologic-diseases-immune-thrombocytopenia-formerly-known-as-idiopathic-thrombocytopenic-purpura-icd10.csv",
+    system="icd10",
+    column="code",
+)
 # Pernicious anaemia - snomed
 pernicious_anaemia_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-pernicious-anaemia.csv",
