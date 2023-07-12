@@ -254,6 +254,4 @@ study = StudyDefinition(
     # Define vaccine eligibility variables
 
         **jcvi_variables,
-        
-    
 )
