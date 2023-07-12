@@ -1,9 +1,10 @@
 # Load libraries ---------------------------------------------------------------
-tictoc::tic()
 library(magrittr)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
+library(data.table)
+library(readr)
 
 # Specify command arguments ----------------------------------------------------
 args <- commandArgs(trailingOnly=TRUE)
@@ -20,9 +21,31 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 fs::dir_create(here::here("output", "review"))
 
+# Get column names -------------------------------------------------------------
+
+cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), 
+              header = TRUE, 
+              sep = ",", 
+              nrows = 1, 
+              stringsAsFactors = FALSE)
+
+message("Column names found")
+
+# Identify columns containg "_date" --------------------------------------------
+
+date_cols <- grep("_date", colnames(cols), value = TRUE)
+
+message("Date columns identified")
+
+# Set class to date ------------------------------------------------------------
+
+col_classes <- setNames(rep("Date", length(date_cols)), date_cols)
+
+message("Column classes defined")
+
 # Read cohort dataset ---------------------------------------------------------- 
 
-df <-  readr::read_csv(file = paste0("output/input_",cohort_name,".csv.gz"))
+df <- fread(paste0("output/input_",cohort_name,".csv.gz"), colClasses = col_classes)
 
 message(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 
