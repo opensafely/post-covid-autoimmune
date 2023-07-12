@@ -22,7 +22,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 if(length(args)==0){
   # name <- "all" # prepare datasets for all active analyses 
-  name <- "cohort_prevax-main-acute_pancreatitis" # prepare datasets for all active analyses whose name contains X
+  name <- "cohort_vax-main-grp1_ifa" # prepare datasets for all active analyses whose name contains X
 } else {
   name <- args[[1]]
 }
@@ -48,7 +48,7 @@ print('Filter active_analyses to model inputs to be prepared')
 
 active_analyses <- active_analyses[active_analyses$name %in% prepare,]
 for (i in 1:nrow(active_analyses)) {
-  
+  print(paste0("i=", i))
   # Load data --------------------------------------------------------------------
   print(paste0("Load data for ",active_analyses$name[i]))
   
@@ -72,9 +72,7 @@ for (i in 1:nrow(active_analyses)) {
                            "sub_bin_covid19_confirmed_history",
                            "cov_cat_sex",
                            "cov_num_age",
-                           "cov_cat_ethnicity",
-                           "cov_bin_overall_gi_and_symptoms",
-                           "cov_bin_gi_operations"))]
+                           "cov_cat_ethnicity"))]
   
   
   input <- dplyr::rename(input, 
