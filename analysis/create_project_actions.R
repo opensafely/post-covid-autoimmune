@@ -338,7 +338,7 @@ actions_list <- splice(
   #                 function(x) table2(cohort = x)),
   #          recursive = FALSE
   #   )
-  #)
+  # )
 )
 
 
