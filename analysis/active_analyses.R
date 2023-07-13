@@ -1,4 +1,3 @@
-
 library(jsonlite)
 
 # Create output directory ------------------------------------------------------
@@ -551,7 +550,6 @@ for (c in cohorts) {
                          priorhistory_var = "cov_bin_gi_operations")
     
   }
-  
 }
 
 # Assign unique name -----------------------------------------------------------
@@ -560,8 +558,6 @@ df$name <- paste0("cohort_",df$cohort, "-",
                   df$analysis, "-", 
                   gsub("out_date_","",df$outcome), 
                   ifelse(df$priorhistory_var=="","", paste0("-",df$priorhistory_var)))
-
-
 
 # Check names are unique and save active analyses list -------------------------
 

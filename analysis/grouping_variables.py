@@ -419,5 +419,4 @@ jcvi_variables = dict(
             "incidence": 1,
         },
     ),
-
 )
