@@ -665,6 +665,12 @@
       "url": "https://codelists.opensafely.org/codelist/user/elsie_horne/hrt_dmd/19196799/",
       "downloaded_at": "2023-07-10 22:00:11.824134Z",
       "sha": "14aff592668a703f02cc68aa54c7ebab0774c62f"
+    },
+    "user-josephignace-autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns.csv": {
+      "id": "user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns/7224b1b6",
+      "url": "https://codelists.opensafely.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns/7224b1b6/",
+      "downloaded_at": "2023-07-13 09:17:14.424428Z",
+      "sha": "dc6bd5a75fc14a1a5915cf5a9d43cb69700fa336"
     }
   }
 }

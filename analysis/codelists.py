@@ -466,6 +466,11 @@ ibd_code_ctv3 = codelist_from_csv(
 )
 # YW notes 17 Jan 2023: the ICD10 codelist for IBD doesn't work: 
 # https://www.opencodelists.org/codelist/user/josephignace/autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns/7224b1b6/
+ibd_code_icd = codelist_from_csv(
+    "codelists/user-josephignace-autoimmune-gi-inflammatory-bowel-disease-inflammatory-bowel-disease-combined-uc-and-crohns.csv",
+    system = "icd10",
+    column = "code",
+)
 
 # Crohn's disease - snomed
 crohn_code_snomed = codelist_from_csv(

@@ -168,5 +168,4 @@ study = StudyDefinition(
     # Define common variables (e.g., exposures, outcomes, covariates) that require dynamic dates
 
         **dynamic_variables
-
 )

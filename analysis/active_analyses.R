@@ -1,4 +1,3 @@
-
 library(jsonlite)
 
 # Create output directory ------------------------------------------------------
@@ -443,7 +442,6 @@ for (c in cohorts) {
                          age_spline = TRUE,
                          analysis = "sub_ethnicity_other")
   }
-  
 }
 
 # Assign unique name -----------------------------------------------------------
@@ -451,8 +449,6 @@ for (c in cohorts) {
 df$name <- paste0("cohort_",df$cohort, "-", 
                   df$analysis, "-", 
                   gsub("out_date_","",df$outcome))
-
-
 
 # Check names are unique and save active analyses list -------------------------
 

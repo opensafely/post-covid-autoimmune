@@ -838,22 +838,22 @@ def generate_common_variables(index_date_variable,exposure_end_date_variable,out
             "incidence": 0.3,
         },
     ),
-    # ## Inflammatory bowel disease (combined UC and Crohn's) - secondary care - hes
-    # temp_out_date_ibd_hes=patients.admitted_to_hospital(
-    #     returning="date_admitted",
-    #     with_these_primary_diagnoses=ibd_code_hes,
-    #     on_or_after=f"{index_date_variable}",
-    #     date_format="YYYY-MM-DD",
-    #     find_first_match_in_period=True,
-    #     return_expectations={
-    #         "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
-    #         "rate": "uniform",
-    #         "incidence": 0.3,
-    #     },
-    # ),
+    ## Inflammatory bowel disease (combined UC and Crohn's) - secondary care - hes
+    temp_out_date_ibd_hes=patients.admitted_to_hospital(
+        returning="date_admitted",
+        with_these_primary_diagnoses=ibd_code_icd,
+        on_or_after=f"{index_date_variable}",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={
+            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
+            "rate": "uniform",
+            "incidence": 0.3,
+        },
+    ),
     ## Inflammatory bowel disease combined
     out_date_ibd=patients.minimum_of(
-        "temp_out_date_ibd_snomed", "temp_out_date_ibd_ctv"
+        "temp_out_date_ibd_snomed", "temp_out_date_ibd_ctv", "temp_out_date_ibd_hes"
     ),
     ## Crohn’s disease snomed
     temp_out_date_crohn_snomed= patients.with_these_clinical_events(
