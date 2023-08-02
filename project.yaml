@@ -2,7 +2,7 @@ version: '3.0'
 
 expectations:
 
-  population_size: 1000
+  population_size: 350000
 
 actions:
 
@@ -17,8 +17,8 @@ actions:
     outputs:
       highly_sensitive:
         study_dates_json: output/study_dates.json
-        vax_jcvi_groups: output/vax_jcvi_groups.csv
-        vax_eligible_dates: output/vax_eligible_dates.csv
+        vax_jcvi_groups: output/vax_jcvi_groups.csv.gz
+        vax_eligible_dates: output/vax_eligible_dates.csv.gz
 
   generate_study_population_prelim:
     run: cohortextractor:latest generate_cohort --study-definition study_definition_prelim
@@ -38,15 +38,7 @@ actions:
       highly_sensitive:
         index_dates: output/index_dates.csv.gz
 
-  generate_study_population_unvax:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition_unvax
-      --output-format csv.gz
-    needs:
-    - vax_eligibility_inputs
-    - generate_index_dates
-    outputs:
-      highly_sensitive:
-        cohort: output/input_unvax.csv.gz
+  ## Generate study population - prevax 
 
   generate_study_population_prevax:
     run: cohortextractor:latest generate_cohort --study-definition study_definition_prevax
@@ -58,12 +50,26 @@ actions:
       highly_sensitive:
         cohort: output/input_prevax.csv.gz
 
+  ## Generate study population - unvax 
+
+  generate_study_population_unvax:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_unvax
+      --output-format csv.gz
+    needs:
+    - vax_eligibility_inputs
+    - generate_index_dates
+    outputs:
+      highly_sensitive:
+        cohort: output/input_unvax.csv.gz
+
+  ## Generate study population - vax 
+
   generate_study_population_vax:
     run: cohortextractor:latest generate_cohort --study-definition study_definition_vax
       --output-format csv.gz
     needs:
-    - generate_index_dates
     - vax_eligibility_inputs
+    - generate_index_dates
     outputs:
       highly_sensitive:
         cohort: output/input_vax.csv.gz
@@ -83,21 +89,6 @@ actions:
         cohort: output/input_prevax.rds
         venn: output/venn_prevax.rds
 
-  ## Preprocess data - vax 
-
-  preprocess_data_vax:
-    run: r:latest analysis/preprocess/preprocess_data.R vax
-    needs:
-    - generate_index_dates
-    - generate_study_population_vax
-    outputs:
-      moderately_sensitive:
-        describe: output/not-for-review/describe_input_vax_stage0.txt
-        describe_venn: output/not-for-review/describe_venn_vax.txt
-      highly_sensitive:
-        cohort: output/input_vax.rds
-        venn: output/venn_vax.rds
-
   ## Preprocess data - unvax 
 
   preprocess_data_unvax:
@@ -113,45 +104,82 @@ actions:
         cohort: output/input_unvax.rds
         venn: output/venn_unvax.rds
 
+  ## Preprocess data - vax 
+
+  preprocess_data_vax:
+    run: r:latest analysis/preprocess/preprocess_data.R vax
+    needs:
+    - generate_index_dates
+    - generate_study_population_vax
+    outputs:
+      moderately_sensitive:
+        describe: output/not-for-review/describe_input_vax_stage0.txt
+        describe_venn: output/not-for-review/describe_venn_vax.txt
+      highly_sensitive:
+        cohort: output/input_vax.rds
+        venn: output/venn_vax.rds
+
+  count_study_def_variables:
+    run: r:latest analysis/descriptives/intitial_input_counts.R
+    needs:
+    - generate_study_population_prevax
+    - generate_study_population_unvax
+    - generate_study_population_vax
+    - preprocess_data_prevax
+    - preprocess_data_unvax
+    - preprocess_data_vax
+    outputs:
+      moderately_sensitive:
+        counts: output/study_counts_prepro.txt
+        vax_summary: output/describe_prepro_vax.txt
+        prevax_summary: output/describe_prepro_prevax.txt
+        unvax_summary: output/describe_prepro_unvax.txt
+
   ## Stage 1 - data cleaning - prevax 
 
   stage1_data_cleaning_prevax:
-    run: r:latest analysis/preprocess/stage1_data_cleaning.R prevax
+    run: r:latest analysis/preprocess/Stage1_data_cleaning.R prevax
     needs:
     - vax_eligibility_inputs
     - preprocess_data_prevax
     outputs:
       moderately_sensitive:
-        consort: output/consort_prevax.csv
-        consort_rounded: output/consort_prevax_rounded.csv
+        refactoring: output/not-for-review/meta_data_factors_prevax.csv
+        QA_rules: output/review/descriptives/QA_summary_prevax.csv
+        IE_criteria: output/review/descriptives/Cohort_flow_prevax.csv
+        histograms: output/not-for-review/numeric_histograms_prevax.svg
       highly_sensitive:
         cohort: output/input_prevax_stage1.rds
 
   ## Stage 1 - data cleaning - unvax 
 
   stage1_data_cleaning_unvax:
-    run: r:latest analysis/preprocess/stage1_data_cleaning.R unvax
+    run: r:latest analysis/preprocess/Stage1_data_cleaning.R unvax
     needs:
     - vax_eligibility_inputs
     - preprocess_data_unvax
     outputs:
       moderately_sensitive:
-        consort: output/consort_unvax.csv
-        consort_rounded: output/consort_unvax_rounded.csv
+        refactoring: output/not-for-review/meta_data_factors_unvax.csv
+        QA_rules: output/review/descriptives/QA_summary_unvax.csv
+        IE_criteria: output/review/descriptives/Cohort_flow_unvax.csv
+        histograms: output/not-for-review/numeric_histograms_unvax.svg
       highly_sensitive:
         cohort: output/input_unvax_stage1.rds
 
   ## Stage 1 - data cleaning - vax 
 
   stage1_data_cleaning_vax:
-    run: r:latest analysis/preprocess/stage1_data_cleaning.R vax
+    run: r:latest analysis/preprocess/Stage1_data_cleaning.R vax
     needs:
     - vax_eligibility_inputs
     - preprocess_data_vax
     outputs:
       moderately_sensitive:
-        consort: output/consort_vax.csv
-        consort_rounded: output/consort_vax_rounded.csv
+        refactoring: output/not-for-review/meta_data_factors_vax.csv
+        QA_rules: output/review/descriptives/QA_summary_vax.csv
+        IE_criteria: output/review/descriptives/Cohort_flow_vax.csv
+        histograms: output/not-for-review/numeric_histograms_vax.svg
       highly_sensitive:
         cohort: output/input_vax_stage1.rds
 
