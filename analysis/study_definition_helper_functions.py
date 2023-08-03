@@ -15,6 +15,7 @@ def generate_ethnicity_dictionary(n_groups: int) -> dict:
             """
     return eth_dict
 
+
 def generate_deprivation_ntile_dictionary(ntiles: int) -> dict:
     """
     create dictionary of n:logical defition of ntiles of index of multiple deprivation
