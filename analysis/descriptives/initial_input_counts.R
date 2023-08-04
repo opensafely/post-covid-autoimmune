@@ -25,19 +25,23 @@ count_input <- function(df) {
 
 #summary data 
 describe_data <- function(data,file_name) {
-  invalid_rows_vgib <- sum(is.na(strptime(data$out_date_variceal_gi_bleeding, "%Y-%m-%d")))
-  invalid_rows_ibs <- sum(is.na(strptime(data$out_date_ibs, "%Y-%m-%d")))
+  # invalid_rows_vgib <- sum(is.na(strptime(data$out_date_variceal_gi_bleeding, "%Y-%m-%d")))
+  # invalid_rows_ibs <- sum(is.na(strptime(data$out_date_ibs, "%Y-%m-%d")))
+  
+  invalid_rows_ra <- sum(is.na(strptime(data$out_date_ra, "%Y-%m-%d")))
+  invalid_rows_pa <- sum(is.na(strptime(data$out_date_pa, "%Y-%m-%d")))
+  
   date_pattern <- "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[01])$"
   
   sink(file_name)
-  print("ibs date pattern match: ")
-  print (table(grepl(date_pattern,data$out_date_ibs)))
-  print("vgib date pattern match: ")
-  print (table(grepl(date_pattern,data$out_date_variceal_gi_bleeding)))
-  filtered_data <- data$out_date_variceal_gi_bleeding[
-    !is.na(data$out_date_variceal_gi_bleeding) & 
-      data$out_date_variceal_gi_bleeding != "" & 
-      !grepl(date_pattern, data$out_date_variceal_gi_bleeding)
+  print("ra date pattern match: ")
+  print (table(grepl(date_pattern,data$out_date_ra)))
+  print("pa pattern match: ")
+  print (table(grepl(date_pattern,data$out_date_pa)))
+  filtered_data <- data$out_date_pa[
+    !is.na(data$out_date_pa) & 
+      data$out_date_pa != "" & 
+      !grepl(date_pattern, data$out_date_pa)
   ]
   # Print the filtered data
   print("vgib date not matching the pattern:")
@@ -64,10 +68,12 @@ describe_data <- function(data,file_name) {
 # Read datasets before preprocessing
 # dataset_names <- c("prevax", "vax", "unvax")
 dataset_name<-cohort_name
-df_list_sd <-  read.csv(paste0("output/input_", cohort_name, ".csv.gz"))%>%select("out_date_ibs","out_date_variceal_gi_bleeding")
+
+## YW comments: I've commented out the following _ibs and _variceal_gi_bleeding to _ra and _pa
+df_list_sd <-  read.csv(paste0("output/input_", cohort_name, ".csv.gz"))%>%select("out_date_ra","out_date_pa")
 # message(paste0("Before preprocessing:\n",str(df_list_sd %>% select(matches("^(out_date)")))) )
 # After preprocessing data
-df_list_prepro <- readRDS(paste0("output/input_", cohort_name, ".rds"))%>%select("out_date_ibs","out_date_variceal_gi_bleeding")
+df_list_prepro <- readRDS(paste0("output/input_", cohort_name, ".rds"))%>%select("out_date_ra","out_date_pa")
 # message(paste0("After preprocessing:\n",str(df_list_prepro%>% select(matches("^(out_date)")))) )
 
 
@@ -102,6 +108,7 @@ df_list_prepro <- readRDS(paste0("output/input_", cohort_name, ".rds"))%>%select
 # # # Summary data
 file_name_prepro <- paste0("output/not-for-review/describe_prepro_", dataset_name, ".txt")
 describe_data(df_list_prepro, file_name_prepro)
+
 file_name_sd <- paste0("output/not-for-review/describe_sd_", dataset_name, ".txt")
 describe_data(df_list_sd, file_name_sd)
 

@@ -23,13 +23,23 @@ cohorts <- unique(active_analyses$cohort)
 
 # Determine which outputs are ready --------------------------------------------
 
-success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx", 
+# YW directory
+success <- readxl::read_excel("../post-covid-outcome-tracker.xlsx", 
                               sheet = "autoimmune",
                               col_types = c("text", "text", "text", "text",
                                             "text", "text", "text", "text", "text", "text",
                                             "text", "text", "text", "text", "text", 
                                             "text", "text", 
                                             "skip", "skip"))
+
+# Jose director
+# success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx", 
+#                               sheet = "autoimmune",
+#                               col_types = c("text", "text", "text", "text",
+#                                             "text", "text", "text", "text", "text", "text",
+#                                             "text", "text", "text", "text", "text", 
+#                                             "text", "text", 
+#                                             "skip", "skip"))
 
 success <- tidyr::pivot_longer(success,
                                cols = setdiff(colnames(success),c("outcome","cohort")),
@@ -143,7 +153,7 @@ stage1_data_cleaning <- function(cohort){
     comment(glue("Stage 1 - data cleaning - {cohort}")),
     action(
       name = glue("stage1_data_cleaning_{cohort}"),
-      run = glue("r:latest analysis/preprocess/Stage1_data_cleaning.R"),
+      run = glue("r:latest analysis/preprocess/stage1_data_cleaning.R"),
       arguments = c(cohort),
       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
       moderately_sensitive = list(
@@ -338,13 +348,13 @@ actions_list <- splice(
   #Count outcomes and binary covars
   action(
     name = "count_study_def_variables",
-    run = "r:latest analysis/descriptives/intitial_input_counts.R",
+    run = "r:latest analysis/descriptives/initial_input_counts.R",
     needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
     moderately_sensitive=list(
-      counts = glue("output/study_counts_prepro.txt"),
-      vax_summary = glue("output/describe_prepro_vax.txt"),
-      prevax_summary = glue("output/describe_prepro_prevax.txt"),
-      unvax_summary = glue("output/describe_prepro_unvax.txt")
+      counts = glue("output/not-for-review/study_counts_prepro.txt"),
+      vax_summary = glue("output/not-for-review/describe_prepro_vax.txt"),
+      prevax_summary = glue("output/not-for-review/describe_prepro_prevax.txt"),
+      unvax_summary = glue("output/not-for-review/describe_prepro_unvax.txt")
       
     )
   ),
