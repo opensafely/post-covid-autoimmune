@@ -1,9 +1,11 @@
-# Load libraries ---------------------------------------------------------------
 tictoc::tic()
+# Load libraries ---------------------------------------------------------------
 library(magrittr)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
+library(data.table)
+library(readr)
 
 # Specify command arguments ----------------------------------------------------
 args <- commandArgs(trailingOnly=TRUE)
@@ -20,19 +22,50 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 fs::dir_create(here::here("output", "review"))
 
-# Read cohort dataset ---------------------------------------------------------- 
+input_path<-paste0("output/input_",cohort_name,".csv.gz")
 
-df <-  readr::read_csv(file = paste0("output/input_",cohort_name,".csv.gz"))
+# # Get colnames 
+all_cols <- fread(input_path, header = TRUE, sep = ",", nrows = 0, stringsAsFactors = FALSE)%>%
+  names()
+#Get columns types based on their names
+cat_cols <- c("patient_id", grep("_cat", all_cols, value = TRUE))
+bin_cols <- c(grep("_bin", all_cols, value = TRUE), 
+              grep("prostate_cancer_", all_cols, value = TRUE),
+              "has_follow_up_previous_6months", "has_died", "registered_at_start")
+num_cols <- c(grep("_num", all_cols, value = TRUE),
+              grep("vax_jcvi_age_", all_cols, value = TRUE))
+date_cols <- grep("_date", all_cols, value = TRUE)
+# Set the class of the columns with match to make sure the column match the type
+col_classes <- setNames(
+  c(rep("c", length(cat_cols)),
+    rep("l", length(bin_cols)),
+    rep("d", length(num_cols)),
+    rep("D", length(date_cols))
+  ), 
+  all_cols[match(c(cat_cols, bin_cols, num_cols, date_cols), all_cols)]
+)
+# read the input file and specify colClasses
+df<-read_csv(input_path,col_types = col_classes) 
 
-message(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
+df$cov_num_systolic_bp_date_measured <-NULL#This column is not needed in GI
+print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
+print("type of columns:\n")
+str(df)
+# Describe data ----------------------------------------------------------------
+sink(paste0("output/not-for-review/describe_",cohort_name,".txt"))
+print(Hmisc::describe(df%>%select("cov_num_age","out_date_pa","out_date_ra")))
+print(str(df))
+sink()
+
+message ("Cohort ",cohort_name, " description written successfully!")
 
 #Add death_date from prelim data
-prelim_data <- read_csv("output/index_dates.csv.gz") %>%
-  select(c(patient_id,death_date))
+prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) %>%
+  select(patient_id,death_date)
 df <- df %>% inner_join(prelim_data,by="patient_id")
 
 message("Death date added!")
-
+message(paste0("After adding death N = ", nrow(df), " rows"))
 
 # Format columns ---------------------------------------------------------------
 # dates, numerics, factors, logicals
@@ -46,7 +79,6 @@ df <- df %>%
          across(contains('_cat'), ~ as.factor(.)),
          across(contains('_bin'), ~ as.logical(.)))
 
-
 # Overwrite vaccination information for dummy data and vax cohort only --
 
 if(Sys.getenv("OPENSAFELY_BACKEND") %in% c("", "expectations") &&
@@ -54,7 +86,6 @@ if(Sys.getenv("OPENSAFELY_BACKEND") %in% c("", "expectations") &&
   source("analysis/preprocess/modify_dummy_vax_data.R")
   message("Vaccine information overwritten successfully")
 }
-
 
 # Describe data ----------------------------------------------------------------
 
@@ -76,7 +107,6 @@ df <- df %>%
   mutate(cov_num_consulation_rate = replace(cov_num_consulation_rate, 
                                             cov_num_consulation_rate > 365, 365))
 
-
 #COVID19 severity --------------------------------------------------------------
 
 df <- df %>%
@@ -96,7 +126,6 @@ message("COVID19 severity determined successfully")
 
 # Restrict columns and save analysis dataset ---------------------------------
 
-
 df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     has_follow_up_previous_6months,
                     dereg_date,
@@ -111,7 +140,6 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     contains("vax_date_"), # Vaccination dates and vax type 
                     contains("vax_cat_")# Vaccination products
 )
-
 
 df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
