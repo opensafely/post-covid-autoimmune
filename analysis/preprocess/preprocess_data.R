@@ -47,7 +47,9 @@ col_classes <- setNames(
 # read the input file and specify colClasses
 df<-read_csv(input_path,col_types = col_classes) 
 
-df$cov_num_systolic_bp_date_measured <-NULL#This column is not needed in GI
+df$cov_num_bmi_date_measured <- NULL
+#df$cov_num_systolic_bp_date_measured <-NULL#This column is not needed in GI
+
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 print("type of columns:\n")
 str(df)
