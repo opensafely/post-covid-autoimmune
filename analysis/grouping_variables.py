@@ -1,4 +1,3 @@
-
 from datetime import date
 
 from cohortextractor import (
@@ -76,15 +75,6 @@ jcvi_variables = dict(
             "rate": "universal",
         },
     ),
-
-    # patient sex
-    # sex=patients.sex(
-    #     return_expectations={
-    #     "rate": "universal",
-    #     "category": {"ratios": {"M": 0.49, "F": 0.51}},
-    #     "incidence": 0.99,
-    #     }
-    # ),
 
     vax_cat_jcvi_group=patients.categorised_as(
         dict_jcvi,
@@ -419,4 +409,5 @@ jcvi_variables = dict(
             "incidence": 1,
         },
     ),
+
 )

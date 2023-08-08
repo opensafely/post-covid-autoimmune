@@ -23,31 +23,32 @@ cohorts <- unique(active_analyses$cohort)
 
 # Determine which outputs are ready --------------------------------------------
 
-# YW directory
-success <- readxl::read_excel("../post-covid-outcome-tracker.xlsx", 
-                              sheet = "autoimmune",
-                              col_types = c("text", "text", "text", "text",
-                                            "text", "text", "text", "text", "text", "text",
-                                            "text", "text", "text", "text", "text", 
-                                            "text", "text", 
-                                            "skip", "skip"))
-
-# Jose director
-# success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx", 
+# success <- readxl::read_excel("../post-covid-outcome-tracker.xlsx",
 #                               sheet = "autoimmune",
-#                               col_types = c("text", "text", "text", "text",
-#                                             "text", "text", "text", "text", "text", "text",
-#                                             "text", "text", "text", "text", "text", 
+#                               col_types = c("text","text", "text", "text", "text", "text",
+#                                             "text", "text", "text", "text", "text",
 #                                             "text", "text", 
+#                                             "text", "text", "text", "text","text","text","text","text",
 #                                             "skip", "skip"))
-
-success <- tidyr::pivot_longer(success,
-                               cols = setdiff(colnames(success),c("outcome","cohort")),
-                               names_to = "analysis")
-
-success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
-
-success <- success[grepl("success",success$value, ignore.case = TRUE),]
+# 
+# success <- tidyr::pivot_longer(success,
+#                                cols = setdiff(colnames(success),c("outcome","cohort")),
+#                                names_to = "analysis") 
+# 
+# success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
+# # add cov_bin_overall_gi_and_symptoms to priorhistory and prioroperations analysis
+# success <- success %>%
+#   mutate(suffix = case_when(
+#     grepl("priorhistory", analysis) ~ "-cov_bin_overall_gi_and_symptoms",
+#     grepl("prioroperations", analysis) ~ "-cov_bin_gi_operations",
+#     TRUE ~ ""
+#   )) %>%
+#   unite(name, cohort, analysis, outcome, sep = "-") %>%
+#   mutate(name = paste0("cohort_", name, suffix))
+# 
+# success <- success[grepl("success",success$value, ignore.case = TRUE),]
+# 
+# cohort <- c("prevax", "vax", "unvax")
 
 # create action functions ----
 
@@ -148,46 +149,46 @@ preprocess_data <- function(cohort){
 # Create function for data cleaning --------------------------------------------
 ################################################################################
 
-stage1_data_cleaning <- function(cohort){
-  splice(
-    comment(glue("Stage 1 - data cleaning - {cohort}")),
-    action(
-      name = glue("stage1_data_cleaning_{cohort}"),
-      run = glue("r:latest analysis/preprocess/stage1_data_cleaning.R"),
-      arguments = c(cohort),
-      needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
-      moderately_sensitive = list(
-        refactoring = glue("output/not-for-review/meta_data_factors_{cohort}.csv"),
-        QA_rules = glue("output/review/descriptives/QA_summary_{cohort}.csv"),
-        IE_criteria = glue("output/review/descriptives/Cohort_flow_{cohort}.csv"),
-        histograms = glue("output/not-for-review/numeric_histograms_{cohort}.svg")#,
-        #consort = glue("output/consort_{cohort}.csv"),
-        #consort_rounded = glue("output/consort_{cohort}_rounded.csv")
-      ),
-      highly_sensitive = list(
-        cohort = glue("output/input_{cohort}_stage1.rds")
-      )
-    )
-  )
-}
+# stage1_data_cleaning <- function(cohort){
+#   splice(
+#     comment(glue("Stage 1 - data cleaning - {cohort}")),
+#     action(
+#       name = glue("stage1_data_cleaning_{cohort}"),
+#       run = glue("r:latest analysis/preprocess/Stage1_data_cleaning.R"),
+#       arguments = c(cohort),
+#       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
+#       moderately_sensitive = list(
+#         refactoring = glue("output/not-for-review/meta_data_factors_{cohort}.csv"),
+#         QA_rules = glue("output/review/descriptives/QA_summary_{cohort}.csv"),
+#         IE_criteria = glue("output/review/descriptives/Cohort_flow_{cohort}.csv"),
+#         histograms = glue("output/not-for-review/numeric_histograms_{cohort}.svg")#,
+#         #consort = glue("output/consort_{cohort}.csv"),
+#         #consort_rounded = glue("output/consort_{cohort}_rounded.csv")
+#       ),
+#       highly_sensitive = list(
+#         cohort = glue("output/input_{cohort}_stage1.rds")
+#       )
+#     )
+#   )
+# }
 
 # Create function for table1 --------------------------------------------
 
-table1 <- function(cohort){
-  splice(
-    comment(glue("Table 1 - {cohort}")),
-    action(
-      name = glue("table1_{cohort}"),
-      run = "r:latest analysis/descriptives/table1.R",
-      arguments = c(cohort),
-      needs = list(glue("stage1_data_cleaning_{cohort}")),
-      moderately_sensitive = list(
-        table1 = glue("output/table1_{cohort}.csv"),
-        table1_rounded = glue("output/table1_{cohort}_rounded.csv")
-      )
-    )
-  )
-}
+# table1 <- function(cohort){
+#   splice(
+#     comment(glue("Table 1 - {cohort}")),
+#     action(
+#       name = glue("table1_{cohort}"),
+#       run = "r:latest analysis/descriptives/table1.R",
+#       arguments = c(cohort),
+#       needs = list(glue("stage1_data_cleaning_{cohort}")),
+#       moderately_sensitive = list(
+#         table1 = glue("output/table1_{cohort}.csv"),
+#         table1_rounded = glue("output/table1_{cohort}_rounded.csv")
+#       )
+#     )
+#   )
+# }
 
 # #################################################
 # ## Function for typical actions to analyse data #
@@ -338,44 +339,44 @@ actions_list <- splice(
   ## Preprocess data -----------------------------------------------------------
   
   splice(
-    unlist(lapply(cohorts, 
-                  function(x) preprocess_data(cohort = x)), 
-           recursive = FALSE
-    )
-  ),
-  
-  
-  #Count outcomes and binary covars
-  action(
-    name = "count_study_def_variables",
-    run = "r:latest analysis/descriptives/initial_input_counts.R",
-    needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
-    moderately_sensitive=list(
-      counts = glue("output/not-for-review/study_counts_prepro.txt"),
-      vax_summary = glue("output/not-for-review/describe_prepro_vax.txt"),
-      prevax_summary = glue("output/not-for-review/describe_prepro_prevax.txt"),
-      unvax_summary = glue("output/not-for-review/describe_prepro_unvax.txt")
-      
-    )
-  ),
-  
-  ## Stage 1 - data cleaning -----------------------------------------------------------
-  
-  splice(
-    unlist(lapply(cohorts, 
-                  function(x) stage1_data_cleaning(cohort = x)), 
-           recursive = FALSE
-    )
-  ),
-  
-  ## Table 1 -------------------------------------------------------------------
-  
-  splice(
-    unlist(lapply(unique(active_analyses$cohort), 
-                  function(x) table1(cohort = x)), 
+    unlist(lapply(cohorts,
+                  function(x) preprocess_data(cohort = x)),
            recursive = FALSE
     )
   )#,
+  
+  
+  #Count outcomes and binary covars
+  # action(
+  #   name = "count_study_def_variables",
+  #   run = "r:latest analysis/descriptives/intitial_input_counts.R",
+  #   needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
+  #   moderately_sensitive=list(
+  #     counts = glue("output/study_counts_prepro.txt"),
+  #     vax_summary = glue("output/describe_prepro_vax.txt"),
+  #     prevax_summary = glue("output/describe_prepro_prevax.txt"),
+  #     unvax_summary = glue("output/describe_prepro_unvax.txt")
+  #     
+  #   )
+  # ),
+  
+  ## Stage 1 - data cleaning -----------------------------------------------------------
+  
+  # splice(
+  #   unlist(lapply(cohorts, 
+  #                 function(x) stage1_data_cleaning(cohort = x)), 
+  #          recursive = FALSE
+  #   )
+  # ),
+  
+  ## Table 1 -------------------------------------------------------------------
+  
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort), 
+  #                 function(x) table1(cohort = x)), 
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Run models ----------------------------------------------------------------
   # comment("Stage 5 - Run models"),
@@ -421,7 +422,7 @@ actions_list <- splice(
   #          recursive = FALSE
   #   )
   # ),
-  
+  # 
   # comment("Stage 6 - make model output"),
   # 
   # action(

@@ -1,5 +1,5 @@
-# Load libraries ---------------------------------------------------------------
 tictoc::tic()
+# Load libraries ---------------------------------------------------------------
 library(magrittr)
 library(dplyr)
 library(tidyverse)
@@ -12,7 +12,9 @@ args <- commandArgs(trailingOnly=TRUE)
 print(length(args))
 if(length(args)==0){
   # use for interactive testing
-  cohort_name <- "prevax"
+  # cohort_name <- "prevax"
+  cohort_name <- "vax"
+  # cohort_name <- "unvax"
 } else {
   cohort_name <- args[[1]]
 }
@@ -20,19 +22,11 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 fs::dir_create(here::here("output", "review"))
 
-#data set
-input_path <- paste0("output/input_",cohort_name,".csv.gz")
+input_path<-paste0("output/input_",cohort_name,".csv.gz")
 
-# Get column names -------------------------------------------------------------
-
-all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), 
-                  header = TRUE, 
-                  sep = ",", 
-                  nrows = 0, 
-                  stringsAsFactors = FALSE) %>%
-  #select(-c(cov_num_systolic_bp_date_measured)) %>% #This column is not needed in Neuro
+# # Get colnames 
+all_cols <- fread(input_path, header = TRUE, sep = ",", nrows = 0, stringsAsFactors = FALSE)%>%
   names()
-
 #Get columns types based on their names
 cat_cols <- c("patient_id", grep("_cat", all_cols, value = TRUE))
 bin_cols <- c(grep("_bin", all_cols, value = TRUE), 
@@ -51,36 +45,23 @@ col_classes <- setNames(
   all_cols[match(c(cat_cols, bin_cols, num_cols, date_cols), all_cols)]
 )
 # read the input file and specify colClasses
-df <- read_csv(input_path, col_types = col_classes) 
+df<-read_csv(input_path,col_types = col_classes) 
 
-df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in GI
+df$cov_num_bmi_date_measured <- NULL
+#df$cov_num_systolic_bp_date_measured <-NULL#This column is not needed in GI
+
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 print("type of columns:\n")
+str(df)
+# Describe data ----------------------------------------------------------------
+sink(paste0("output/not-for-review/describe_",cohort_name,".txt"))
+print(Hmisc::describe(df%>%select("cov_num_age","out_date_pa","out_date_ra")))
+print(str(df))
+sink()
 
-#message("Column names found")
+message ("Cohort ",cohort_name, " description written successfully!")
 
-# Identify columns containg "_date" --------------------------------------------
-
-#date_cols <- grep("_date", colnames(cols), value = TRUE)
-
-#message("Date columns identified")
-
-# Set class to date ------------------------------------------------------------
-
-#col_classes <- setNames(rep("Date", length(date_cols)), date_cols)
-
-#message("Column classes defined")
-
-# Read cohort dataset ---------------------------------------------------------- 
-
-# df <- fread(paste0("output/input_",cohort_name,".csv.gz", col_types = cols(patient_id = "c", death_date="D"))) %>%
-#   select(patient_id, death_date)
-# df <- df %>% inner_join(prelim_data, by = "patient_id")
-
-message(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
-
-# Add death_date from prelim data ----------------------------------------------
-
+#Add death_date from prelim data
 prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) %>%
   select(patient_id,death_date)
 df <- df %>% inner_join(prelim_data,by="patient_id")
@@ -92,11 +73,13 @@ message(paste0("After adding death N = ", nrow(df), " rows"))
 # dates, numerics, factors, logicals
 
 df <- df %>%
-  mutate( across(contains('_birth_year'),
-                 ~ format(as.Date(.,origin='1970-01-01'), "%Y")),
-          across(contains('_num') & !contains('date'), ~ as.numeric(.)),
-          across(contains('_cat'), ~ as.factor(.)),
-          across(contains('_bin'), ~ as.logical(.)))
+  mutate(across(c(contains("_date")),
+                ~ floor_date(as.Date(., format="%Y-%m-%d", origin='1970-01-01'), unit = "days")),
+         across(contains('_birth_year'),
+                ~ format(as.Date(.,origin='1970-01-01'), "%Y")),
+         across(contains('_num') & !contains('date'), ~ as.numeric(.)),
+         across(contains('_cat'), ~ as.factor(.)),
+         across(contains('_bin'), ~ as.logical(.)))
 
 # Overwrite vaccination information for dummy data and vax cohort only --
 
@@ -118,6 +101,7 @@ message ("Cohort ",cohort_name, " description written successfully!")
 
 df$cov_bin_obesity <- ifelse(df$cov_bin_obesity == TRUE | 
                                df$cov_cat_bmi_groups=="Obese",TRUE,FALSE)
+df[,c("cov_num_bmi")] <- NULL
 
 # QC for consultation variable--------------------------------------------------
 #max to 365 (average of one per day)
@@ -125,7 +109,7 @@ df <- df %>%
   mutate(cov_num_consulation_rate = replace(cov_num_consulation_rate, 
                                             cov_num_consulation_rate > 365, 365))
 
-# Define COVID-19 severity --------------------------------------------------------------
+#COVID19 severity --------------------------------------------------------------
 
 df <- df %>%
   mutate(sub_cat_covid19_hospital = 
@@ -136,13 +120,10 @@ df <- df %>%
                   ifelse(!is.na(exp_date_covid19_confirmed), "non_hospitalised", 
                          ifelse(is.na(exp_date_covid19_confirmed), "no_infection", NA)))) %>%
   mutate(across(sub_cat_covid19_hospital, factor))
-
 df <- df[!is.na(df$patient_id),]
 df[,c("sub_date_covid19_hospital")] <- NULL
 
 message("COVID19 severity determined successfully")
-
-# Create vars for neurodegenerative outcomes - TBC -------------------------------------------------------------
 
 
 # Restrict columns and save analysis dataset ---------------------------------
@@ -156,7 +137,7 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     contains("out_"), # Outcomes
                     contains("cov_"), # Covariates
                     contains("qa_"), # Quality assurance
-                    contains("step"), # diabetes steps
+                    #contains("step"), # diabetes steps
                     contains("vax_date_eligible"), # Vaccination eligibility
                     contains("vax_date_"), # Vaccination dates and vax type 
                     contains("vax_cat_")# Vaccination products
@@ -186,9 +167,7 @@ sink(paste0("output/not-for-review/describe_venn_",cohort_name,".txt"))
 print(Hmisc::describe(df2))
 sink()
 
-# SAVE
-
 saveRDS(df2, file = paste0("output/venn_",cohort_name,".rds"))
 
 message("Venn diagram data saved successfully")
-tictoc::toc() 
+tictoc::toc()
