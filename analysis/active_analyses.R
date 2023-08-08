@@ -50,27 +50,9 @@ vax_unvax_stop <-"2021-12-14"
 ##Cut points 
 prevax_cuts <- "28;197;365;714"
 vax_unvax_cuts <- "28;197"
-# all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
-#                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_gi_operations;cov_bin_overall_gi_and_symptoms;cov_bin_obesity;",
-#                      "cov_bin_nonvariceal_gi_bleeding;cov_bin_variceal_gi_bleedingl;cov_bin_lower_gi_bleeding;cov_bin_upper_gi_bleeding;",
-#                      "cov_bin_peptic_ulcer;cov_bin_dyspepsia;cov_bin_gastro_oesophageal_reflux_disease;cov_bin_acute_pancreatitis;",
-#                      "cov_bin_nonalcoholic_steatohepatitis;cov_bin_gallstones_disease;cov_bin_appendicitis;cov_bin_all_gi_symptoms;",
-#                      "cov_bin_antidepressants_bnf;cov_bin_alcohol_above_limits;cov_bin_cholelisthiasis;cov_bin_h_pylori_infection;cov_bin_nsaid_bnf;",
-#                      "cov_bin_aspirin_bnf;")
-# all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
-#                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_gi_operations;cov_bin_overall_gi_and_symptoms;cov_bin_obesity;",
-#                      "cov_bin_antidepressants_bnf;cov_bin_alcohol_above_limits;cov_bin_cholelisthiasis;cov_bin_h_pylori_infection;cov_bin_nsaid_bnf;",
-#                      "cov_bin_aspirin_bnf")
 
 all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
-
-
-# #Specific covars below are only confounders for the specific outcomes below
-# specific_covars <- "cov_bin_hypertriglyceridemia;cov_bin_hypercalcemia;cov_num_systolic_bp"
-# specific_outcomes <- c("out_date_bowel_ischaemia","out_date_nonalcoholic_steatohepatitis","out_date_acute_pancreatitis")
-# 
-
 
 # Specify cohorts --------------------------------------------------------------
 
@@ -87,6 +69,32 @@ outcomes_runall <- c("out_date_grp1_ifa",
                      "out_date_grp7_htd", 
                      "out_date_grp8_ind")
 
+# outcomes_runall <- c("out_date_ra",
+#                      "out_date_pa",
+#                      "out_date_axial",
+#                      "out_date_sle",
+#                      "out_date_sjs",
+#                      "out_date_sss",
+#                      "out_date_im",
+#                      "out_date_mctd",
+#                      "out_date_psoriasis",
+#                      "out_date_hs",
+#                      "out_date_ibd",
+#                      "out_date_crohn",
+#                      "out_date_uc",
+#                      "out_date_celiac",
+#                      "out_date_addison",
+#                      "out_date_grave",
+#                      "out_date_hashimoto_thyroiditis",
+#                      "out_date_anca",
+#                      "out_date_gca",
+#                      "out_date_iga_vasculitis",
+#                      "out_date_pmr",
+#                      "out_date_immune_thromb",
+#                      "out_date_pernicious_anaemia",
+#                      "out_date_apa",
+#                      "out_date_aha")
+
 # ## Outcomes for which we will RUN MAIN analyses only
 # 
 # outcomes_runmain <- c(outcomes_runall, 
@@ -95,6 +103,14 @@ outcomes_runall <- c("out_date_grp1_ifa",
 #                       "out_date_grp6_trd",
 #                       "out_date_grp7_htd",
 #                       "out_date_grp8_ind")
+
+# outcomes_runmain <- c("out_date_undiff_eia",
+#                       "out_date_as ",
+#                       "out_date_glb",
+#                       "out_date_multiple_sclerosis",
+#                       "out_date_myasthenia_gravis",
+#                       "out_date_longit_myelitis",
+#                       "out_date_cis")
 
 # Add active analyses ----------------------------------------------------------
 
@@ -113,7 +129,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = ifelse(i %in% specific_outcomes, paste0(all_covars,';',specific_covars),all_covars),
+                         covariate_other = all_covars,#ifelse(i %in% specific_outcomes, paste0(all_covars,';',specific_covars),all_covars),
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
