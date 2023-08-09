@@ -9,7 +9,7 @@ print('Specify arguments')
 args <- commandArgs(trailingOnly=TRUE)
 
 if(length(args)==0){
-  file <- "model_input-cohort_prevax-main-parkinson"
+  file <- "model_input-cohort_prevax-main-psoriasis"
   extn <- "rds"
 } else {
   file <- args[[1]]
