@@ -154,7 +154,7 @@ stage1_data_cleaning <- function(cohort){
     comment(glue("Stage 1 - data cleaning - {cohort}")),
     action(
       name = glue("stage1_data_cleaning_{cohort}"),
-      run = glue("r:latest analysis/preprocess/Stage1_data_cleaning.R"),
+      run = glue("r:latest analysis/preprocess/stage1_data_cleaning.R"),
       arguments = c(cohort),
       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
       moderately_sensitive = list(
@@ -224,7 +224,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     #comment(glue("Cox model for {outcome} - {cohort}")),
     action(
       name = glue("cox_ipw-{name}"),
-      run = glue("cox-ipw:v0.0.25 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+      run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
       needs = list(glue("make_model_input-{name}")),
       moderately_sensitive = list(
         model_output = glue("output/model_output-{name}.csv"))
