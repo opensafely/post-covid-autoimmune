@@ -2283,6 +2283,12 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_cis_snomed", "tmp_out_date_cis_hes", "tmp_out_date_cis_death",
         #"out_date_glb", "out_date_multiple_sclerosis","out_date_myasthenia_gravis","out_date_longit_myelitis", "out_date_cis"
     ),
+    
+    # Define primary outcome: composite auto-immune outcome
+    out_date_composite_ai=patients.minimum_of(
+        "out_date_grp1_ifa", "out_date_grp2_ctd", "out_date_grp3_isd", "out_date_grp4_agi_ibd",
+        "out_date_grp5_atv", "out_date_grp6_trd", "out_date_grp7_htd", "out_date_grp8_ind"
+    ),
     ## Define primary outcome: composite auto-immune outcome
     # out_date_composite_ai=patients.minimum_of(
     #     "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
