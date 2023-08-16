@@ -44,7 +44,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.2,
         },
     ),
     ## First COVID-19 code (diagnosis, positive test or sequalae) in primary care
@@ -61,7 +61,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.2,
         },
     ),
     ## Start date of episode with confirmed diagnosis in any position
@@ -87,7 +87,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1
+            "incidence": 0.2
         },
     ),
     ## Generate variable to identify first date of confirmed COVID
@@ -145,7 +145,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         test_result="positive",
         returning='binary_flag',
         on_or_before=f"{index_date_variable} - 1 day",
-        return_expectations={"incidence": 0.1},
+        return_expectations={"incidence": 0.2},
     ),
     ### COVID-19 code (diagnosis, positive test or sequalae) in primary care
     tmp_sub_bin_covid19_confirmed_history_snomed=patients.with_these_clinical_events(
@@ -156,14 +156,14 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         ),
         returning='binary_flag',
         on_or_before=f"{index_date_variable} - 1 day",
-        return_expectations={"incidence": 0.1},
+        return_expectations={"incidence": 0.2},
     ),
     ### Hospital episode with confirmed diagnosis in any position
     tmp_sub_bin_covid19_confirmed_history_hes=patients.admitted_to_hospital(
         with_these_diagnoses=covid_codes,
         returning='binary_flag',
         on_or_before=f"{index_date_variable} - 1 day",
-        return_expectations={"incidence": 0.1},
+        return_expectations={"incidence": 0.2},
     ),
     ## Generate variable to identify first date of confirmed COVID
     sub_bin_covid19_confirmed_history=patients.maximum_of(
@@ -858,7 +858,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.3,
+            "incidence": 0.5,
         },
     ),
     # HES
@@ -871,7 +871,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.3,
+            "incidence": 0.5,
         },
     ),
     # ONS
@@ -884,7 +884,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.5,
         },
     ),
     ## Reumatoid arthritis combining primary care and secondary care
@@ -901,7 +901,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.3,
+            "incidence": 0.5,
         },
     ),
     ## Undifferentiated inflamatory arthritis - no secondary care code
@@ -916,7 +916,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.3,
+            "incidence": 0.5,
         },
     ),
     ## Psoriatic arthritis - hes
@@ -929,7 +929,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.3,
+            "incidence": 0.5,
         },
     ),
     # ONS
@@ -942,7 +942,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
        return_expectations={
            "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
            "rate": "uniform",
-           "incidence": 0.1,
+           "incidence": 0.5,
        },
    ),
     ## Psoriatic arthritis combining primary care and secondary care
@@ -985,7 +985,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.5,
         },
     ),
     ## Axial spondyloarthritis -  combining primary care and secondary care
@@ -1042,7 +1042,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Systematic lupus erythematosus -  combining primary care and secondary care
@@ -1085,7 +1085,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Sjogren’s syndrome  -  combining primary care and secondary care
@@ -1128,7 +1128,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Systemic sclerosis/scleroderma -  combining primary care and secondary care
@@ -1171,7 +1171,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Inflammatory myositis/polymyositis/dermatolomyositis -  combining primary care and secondary care
@@ -1214,7 +1214,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Mixed Connective Tissue Disease -  combining primary care and secondary care
@@ -1284,7 +1284,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Psoriasis -  combining primary care and secondary care
@@ -1327,7 +1327,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Hydradenitis suppurativa -  combining primary care and secondary care
@@ -1392,7 +1392,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Inflammatory bowel disease combined
@@ -1435,7 +1435,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Crohn’s disease combined
@@ -1478,7 +1478,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Ulcerative colitis combined
@@ -1521,7 +1521,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Celiac disease combined
@@ -1575,7 +1575,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Addison’s disease combined
@@ -1618,7 +1618,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Grave’s disease combined
@@ -1661,7 +1661,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Hashimoto’s thyroiditis combined
@@ -1716,7 +1716,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## ANCA-associated  - combined
@@ -1759,7 +1759,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Giant cell arteritis - combined
@@ -1802,7 +1802,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## IgA (immunoglobulin A) vasculitis - combined
@@ -1845,7 +1845,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## IPolymyalgia Rheumatica (PMR) - combined
@@ -1899,7 +1899,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - combined
@@ -1942,7 +1942,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Pernicious anaemia combined
@@ -1998,7 +1998,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Aplastic Anaemia combined
@@ -2041,7 +2041,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Autoimmune haemolytic anaemia combined
@@ -2082,7 +2082,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
          # ONS
@@ -2095,7 +2095,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Guillain Barre combined
@@ -2125,7 +2125,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
      # ONS
@@ -2138,7 +2138,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Multiple Sclerosis combined
@@ -2168,7 +2168,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
       # ONS
@@ -2181,7 +2181,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Myasthenia gravis combined
@@ -2211,7 +2211,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
      # ONS
@@ -2224,7 +2224,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Longitudinal myelitis combined
@@ -2254,7 +2254,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"},
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
       # ONS
@@ -2267,7 +2267,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={
             "date": {"earliest": study_dates["pandemic_start"], "latest" : "today"}, 
             "rate": "uniform",
-            "incidence": 0.1,
+            "incidence": 0.3,
         },
     ),
     ## Clinically isolated syndrome combined
