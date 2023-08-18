@@ -60,7 +60,10 @@ cohorts <- c("vax","unvax","prevax")
 
 # Specify outcomes -------------------------------------------------------------
 
-outcomes_runall <- c("out_date_grp1_ifa", 
+outcomes_runall <- "out_date_composite_ai"
+
+outcomes_runmain <- c(outcomes_runall, 
+                     "out_date_grp1_ifa", 
                      "out_date_grp2_ctd", 
                      "out_date_grp3_isd",
                      "out_date_grp4_agi_ibd",
