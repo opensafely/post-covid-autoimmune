@@ -158,13 +158,13 @@ stage1_data_cleaning <- function(cohort){
       arguments = c(cohort),
       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
       moderately_sensitive = list(
+        consort = glue("output/consort_{cohort}.csv"),
+        consort_rounded = glue("output/consort_{cohort}_rounded.csv"),
         refactoring = glue("output/not-for-review/meta_data_factors_{cohort}.csv"),
         QA_rules = glue("output/review/descriptives/QA_summary_{cohort}.csv"),
         IE_criteria = glue("output/review/descriptives/Cohort_flow_{cohort}.csv"),
         histograms = glue("output/not-for-review/numeric_histograms_{cohort}.svg")#,
-        #consort = glue("output/consort_{cohort}.csv"),
-        #consort_rounded = glue("output/consort_{cohort}_rounded.csv")
-      ),
+        ),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}_stage1.rds")
       )
