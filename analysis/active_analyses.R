@@ -60,68 +60,55 @@ cohorts <- c("vax","unvax","prevax")
 
 # Specify outcomes -------------------------------------------------------------
 
-outcomes_runall <- "out_date_composite_ai"
-
-outcomes_runmain <- c(outcomes_runall, 
-                     "out_date_grp1_ifa", 
-                     "out_date_grp2_ctd", 
+outcomes_runall <- c("out_date_composite_ai",
+                     "out_date_grp1_ifa",
+                     "out_date_grp2_ctd",
                      "out_date_grp3_isd",
                      "out_date_grp4_agi_ibd",
-                     "out_date_grp5_atv", 
-                     "out_date_grp6_trd", 
-                     "out_date_grp7_htd", 
-                     "out_date_grp8_ind")
+                     "out_date_grp5_atv",
+                     "out_date_grp6_trd",
+                     "out_date_grp7_htd",
+                     "out_date_grp8_ind",
+                     "out_date_ra",
+                     "out_date_pa",
+                     "out_date_axial",
+                     "out_date_psoriasis",
+                     "out_date_hs",
+                     "out_date_ibd",
+                     "out_date_crohn",
+                     "out_date_uc",
+                     "out_date_celiac",
+                     "out_date_addison",
+                     "out_date_grave",
+                     "out_date_pmr",
+                     "out_date_immune_thromb",
+                     "out_date_pernicious_anaemia",
+                     "out_date_apa",
+                     "out_date_multiple_sclerosis",
+                     "out_date_myasthenia_gravis"
+                     )
 
-# outcomes_runall <- c("out_date_ra",
-#                      "out_date_pa",
-#                      "out_date_axial",
-#                      "out_date_sle",
-#                      "out_date_sjs",
-#                      "out_date_sss",
-#                      "out_date_im",
-#                      "out_date_mctd",
-#                      "out_date_psoriasis",
-#                      "out_date_hs",
-#                      "out_date_ibd",
-#                      "out_date_crohn",
-#                      "out_date_uc",
-#                      "out_date_celiac",
-#                      "out_date_addison",
-#                      "out_date_grave",
-#                      "out_date_hashimoto_thyroiditis",
-#                      "out_date_anca",
-#                      "out_date_gca",
-#                      "out_date_iga_vasculitis",
-#                      "out_date_pmr",
-#                      "out_date_immune_thromb",
-#                      "out_date_pernicious_anaemia",
-#                      "out_date_apa",
-#                      "out_date_aha")
-
-# ## Outcomes for which we will RUN MAIN analyses only
-# 
-# outcomes_runmain <- c(outcomes_runall, 
-#                       "out_date_grp4_agi_ibd",
-#                       "out_date_grp5_atv",
-#                       "out_date_grp6_trd",
-#                       "out_date_grp7_htd",
-#                       "out_date_grp8_ind")
-
-# outcomes_runmain <- c("out_date_undiff_eia",
-#                       "out_date_as ",
-#                       "out_date_glb",
-#                       "out_date_multiple_sclerosis",
-#                       "out_date_myasthenia_gravis",
-#                       "out_date_longit_myelitis",
-#                       "out_date_cis")
+outcomes_runmain <- c("out_date_undiff_eia",
+                     "out_date_sle",
+                     "out_date_sjs",
+                     "out_date_sss",
+                     "out_date_im",
+                     "out_date_mctd",
+                     "out_date_hashimoto_thyroiditis",
+                     "out_date_anca",
+                     "out_date_gca",
+                     "out_date_iga_vasculitis",
+                     "out_date_aha",
+                     "out_date_glb",
+                     "out_date_longit_myelitis",
+                     "out_date_cis")
 
 # Add active analyses ----------------------------------------------------------
 
 for (c in cohorts) {
   
-  # for (i in c(outcomes_runmain, outcomes_runall)) {
-  for (i in c( outcomes_runall)) {
-    
+  for (i in c(outcomes_runmain, outcomes_runall)) {
+  # for (i in c( outcomes_runall)) {
     
     ## analysis: main ----------------------------------------------------------
     
