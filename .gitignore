@@ -12,3 +12,7 @@ venv/
 post-covid-autoimmune.Rproj
 analysis/workspace.code-workspace
 analysis/Untitled.ipynb
+.Rproj.user*
+.Rproj.user
+tmp/*
+analysis/specify_paths.R
