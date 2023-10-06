@@ -1,16 +1,45 @@
 ﻿term,label
-alzheimer_disease,Alzheimer disease
-any_dementia,Any dementia
-cognitive_impairment,Cognitive impairment
-migraine,Migraine
-motor_neurone_disease,Motor neurone disease
-multiple_sclerosis,Multiple sclerosis
-other_dementias,Other dementias
-parkinson_disease,Parkinson's disease
-rem_sleep_disorder,Rem sleep disorder
-restless_leg_syndrome,Restless leg syndrome
-unspecified_dementias,Unspecified dementias
-vascular_dementia,Vascular dementia
+ra,Reumatoid arthritis
+undiff_eia,Undifferentiated inflamatory arthritis
+pa,Psoriatic arthritis
+axial,Axial spondyloarthritis
+sle,Systematic lupus erythematosus
+sjs,Sjogren’s syndrome
+sss,Systemic sclerosis/scleroderma
+im,Inflammatory myositis/polymyositis/dermatolomyositis
+mctd,Mixed Connective Tissue Disease
+as,Antiphospholipid syndrome
+psoriasis,Psoriasis
+hs,Hydradenitis suppurativa
+ibd,Inflammatory bowel disease (combined UC and Crohn's)
+crohn,Crohn’s disease
+uc,Ulcerative colitis
+celiac,Celiac disease
+addison,Addison’s disease
+grave,Grave’s disease
+hashimoto_thyroiditis,Hashimoto’s thyroiditis
+anca,ANCA-associated
+gca,Giant cell arteritis
+iga_vasculitis,IgA (immunoglobulin A) vasculitis
+pmr,Polymyalgia Rheumatica (PMR)
+immune_thromb,Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
+pernicious_anaemia,Pernicious anaemia
+apa,Aplastic anaemia
+aha,Autoimmune haemolytic anaemia
+glb,Guillain Barre
+multiple_sclerosis,Multiple Sclerosis
+myasthenia_gravis,Myasthenia gravis
+longit_myelitis,Longitudinal myelitis
+cis,Clinically isolated syndrome
+grp1_ifa,Inflammatory arthritis
+grp2_ctd,Connective tissue disorders
+grp3_isd,Inflammatory skin disease
+grp4_agi_ibd,Autoimmune GI / Inflammatory bowel disease
+grp5_atv,Thyroid diseases
+grp6_trd,Autoimmune vasculitis
+grp7_htd,Hematologic Diseases
+grp8_ind,Inflammatory neuromuscular disease
+composite_ai,Composite Autoimmune
 prevax,Pre-vaccination (Jan 1 2020 - Dec 14 2021)
 vax,Vaccinated (Jun 1 2021 - Dec 14 2021)
 unvax,Unvaccinated (Jun 1 2021 - Dec 14 2021)
