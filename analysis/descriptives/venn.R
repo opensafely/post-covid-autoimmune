@@ -144,7 +144,146 @@ for (outcome in outcomes) {
                          total = nrow(tmp),
                          error = "")
     
-    # Replace source combinations with NA if not in study definition -------------
+    # Fix source contribution for grouped outcomes -----------------------------
+    
+    # character to numeric
+    # df <- df %>%
+    #   mutate_at(vars(matches("snomed|hes|death|total")),function(x) as.numeric(as.character(x)))
+    # 
+    # # grp1_ifa -----------------------------------------------------------------
+    # df_temp1 <- df[!grepl("grp1_ifa", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp1 <- df[grep("_ra_|_undiff_eia|_pa_|_axial_", df$outcome),] 
+    # # Summarise
+    # df_temp1 <- df_temp1 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp1$outcome <- "grp1_ifa"
+    # df_temp1$error <- "" #NA
+    # # relocate
+    # df_temp1 <- relocate(df_temp1, outcome)
+    # 
+    # # grp2_ctd -----------------------------------------------------------------
+    # df_temp2 <- df[!grepl("grp2_ctd", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp2 <- df[grep("_sle_|_sjs_|_sss_|_im_|_mctd_|_as", df$outcome),] 
+    # # Summarise
+    # df_temp2 <- df_temp2 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp2$outcome <- "grp2_ctd"
+    # df_temp2$error <- "" #NA
+    # # relocate
+    # df_temp2 <- relocate(df_temp2, outcome)
+    # 
+    # # grp3_isd -----------------------------------------------------------------
+    # df_temp3 <- df[!grepl("grp3_isd", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp3 <- df[grep("_psoriasis_|_hs_", df$outcome),] 
+    # # Summarise
+    # df_temp3 <- df_temp3 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp3$outcome <- "grp3_isd"
+    # df_temp3$error <- "" #NA
+    # # relocate
+    # df_temp3 <- relocate(df_temp3, outcome)
+    # 
+    # # grp4_agi_ibd -------------------------------------------------------------
+    # df_temp4 <- df[!grepl("grp4_agi_ibd", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp4 <- df[grep("_ibd_|_crohn_|_uc_|_celiac_", df$outcome),] 
+    # # Summarise
+    # df_temp4 <- df_temp4 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp4$outcome <- "grp4_agi_ibd"
+    # df_temp4$error <- "" #NA
+    # # relocate
+    # df_temp4 <- relocate(df_temp4, outcome)
+    # 
+    # # grp5_atv -----------------------------------------------------------------
+    # df_temp5 <- df[!grepl("grp5_atv", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp5 <- df[grep("_addison_|_grave_|_hashimoto_thyroiditis_", df$outcome),] 
+    # # Summarise
+    # df_temp5 <- df_temp5 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp5$outcome <- "grp5_atv"
+    # df_temp5$error <- "" #NA
+    # # relocate
+    # df_temp5 <- relocate(df_temp5, outcome)
+    # 
+    # # grp6_trd -----------------------------------------------------------------
+    # df_temp6 <- df[!grepl("grp6_trd", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp6 <- df[grep("_anca_|_gca_|_iga_vasculitis_|_pmr_", df$outcome),] 
+    # # Summarise
+    # df_temp6 <- df_temp6 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp6$outcome <- "grp6_trd"
+    # df_temp6$error <- "" #NA
+    # # relocate
+    # df_temp6 <- relocate(df_temp6, outcome)
+    # 
+    # # grp7_htd -----------------------------------------------------------------
+    # df_temp7 <- df[!grepl("grp7_htd", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp7 <- df[grep("_immune_thromb_|_pernicious_anaemia_|_apa_|_aha_", df$outcome),] 
+    # # Summarise
+    # df_temp7 <- df_temp7 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp7$outcome <- "grp7_htd"
+    # df_temp7$error <- "" #NA
+    # # relocate
+    # df_temp7 <- relocate(df_temp7, outcome)
+    # 
+    # # grp8_ind -----------------------------------------------------------------
+    # df_temp8 <- df[!grepl("grp8_ind", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp8 <- df[grep("_glb_|_multiple_sclerosis_|_myasthenia_gravis_|_longit_myelitis_|_cis_", df$outcome),] 
+    # # Summarise
+    # df_temp8 <- df_temp8 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp8$outcome <- "grp8_ind"
+    # df_temp8$error <- "" #NA
+    # # relocate
+    # df_temp8 <- relocate(df_temp8, outcome)
+    # 
+    # # composite ai -------------------------------------------------------------
+    # df_temp9 <- df[!grepl("composite_ai", df$outcome),]
+    # # Select grp1_ifa components
+    # df_temp9 <- df[grep("_ra_|_undiff_eia|_pa_|_axial_|_sle_|_sjs_|_sss_|_im_|_mctd_|_as|_psoriasis_|_hs_|_ibd_|_crohn_|_uc_|_celiac_|
+    #                     _addison_|_grave_|_hashimoto_thyroiditis_|_anca_|_gca_|_iga_vasculitis_|_pmr_|_immune_thromb_|_pernicious_anaemia_|_apa_|_aha_|
+    #                     _glb_|_multiple_sclerosis_|_myasthenia_gravis_|_longit_myelitis_|_cis_", df$outcome),] 
+    # # Summarise
+    # df_temp9 <- df_temp9 %>%
+    #   summarise_if(is.numeric, sum, na.rm = T)
+    # # add columns  
+    # df_temp9$outcome <- "composite_ai"
+    # df_temp9$error <- "" #NA
+    # # relocate
+    # df_temp9 <- relocate(df_temp9, outcome)
+    # 
+    # # remove grouped outcomes
+    # df <- df[!grepl("grp1_ifa|grp2_ctd|grp3_isd|grp4_agi_ibd|grp5_atv|grp6_trd|grp7_htd|grp8_ind|composite_ai", df$outcome),]
+    # 
+    # # --------------------------------------------------------------------------
+    # # add columns  
+    # # df_temp$outcome <- c("grp1_ifa", "grp2_ctd", "grp3_isd", "grp4_agi_ibd", "grp5_atv", "grp6_trd", "grp7_htd", "grp8_ind", "composite_ai")
+    # # df_temp$error <- "" #NA
+    # 
+    # # bind data frames
+    # df <- bind_rows(df, df_temp1, df_temp2, df_temp3, df_temp4, df_temp5, df_temp6, df_temp7, df_temp8, df_temp9)
+    
+    # remove temporary df
+    # rm(df_temp1, df_temp2, df_temp3, df_temp4, df_temp5, df_temp6, df_temp7, df_temp8, df_temp9)
+    
+    # Replace source combinations with NA if not in study definition -----------
     print('Replace source combinations with NA if not in study definition')
     
     source_combos <- c("only_snomed","only_hes","only_death","snomed_hes","snomed_death","hes_death","snomed_hes_death","total_snomed","total_hes","total_death")
