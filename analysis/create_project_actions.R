@@ -495,7 +495,8 @@ actions_list <- splice(
     run = "r:latest analysis/model/make_model_output.R",
     needs = as.list(paste0("cox_ipw-",success$name)),
     moderately_sensitive = list(
-      model_output = glue("output/model_output.csv")
+      model_output = glue("output/model_output.csv"),
+      model_output_rounded = glue("output/model_output_rounded.csv")
     )
   ),
   
