@@ -43303,6 +43303,22 @@ actions:
         table2: output/venn_vax.csv
         table2_rounded: output/venn_vax_rounded.csv
 
+  make_model_output:
+    run: r:latest analysis/model/make_model_output.R
+    needs:
+    - cox_ipw-cohort_prevax-main-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_vax-main-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_unvax-main-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output.csv
+
   ## Make absolute excess risk (AER) input 
 
   make_aer_input:
