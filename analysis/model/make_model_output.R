@@ -2,7 +2,16 @@
 print('Load packages')
 
 library(magrittr)
-library(dplyr)
+
+# Specify redaction threshold --------------------------------------------------
+print('Specify redaction threshold')
+
+threshold <- 6
+
+# Source common functions ------------------------------------------------------
+print('Source common functions')
+
+source("analysis/utility.R")
 
 # Load active analyses ---------------------------------------------------------
 print('Load active analyses')
@@ -119,3 +128,15 @@ df <- df[,c("name","cohort","outcome","analysis","error","model","term",
             "outcome_time_median","strata_warning","surv_formula")]
 
 readr::write_csv(df, "output/model_output.csv")
+
+
+# Perform redaction ------------------------------------------------------------
+print('Perform redaction')
+
+df[,c("N_total","N_exposed","N_events")] <- lapply(df[,c("N_total","N_exposed","N_events")],
+                                                   FUN=function(y){roundmid_any(as.numeric(y), to=threshold)})
+
+# Save model output ------------------------------------------------------------
+print('Save model output')
+
+readr::write_csv(df, "output/model_output_rounded.csv")
