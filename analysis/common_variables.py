@@ -907,8 +907,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Undifferentiated inflamatory arthritis - no secondary care code
 
     ## Psoriatic arthritis - snomed
-    tmp_out_date_pa_snomed= patients.with_these_clinical_events(
-        pa_code_snomed,
+    tmp_out_date_psoa_snomed= patients.with_these_clinical_events(
+        psoa_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -920,9 +920,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Psoriatic arthritis - hes
-    tmp_out_date_pa_hes=patients.admitted_to_hospital(
+    tmp_out_date_psoa_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=pa_code_icd,
+        with_these_primary_diagnoses=psoa_code_icd,
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
@@ -933,8 +933,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     # ONS
-   tmp_out_date_pa_death=patients.with_these_codes_on_death_certificate(
-       pa_code_icd,
+   tmp_out_date_psoa_death=patients.with_these_codes_on_death_certificate(
+       psoa_code_icd,
        returning="date_of_death",
        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
        match_only_underlying_cause=True,
@@ -946,8 +946,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
        },
    ),
     ## Psoriatic arthritis combining primary care and secondary care
-    out_date_pa=patients.minimum_of(
-        "tmp_out_date_pa_snomed", "tmp_out_date_pa_hes", "tmp_out_date_pa_death",
+    out_date_psoa=patients.minimum_of(
+        "tmp_out_date_psoa_snomed", "tmp_out_date_psoa_hes", "tmp_out_date_psoa_death",
     ),
     ##  Axial spondyloarthritis - primary care
    tmp_out_date_axial_snomed= patients.with_these_clinical_events(
@@ -997,8 +997,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     out_date_grp1_ifa=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
         "out_date_undiff_eia",
-        "tmp_out_date_pa_snomed", 
-        "tmp_out_date_pa_hes", "tmp_out_date_pa_death",
+        "tmp_out_date_psoa_snomed", 
+        "tmp_out_date_psoa_hes", "tmp_out_date_psoa_death",
         "tmp_out_date_axial_snomed", 
         "tmp_out_date_axial_hes", "tmp_out_date_axial_death",
         #"out_date_ra", "out_date_undiff_eia", "out_date_pa", "out_date_axial"
@@ -2293,9 +2293,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     out_date_composite_ai=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
         "out_date_undiff_eia",
-        "tmp_out_date_pa_snomed", 
-        "tmp_out_date_pa_hes", 
-        "tmp_out_date_pa_death",
+        "tmp_out_date_psoa_snomed", 
+        "tmp_out_date_psoa_hes", 
+        "tmp_out_date_psoa_death",
         "tmp_out_date_axial_snomed", 
         "tmp_out_date_axial_hes", "tmp_out_date_axial_death",
         "tmp_out_date_sle_ctv", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",

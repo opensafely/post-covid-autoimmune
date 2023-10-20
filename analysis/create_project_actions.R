@@ -26,7 +26,6 @@ cohorts <- unique(active_analyses$cohort)
 success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
                               sheet = "autoimmune",
                               col_types = c("text","text", "text", "text", "text", "text",
-                                            #"text", "text", "text", "text",
                                             "text","text",
                                             "text", "text", "text", "text",
                                             "text","text","text","text","text",

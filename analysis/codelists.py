@@ -886,13 +886,13 @@ undiff_eia_code_snomed = codelist_from_csv(
 # undifferentiated inflmatory arthritis - no icd10 codelist for this disease, 14 Dec 2022 YW
 
 # Psoriatic arthritis - snomed
-pa_code_snomed = codelist_from_csv(
+psoa_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-psoriatic-arthritis.csv",
     system = "snomed",
     column = "code",
 )
 # Psoriatic arthritis - icd10 
-pa_code_icd = codelist_from_csv(
+psoa_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-arthritis-psoriatic-arthritis-icd10.csv",
     system = "icd10",
     column = "code",
