@@ -892,7 +892,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
     ),
     ## Undifferentiated inflamatory arthritis - primary care
-    out_date_undiff_eia = patients.with_these_clinical_events(
+    tmp_out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
@@ -905,6 +905,11 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Undifferentiated inflamatory arthritis - no secondary care code
+
+    ## Reumatoid arthritis combining primary care and secondary care
+    out_date_undiff_eia=patients.minimum_of(
+        "tmp_out_date_undiff_eia",
+    ),
 
     ## Psoriatic arthritis - snomed
     tmp_out_date_psoa_snomed= patients.with_these_clinical_events(
@@ -996,7 +1001,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Outcome group 1
     out_date_grp1_ifa=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
-        "out_date_undiff_eia",
+        "tmp_out_date_undiff_eia",
         "tmp_out_date_psoa_snomed", 
         "tmp_out_date_psoa_hes", "tmp_out_date_psoa_death",
         "tmp_out_date_axial_snomed", 
@@ -1222,7 +1227,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
     ),
     ## Antiphospholipid syndrome - snomed
-    out_date_as = patients.with_these_clinical_events(
+    tmp_out_date_as = patients.with_these_clinical_events(
         as_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
@@ -1235,6 +1240,12 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Antiphospholipid syndrome - no icd10 code
+
+    ## Mixed Connective Tissue Disease -  combining primary care and secondary care
+    out_date_as=patients.minimum_of(
+        "tmp_out_date_as",
+    ),
+
     ## Outcome group 2
     out_date_grp2_ctd=patients.minimum_of(
         "tmp_out_date_sle_ctv", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
@@ -1242,7 +1253,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_sss_snomed", "tmp_out_date_sss_hes", "tmp_out_date_sss_death", 
         "tmp_out_date_im_snomed", "tmp_out_date_im_hes", "tmp_out_date_im_death",
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
-        "out_date_as",
+        "tmp_out_date_as",
         #"out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_mctd", "out_date_as"
     ),
     #################################################################################################
@@ -2292,7 +2303,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Define primary outcome: composite auto-immune outcome
     out_date_composite_ai=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
-        "out_date_undiff_eia",
+        "tmp_out_date_undiff_eia",
         "tmp_out_date_psoa_snomed", 
         "tmp_out_date_psoa_hes", 
         "tmp_out_date_psoa_death",
@@ -2303,7 +2314,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_sss_snomed", "tmp_out_date_sss_hes", "tmp_out_date_sss_death", 
         "tmp_out_date_im_snomed", "tmp_out_date_im_hes", "tmp_out_date_im_death",
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
-        "out_date_as",
+        "tmp_out_date_as",
         "tmp_out_date_psoriasis_ctv", "tmp_out_date_psoriasis_hes", "tmp_out_date_psoriasis_death",
         "tmp_out_date_hs_ctv", "tmp_out_date_hs_hes", "tmp_out_date_hs_death",
         "tmp_out_date_ibd_snomed", "tmp_out_date_ibd_ctv", "tmp_out_date_ibd_hes", "tmp_out_date_ibd_death",

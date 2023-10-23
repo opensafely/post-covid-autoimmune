@@ -1076,7 +1076,7 @@ addison_code_snomed = codelist_from_csv(
 )
 # Addison’s disease - hes
 addison_code_icd= codelist_from_csv(
-    "codelists/user-josephignace-thyroid-diseases-graves-disease-icd10.csv",
+    "codelists/user-josephignace-thyroid-diseases-addisons-disease-icd10.csv",
     system="icd10",
     column="code",
 )
@@ -1152,7 +1152,7 @@ pmr_code_snomed = codelist_from_csv(
 )
 # Polymyalgia Rheumatica (PMR) - hes
 pmr_code_icd = codelist_from_csv(
-    "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
+    "codelists/user-josephignace-autoimmune-vasculitis-polymyalgia-rheumatica-pmr.csv",
     system="icd10",
     column="code",
 )
@@ -1209,7 +1209,7 @@ aha_code_snomed = codelist_from_csv(
 )
 # Autoimmune haemolytic anaemia - hes
 aha_code_icd = codelist_from_csv(
-    "codelists/user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv",
+    "codelists/user-josephignace-hematologic-diseases-autoimmune-haemolytic-anaemia-icd10.csv",
     system="icd10",
     column="code",
 )
