@@ -892,7 +892,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
     ),
     ## Undifferentiated inflamatory arthritis - primary care
-    out_date_undiff_eia = patients.with_these_clinical_events(
+    tmp_out_date_undiff_eia = patients.with_these_clinical_events(
         undiff_eia_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
@@ -906,9 +906,14 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Undifferentiated inflamatory arthritis - no secondary care code
 
+    ## Reumatoid arthritis combining primary care and secondary care
+    out_date_undiff_eia=patients.minimum_of(
+        "tmp_out_date_undiff_eia",
+    ),
+
     ## Psoriatic arthritis - snomed
-    tmp_out_date_pa_snomed= patients.with_these_clinical_events(
-        pa_code_snomed,
+    tmp_out_date_psoa_snomed= patients.with_these_clinical_events(
+        psoa_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -920,9 +925,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Psoriatic arthritis - hes
-    tmp_out_date_pa_hes=patients.admitted_to_hospital(
+    tmp_out_date_psoa_hes=patients.admitted_to_hospital(
         returning="date_admitted",
-        with_these_primary_diagnoses=pa_code_icd,
+        with_these_primary_diagnoses=psoa_code_icd,
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
@@ -933,8 +938,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     # ONS
-   tmp_out_date_pa_death=patients.with_these_codes_on_death_certificate(
-       pa_code_icd,
+   tmp_out_date_psoa_death=patients.with_these_codes_on_death_certificate(
+       psoa_code_icd,
        returning="date_of_death",
        between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
        match_only_underlying_cause=True,
@@ -946,8 +951,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
        },
    ),
     ## Psoriatic arthritis combining primary care and secondary care
-    out_date_pa=patients.minimum_of(
-        "tmp_out_date_pa_snomed", "tmp_out_date_pa_hes", "tmp_out_date_pa_death",
+    out_date_psoa=patients.minimum_of(
+        "tmp_out_date_psoa_snomed", "tmp_out_date_psoa_hes", "tmp_out_date_psoa_death",
     ),
     ##  Axial spondyloarthritis - primary care
    tmp_out_date_axial_snomed= patients.with_these_clinical_events(
@@ -996,9 +1001,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Outcome group 1
     out_date_grp1_ifa=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
-        "out_date_undiff_eia",
-        "tmp_out_date_pa_snomed", 
-        "tmp_out_date_pa_hes", "tmp_out_date_pa_death",
+        "tmp_out_date_undiff_eia",
+        "tmp_out_date_psoa_snomed", 
+        "tmp_out_date_psoa_hes", "tmp_out_date_psoa_death",
         "tmp_out_date_axial_snomed", 
         "tmp_out_date_axial_hes", "tmp_out_date_axial_death",
         #"out_date_ra", "out_date_undiff_eia", "out_date_pa", "out_date_axial"
@@ -1007,8 +1012,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Outcome group 2: Connective tissue disorders                                                ##
     #################################################################################################
     ## Systematic lupus erythematosus - snomed
-    tmp_out_date_sle_snomed= patients.with_these_clinical_events(
-        sle_code_snomed,
+    tmp_out_date_sle_ctv= patients.with_these_clinical_events(
+        sle_code_ctv,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -1047,7 +1052,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Systematic lupus erythematosus -  combining primary care and secondary care
     out_date_sle=patients.minimum_of(
-        "tmp_out_date_sle_snomed", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
+        "tmp_out_date_sle_ctv", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
     ),
     ## Sjogren’s syndrome - snomed
     tmp_out_date_sjs_snomed= patients.with_these_clinical_events(
@@ -1222,7 +1227,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
     ),
     ## Antiphospholipid syndrome - snomed
-    out_date_as = patients.with_these_clinical_events(
+    tmp_out_date_as = patients.with_these_clinical_events(
         as_code_snomed,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
@@ -1235,14 +1240,20 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Antiphospholipid syndrome - no icd10 code
+
+    ## Mixed Connective Tissue Disease -  combining primary care and secondary care
+    out_date_as=patients.minimum_of(
+        "tmp_out_date_as",
+    ),
+
     ## Outcome group 2
     out_date_grp2_ctd=patients.minimum_of(
-        "tmp_out_date_sle_snomed", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
+        "tmp_out_date_sle_ctv", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
         "tmp_out_date_sjs_snomed", "tmp_out_date_sjs_hes", "tmp_out_date_sjs_death",
         "tmp_out_date_sss_snomed", "tmp_out_date_sss_hes", "tmp_out_date_sss_death", 
         "tmp_out_date_im_snomed", "tmp_out_date_im_hes", "tmp_out_date_im_death",
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
-        "out_date_as",
+        "tmp_out_date_as",
         #"out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_mctd", "out_date_as"
     ),
     #################################################################################################
@@ -1399,9 +1410,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     out_date_ibd=patients.minimum_of(
         "tmp_out_date_ibd_snomed", "tmp_out_date_ibd_ctv", "tmp_out_date_ibd_hes", "tmp_out_date_ibd_death",
     ),
-    ## Crohn’s disease snomed
-    tmp_out_date_crohn_snomed= patients.with_these_clinical_events(
-        crohn_code_snomed,
+    ## Crohn’s disease ctv
+    tmp_out_date_crohn_ctv= patients.with_these_clinical_events(
+        crohn_code_ctv,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -1440,11 +1451,11 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Crohn’s disease combined
     out_date_crohn=patients.minimum_of(
-        "tmp_out_date_crohn_snomed", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
+        "tmp_out_date_crohn_ctv", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
     ),
-    ## Ulcerative colitis - snomed
-    tmp_out_date_uc_snomed= patients.with_these_clinical_events(
-        uc_code_snomed,
+    ## Ulcerative colitis - ctv
+    tmp_out_date_uc_ctv= patients.with_these_clinical_events(
+        uc_code_ctv,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -1483,7 +1494,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Ulcerative colitis combined
     out_date_uc=patients.minimum_of(
-        "tmp_out_date_uc_snomed", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
+        "tmp_out_date_uc_ctv", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
     ),
     ## Celiac disease - snomed
     tmp_out_date_celiac_snomed= patients.with_these_clinical_events(
@@ -1531,8 +1542,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Outcome group 4: Autoimmune GI / Inflammatory bowel disease 
     out_date_grp4_agi_ibd=patients.minimum_of(
         "tmp_out_date_ibd_snomed", "tmp_out_date_ibd_ctv", "tmp_out_date_ibd_hes", "tmp_out_date_ibd_death",
-        "tmp_out_date_crohn_snomed", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
-        "tmp_out_date_uc_snomed", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
+        "tmp_out_date_crohn_ctv", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
+        "tmp_out_date_uc_ctv", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
         "tmp_out_date_celiac_snomed", "tmp_out_date_celiac_hes", "tmp_out_date_celiac_death",
         #"out_date_crohn", "out_date_uc", "out_date_celiac"
     ),
@@ -2059,9 +2070,9 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ##################################################################################################
     ## Outcome group 8: Inflammatory neuromuscular disease                                          ##
     ##################################################################################################
-    ## Guillain Barre - snomed
-    tmp_out_date_glb_snomed= patients.with_these_clinical_events(
-        glb_code_snomed,
+    ## Guillain Barre - ctv
+    tmp_out_date_glb_ctv= patients.with_these_clinical_events(
+        glb_code_ctv,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -2100,11 +2111,11 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Guillain Barre combined
     out_date_glb=patients.minimum_of(
-        "tmp_out_date_glb_snomed", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
+        "tmp_out_date_glb_ctv", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
     ),
-    ## Multiple Sclerosis - snomed
-    tmp_out_date_multiple_sclerosis_snomed= patients.with_these_clinical_events(
-        multiple_sclerosis_code_snomed,
+    ## Multiple Sclerosis - ctv
+    tmp_out_date_multiple_sclerosis_ctv= patients.with_these_clinical_events(
+        multiple_sclerosis_code_ctv,
         returning="date",
         between=[f"{index_date_variable}",f"{outcome_end_date_variable}"],
         date_format="YYYY-MM-DD",
@@ -2143,7 +2154,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Multiple Sclerosis combined
     out_date_multiple_sclerosis=patients.minimum_of(
-        "tmp_out_date_multiple_sclerosis_snomed", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
+        "tmp_out_date_multiple_sclerosis_ctv", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
     ),
     ## Myasthenia gravis - snomed
     tmp_out_date_myasthenia_gravis_snomed= patients.with_these_clinical_events(
@@ -2276,8 +2287,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Outcome group 8: Inflammatory neuromuscular disease - to be expanded once codelist for other outcome components are available
     out_date_grp8_ind=patients.minimum_of(
-        "tmp_out_date_glb_snomed", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
-        "tmp_out_date_multiple_sclerosis_snomed", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
+        "tmp_out_date_glb_ctv", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
+        "tmp_out_date_multiple_sclerosis_ctv", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
         "tmp_out_date_myasthenia_gravis_snomed", "tmp_out_date_myasthenia_gravis_hes", "tmp_out_date_myasthenia_gravis_death",
         "tmp_out_date_longit_myelitis_snomed", "tmp_out_date_longit_myelitis_hes", "tmp_out_date_longit_myelitis_death",
         "tmp_out_date_cis_snomed", "tmp_out_date_cis_hes", "tmp_out_date_cis_death",
@@ -2292,22 +2303,23 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ## Define primary outcome: composite auto-immune outcome
     out_date_composite_ai=patients.minimum_of(
         "tmp_out_date_ra_snomed", "tmp_out_date_ra_hes", "tmp_out_date_ra_death",
-        "out_date_undiff_eia",
-        #"tmp_out_date_pa_snomed", 
-        "tmp_out_date_pa_hes", #"tmp_out_date_pa_death,"
-        #"tmp_out_date_axial_snomed", 
+        "tmp_out_date_undiff_eia",
+        "tmp_out_date_psoa_snomed", 
+        "tmp_out_date_psoa_hes", 
+        "tmp_out_date_psoa_death",
+        "tmp_out_date_axial_snomed", 
         "tmp_out_date_axial_hes", "tmp_out_date_axial_death",
-        "tmp_out_date_sle_snomed", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
+        "tmp_out_date_sle_ctv", "tmp_out_date_sle_hes", "tmp_out_date_sle_death",
         "tmp_out_date_sjs_snomed", "tmp_out_date_sjs_hes", "tmp_out_date_sjs_death",
         "tmp_out_date_sss_snomed", "tmp_out_date_sss_hes", "tmp_out_date_sss_death", 
         "tmp_out_date_im_snomed", "tmp_out_date_im_hes", "tmp_out_date_im_death",
         "tmp_out_date_mctd_snomed", "tmp_out_date_mctd_hes", "tmp_out_date_mctd_death",
-        "out_date_as",
+        "tmp_out_date_as",
         "tmp_out_date_psoriasis_ctv", "tmp_out_date_psoriasis_hes", "tmp_out_date_psoriasis_death",
         "tmp_out_date_hs_ctv", "tmp_out_date_hs_hes", "tmp_out_date_hs_death",
         "tmp_out_date_ibd_snomed", "tmp_out_date_ibd_ctv", "tmp_out_date_ibd_hes", "tmp_out_date_ibd_death",
-        "tmp_out_date_crohn_snomed", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
-        "tmp_out_date_uc_snomed", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
+        "tmp_out_date_crohn_ctv", "tmp_out_date_crohn_hes", "tmp_out_date_crohn_death",
+        "tmp_out_date_uc_ctv", "tmp_out_date_uc_hes", "tmp_out_date_uc_death",
         "tmp_out_date_celiac_snomed", "tmp_out_date_celiac_hes", "tmp_out_date_celiac_death",
         "tmp_out_date_addison_snomed", "tmp_out_date_addison_hes","tmp_out_date_addison_death",
         "tmp_out_date_grave_snomed", "tmp_out_date_grave_hes", "tmp_out_date_grave_death",
@@ -2320,8 +2332,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         "tmp_out_date_pernicious_anaemia_snomed", "tmp_out_date_pernicious_anaemia_hes", "tmp_out_date_pernicious_anaemia_death",
         "tmp_out_date_apa_snomed", "tmp_out_date_apa_ctv", "tmp_out_date_apa_hes", "tmp_out_date_apa_death",
         "tmp_out_date_aha_snomed", "tmp_out_date_aha_hes", "tmp_out_date_aha_death",
-        "tmp_out_date_glb_snomed", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
-        "tmp_out_date_multiple_sclerosis_snomed", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
+        "tmp_out_date_glb_ctv", "tmp_out_date_glb_hes", "tmp_out_date_glb_death",
+        "tmp_out_date_multiple_sclerosis_ctv", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
         "tmp_out_date_myasthenia_gravis_snomed", "tmp_out_date_myasthenia_gravis_hes", "tmp_out_date_myasthenia_gravis_death",
         "tmp_out_date_longit_myelitis_snomed", "tmp_out_date_longit_myelitis_hes", "tmp_out_date_longit_myelitis_death",
         "tmp_out_date_cis_snomed", "tmp_out_date_cis_hes", "tmp_out_date_cis_death",
