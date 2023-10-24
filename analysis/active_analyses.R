@@ -51,8 +51,13 @@ vax_unvax_stop <-"2021-12-14"
 prevax_cuts <- "28;197;365;714"
 vax_unvax_cuts <- "28;197"
 
-all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
-                     "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
+# all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
+#                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
+
+# "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity",
+# "cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke"
+
+# cov_bin_dementia;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_stroke_isch;cov_bin_depression
 
 # Specify cohorts --------------------------------------------------------------
 
@@ -70,7 +75,7 @@ outcomes_runall <- c("out_date_composite_ai",
                      "out_date_grp7_htd",
                      "out_date_grp8_ind",
                      "out_date_ra",
-                     "out_date_pa",
+                     "out_date_psoa",
                      "out_date_axial",
                      "out_date_psoriasis",
                      "out_date_hs",
@@ -89,6 +94,7 @@ outcomes_runall <- c("out_date_composite_ai",
                      )
 
 outcomes_runmain <- c("out_date_undiff_eia",
+                      "out_date_as",
                      "out_date_sle",
                      "out_date_sjs",
                      "out_date_sss",
@@ -119,7 +125,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,#ifelse(i %in% specific_outcomes, paste0(all_covars,';',specific_covars),all_covars),
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -141,7 +147,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -163,7 +169,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -187,7 +193,7 @@ for (c in cohorts) {
                            strata = strata,
                            covariate_sex = covariate_sex,
                            covariate_age = covariate_age,
-                           covariate_other = all_covars,
+                           covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                            cox_start = cox_start,
                            cox_stop = cox_stop,
                            study_start =  vax_unvax_start,
@@ -215,7 +221,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = "NULL",
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -237,7 +243,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = "NULL",
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -259,7 +265,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -281,7 +287,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -303,7 +309,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -325,7 +331,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = all_covars,
+                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -347,7 +353,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other =gsub("cov_cat_ethnicity;","",all_covars), #-ethnicity,
+                         covariate_other ="cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -369,7 +375,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = gsub("cov_cat_ethnicity;","",all_covars),# -ethnicity,
+                         covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -391,7 +397,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = gsub("cov_cat_ethnicity;","",all_covars),#-ethnicity
+                         covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -413,7 +419,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = gsub("cov_cat_ethnicity;","",all_covars),#-ethnicity
+                         covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -435,7 +441,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = gsub("cov_cat_ethnicity;","",all_covars),#-ethnicity
+                         covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),

@@ -886,13 +886,13 @@ undiff_eia_code_snomed = codelist_from_csv(
 # undifferentiated inflmatory arthritis - no icd10 codelist for this disease, 14 Dec 2022 YW
 
 # Psoriatic arthritis - snomed
-pa_code_snomed = codelist_from_csv(
+psoa_code_snomed = codelist_from_csv(
     "codelists/user-markdrussell-psoriatic-arthritis.csv",
     system = "snomed",
     column = "code",
 )
 # Psoriatic arthritis - icd10 
-pa_code_icd = codelist_from_csv(
+psoa_code_icd = codelist_from_csv(
     "codelists/user-josephignace-inflammatory-arthritis-psoriatic-arthritis-icd10.csv",
     system = "icd10",
     column = "code",
@@ -912,11 +912,11 @@ axial_code_icd = codelist_from_csv(
 ##################################################################################################
 # Outcome group 2:  Connective tissue disorders                                                  #
 ##################################################################################################
-# Systematic lupus erythematosu - snomed
-sle_code_snomed = codelist_from_csv(
-    "codelists/user-markdrussell-systemic-sclerosisscleroderma.csv",
-    system="snomed",
-    column="code",
+# Systematic lupus erythematosu - ctv
+sle_code_ctv = codelist_from_csv(
+    "codelists/opensafely-systemic-lupus-erythematosus-sle.csv",#user-markdrussell-systemic-sclerosisscleroderma.csv",
+    system="ctv3",
+    column="CTV3ID",
 )
 # Systematic lupus erythematosu - hes
 sle_code_icd = codelist_from_csv(
@@ -1029,10 +1029,10 @@ ibd_code_icd = codelist_from_csv(
     column = "code",
 )
 
-# Crohn's disease - snomed
-crohn_code_snomed = codelist_from_csv(
+# Crohn's disease - ctv
+crohn_code_ctv = codelist_from_csv(
     "codelists/opensafely-crohns-disease.csv",
-    system="snomed",
+    system="ctv3",
     column="code",
 )
 # Crohn's disease - hes
@@ -1041,10 +1041,10 @@ crohn_code_icd = codelist_from_csv(
     system="icd10",
     column="code",
 )
-# Ulcerative colitis - snomed
-uc_code_snomed = codelist_from_csv(
+# Ulcerative colitis - ctv
+uc_code_ctv = codelist_from_csv(
     "codelists/opensafely-ulcerative-colitis.csv",
-    system="snomed",
+    system="ctv3",
     column="code",
 )
 # Ulcerative colitis - hes
@@ -1076,7 +1076,7 @@ addison_code_snomed = codelist_from_csv(
 )
 # Addison’s disease - hes
 addison_code_icd= codelist_from_csv(
-    "codelists/user-josephignace-thyroid-diseases-graves-disease-icd10.csv",
+    "codelists/user-josephignace-thyroid-diseases-addisons-disease-icd10.csv",
     system="icd10",
     column="code",
 )
@@ -1152,7 +1152,7 @@ pmr_code_snomed = codelist_from_csv(
 )
 # Polymyalgia Rheumatica (PMR) - hes
 pmr_code_icd = codelist_from_csv(
-    "codelists/user-markdrussell-polymyalgia-rheumatica.csv",
+    "codelists/user-josephignace-autoimmune-vasculitis-polymyalgia-rheumatica-pmr.csv",
     system="icd10",
     column="code",
 )
@@ -1209,17 +1209,17 @@ aha_code_snomed = codelist_from_csv(
 )
 # Autoimmune haemolytic anaemia - hes
 aha_code_icd = codelist_from_csv(
-    "codelists/user-markdrussell-autoimmune-haemolytic-anaemia-autoimmune-hemolytic-anemia.csv",
+    "codelists/user-josephignace-hematologic-diseases-autoimmune-haemolytic-anaemia-icd10.csv",
     system="icd10",
     column="code",
 )
 ##################################################################################################
 # Outcome group 8: Inflammatory neuromuscular disease                                            #
 ##################################################################################################
-# Guillain Barre - snomed
-glb_code_snomed = codelist_from_csv(
+# Guillain Barre - read
+glb_code_ctv = codelist_from_csv(
     "codelists/opensafely-guillain-barre.csv",
-    system="snomed",
+    system="ctv3",
     column="code",
 )
 # Guillain Barre - hes
@@ -1228,10 +1228,10 @@ glb_code_icd = codelist_from_csv(
     system="icd10",
     column="code",
 )
-# Multiple Sclerosis - snomed
-multiple_sclerosis_code_snomed = codelist_from_csv(
+# Multiple Sclerosis - read
+multiple_sclerosis_code_ctv = codelist_from_csv(
     "codelists/opensafely-multiple-sclerosis-v2.csv",
-    system="snomed",
+    system="ctv3",
     column="code",
 )
 # Multiple Sclerosis - hes
