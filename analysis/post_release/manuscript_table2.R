@@ -99,14 +99,14 @@ df$outcome_label <- factor(df$outcome_label,
                                       "Myasthenia gravis",
                                       "Longitudinal myelitis",
                                       "Clinically isolated syndrome",
-                                      "Inflammatory arthritis",
-                                      "Connective tissue disorders",
-                                      "Inflammatory skin disease",
-                                      "Autoimmune GI / Inflammatory bowel disease",
-                                      "Thyroid diseases",
-                                      "Autoimmune vasculitis",
-                                      "Hematologic Diseases",
-                                      "Inflammatory neuromuscular disease",
+                                      "Inflammatory arthritis", #group 1
+                                      "Connective tissue disorders", #group 2
+                                      "Inflammatory skin disease", #group 3
+                                      "Autoimmune GI / Inflammatory bowel disease", #group 4
+                                      "Thyroid diseases", #group 5
+                                      "Autoimmune vasculitis", #group 6
+                                      "Hematologic Diseases", #group 7
+                                      "Inflammatory neuromuscular disease", #group 8
                                       "Composite Autoimmune"))
 
 # Tidy table -------------------------------------------------------------------
