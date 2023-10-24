@@ -1,0 +1,73 @@
+﻿term,label
+ra,Reumatoid arthritis
+undiff_eia,Undifferentiated inflamatory arthritis
+psoa,Psoriatic arthritis
+axial,Axial spondyloarthritis
+sle,Systematic lupus erythematosus
+sjs,Sjogren’s syndrome
+sss,Systemic sclerosis/scleroderma
+im,Inflammatory myositis/polymyositis/dermatolomyositis
+mctd,Mixed Connective Tissue Disease
+as,Antiphospholipid syndrome
+psoriasis,Psoriasis
+hs,Hydradenitis suppurativa
+ibd,Inflammatory bowel disease (combined UC and Crohn's)
+crohn,Crohn’s disease
+uc,Ulcerative colitis
+celiac,Celiac disease
+addison,Addison’s disease
+grave,Grave’s disease
+hashimoto_thyroiditis,Hashimoto’s thyroiditis
+anca,ANCA-associated
+gca,Giant cell arteritis
+iga_vasculitis,IgA (immunoglobulin A) vasculitis
+pmr,Polymyalgia Rheumatica (PMR)
+immune_thromb,Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
+pernicious_anaemia,Pernicious anaemia
+apa,Aplastic anaemia
+aha,Autoimmune haemolytic anaemia
+glb,Guillain Barre
+multiple_sclerosis,Multiple Sclerosis
+myasthenia_gravis,Myasthenia gravis
+longit_myelitis,Longitudinal myelitis
+cis,Clinically isolated syndrome
+grp1_ifa,Inflammatory arthritis
+grp2_ctd,Connective tissue disorders
+grp3_isd,Inflammatory skin disease
+grp4_agi_ibd,Autoimmune GI / Inflammatory bowel disease
+grp5_atv,Thyroid diseases
+grp6_trd,Autoimmune vasculitis
+grp7_htd,Hematologic Diseases
+grp8_ind,Inflammatory neuromuscular disease
+composite_ai,Composite Autoimmune
+prevax,Pre-vaccination (Jan 1 2020 - Dec 14 2021)
+vax,Vaccinated (Jun 1 2021 - Dec 14 2021)
+unvax,Unvaccinated (Jun 1 2021 - Dec 14 2021)
+main,All COVID-19
+day0,Day 0
+sub_age_18_39,Age group: 18-39
+sub_age_40_59,Age group: 40-59
+sub_age_60_79,Age group: 60-79
+sub_age_80_110,Age group: 80-110
+sub_covid_hospitalised,Hospitalised COVID-19
+sub_covid_nonhospitalised,Non-hospitalised COVID-19
+sub_ethnicity_asian,Ethnicity: South Asian
+sub_ethnicity_black,Ethnicity: Black
+sub_ethnicity_mixed,Ethnicity: Mixed
+sub_ethnicity_other,Ethnicity: Other
+sub_ethnicity_white,Ethnicity: White
+sub_sex_female,Sex: Female
+sub_sex_male,Sex: Male
+sub_covid_history,History of COVID-19
+cov_bin_ami,Acute myocardial infarction 
+cov_bin_cancer,Cancer 
+cov_bin_chronic_kidney_disease,Chronic kidney disease 
+cov_bin_chronic_obstructive_pulmonary_disease,Chronic obstructive pulmonary disease 
+cov_bin_diabetes,Diabetes
+cov_bin_healthcare_worker,Healthcare worker 
+cov_bin_hypertension,Hypertension 
+cov_bin_liver_disease,Liver disease 
+cov_bin_obesity,Obesity 
+cov_bin_stroke_isch,Ischaemic strike
+cov_cat_consulation_rate,GP consultations in 2019
+All,All
