@@ -23,21 +23,21 @@ cohorts <- unique(active_analyses$cohort)
 
 # Determine which outputs are ready --------------------------------------------
 
-success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
-                              sheet = "autoimmune",
-                              col_types = c("text","text", "text", "text", "text", "text",
-                                            "text","text",
-                                            "text", "text", "text", "text",
-                                            "text","text","text","text","text",
-                                            "skip", "skip"))
-
-success <- tidyr::pivot_longer(success,
-                               cols = setdiff(colnames(success),c("outcome","cohort")),
-                               names_to = "analysis")
-
-success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
-
-success <- success[grepl("success",success$value, ignore.case = TRUE),]
+# success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
+#                               sheet = "autoimmune",
+#                               col_types = c("text","text", "text", "text", "text", "text",
+#                                             "text","text",
+#                                             "text", "text", "text", "text",
+#                                             "text","text","text","text","text",
+#                                             "skip", "skip"))
+# 
+# success <- tidyr::pivot_longer(success,
+#                                cols = setdiff(colnames(success),c("outcome","cohort")),
+#                                names_to = "analysis")
+# 
+# success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
+# 
+# success <- success[grepl("success",success$value, ignore.case = TRUE),]
 
 cohort <- c("prevax", "vax", "unvax")
 
@@ -491,15 +491,15 @@ actions_list <- splice(
 
   # comment("Stage 6 - make model output"),
 
-  action(
-    name = "make_model_output",
-    run = "r:latest analysis/model/make_model_output.R",
-    needs = as.list(paste0("cox_ipw-",success$name)),
-    moderately_sensitive = list(
-      model_output = glue("output/model_output.csv"),
-      model_output_rounded = glue("output/model_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_model_output",
+  #   run = "r:latest analysis/model/make_model_output.R",
+  #   needs = as.list(paste0("cox_ipw-",success$name)),
+  #   moderately_sensitive = list(
+  #     model_output = glue("output/model_output.csv"),
+  #     model_output_rounded = glue("output/model_output_rounded.csv")
+  #   )
+  # ),
   
   ## AER table -----------------------------------------------------------------
   
