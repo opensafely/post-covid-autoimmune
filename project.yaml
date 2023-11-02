@@ -220,7 +220,7 @@ actions:
         table1_output_rounded: output/extendedtable1_output_rounded.csv
 
   make_table2_output:
-    run: r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax
+    run: r:latest analysis/model/make_other_output.R
     needs:
     - table2_prevax
     - table2_vax
