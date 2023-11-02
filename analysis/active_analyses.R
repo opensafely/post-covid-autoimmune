@@ -462,6 +462,10 @@ df$name <- paste0("cohort_",df$cohort, "-",
                   df$analysis, "-", 
                   gsub("out_date_","",df$outcome))
 
+# Select certain models --------------------------------------------------------
+
+df <- df[df$analysis == "main" & df$cohort == "prevax",]
+
 # Check names are unique and save active analyses list -------------------------
 
 if (length(unique(df$name))==nrow(df)) {
