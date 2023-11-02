@@ -441,12 +441,12 @@ actions_list <- splice(
   
   ## Table 1 -------------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) table1(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) table1(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Run models ----------------------------------------------------------------
   comment("Stage 5 - Run models"),
@@ -473,25 +473,25 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  ),
+  )#,
   
   ## Table 2 -------------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) table2(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) table2(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Venn data -----------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) venn(cohort = x)),
-           recursive = FALSE
-    )
-  )#,
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) venn(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
 
   # comment("Stage 6 - make model output"),
 
