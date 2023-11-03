@@ -211,25 +211,25 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
       )
-    ),
+    )#,
 
-    action(
-      name = glue("describe_model_input-{name}"),
-      run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
-      needs = list(glue("make_model_input-{name}")),
-      moderately_sensitive = list(
-        describe_model_input = glue("output/describe-model_input-{name}.txt")
-      )
-    ),
+    # action(
+    #   name = glue("describe_model_input-{name}"),
+    #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     describe_model_input = glue("output/describe-model_input-{name}.txt")
+    #   )
+    # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
-    action(
-      name = glue("cox_ipw-{name}"),
-      run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
-      needs = list(glue("make_model_input-{name}")),
-      moderately_sensitive = list(
-        model_output = glue("output/model_output-{name}.csv"))
-    )
+    # action(
+    #   name = glue("cox_ipw-{name}"),
+    #   run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     model_output = glue("output/model_output-{name}.csv"))
+    # )
   )
 }
 
@@ -348,19 +348,19 @@ actions_list <- splice(
   ),
   
   #Count outcomes and binary covars
-  action(
-    name = "count_study_def_variables",
-    run = "r:latest analysis/descriptives/initial_input_counts.R",
-    needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
-    moderately_sensitive=list(
-      counts = glue("output/not-for-review/study_counts_prepro.txt"),
-      vax_summary = glue("output/not-for-review/describe_prepro_vax.txt"),
-      prevax_summary = glue("output/not-for-review/describe_prepro_prevax.txt"),
-      unvax_summary = glue("output/not-for-review/describe_prepro_unvax.txt")
-
-    )
-  ),
-  
+  # action(
+  #   name = "count_study_def_variables",
+  #   run = "r:latest analysis/descriptives/initial_input_counts.R",
+  #   needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
+  #   moderately_sensitive=list(
+  #     counts = glue("output/not-for-review/study_counts_prepro.txt"),
+  #     vax_summary = glue("output/not-for-review/describe_prepro_vax.txt"),
+  #     prevax_summary = glue("output/not-for-review/describe_prepro_prevax.txt"),
+  #     unvax_summary = glue("output/not-for-review/describe_prepro_unvax.txt")
+  # 
+  #   )
+  # ),
+  # 
   ## Stage 1 - data cleaning -----------------------------------------------------------
   
   splice(
@@ -372,48 +372,48 @@ actions_list <- splice(
   
   ## consort output ------------------------------------------------------------
   
-  action(
-    name = "make_consort_output",
-    run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
-    needs = list("stage1_data_cleaning_prevax",
-                 "stage1_data_cleaning_vax",
-                 "stage1_data_cleaning_unvax"),
-    moderately_sensitive = list(
-      consort_output_rounded = glue("output/consort_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_consort_output",
+  #   run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
+  #   needs = list("stage1_data_cleaning_prevax",
+  #                "stage1_data_cleaning_vax",
+  #                "stage1_data_cleaning_unvax"),
+  #   moderately_sensitive = list(
+  #     consort_output_rounded = glue("output/consort_output_rounded.csv")
+  #   )
+  # ),
   
   ## table 1 output ------------------------------------------------------------
   
-  action(
-    name = "make_table1_output",
-    run = "r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax",
-    needs = list("table1_prevax",
-                 "table1_vax",
-                 "table1_unvax"),
-    moderately_sensitive = list(
-      table1_output_rounded = glue("output/table1_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_table1_output",
+  #   run = "r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax",
+  #   needs = list("table1_prevax",
+  #                "table1_vax",
+  #                "table1_unvax"),
+  #   moderately_sensitive = list(
+  #     table1_output_rounded = glue("output/table1_output_rounded.csv")
+  #   )
+  # ),
   
   ## extend table 1output ------------------------------------------------------------
   
-  action(
-    name = "make_extendedtable1_output",
-    run = "r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax",
-    needs = list("extendedtable1_prevax",
-                 "extendedtable1_vax",
-                 "extendedtable1_unvax"),
-    moderately_sensitive = list(
-      table1_output_rounded = glue("output/extendedtable1_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_extendedtable1_output",
+  #   run = "r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax",
+  #   needs = list("extendedtable1_prevax",
+  #                "extendedtable1_vax",
+  #                "extendedtable1_unvax"),
+  #   moderately_sensitive = list(
+  #     table1_output_rounded = glue("output/extendedtable1_output_rounded.csv")
+  #   )
+  # ),
   
   ## table 2 output ------------------------------------------------------------
   
   action(
     name = "make_table2_output",
-    run = "r:latest analysis/model/make_other_output.R",
+    run = "r:latest analysis/model/make_table2_output.R",
     needs = list("table2_prevax",
                  "table2_vax",
                  "table2_unvax"),
@@ -424,25 +424,25 @@ actions_list <- splice(
   
   ## venn output ------------------------------------------------------------
   
-  action(
-    name = "make_venn_output",
-    run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
-    needs = list("venn_prevax",
-                 "venn_vax",
-                 "venn_unvax"),
-    moderately_sensitive = list(
-      venn_output_rounded = glue("output/venn_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_venn_output",
+  #   run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
+  #   needs = list("venn_prevax",
+  #                "venn_vax",
+  #                "venn_unvax"),
+  #   moderately_sensitive = list(
+  #     venn_output_rounded = glue("output/venn_output_rounded.csv")
+  #   )
+  # ),
   
   ## Table 1 -------------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) table1(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) table1(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Run models ----------------------------------------------------------------
   comment("Stage 5 - Run models"),
@@ -478,42 +478,42 @@ actions_list <- splice(
                   function(x) table2(cohort = x)),
            recursive = FALSE
     )
-  ),
+  )#,
   
   ## Venn data -----------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) venn(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) venn(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
 
   # comment("Stage 6 - make model output"),
 
-  action(
-    name = "make_model_output",
-    run = "r:latest analysis/model/make_model_output.R",
-    needs = as.list(paste0("cox_ipw-",success$name)),
-    moderately_sensitive = list(
-      model_output = glue("output/model_output.csv"),
-      model_output_rounded = glue("output/model_output_rounded.csv")
-    )
-  ),
-  
+  # action(
+  #   name = "make_model_output",
+  #   run = "r:latest analysis/model/make_model_output.R",
+  #   needs = as.list(paste0("cox_ipw-",success$name)),
+  #   moderately_sensitive = list(
+  #     model_output = glue("output/model_output.csv"),
+  #     model_output_rounded = glue("output/model_output_rounded.csv")
+  #   )
+  # ),
+  # 
   ## AER table -----------------------------------------------------------------
   
-  comment("Make absolute excess risk (AER) input"),
-  
-  action(
-    name = "make_aer_input",
-    run = "r:latest analysis/model/make_aer_input.R",
-    needs = as.list(paste0("make_model_input-",active_analyses[grepl("-main-",active_analyses$name),]$name)),
-    moderately_sensitive = list(
-      aer_input = glue("output/aer_input-main.csv"),
-      aer_input_rounded = glue("output/aer_input-main-rounded.csv")
-    )
-  )
+  # comment("Make absolute excess risk (AER) input"),
+  # 
+  # action(
+  #   name = "make_aer_input",
+  #   run = "r:latest analysis/model/make_aer_input.R",
+  #   needs = as.list(paste0("make_model_input-",active_analyses[grepl("-main-",active_analyses$name),]$name)),
+  #   moderately_sensitive = list(
+  #     aer_input = glue("output/aer_input-main.csv"),
+  #     aer_input_rounded = glue("output/aer_input-main-rounded.csv")
+  #   )
+  # )
   
 )
 
@@ -538,4 +538,3 @@ print("YAML file printed!")
 # Return number of actions -----------------------------------------------------
 
 print(paste0("YAML created with ",length(actions_list)," actions."))
-
