@@ -224,13 +224,13 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
-  #   action(
-  #     name = glue("cox_ipw-{name}"),
-  #     run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
-  #     needs = list(glue("make_model_input-{name}")),
-  #     moderately_sensitive = list(
-  #       model_output = glue("output/model_output-{name}.csv"))
-  #   )
+    # action(
+    #   name = glue("cox_ipw-{name}"),
+    #   run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     model_output = glue("output/model_output-{name}.csv"))
+    # )
   )
 }
 
@@ -361,7 +361,7 @@ actions_list <- splice(
   # 
   #   )
   # ),
-  
+  # 
   ## Stage 1 - data cleaning -----------------------------------------------------------
   
   splice(
@@ -405,9 +405,6 @@ actions_list <- splice(
   #   needs = list("extendedtable1_prevax",
   #                "extendedtable1_vax",
   #                "extendedtable1_unvax"),
-  #   needs = list("extendedtable1_prevax",
-  #                "extendedtable1_vax",
-  #                "extendedtable1_unvax"),
   #   moderately_sensitive = list(
   #     table1_output_rounded = glue("output/extendedtable1_output_rounded.csv")
   #   )
@@ -415,16 +412,16 @@ actions_list <- splice(
   
   ## table 2 output ------------------------------------------------------------
   
-  # action(
-  #   name = "make_table2_output",
-  #   run = "r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax",
-  #   needs = list("table2_prevax",
-  #                "table2_vax",
-  #                "table2_unvax"),
-  #   moderately_sensitive = list(
-  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
-  #   )
-  # ),
+  action(
+    name = "make_table2_output",
+    run = "r:latest analysis/model/make_table2_output.R",
+    needs = list("table2_prevax",
+                 "table2_vax",
+                 "table2_unvax"),
+    moderately_sensitive = list(
+      table2_output_rounded = glue("output/table2_output_rounded.csv")
+    )
+  ),
   
   ## venn output ------------------------------------------------------------
   
@@ -477,12 +474,12 @@ actions_list <- splice(
   
   ## Table 2 -------------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) table2(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) table2(cohort = x)),
+           recursive = FALSE
+    )
+  )#,
   
   ## Venn data -----------------------------------------------------------------
   
@@ -538,3 +535,7 @@ as.yaml(project_list, indent=2) %>%
   str_replace_all("\\\n\\s\\s(\\w)", "\n\n  \\1") %>%
   writeLines("project.yaml")
 print("YAML file printed!")
+
+# Return number of actions -----------------------------------------------------
+
+print(paste0("YAML created with ",length(actions_list)," actions."))
