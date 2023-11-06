@@ -21,7 +21,7 @@ print('Specify arguments')
 args <- commandArgs(trailingOnly=TRUE)
 
 if(length(args)==0){
-   name <- "prevax" # prepare datasets for all active analyses 
+   name <- "all" # prepare datasets for all active analyses 
  # name <- "cohort_vax-main-grp1_ifa" # prepare datasets for all active analyses whose name contains X
 } else {
   name <- args[[1]]
