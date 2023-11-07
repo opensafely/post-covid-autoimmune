@@ -1,3 +1,4 @@
+# Load libraries ---------------------------------------------------------------
 library(tidyverse)
 library(yaml)
 library(here)
@@ -18,8 +19,48 @@ defaults_list <- list(
 
 active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
-cohorts <- unique(active_analyses$cohort)
+# cohorts <- unique(active_analyses$cohort)
+cohorts <- "prevax"
+# active_analyses[active_analyses$cohort == "prevax",] #vax, unvax
+
 #names <- unique(active_analyses$names)
+
+# Simplified yaml --------------------------------------------------------------
+
+active_analyses <- active_analyses %>%
+  # cohort
+  filter(cohort == "prevax") %>% #"prevax", "vax", "unvax"
+  # for table 2
+  # filter(analysis %in% c("main")) %>%
+  # filter(!str_detect(outcome, "\\d"))
+  # analysis 1
+  filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
+  # analysis 2
+  # filter(analysis %in% c("sub_covid_history")) %>%
+  # analysis 3: sex
+  # filter(analysis %in% c("sub_sex_male", "sub_sex_female")) %>%
+  # # analysis 4: age groups
+  # filter(analysis %in% c("sub_age_18_39", "sub_age_40_59", "sub_age_60_79", "sub_age_80_110")) %>%
+  # # # analysis 5: ethnic groups
+  # filter(analysis %in% c("sub_ethnicity_white", "sub_ethnicity_black", "sub_ethnicity_mixed", "sub_ethnicity_asian", "sub_ethnicity_other"))  %>%
+  # Outcome 1: Inflammatory arthritis
+  filter(outcome %in% c("out_date_ra", "out_date_undiff_eia", "out_date_psoa", "out_date_axial", "out_date_grp1_ifa"))
+  # Outcome 2: Connective tissue disorders
+  # filter(outcome %in% c("out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_as","out_date_grp2_ctd"))
+  # # Outcome 3: Inflammatory skin disease
+  # filter(outcome %in% c("out_date_psoriasis", "out_date_hs", "out_date_grp3_isd"))
+  # # Outcome 4: Autoimmune GI / Inflammatory bowel disease
+  # filter(outcome %in% c("out_date_ibd", "out_date_crohn", "out_date_uc", "out_date_celiac", "out_date_grp4_agi_ibd"))
+  # # Outcome 5: Thyroid diseases
+  # filter(outcome %in% c("out_date_addison", "out_date_grave", "out_date_hashimoto_thyroiditis", "out_date_grp5_atv"))
+  # # Outcome 6: Autoimmune vasculitis
+  # filter(outcome %in% c("out_date_anca", "out_date_gca", "out_date_iga_vasculitis", "out_date_pmr", "out_date_grp6_trd"))
+  # # Outcome 7: Hematologic Diseases
+  # filter(outcome %in% c("out_date_immune_thromb", "out_date_pernicious_anaemia", "out_date_apa", "out_date_aha", "out_date_grp7_htd"))
+  # # Outcome 8: Inflammatory neuromuscular disease
+  # filter(outcome %in% c("out_date_glb", "out_date_multiple_sclerosis", "out_date_myasthenia_gravis", "out_date_longit_myelitis", "out_date_cis", "out_date_grp8_ind"))
+  # # Outcome 9: 
+  # filter(outcome == "out_date_composite_ai")
 
 # Determine which outputs are ready --------------------------------------------
 
@@ -76,14 +117,12 @@ action <- function(
   action_list
 }
 
-
 ## create comment function ----
 comment <- function(...){
   list_comments <- list(...)
   comments <- map(list_comments, ~paste0("## ", ., " ##"))
   comments
 }
-
 
 ## create function to convert comment "actions" in a yaml string into proper comments
 convert_comment_actions <-function(yaml.txt){
@@ -207,7 +246,8 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     action(
       name = glue("make_model_input-{name}"),
       run = glue("r:latest analysis/model/make_model_input.R {name}"),
-      needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
+      needs = list("stage1_data_cleaning_prevax"),
+      #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
       )
@@ -296,7 +336,7 @@ actions_list <- splice(
           "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #"
   ),
   
-  #comment("Generate vaccination eligibility information"),
+  # comment("Generate vaccination eligibility information"),
   action(
     name = glue("vax_eligibility_inputs"),
     run = "r:latest analysis/metadates.R",
@@ -306,7 +346,8 @@ actions_list <- splice(
       vax_eligible_dates= ("output/vax_eligible_dates.csv.gz")
     )
   ),
-  #comment("Generate prelim study_definition),
+  
+  # comment("Generate prelim study_definition),
   action(
     name = "generate_study_population_prelim",
     run = "cohortextractor:latest generate_cohort --study-definition study_definition_prelim --output-format csv.gz",
@@ -328,11 +369,11 @@ actions_list <- splice(
     )
   ),
   
-  ## Generate study population -------------------------------------------------
-  
+  # Generate study population -------------------------------------------------
+
   splice(
-    unlist(lapply(cohorts, 
-                  function(x) generate_study_population(cohort = x)), 
+    unlist(lapply(cohorts,
+                  function(x) generate_study_population(cohort = x)),
            recursive = FALSE
     )
   ),
@@ -411,16 +452,16 @@ actions_list <- splice(
   
   ## table 2 output ------------------------------------------------------------
   
-  action(
-    name = "make_table2_output",
-    run = "r:latest analysis/model/make_table2_output.R",
-    needs = list("table2_prevax",
-                 "table2_vax",
-                 "table2_unvax"),
-    moderately_sensitive = list(
-      table2_output_rounded = glue("output/table2_output_rounded.csv")
-    )
-  ),
+  # action(
+  #   name = "make_table2_output",
+  #   run = "r:latest analysis/model/make_table2_output.R",
+  #   needs = list("table2_prevax"),
+  #                "table2_vax",
+  #                "table2_unvax"),
+  #   moderately_sensitive = list(
+  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
+  #   )
+  # ),
   
   ## venn output ------------------------------------------------------------
   
@@ -469,16 +510,16 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  ),
+  )#,
   
   ## Table 2 -------------------------------------------------------------------
   
-  splice(
-    unlist(lapply(unique(active_analyses$cohort),
-                  function(x) table2(cohort = x)),
-           recursive = FALSE
-    )
-  )#,
+  # splice(
+  #   unlist(lapply(unique(active_analyses$cohort),
+  #                 function(x) table2(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Venn data -----------------------------------------------------------------
   
@@ -500,7 +541,7 @@ actions_list <- splice(
   #     model_output_rounded = glue("output/model_output_rounded.csv")
   #   )
   # ),
-  # 
+  
   ## AER table -----------------------------------------------------------------
   
   # comment("Make absolute excess risk (AER) input"),

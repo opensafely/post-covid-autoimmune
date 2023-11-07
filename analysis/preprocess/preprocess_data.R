@@ -145,12 +145,17 @@ message("COVID19 severity determined successfully")
 
 # Create vars for neurodegenerative outcomes - TBC -------------------------------------------------------------
 
+# df <- df %>%
+#   mutate(prior_diagnosis = if_else(!starts_with("out_date_") < !!sym(paste0("index_date_",cohort_name)) | is.na(starts_with("out_date_"), 0, 1)))
+# 
+# message("Prior diagnosis variable created")
 
 # Restrict columns and save analysis dataset ---------------------------------
 
 df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     has_follow_up_previous_6months,
                     dereg_date,
+                    #prior_diagnosis,
                     starts_with("end_date_"),
                     contains("sub_"), # Subgroups
                     contains("exp_"), # Exposures

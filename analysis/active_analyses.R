@@ -464,7 +464,7 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-df <- df[df$analysis == "main",]
+#df <- df[df$analysis == "main" & df$cohort == "prevax",]
 
 # Check names are unique and save active analyses list -------------------------
 
