@@ -401,7 +401,7 @@ actions_list <- splice(
   # 
   #   )
   # ),
-  # 
+
   ## Stage 1 - data cleaning -----------------------------------------------------------
   
   splice(
@@ -452,16 +452,16 @@ actions_list <- splice(
   
   ## table 2 output ------------------------------------------------------------
   
-  # action(
-  #   name = "make_table2_output",
-  #   run = "r:latest analysis/model/make_table2_output.R",
-  #   needs = list("table2_prevax"),
-  #                "table2_vax",
-  #                "table2_unvax"),
-  #   moderately_sensitive = list(
-  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
-  #   )
-  # ),
+  action(
+    name = "make_table2_output",
+    run = "r:latest analysis/model/make_table2_output.R",
+    needs = list("table2_prevax",
+                 "table2_vax",
+                 "table2_unvax"),
+    moderately_sensitive = list(
+      table2_output_rounded = glue("output/table2_output_rounded.csv")
+    )
+  ),
   
   ## venn output ------------------------------------------------------------
   
@@ -510,16 +510,16 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  )#,
+  ),
   
   ## Table 2 -------------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) table2(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) table2(cohort = x)),
+           recursive = FALSE
+    )
+  )#,
   
   ## Venn data -----------------------------------------------------------------
   
