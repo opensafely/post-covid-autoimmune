@@ -19,8 +19,8 @@ defaults_list <- list(
 
 active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
-# cohorts <- unique(active_analyses$cohort)
-cohorts <- "prevax"
+cohorts <- unique(active_analyses$cohort)
+# cohorts <- "prevax"
 # active_analyses[active_analyses$cohort == "prevax",] #vax, unvax
 
 #names <- unique(active_analyses$names)
@@ -29,12 +29,12 @@ cohorts <- "prevax"
 
 active_analyses <- active_analyses %>%
   # cohort
-  filter(cohort == "prevax") %>% #"prevax", "vax", "unvax"
-  # for table 2
-  # filter(analysis %in% c("main")) %>%
+  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
+  # for table 2,
+  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
   # filter(!str_detect(outcome, "\\d"))
   # analysis 1
-  filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
+  # filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
   # analysis 2
   # filter(analysis %in% c("sub_covid_history")) %>%
   # analysis 3: sex
@@ -44,7 +44,7 @@ active_analyses <- active_analyses %>%
   # # # analysis 5: ethnic groups
   # filter(analysis %in% c("sub_ethnicity_white", "sub_ethnicity_black", "sub_ethnicity_mixed", "sub_ethnicity_asian", "sub_ethnicity_other"))  %>%
   # Outcome 1: Inflammatory arthritis
-  filter(outcome %in% c("out_date_ra", "out_date_undiff_eia", "out_date_psoa", "out_date_axial", "out_date_grp1_ifa"))
+  # filter(outcome %in% c("out_date_ra", "out_date_undiff_eia", "out_date_psoa", "out_date_axial", "out_date_grp1_ifa"))
   # Outcome 2: Connective tissue disorders
   # filter(outcome %in% c("out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_as","out_date_grp2_ctd"))
   # # Outcome 3: Inflammatory skin disease
@@ -246,8 +246,8 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     action(
       name = glue("make_model_input-{name}"),
       run = glue("r:latest analysis/model/make_model_input.R {name}"),
-      needs = list("stage1_data_cleaning_prevax"),
-      #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
+      #needs = list("stage1_data_cleaning_prevax"),
+      needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
       )
@@ -263,13 +263,13 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
-    # action(
-    #   name = glue("cox_ipw-{name}"),
-    #   run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
-    #   needs = list(glue("make_model_input-{name}")),
-    #   moderately_sensitive = list(
-    #     model_output = glue("output/model_output-{name}.csv"))
-    # )
+  #   action(
+  #     name = glue("cox_ipw-{name}"),
+  #     run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+  #     needs = list(glue("make_model_input-{name}")),
+  #     moderately_sensitive = list(
+  #       model_output = glue("output/model_output-{name}.csv"))
+  #   )
   )
 }
 
@@ -280,7 +280,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
 table2 <- function(cohort){
 
   table2_names <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$name))
-  table2_names <- table2_names[grepl("-main-",table2_names)]
+  table2_names <- table2_names[grepl("-main-|_hospitalised-|_nonhospitalised-",table2_names)]
 
   splice(
     comment(glue("Table 2 - {cohort}")),
@@ -401,7 +401,7 @@ actions_list <- splice(
   # 
   #   )
   # ),
-  # 
+
   ## Stage 1 - data cleaning -----------------------------------------------------------
   
   splice(
@@ -452,16 +452,16 @@ actions_list <- splice(
   
   ## table 2 output ------------------------------------------------------------
   
-  # action(
-  #   name = "make_table2_output",
-  #   run = "r:latest analysis/model/make_table2_output.R",
-  #   needs = list("table2_prevax"),
-  #                "table2_vax",
-  #                "table2_unvax"),
-  #   moderately_sensitive = list(
-  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
-  #   )
-  # ),
+  action(
+    name = "make_table2_output",
+    run = "r:latest analysis/model/make_table2_output.R",
+    needs = list("table2_prevax",
+                 "table2_vax",
+                 "table2_unvax"),
+    moderately_sensitive = list(
+      table2_output_rounded = glue("output/table2_output_rounded.csv")
+    )
+  ),
   
   ## venn output ------------------------------------------------------------
   
@@ -510,16 +510,16 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  )#,
+  ),
   
   ## Table 2 -------------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) table2(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) table2(cohort = x)),
+           recursive = FALSE
+    )
+  )#,
   
   ## Venn data -----------------------------------------------------------------
   
