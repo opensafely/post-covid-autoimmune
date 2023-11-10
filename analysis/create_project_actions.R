@@ -19,8 +19,8 @@ defaults_list <- list(
 
 active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
-cohorts <- unique(active_analyses$cohort)
-# cohorts <- "prevax"
+ cohorts <- unique(active_analyses$cohort)
+#cohorts <- "prevax"
 # active_analyses[active_analyses$cohort == "prevax",] #vax, unvax
 
 #names <- unique(active_analyses$names)
@@ -263,13 +263,13 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
-  #   action(
-  #     name = glue("cox_ipw-{name}"),
-  #     run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
-  #     needs = list(glue("make_model_input-{name}")),
-  #     moderately_sensitive = list(
-  #       model_output = glue("output/model_output-{name}.csv"))
-  #   )
+    # action(
+    #   name = glue("cox_ipw-{name}"),
+    #   run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     model_output = glue("output/model_output-{name}.csv"))
+    # )
   )
 }
 
@@ -280,7 +280,8 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
 table2 <- function(cohort){
 
   table2_names <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$name))
-  table2_names <- table2_names[grepl("-main-|_hospitalised-|_nonhospitalised-",table2_names)]
+  #table2_names <- table2_names[grepl("-main-",table2_names)]
+  #table2_names <- table2_names[grepl("-main-|_hospitalised-|_nonhospitalised-",table2_names)]
 
   splice(
     comment(glue("Table 2 - {cohort}")),
@@ -291,7 +292,7 @@ table2 <- function(cohort){
       needs = c(as.list(paste0("make_model_input-",table2_names))),
       moderately_sensitive = list(
         table2 = glue("output/table2_{cohort}.csv"),
-        table2_rounded = glue("output/table2_{cohort}_rounded.csv")
+        table2_midpoint6 = glue("output/table2_{cohort}_midpoint6.csv")
       )
     )
   )
@@ -459,7 +460,7 @@ actions_list <- splice(
                  "table2_vax",
                  "table2_unvax"),
     moderately_sensitive = list(
-      table2_output_rounded = glue("output/table2_output_rounded.csv")
+      table2_output_midpoint6_derived = glue("output/table2_output_midpoint6_derived.csv")
     )
   ),
   
