@@ -126,6 +126,12 @@ df <- df %>%
   mutate(cov_num_consulation_rate = replace(cov_num_consulation_rate, 
                                             cov_num_consulation_rate > 365, 365))
 
+# QC for outpatient variable----------------------------------------------------
+#max to 365 (average of one per day)
+df <- df %>%
+  mutate(cov_num_outpatient_rate = replace(cov_num_outpatient_rate,
+                                           cov_num_outpatient_rate > 365, 365))
+
 # Define COVID-19 severity --------------------------------------------------------------
 
 df <- df %>%
