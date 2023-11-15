@@ -464,6 +464,17 @@ actions_list <- splice(
     )
   ),
   
+  # action(
+  #   name = "make_other_output",
+  #   run = "r:latest analysis/model/make_table2_output.R",
+  #   needs = list("table2_prevax",
+  #                "table2_vax",
+  #                "table2_unvax"),
+  #   moderately_sensitive = list(
+  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
+  #   )
+  # ),
+  
   ## venn output ------------------------------------------------------------
   
   # action(
