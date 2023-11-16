@@ -31,7 +31,7 @@ print('Load active analyses')
 
 active_analyses <- readr::read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[active_analyses$cohort==cohort,]
-active_analyses <- active_analyses[active_analyses$analysis == "main",]
+#active_analyses <- active_analyses[active_analyses$analysis == "main",]
 
 # Make empty table 2 -----------------------------------------------------------
 print('Make empty table 2')
