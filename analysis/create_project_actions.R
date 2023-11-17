@@ -27,11 +27,11 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
 
 # Simplified yaml --------------------------------------------------------------
 
-active_analyses <- active_analyses %>%
+#active_analyses <- active_analyses %>%
   # cohort
-  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
+#  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
   # for table 2,
-  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
+#  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
   # filter(!str_detect(outcome, "\\d"))
   # analysis 1
   # filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
