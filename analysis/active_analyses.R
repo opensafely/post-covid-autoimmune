@@ -75,7 +75,7 @@ outcomes_runall <- c("out_date_composite_ai",
                      "out_date_grp7_htd",
                      "out_date_grp8_ind",
                      "out_date_ra",
-                     "out_date_psoa",#change to psoa
+                     "out_date_pa",#change to psoa
                      "out_date_axial",
                      "out_date_psoriasis",
                      "out_date_hs",
