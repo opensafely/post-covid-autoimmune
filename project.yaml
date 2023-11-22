@@ -495,6 +495,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-main-myasthenia_gravis.rds
 
+  make_model_input-cohort_prevax-main-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-pa.rds
+
   make_model_input-cohort_prevax-main-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-main-pernicious_anaemia
     needs:
@@ -514,16 +524,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-main-pmr.rds
-
-  make_model_input-cohort_prevax-main-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_prevax-main-psoa.rds
 
   make_model_input-cohort_prevax-main-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-main-psoriasis
@@ -905,6 +905,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-main-myasthenia_gravis.rds
 
+  make_model_input-cohort_unvax-main-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-pa.rds
+
   make_model_input-cohort_unvax-main-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-main-pernicious_anaemia
     needs:
@@ -924,16 +934,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-main-pmr.rds
-
-  make_model_input-cohort_unvax-main-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_unvax-main-psoa.rds
 
   make_model_input-cohort_unvax-main-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-main-psoriasis
@@ -1315,6 +1315,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-main-myasthenia_gravis.rds
 
+  make_model_input-cohort_vax-main-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-pa.rds
+
   make_model_input-cohort_vax-main-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_vax-main-pernicious_anaemia
     needs:
@@ -1334,16 +1344,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-main-pmr.rds
-
-  make_model_input-cohort_vax-main-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_vax-main-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_vax-main-psoa.rds
 
   make_model_input-cohort_vax-main-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_vax-main-psoriasis
@@ -1725,6 +1725,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-sub_covid_hospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_prevax-sub_covid_hospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_hospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_covid_hospitalised-pa.rds
+
   make_model_input-cohort_prevax-sub_covid_hospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_hospitalised-pernicious_anaemia
     needs:
@@ -1744,16 +1754,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-sub_covid_hospitalised-pmr.rds
-
-  make_model_input-cohort_prevax-sub_covid_hospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_hospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_prevax-sub_covid_hospitalised-psoa.rds
 
   make_model_input-cohort_prevax-sub_covid_hospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_hospitalised-psoriasis
@@ -2135,6 +2135,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-sub_covid_hospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_unvax-sub_covid_hospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_hospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_covid_hospitalised-pa.rds
+
   make_model_input-cohort_unvax-sub_covid_hospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_hospitalised-pernicious_anaemia
     needs:
@@ -2154,16 +2164,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-sub_covid_hospitalised-pmr.rds
-
-  make_model_input-cohort_unvax-sub_covid_hospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_hospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_unvax-sub_covid_hospitalised-psoa.rds
 
   make_model_input-cohort_unvax-sub_covid_hospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_hospitalised-psoriasis
@@ -2545,6 +2545,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-sub_covid_hospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_vax-sub_covid_hospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_hospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_covid_hospitalised-pa.rds
+
   make_model_input-cohort_vax-sub_covid_hospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_hospitalised-pernicious_anaemia
     needs:
@@ -2564,16 +2574,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-sub_covid_hospitalised-pmr.rds
-
-  make_model_input-cohort_vax-sub_covid_hospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_hospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_vax-sub_covid_hospitalised-psoa.rds
 
   make_model_input-cohort_vax-sub_covid_hospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_hospitalised-psoriasis
@@ -2955,6 +2955,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-sub_covid_nonhospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_prevax-sub_covid_nonhospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_nonhospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_covid_nonhospitalised-pa.rds
+
   make_model_input-cohort_prevax-sub_covid_nonhospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_nonhospitalised-pernicious_anaemia
     needs:
@@ -2974,16 +2984,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_prevax-sub_covid_nonhospitalised-pmr.rds
-
-  make_model_input-cohort_prevax-sub_covid_nonhospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_nonhospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_prevax-sub_covid_nonhospitalised-psoa.rds
 
   make_model_input-cohort_prevax-sub_covid_nonhospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_nonhospitalised-psoriasis
@@ -3365,6 +3365,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-sub_covid_nonhospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_unvax-sub_covid_nonhospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_nonhospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_covid_nonhospitalised-pa.rds
+
   make_model_input-cohort_unvax-sub_covid_nonhospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_nonhospitalised-pernicious_anaemia
     needs:
@@ -3384,16 +3394,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_unvax-sub_covid_nonhospitalised-pmr.rds
-
-  make_model_input-cohort_unvax-sub_covid_nonhospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_nonhospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_unvax-sub_covid_nonhospitalised-psoa.rds
 
   make_model_input-cohort_unvax-sub_covid_nonhospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_nonhospitalised-psoriasis
@@ -3775,6 +3775,16 @@ actions:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-sub_covid_nonhospitalised-myasthenia_gravis.rds
 
+  make_model_input-cohort_vax-sub_covid_nonhospitalised-pa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_nonhospitalised-pa
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_covid_nonhospitalised-pa.rds
+
   make_model_input-cohort_vax-sub_covid_nonhospitalised-pernicious_anaemia:
     run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_nonhospitalised-pernicious_anaemia
     needs:
@@ -3794,16 +3804,6 @@ actions:
     outputs:
       highly_sensitive:
         model_input: output/model_input-cohort_vax-sub_covid_nonhospitalised-pmr.rds
-
-  make_model_input-cohort_vax-sub_covid_nonhospitalised-psoa:
-    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_nonhospitalised-psoa
-    needs:
-    - stage1_data_cleaning_prevax
-    - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_vax-sub_covid_nonhospitalised-psoa.rds
 
   make_model_input-cohort_vax-sub_covid_nonhospitalised-psoriasis:
     run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_nonhospitalised-psoriasis
@@ -3911,9 +3911,9 @@ actions:
     - make_model_input-cohort_prevax-main-mctd
     - make_model_input-cohort_prevax-main-multiple_sclerosis
     - make_model_input-cohort_prevax-main-myasthenia_gravis
+    - make_model_input-cohort_prevax-main-pa
     - make_model_input-cohort_prevax-main-pernicious_anaemia
     - make_model_input-cohort_prevax-main-pmr
-    - make_model_input-cohort_prevax-main-psoa
     - make_model_input-cohort_prevax-main-psoriasis
     - make_model_input-cohort_prevax-main-ra
     - make_model_input-cohort_prevax-main-sjs
@@ -3952,9 +3952,9 @@ actions:
     - make_model_input-cohort_prevax-sub_covid_hospitalised-mctd
     - make_model_input-cohort_prevax-sub_covid_hospitalised-multiple_sclerosis
     - make_model_input-cohort_prevax-sub_covid_hospitalised-myasthenia_gravis
+    - make_model_input-cohort_prevax-sub_covid_hospitalised-pa
     - make_model_input-cohort_prevax-sub_covid_hospitalised-pernicious_anaemia
     - make_model_input-cohort_prevax-sub_covid_hospitalised-pmr
-    - make_model_input-cohort_prevax-sub_covid_hospitalised-psoa
     - make_model_input-cohort_prevax-sub_covid_hospitalised-psoriasis
     - make_model_input-cohort_prevax-sub_covid_hospitalised-ra
     - make_model_input-cohort_prevax-sub_covid_hospitalised-sjs
@@ -3993,9 +3993,9 @@ actions:
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-mctd
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-multiple_sclerosis
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-myasthenia_gravis
+    - make_model_input-cohort_prevax-sub_covid_nonhospitalised-pa
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-pernicious_anaemia
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-pmr
-    - make_model_input-cohort_prevax-sub_covid_nonhospitalised-psoa
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-psoriasis
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-ra
     - make_model_input-cohort_prevax-sub_covid_nonhospitalised-sjs
@@ -4044,9 +4044,9 @@ actions:
     - make_model_input-cohort_unvax-main-mctd
     - make_model_input-cohort_unvax-main-multiple_sclerosis
     - make_model_input-cohort_unvax-main-myasthenia_gravis
+    - make_model_input-cohort_unvax-main-pa
     - make_model_input-cohort_unvax-main-pernicious_anaemia
     - make_model_input-cohort_unvax-main-pmr
-    - make_model_input-cohort_unvax-main-psoa
     - make_model_input-cohort_unvax-main-psoriasis
     - make_model_input-cohort_unvax-main-ra
     - make_model_input-cohort_unvax-main-sjs
@@ -4085,9 +4085,9 @@ actions:
     - make_model_input-cohort_unvax-sub_covid_hospitalised-mctd
     - make_model_input-cohort_unvax-sub_covid_hospitalised-multiple_sclerosis
     - make_model_input-cohort_unvax-sub_covid_hospitalised-myasthenia_gravis
+    - make_model_input-cohort_unvax-sub_covid_hospitalised-pa
     - make_model_input-cohort_unvax-sub_covid_hospitalised-pernicious_anaemia
     - make_model_input-cohort_unvax-sub_covid_hospitalised-pmr
-    - make_model_input-cohort_unvax-sub_covid_hospitalised-psoa
     - make_model_input-cohort_unvax-sub_covid_hospitalised-psoriasis
     - make_model_input-cohort_unvax-sub_covid_hospitalised-ra
     - make_model_input-cohort_unvax-sub_covid_hospitalised-sjs
@@ -4126,9 +4126,9 @@ actions:
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-mctd
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-multiple_sclerosis
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-myasthenia_gravis
+    - make_model_input-cohort_unvax-sub_covid_nonhospitalised-pa
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-pernicious_anaemia
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-pmr
-    - make_model_input-cohort_unvax-sub_covid_nonhospitalised-psoa
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-psoriasis
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-ra
     - make_model_input-cohort_unvax-sub_covid_nonhospitalised-sjs
@@ -4177,9 +4177,9 @@ actions:
     - make_model_input-cohort_vax-main-mctd
     - make_model_input-cohort_vax-main-multiple_sclerosis
     - make_model_input-cohort_vax-main-myasthenia_gravis
+    - make_model_input-cohort_vax-main-pa
     - make_model_input-cohort_vax-main-pernicious_anaemia
     - make_model_input-cohort_vax-main-pmr
-    - make_model_input-cohort_vax-main-psoa
     - make_model_input-cohort_vax-main-psoriasis
     - make_model_input-cohort_vax-main-ra
     - make_model_input-cohort_vax-main-sjs
@@ -4218,9 +4218,9 @@ actions:
     - make_model_input-cohort_vax-sub_covid_hospitalised-mctd
     - make_model_input-cohort_vax-sub_covid_hospitalised-multiple_sclerosis
     - make_model_input-cohort_vax-sub_covid_hospitalised-myasthenia_gravis
+    - make_model_input-cohort_vax-sub_covid_hospitalised-pa
     - make_model_input-cohort_vax-sub_covid_hospitalised-pernicious_anaemia
     - make_model_input-cohort_vax-sub_covid_hospitalised-pmr
-    - make_model_input-cohort_vax-sub_covid_hospitalised-psoa
     - make_model_input-cohort_vax-sub_covid_hospitalised-psoriasis
     - make_model_input-cohort_vax-sub_covid_hospitalised-ra
     - make_model_input-cohort_vax-sub_covid_hospitalised-sjs
@@ -4259,9 +4259,9 @@ actions:
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-mctd
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-multiple_sclerosis
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-myasthenia_gravis
+    - make_model_input-cohort_vax-sub_covid_nonhospitalised-pa
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-pernicious_anaemia
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-pmr
-    - make_model_input-cohort_vax-sub_covid_nonhospitalised-psoa
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-psoriasis
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-ra
     - make_model_input-cohort_vax-sub_covid_nonhospitalised-sjs
@@ -4310,9 +4310,9 @@ actions:
     - make_model_input-cohort_prevax-main-mctd
     - make_model_input-cohort_prevax-main-multiple_sclerosis
     - make_model_input-cohort_prevax-main-myasthenia_gravis
+    - make_model_input-cohort_prevax-main-pa
     - make_model_input-cohort_prevax-main-pernicious_anaemia
     - make_model_input-cohort_prevax-main-pmr
-    - make_model_input-cohort_prevax-main-psoa
     - make_model_input-cohort_prevax-main-psoriasis
     - make_model_input-cohort_prevax-main-ra
     - make_model_input-cohort_prevax-main-sjs
@@ -4351,9 +4351,9 @@ actions:
     - make_model_input-cohort_unvax-main-mctd
     - make_model_input-cohort_unvax-main-multiple_sclerosis
     - make_model_input-cohort_unvax-main-myasthenia_gravis
+    - make_model_input-cohort_unvax-main-pa
     - make_model_input-cohort_unvax-main-pernicious_anaemia
     - make_model_input-cohort_unvax-main-pmr
-    - make_model_input-cohort_unvax-main-psoa
     - make_model_input-cohort_unvax-main-psoriasis
     - make_model_input-cohort_unvax-main-ra
     - make_model_input-cohort_unvax-main-sjs
@@ -4392,9 +4392,9 @@ actions:
     - make_model_input-cohort_vax-main-mctd
     - make_model_input-cohort_vax-main-multiple_sclerosis
     - make_model_input-cohort_vax-main-myasthenia_gravis
+    - make_model_input-cohort_vax-main-pa
     - make_model_input-cohort_vax-main-pernicious_anaemia
     - make_model_input-cohort_vax-main-pmr
-    - make_model_input-cohort_vax-main-psoa
     - make_model_input-cohort_vax-main-psoriasis
     - make_model_input-cohort_vax-main-ra
     - make_model_input-cohort_vax-main-sjs
