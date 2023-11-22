@@ -43,6 +43,15 @@ for (i in cohorts) {
   
 }
 
+#Rename columns following OS documents
+
+names(df)[names(df) == "unexposed_events"] <- "unexposed_events_midpoint6"
+names(df)[names(df) == "exposed_events"] <- "exposed_events_midpoint6"
+names(df)[names(df) == "total_events"] <- "total_events_midpoint6"
+names(df)[names(df) == "day0_events"] <- "day0_events_midpoint6"
+names(df)[names(df) == "total_exposed"] <- "total_exposed_midpoint6_derived"
+names(df)[names(df) == "sample_size"] <- "sample_size_midpoint6"
+
 # Save output ------------------------------------------------------------------
 print('Save output')
 
