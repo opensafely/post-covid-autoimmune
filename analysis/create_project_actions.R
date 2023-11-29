@@ -14,7 +14,7 @@ library(dplyr)
 ## defaults ----
 defaults_list <- list(
   version = "3.0",
-  expectations= list(population_size=350000L)
+  expectations= list(population_size=150000L)
 )
 
 active_analyses <- read_rds("lib/active_analyses.rds")
