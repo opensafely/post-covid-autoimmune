@@ -126,6 +126,12 @@ df <- df %>%
   mutate(cov_num_consulation_rate = replace(cov_num_consulation_rate, 
                                             cov_num_consulation_rate > 365, 365))
 
+# QC for outpatient variable----------------------------------------------------
+#max to 365 (average of one per day)
+df <- df %>%
+  mutate(cov_num_outpatient_rate = replace(cov_num_outpatient_rate,
+                                           cov_num_outpatient_rate > 365, 365))
+
 # Define COVID-19 severity --------------------------------------------------------------
 
 df <- df %>%
@@ -145,10 +151,63 @@ message("COVID19 severity determined successfully")
 
 # Create vars for neurodegenerative outcomes - TBC -------------------------------------------------------------
 
-# df <- df %>%
-#   mutate(prior_diagnosis = if_else(!starts_with("out_date_") < !!sym(paste0("index_date_",cohort_name)) | is.na(starts_with("out_date_"), 0, 1)))
-# 
-# message("Prior diagnosis variable created")
+# Prior diagnosis variable ("_prior") 
+# FALSE = anyone who has a diagnosis after the index date/who never has a diagnosis
+# TRUE = anyone who has a diagnosis before the index date
+
+df <- df %>%
+  mutate(
+    # Outcome 1: Inflammatory arthritis
+    out_date_ra_prior = ifelse(out_date_ra > index_date_cohort | is.na(out_date_ra), FALSE, TRUE),
+    out_date_undiff_eia_prior = ifelse(out_date_undiff_eia > index_date_cohort | is.na(out_date_undiff_eia), FALSE, TRUE),
+    out_date_psoa_prior = ifelse(out_date_psoa > index_date_cohort | is.na(out_date_psoa), FALSE, TRUE),
+    out_date_axial_prior = ifelse(out_date_axial > index_date_cohort | is.na(out_date_axial), FALSE, TRUE),
+    out_date_grp1_ifa_prior = ifelse(out_date_grp1_ifa > index_date_cohort | is.na(out_date_grp1_ifa), FALSE, TRUE),
+    # Outcome 2: Connective tissue disorders
+    out_date_sle_prior = ifelse(out_date_sle > index_date_cohort | is.na(out_date_sle), FALSE, TRUE),
+    out_date_sjs_prior = ifelse(out_date_sjs > index_date_cohort | is.na(out_date_sjs), FALSE, TRUE),
+    out_date_sss_prior = ifelse(out_date_sss > index_date_cohort | is.na(out_date_sss), FALSE, TRUE),
+    out_date_im_prior = ifelse(out_date_im > index_date_cohort | is.na(out_date_im), FALSE, TRUE),
+    out_date_as_prior = ifelse(out_date_as > index_date_cohort | is.na(out_date_as), FALSE, TRUE),
+    out_date_grp2_ctd_prior = ifelse(out_date_grp2_ctd > index_date_cohort | is.na(out_date_grp2_ctd), FALSE, TRUE),
+    # Outcome 3: Inflammatory skin disease
+    out_date_psoriasis_prior = ifelse(out_date_psoriasis > index_date_cohort | is.na(out_date_psoriasis), FALSE, TRUE),
+    out_date_hs_prior = ifelse(out_date_hs > index_date_cohort | is.na(out_date_hs), FALSE, TRUE),
+    out_date_grp3_isd_prior = ifelse(out_date_grp3_isd > index_date_cohort | is.na(out_date_grp3_isd), FALSE, TRUE),
+    # Outcome 4: Autoimmune GI / Inflammatory bowel disease
+    out_date_ibd_prior = ifelse(out_date_ibd > index_date_cohort | is.na(out_date_ibd), FALSE, TRUE),
+    out_date_crohn_prior = ifelse(out_date_crohn > index_date_cohort | is.na(out_date_crohn), FALSE, TRUE),
+    out_date_uc_prior = ifelse(out_date_uc > index_date_cohort | is.na(out_date_uc), FALSE, TRUE),
+    out_date_celiac_prior = ifelse(out_date_celiac > index_date_cohort | is.na(out_date_celiac), FALSE, TRUE),
+    out_date_grp4_agi_ibd_prior = ifelse(out_date_grp4_agi_ibd > index_date_cohort | is.na(out_date_grp4_agi_ibd), FALSE, TRUE),
+    # Outcome 5: Thyroid diseases
+    out_date_addison_prior = ifelse(out_date_addison > index_date_cohort | is.na(out_date_addison), FALSE, TRUE),
+    out_date_grave_prior = ifelse(out_date_grave > index_date_cohort | is.na(out_date_grave), FALSE, TRUE),
+    out_date_hashimoto_thyroiditis_prior = ifelse(out_date_hashimoto_thyroiditis > index_date_cohort | is.na(out_date_hashimoto_thyroiditis), FALSE, TRUE),
+    out_date_grp5_atv_prior = ifelse(out_date_grp5_atv > index_date_cohort | is.na(out_date_grp5_atv), FALSE, TRUE),
+    # Outcome 6: Autoimmune vasculitis
+    out_date_anca_prior = ifelse(out_date_anca > index_date_cohort | is.na(out_date_anca), FALSE, TRUE),
+    out_date_gca_prior = ifelse(out_date_gca > index_date_cohort | is.na(out_date_gca), FALSE, TRUE),
+    out_date_iga_vasculitis_prior = ifelse(out_date_iga_vasculitis > index_date_cohort | is.na(out_date_iga_vasculitis), FALSE, TRUE),
+    out_date_pmr_prior = ifelse(out_date_pmr > index_date_cohort | is.na(out_date_pmr), FALSE, TRUE),
+    out_date_grp6_trd_prior = ifelse(out_date_grp6_trd > index_date_cohort | is.na(out_date_grp6_trd), FALSE, TRUE),
+    # Outcome 7: Hematologic Diseases
+    out_date_immune_thromb_prior = ifelse(out_date_immune_thromb > index_date_cohort | is.na(out_date_immune_thromb), FALSE, TRUE),
+    out_date_pernicious_anaemia_prior = ifelse(out_date_pernicious_anaemia > index_date_cohort | is.na(out_date_pernicious_anaemia), FALSE, TRUE),
+    out_date_apa_prior = ifelse(out_date_apa > index_date_cohort | is.na(out_date_apa), FALSE, TRUE),
+    out_date_aha_prior = ifelse(out_date_aha > index_date_cohort | is.na(out_date_aha), FALSE, TRUE),
+    out_date_grp7_htd_prior = ifelse(out_date_grp7_htd > index_date_cohort | is.na(out_date_grp7_htd), FALSE, TRUE),
+    # Outcome 8: Inflammatory neuromuscular disease
+    out_date_glb_prior = ifelse(out_date_glb > index_date_cohort | is.na(out_date_glb), FALSE, TRUE),
+    out_date_multiple_sclerosis_prior = ifelse(out_date_multiple_sclerosis > index_date_cohort | is.na(out_date_multiple_sclerosis), FALSE, TRUE),
+    out_date_myasthenia_gravis_prior = ifelse(out_date_myasthenia_gravis > index_date_cohort | is.na(out_date_myasthenia_gravis), FALSE, TRUE),
+    out_date_longit_myelitis_prior = ifelse(out_date_longit_myelitis > index_date_cohort | is.na(out_date_longit_myelitis), FALSE, TRUE),
+    ut_date_cis_prior = ifelse(out_date_cis > index_date_cohort | is.na(out_date_cis), FALSE, TRUE),
+    out_date_grp8_ind_prior = ifelse(out_date_grp8_ind > index_date_cohort | is.na(out_date_grp8_ind), FALSE, TRUE),
+    # Outcome 9: Composite autoimmune disease
+    out_date_composite_ai_prior = ifelse(out_date_composite_ai > index_date_cohort | is.na(out_date_composite_ai), FALSE, TRUE))
+
+message("Prior diagnosis variables created")
 
 # Restrict columns and save analysis dataset ---------------------------------
 
