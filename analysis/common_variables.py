@@ -2359,5 +2359,1042 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         #"out_date_grp1_ifa", "out_date_grp2_ctd", "out_date_grp3_isd", "out_date_grp4_agi_ibd", 
         #"out_date_grp5_atv", "out_date_grp6_trd", "out_date_grp7_htd", "out_date_grp8_ind"
     ),
+
+    ########################
+    # History of variables #
+    ########################
+    ############################################
+    ## Outcome group 1: Inflammatory arthritis #
+    ############################################
+
+    ## History of Reumatoid arthritis
+    # Primary
+    tmp_cov_bin_history_ra_snomed = patients.with_these_clinical_events(
+        ra_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # HES
+    tmp_cov_bin_history_ra_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=ra_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_ra_death=patients.with_these_codes_on_death_certificate(
+        ra_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Reumatoid arthritis combining primary care and secondary care
+    cov_bin_history_ra=patients.minimum_of(
+        "tmp_cov_bin_history_ra_snomed", "tmp_cov_bin_history_ra_hes", "tmp_cov_bin_history_ra_death",
+    ),
+    ## History of Undifferentiated inflamatory arthritis - primary care
+    tmp_cov_bin_history_undiff_eia = patients.with_these_clinical_events(
+        undiff_eia_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## History of Undifferentiated inflamatory arthritis - primary care
+    cov_bin_history_undiff_eia=patients.minimum_of(
+        "tmp_cov_bin_history_undiff_eia",
+    ),
+
+    ## History of Psoriatic arthritis - snomed
+    tmp_cov_bin_history_psoa_snomed= patients.with_these_clinical_events(
+        psoa_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Psoriatic arthritis - hes
+    tmp_cov_bin_history_psoa_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=psoa_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+   tmp_cov_bin_history_psoa_death=patients.with_these_codes_on_death_certificate(
+       psoa_code_icd,
+       returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+   ),
+    # History of Psoriatic arthritis combining primary care and secondary care
+    cov_bin_history_psoa=patients.minimum_of(
+        "tmp_cov_bin_history_psoa_snomed", "tmp_cov_bin_history_psoa_hes", "tmp_cov_bin_history_psoa_death",
+    ),
+
+    ##  History of Axial spondyloarthritis - primary care
+   tmp_cov_bin_history_axial_snomed= patients.with_these_clinical_events(
+       axial_code_snomed,
+       returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+   ),
+    ## Axial spondyloarthritis -  hes
+    tmp_cov_bin_history_axial_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=axial_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_axial_death=patients.with_these_codes_on_death_certificate(
+        axial_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Axial spondyloarthritis -  combining primary care and secondary care
+    cov_bin_history_axial=patients.minimum_of(
+        "tmp_cov_bin_history_axial_snomed", 
+        "tmp_cov_bin_history_axial_hes", "tmp_cov_bin_history_axial_death",
+    ),
+
+    ## History of Outcome group 1
+    cov_bin_history_grp1_ifa=patients.minimum_of(
+        "tmp_cov_bin_history_ra_snomed", "tmp_cov_bin_history_ra_hes", "tmp_cov_bin_history_ra_death",
+        "tmp_cov_bin_history_undiff_eia", "tmp_cov_bin_history_psoa_snomed", "tmp_cov_bin_history_psoa_hes", 
+        "tmp_cov_bin_history_psoa_death", "tmp_cov_bin_history_axial_snomed", 
+        "tmp_cov_bin_history_axial_hes", "tmp_cov_bin_history_axial_death",
+        #"out_date_ra", "out_date_undiff_eia", "out_date_pa", "out_date_axial"
+    ),
+
+    ############################################################
+    ## History of Outcome group 2: Connective tissue disorders #
+    ############################################################
+    ## History of Systematic lupus erythematosus - snomed
+    tmp_cov_bin_history_sle_ctv= patients.with_these_clinical_events(
+        sle_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Systematic lupus erythematosus - hes
+    tmp_cov_bin_history_sle_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=sle_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_sle_death=patients.with_these_codes_on_death_certificate(
+        sle_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Systematic lupus erythematosus -  combining primary care and secondary care
+    cov_bin_history_sle=patients.minimum_of(
+        "tmp_cov_bin_history_sle_ctv", "tmp_cov_bin_history_sle_hes", "tmp_cov_bin_history_sle_death",
+    ),
+
+    ## History of Sjogren’s syndrome - snomed
+    tmp_cov_bin_history_sjs_snomed= patients.with_these_clinical_events(
+        sjs_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Sjogren’s syndrome - hes
+    tmp_cov_bin_history_sjs_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=sjs_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_sjs_death=patients.with_these_codes_on_death_certificate(
+        sjs_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Sjogren’s syndrome  -  combining primary care and secondary care
+    cov_bin_history_sjs=patients.minimum_of(
+        "tmp_cov_bin_history_sjs_snomed", "tmp_cov_bin_history_sjs_hes", "tmp_cov_bin_history_sjs_death",
+    ),
+
+    ## History of Systemic sclerosis/scleroderma - snomed
+    tmp_cov_bin_history_sss_snomed= patients.with_these_clinical_events(
+        sss_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Systemic sclerosis/scleroderma - hes
+    tmp_cov_bin_history_sss_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=sss_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_sss_death=patients.with_these_codes_on_death_certificate(
+        sss_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Systemic sclerosis/scleroderma -  combining primary care and secondary care
+    cov_bin_history_sss=patients.minimum_of(
+        "tmp_cov_bin_history_sss_snomed", "tmp_cov_bin_history_sss_hes", "tmp_cov_bin_history_sss_death",
+    ),
+
+    ## History of Inflammatory myositis/polymyositis/dermatolomyositis - snomed
+    tmp_cov_bin_history_im_snomed = patients.with_these_clinical_events(
+        im_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Inflammatory myositis/polymyositis/dermatolomyositis - hes
+    tmp_cov_bin_history_im_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=im_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_im_death=patients.with_these_codes_on_death_certificate(
+        im_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Inflammatory myositis/polymyositis/dermatolomyositis -  combining primary care and secondary care
+    cov_bin_history_im=patients.minimum_of(
+        "tmp_cov_bin_history_im_snomed", "tmp_cov_bin_history_im_hes", "tmp_cov_bin_history_im_death",
+    ),
+
+    ## History of Mixed Connective Tissue Disease - snomed
+    tmp_cov_bin_history_mctd_snomed= patients.with_these_clinical_events(
+        mctd_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Mixed Connective Tissue Disease - hes
+    tmp_cov_bin_history_mctd_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=mctd_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_mctd_death=patients.with_these_codes_on_death_certificate(
+        mctd_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Mixed Connective Tissue Disease -  combining primary care and secondary care
+    cov_bin_history_mctd=patients.minimum_of(
+        "tmp_cov_bin_history_mctd_snomed", "tmp_cov_bin_history_mctd_hes", "tmp_cov_bin_history_mctd_death",
+    ),
+
+    ## History of Antiphospholipid syndrome - snomed
+    tmp_cov_bin_history_as = patients.with_these_clinical_events(
+        as_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+        ## Mixed Connective Tissue Disease -  combining primary care and secondary care
+    cov_bin_history_as=patients.minimum_of(
+        "tmp_cov_bin_history_as",
+    ),
+
+    ## History of Outcome group 2
+    cov_bin_history_grp2_ctd=patients.minimum_of(
+        "tmp_cov_bin_history_sle_ctv", "tmp_cov_bin_history_sle_hes", "tmp_cov_bin_history_sle_death",
+        "tmp_cov_bin_history_sjs_snomed", "tmp_cov_bin_history_sjs_hes", "tmp_cov_bin_history_sjs_death",
+        "tmp_cov_bin_history_sss_snomed", "tmp_cov_bin_history_sss_hes", "tmp_cov_bin_history_sss_death", 
+        "tmp_cov_bin_history_im_snomed", "tmp_cov_bin_history_im_hes", "tmp_cov_bin_history_im_death",
+        "tmp_cov_bin_history_mctd_snomed", "tmp_cov_bin_history_mctd_hes", "tmp_cov_bin_history_mctd_death",
+        "tmp_cov_bin_history_as",
+        #"out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_mctd", "out_date_as"
+    ),
+
+    ###############################################
+    ## History of Outcome group 3: Inflammatory skin disease #
+    ###############################################
+    ## Psoriasis - primary care - ctv3
+    tmp_cov_bin_history_psoriasis_ctv= patients.with_these_clinical_events(
+        psoriasis_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Psoriasis - primary care - hes
+    tmp_cov_bin_history_psoriasis_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=psoriasis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_psoriasis_death=patients.with_these_codes_on_death_certificate(
+        psoriasis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Psoriasis -  combining primary care and secondary care
+    cov_bin_history_psoriasis=patients.minimum_of(
+        "tmp_out_date_psoriasis_ctv", "tmp_out_date_psoriasis_hes", "tmp_out_date_psoriasis_death",
+    ),
+
+    ## Hydradenitis suppurativa - snomed
+    tmp_cov_bin_history_hs_ctv= patients.with_these_clinical_events(
+        hs_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Hydradenitis suppurativa - secondary care - hes
+    tmp_cov_bin_history_hs_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=hs_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_hs_death=patients.with_these_codes_on_death_certificate(
+        hs_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Hydradenitis suppurativa -  combining primary care and secondary care
+    cov_bin_history_hs =patients.minimum_of(
+        "tmp_cov_bin_history_hs_ctv", "tmp_cov_bin_history_hs_hes", "tmp_cov_bin_history_hs_death",
+    ),
+
+    ## History of Outcome group 3: Inflammatory skin disease  
+    cov_bin_history_grp3_isd=patients.minimum_of(
+        "tmp_cov_bin_history_psoriasis_ctv", "tmp_cov_bin_history_psoriasis_hes", "tmp_cov_bin_history_psoriasis_death",
+        "tmp_cov_bin_history_hs_ctv", "tmp_cov_bin_history_hs_hes", "tmp_cov_bin_history_hs_death",
+        #"out_date_psoriasis",  "out_date_hs"
+    ),
+
+    ###########################################################################
+    ## History of Outcome group 4: Autoimmune GI / Inflammatory bowel disease #
+    ###########################################################################
+    ## Inflammatory bowel disease (combined UC and Crohn's) - SNOMED
+    tmp_cov_bin_history_ibd_snomed= patients.with_these_clinical_events(
+        ibd_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Inflammatory bowel disease (combined UC and Crohn's) - CTV3
+    tmp_cov_bin_history_ibd_ctv= patients.with_these_clinical_events(
+        ibd_code_ctv3,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Inflammatory bowel disease (combined UC and Crohn's) - secondary care - hes
+    tmp_cov_bin_history_ibd_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=ibd_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_ibd_death=patients.with_these_codes_on_death_certificate(
+        ibd_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Inflammatory bowel disease combined
+    cov_bin_history_ibd=patients.minimum_of(
+        "tmp_cov_bin_history_ibd_snomed", "tmp_cov_bin_history_ibd_ctv", "tmp_cov_bin_history_ibd_hes", "tmp_cov_bin_history_ibd_death",
+    ),
+    ## Crohn’s disease ctv
+    tmp_cov_bin_history_crohn_ctv= patients.with_these_clinical_events(
+        crohn_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Crohn’s disease - secondary care - hes
+    tmp_cov_bin_history_crohn_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=crohn_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_crohn_death=patients.with_these_codes_on_death_certificate(
+        crohn_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Crohn’s disease combined
+    cov_bin_history_crohn=patients.minimum_of(
+        "tmp_cov_bin_history_crohn_ctv", "tmp_cov_bin_history_crohn_hes", "tmp_cov_bin_history_crohn_death",
+    ),
+    ## Ulcerative colitis - ctv
+    tmp_cov_bin_history_uc_ctv= patients.with_these_clinical_events(
+        uc_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Ulcerative colitis - secondary care - hes
+    tmp_cov_bin_history_uc_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=uc_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_uc_death=patients.with_these_codes_on_death_certificate(
+        uc_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Ulcerative colitis combined
+    cov_bin_history_uc=patients.minimum_of(
+        "tmp_cov_bin_history_uc_ctv", "tmp_cov_bin_history_uc_hes", "tmp_cov_bin_history_uc_death",
+    ),
+    ## Celiac disease - snomed
+    tmp_cov_bin_history_celiac_snomed= patients.with_these_clinical_events(
+        celiac_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Celiac disease - hes
+    tmp_cov_bin_history_celiac_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=celiac_code_icd ,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+        # ONS
+    tmp_cov_bin_history_celiac_death=patients.with_these_codes_on_death_certificate(
+        celiac_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Celiac disease combined
+    cov_bin_history_celiac=patients.minimum_of(
+        "tmp_cov_bin_history_celiac_snomed", "tmp_cov_bin_history_celiac_hes", "tmp_cov_bin_history_celiac_death",
+    ),
+    ## History of Outcome group 4: Autoimmune GI / Inflammatory bowel disease 
+    cov_bin_history_grp4_agi_ibd=patients.minimum_of(
+        "tmp_cov_bin_history_ibd_snomed", "tmp_cov_bin_history_ibd_ctv", "tmp_cov_bin_history_ibd_hes", "tmp_cov_bin_history_ibd_death",
+        "tmp_cov_bin_history_crohn_ctv", "tmp_cov_bin_history_crohn_hes", "tmp_cov_bin_history_crohn_death",
+        "tmp_cov_bin_history_uc_ctv", "tmp_cov_bin_history_uc_hes", "tmp_cov_bin_history_uc_death",
+        "tmp_cov_bin_history_celiac_snomed", "tmp_cov_bin_history_celiac_hes", "tmp_cov_bin_history_celiac_death",
+        #"out_date_crohn", "out_date_uc", "out_date_celiac"
+    ),
+
+    #################################################
+    ## History of Outcome group 5: Thyroid diseases #
+    #################################################
+    ## Addison’s disease - primary care
+    tmp_cov_bin_history_addison_snomed= patients.with_these_clinical_events(
+        addison_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     ## Addison’s disease - hes
+    tmp_cov_bin_history_addison_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=addison_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_addison_death=patients.with_these_codes_on_death_certificate(
+        addison_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Addison’s disease combined
+    cov_bin_history_addison=patients.minimum_of(
+        "tmp_cov_bin_history_addison_snomed", "tmp_cov_bin_history_addison_hes", "tmp_cov_bin_history_addison_death",
+    ),
+    ## Grave’s disease - primary care
+    tmp_cov_bin_history_grave_snomed= patients.with_these_clinical_events(
+        grave_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Grave’s disease - hes
+    tmp_cov_bin_history_grave_hes=patients.admitted_to_hospital(
+        with_these_primary_diagnoses=grave_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+          # ONS
+    tmp_cov_bin_history_grave_death=patients.with_these_codes_on_death_certificate(
+        grave_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Grave’s disease combined
+    cov_bin_history_grave=patients.minimum_of(
+        "tmp_cov_bin_history_grave_snomed", "tmp_cov_bin_history_grave_hes", "tmp_cov_bin_history_grave_death",
+    ),
+    ## Hashimoto’s thyroiditis - snomed
+    tmp_cov_bin_history_hashimoto_thyroiditis_snomed = patients.with_these_clinical_events(
+        hashimoto_thyroiditis_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Hashimoto’s thyroiditis - hes
+    tmp_cov_bin_history_hashimoto_thyroiditis_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses=hashimoto_thyroiditis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+       # ONS
+    tmp_cov_bin_history_hashimoto_thyroiditis_death=patients.with_these_codes_on_death_certificate(
+        hashimoto_thyroiditis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Hashimoto’s thyroiditis combined
+    cov_bin_history_hashimoto_thyroiditis=patients.minimum_of(
+        "tmp_cov_bin_history_hashimoto_thyroiditis_snomed", "tmp_cov_bin_history_hashimoto_thyroiditis_hes", 
+        "tmp_cov_bin_history_hashimoto_thyroiditis_death",
+    ),
+    ## Thyroid toxicosis / hyper thyroid - YW: This seems to have been taken out from the excel spreadsheet, 13/Dec/2022
+
+    ## History of Outcome group 5: Thyroid diseases - to be expanded once the other outcome components are avilable
+    cov_bin_history_grp5_atv=patients.minimum_of(
+        "tmp_cov_bin_history_addison_snomed", "tmp_cov_bin_history_addison_hes","tmp_cov_bin_history_addison_death",
+        "tmp_cov_bin_history_grave_snomed", "tmp_cov_bin_history_grave_hes", "tmp_cov_bin_history_grave_death",
+        "tmp_cov_bin_history_hashimoto_thyroiditis_snomed", "tmp_cov_bin_history_hashimoto_thyroiditis_hes", "tmp_cov_bin_history_hashimoto_thyroiditis_death",
+        #"out_date_addison", "out_date_grave", "out_date_hashimoto_thyroiditis"
+    ),
+
+    ######################################################
+    ## History of Outcome group 6: Autoimmune vasculitis #
+    ######################################################
+    ## ANCA-associated - snomed
+    tmp_cov_bin_history_anca_snomed= patients.with_these_clinical_events(
+        anca_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## ANCA-associated - hes
+    tmp_cov_bin_history_anca_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= anca_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_anca_death=patients.with_these_codes_on_death_certificate(
+        anca_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## ANCA-associated  - combined
+    cov_bin_history_anca =patients.minimum_of(
+        "tmp_cov_bin_history_anca_snomed", "tmp_cov_bin_history_anca_hes", "tmp_cov_bin_history_anca_death",
+    ),
+    ## Giant cell arteritis - snomed
+    tmp_cov_bin_history_gca_snomed= patients.with_these_clinical_events(
+        gca_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Giant cell arteritis - hes
+    tmp_cov_bin_history_gca_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= gca_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_gca_death=patients.with_these_codes_on_death_certificate(
+        gca_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Giant cell arteritis - combined
+    cov_bin_history_gca=patients.minimum_of(
+        "tmp_cov_bin_history_gca_snomed", "tmp_cov_bin_history_gca_hes", "tmp_cov_bin_history_gca_death",
+    ),
+    ## IgA (immunoglobulin A) vasculitis - snomed
+    tmp_cov_bin_history_iga_vasculitis_snomed= patients.with_these_clinical_events(
+        iga_vasculitis_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## IgA (immunoglobulin A) vasculitis - hes
+    tmp_cov_bin_history_iga_vasculitis_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= iga_vasculitis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_iga_vasculitis_death=patients.with_these_codes_on_death_certificate(
+        iga_vasculitis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## IgA (immunoglobulin A) vasculitis - combined
+    cov_bin_history_iga_vasculitis=patients.minimum_of(
+        "tmp_cov_bin_history_iga_vasculitis_snomed", "tmp_cov_bin_history_iga_vasculitis_hes", "tmp_cov_bin_history_iga_vasculitis_death",
+    ),
+    ## Polymyalgia Rheumatica (PMR) - snomed
+    tmp_cov_bin_history_pmr_snomed= patients.with_these_clinical_events(
+        pmr_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ##  Polymyalgia Rheumatica (PMR) - hes
+    tmp_cov_bin_history_pmr_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= pmr_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_pmr_death=patients.with_these_codes_on_death_certificate(
+        pmr_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## IPolymyalgia Rheumatica (PMR) - combined
+    cov_bin_history_pmr=patients.minimum_of(
+        "tmp_cov_bin_history_pmr_snomed", "tmp_cov_bin_history_pmr_hes", "tmp_cov_bin_history_pmr_death",
+    ),
+    ##  History of Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
+    cov_bin_history_grp6_trd=patients.minimum_of(
+        "tmp_cov_bin_history_anca_snomed", "tmp_cov_bin_history_anca_hes", "tmp_cov_bin_history_anca_death",
+        "tmp_cov_bin_history_gca_snomed", "tmp_cov_bin_history_gca_hes", "tmp_cov_bin_history_gca_death",
+        "tmp_cov_bin_history_iga_vasculitis_snomed", "tmp_cov_bin_history_iga_vasculitis_hes", "tmp_cov_bin_history_iga_vasculitis_death",
+        "tmp_cov_bin_history_pmr_snomed", "tmp_cov_bin_history_pmr_hes", "tmp_cov_bin_history_pmr_death",
+        #"out_date_anca", "out_date_gca","out_date_iga_vasculitis","out_date_pmr"
+    ),
+
+    #####################################################
+    ## History of Outcome group 7: Hematologic Diseases #
+    #####################################################
+    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - snomed
+    tmp_cov_bin_history_immune_thromb_snomed= patients.with_these_clinical_events(
+        immune_thromb_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - hes
+    tmp_cov_bin_history_immune_thromb_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= immune_thromb_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_immune_thromb_death=patients.with_these_codes_on_death_certificate(
+        immune_thromb_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura) - combined
+    cov_bin_history_immune_thromb=patients.minimum_of(
+        "tmp_cov_bin_history_immune_thromb_snomed", "tmp_cov_bin_history_immune_thromb_hes", "tmp_cov_bin_history_immune_thromb_death",
+    ),
+    ## Pernicious anaemia - snomed
+    tmp_cov_bin_history_pernicious_anaemia_snomed= patients.with_these_clinical_events(
+        pernicious_anaemia_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Pernicious anaemia - hes
+    tmp_cov_bin_history_pernicious_anaemia_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= pernicious_anaemia_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    # ONS
+    tmp_cov_bin_history_pernicious_anaemia_death=patients.with_these_codes_on_death_certificate(
+        pernicious_anaemia_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Pernicious anaemia combined
+    cov_bin_history_pernicious_anaemia=patients.minimum_of(
+        "tmp_cov_bin_history_pernicious_anaemia_snomed", "tmp_cov_bin_history_pernicious_anaemia_hes", "tmp_cov_bin_history_pernicious_anaemia_death",
+    ),
+    ## Aplastic Anaemia - snomed
+    tmp_cov_bin_history_apa_snomed= patients.with_these_clinical_events(
+        apa_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Aplastic Anaemia - ctv3
+    tmp_cov_bin_history_apa_ctv= patients.with_these_clinical_events(
+        apa_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Aplastic Anaemia - hes
+    tmp_cov_bin_history_apa_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= apa_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+       # ONS
+    tmp_cov_bin_history_apa_death=patients.with_these_codes_on_death_certificate(
+        apa_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Aplastic Anaemia combined
+    cov_bin_history_apa=patients.minimum_of(
+        "tmp_cov_bin_history_apa_snomed", "tmp_cov_bin_history_apa_ctv", "tmp_cov_bin_history_apa_hes", "tmp_cov_bin_history_apa_death",
+    ),
+    ## Autoimmune haemolytic anaemia - snomed
+    tmp_cov_bin_history_aha_snomed= patients.with_these_clinical_events(
+        aha_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Autoimmune haemolytic anaemia - hes
+    tmp_cov_bin_history_aha_hes =patients.admitted_to_hospital(
+        with_these_primary_diagnoses= aha_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_aha_death=patients.with_these_codes_on_death_certificate(
+        aha_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Autoimmune haemolytic anaemia combined
+    cov_bin_history_aha =patients.minimum_of(
+        "tmp_out_date_aha_snomed", "tmp_out_date_aha_hes", "tmp_out_date_aha_death",
+    ),
+    ## History of Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
+    cov_bin_history_grp7_htd=patients.minimum_of(
+        "tmp_cov_bin_history_immune_thromb_snomed", "tmp_cov_bin_history_immune_thromb_hes", "tmp_cov_bin_history_immune_thromb_death",
+        "tmp_cov_bin_history_pernicious_anaemia_snomed", "tmp_cov_bin_history_pernicious_anaemia_hes", "tmp_cov_bin_history_pernicious_anaemia_death",
+        "tmp_cov_bin_history_apa_snomed", "tmp_cov_bin_history_apa_ctv", "tmp_cov_bin_history_apa_hes", "tmp_cov_bin_history_apa_death",
+        "tmp_cov_bin_history_aha_snomed", "tmp_cov_bin_history_aha_hes", "tmp_cov_bin_history_aha_death",
+        #"out_date_immune_thromb", "out_date_pernicious_anaemia", "out_date_apa", "out_date_aha"
+    ),
+
+    ###################################################################
+    ## History of Outcome group 8: Inflammatory neuromuscular disease #
+    ###################################################################
+    ## Guillain Barre - ctv
+    tmp_cov_bin_history_glb_ctv= patients.with_these_clinical_events(
+        glb_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Guillain Barre - icd10
+    tmp_cov_bin_history_glb_hes= patients.admitted_to_hospital(
+        with_these_diagnoses=glb_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+         # ONS
+    tmp_cov_bin_history_glb_death=patients.with_these_codes_on_death_certificate(
+        glb_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Guillain Barre combined
+    cov_bin_history_glb=patients.minimum_of(
+        "tmp_cov_bin_history_glb_ctv", "tmp_cov_bin_history_glb_hes", "tmp_cov_bin_history_glb_death",
+    ),
+    ## Multiple Sclerosis - ctv
+    tmp_cov_bin_history_multiple_sclerosis_ctv= patients.with_these_clinical_events(
+        multiple_sclerosis_code_ctv,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Multiple Sclerosis - hes
+    tmp_cov_bin_history_multiple_sclerosis_hes= patients.admitted_to_hospital(
+        with_these_diagnoses=multiple_sclerosis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_multiple_sclerosis_death=patients.with_these_codes_on_death_certificate(
+        multiple_sclerosis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Multiple Sclerosis combined
+    cov_bin_history_multiple_sclerosis=patients.minimum_of(
+        "tmp_cov_bin_history_multiple_sclerosis_ctv", "tmp_cov_bin_history_multiple_sclerosis_hes", "tmp_cov_bin_history_multiple_sclerosis_death",
+    ),
+    ## Myasthenia gravis - snomed
+    tmp_cov_bin_history_myasthenia_gravis_snomed= patients.with_these_clinical_events(
+        myasthenia_gravis_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Myasthenia gravis - hes
+    tmp_cov_bin_history_myasthenia_gravis_hes= patients.admitted_to_hospital(
+        with_these_diagnoses=myasthenia_gravis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_myasthenia_gravis_death=patients.with_these_codes_on_death_certificate(
+        myasthenia_gravis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Myasthenia gravis combined
+    cov_bin_history_myasthenia_gravis=patients.minimum_of(
+        "tmp_cov_bin_history_myasthenia_gravis_snomed", "tmp_cov_bin_history_myasthenia_gravis_hes", "tmp_cov_bin_history_myasthenia_gravis_death",
+    ),
+    ## Longitudinal myelitis - snomed
+    tmp_cov_bin_history_longit_myelitis_snomed= patients.with_these_clinical_events(
+        longit_myelitis_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Longitudinal myelitis - hes
+    tmp_cov_bin_history_longit_myelitis_hes= patients.admitted_to_hospital(
+        with_these_diagnoses=longit_myelitis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+     # ONS
+    tmp_cov_bin_history_longit_myelitis_death=patients.with_these_codes_on_death_certificate(
+        longit_myelitis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Longitudinal myelitis combined
+    cov_bin_history_longit_myelitis=patients.minimum_of(
+        "tmp_cov_bin_history_longit_myelitis_snomed", "tmp_cov_bin_history_longit_myelitis_hes", "tmp_cov_bin_history_longit_myelitis_death",
+    ),
+    ## Clinically isolated syndrome - snomed
+    tmp_cov_bin_history_cis_snomed= patients.with_these_clinical_events(
+        cis_code_snomed,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Clinically isolated syndrome - hes
+    tmp_cov_bin_history_cis_hes= patients.admitted_to_hospital(
+        with_these_diagnoses=cis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+      # ONS
+    tmp_cov_bin_history_cis_death=patients.with_these_codes_on_death_certificate(
+        cis_code_icd,
+        returning="binary_flag",
+        on_or_before=f"{index_date_variable} - 1 day",
+        return_expectations={"incidence": 0.1,
+        },
+    ),
+    ## Clinically isolated syndrome combined
+    cov_bin_history_cis=patients.minimum_of(
+        "tmp_cov_bin_history_cis_snomed", "tmp_cov_bin_history_cis_hes", "tmp_cov_bin_history_cis_death",
+    ),
+    ## Outcome group 8: Inflammatory neuromuscular disease - to be expanded once codelist for other outcome components are available
+    cov_bin_history_grp8_ind=patients.minimum_of(
+        "tmp_cov_bin_history_glb_ctv", "tmp_cov_bin_history_glb_hes", "tmp_cov_bin_history_glb_death",
+        "tmp_cov_bin_history_multiple_sclerosis_ctv", "tmp_cov_bin_history_multiple_sclerosis_hes", "tmp_cov_bin_history_multiple_sclerosis_death",
+        "tmp_cov_bin_history_myasthenia_gravis_snomed", "tmp_cov_bin_history_myasthenia_gravis_hes", "tmp_cov_bin_history_myasthenia_gravis_death",
+        "tmp_cov_bin_history_longit_myelitis_snomed", "tmp_cov_bin_history_longit_myelitis_hes", "tmp_cov_bin_history_longit_myelitis_death",
+        "tmp_cov_bin_history_cis_snomed", "tmp_cov_bin_history_cis_hes", "tmp_cov_bin_history_cis_death",
+    ),
+
+    ## Define primary outcome: composite auto-immune outcome
+    cov_bin_history_composite_ai=patients.minimum_of(
+        "tmp_cov_bin_history_ra_snomed", "tmp_cov_bin_history_ra_hes", "tmp_cov_bin_history_ra_death",
+        "tmp_cov_bin_history_undiff_eia",
+        "tmp_cov_bin_history_psoa_snomed", 
+        "tmp_cov_bin_history_psoa_hes", 
+        "tmp_cov_bin_history_psoa_death",
+        "tmp_cov_bin_history_axial_snomed", 
+        "tmp_cov_bin_history_axial_hes", "tmp_cov_bin_history_axial_death",
+        "tmp_cov_bin_history_sle_ctv", "tmp_cov_bin_history_sle_hes", "tmp_cov_bin_history_sle_death",
+        "tmp_cov_bin_history_sjs_snomed", "tmp_cov_bin_history_sjs_hes", "tmp_cov_bin_history_sjs_death",
+        "tmp_cov_bin_history_sss_snomed", "tmp_cov_bin_history_sss_hes", "tmp_cov_bin_history_sss_death", 
+        "tmp_cov_bin_history_im_snomed", "tmp_cov_bin_history_im_hes", "tmp_cov_bin_history_im_death",
+        "tmp_cov_bin_history_mctd_snomed", "tmp_cov_bin_history_mctd_hes", "tmp_cov_bin_history_mctd_death",
+        "tmp_cov_bin_history_as",
+        "tmp_cov_bin_history_psoriasis_ctv", "tmp_cov_bin_history_psoriasis_hes", "tmp_cov_bin_history_psoriasis_death",
+        "tmp_cov_bin_history_hs_ctv", "tmp_cov_bin_history_hs_hes", "tmp_cov_bin_history_hs_death",
+        "tmp_cov_bin_history_ibd_snomed", "tmp_cov_bin_history_ibd_ctv", "tmp_cov_bin_history_ibd_hes", "tmp_cov_bin_history_ibd_death",
+        "tmp_cov_bin_history_crohn_ctv", "tmp_cov_bin_history_crohn_hes", "tmp_cov_bin_history_crohn_death",
+        "tmp_cov_bin_history_uc_ctv", "tmp_cov_bin_history_uc_hes", "tmp_cov_bin_history_uc_death",
+        "tmp_cov_bin_history_celiac_snomed", "tmp_cov_bin_history_celiac_hes", "tmp_cov_bin_history_celiac_death",
+        "tmp_cov_bin_history_addison_snomed", "tmp_cov_bin_history_addison_hes","tmp_cov_bin_history_addison_death",
+        "tmp_cov_bin_history_grave_snomed", "tmp_cov_bin_history_grave_hes", "tmp_cov_bin_history_grave_death",
+        "tmp_cov_bin_history_hashimoto_thyroiditis_snomed", "tmp_cov_bin_history_hashimoto_thyroiditis_hes", "tmp_cov_bin_history_hashimoto_thyroiditis_death",
+        "tmp_cov_bin_history_anca_snomed", "tmp_cov_bin_history_anca_hes", "tmp_cov_bin_history_anca_death",
+        "tmp_cov_bin_history_gca_snomed", "tmp_cov_bin_history_gca_hes", "tmp_cov_bin_history_gca_death",
+        "tmp_cov_bin_history_iga_vasculitis_snomed", "tmp_cov_bin_history_iga_vasculitis_hes", "tmp_cov_bin_history_iga_vasculitis_death",
+        "tmp_cov_bin_history_pmr_snomed", "tmp_cov_bin_history_pmr_hes", "tmp_cov_bin_history_pmr_death",
+        "tmp_cov_bin_history_immune_thromb_snomed", "tmp_cov_bin_history_immune_thromb_hes", "tmp_cov_bin_history_immune_thromb_death",
+        "tmp_cov_bin_history_pernicious_anaemia_snomed", "tmp_cov_bin_history_pernicious_anaemia_hes", "tmp_cov_bin_history_pernicious_anaemia_death",
+        "tmp_cov_bin_history_apa_snomed", "tmp_cov_bin_history_apa_ctv", "tmp_cov_bin_history_apa_hes", "tmp_cov_bin_history_apa_death",
+        "tmp_cov_bin_history_aha_snomed", "tmp_cov_bin_history_aha_hes", "tmp_cov_bin_history_aha_death",
+        "tmp_cov_bin_history_glb_ctv", "tmp_cov_bin_history_glb_hes", "tmp_cov_bin_history_glb_death",
+        "tmp_cov_bin_history_multiple_sclerosis_ctv", "tmp_cov_bin_history_multiple_sclerosis_hes", "tmp_cov_bin_history_multiple_sclerosis_death",
+        "tmp_cov_bin_history_myasthenia_gravis_snomed", "tmp_cov_bin_history_myasthenia_gravis_hes", "tmp_cov_bin_history_myasthenia_gravis_death",
+        "tmp_cov_bin_history_longit_myelitis_snomed", "tmp_cov_bin_history_longit_myelitis_hes", "tmp_cov_bin_history_longit_myelitis_death",
+        "tmp_cov_bin_history_cis_snomed", "tmp_cov_bin_history_cis_hes", "tmp_cov_bin_history_cis_death",
+        #"out_date_grp1_ifa", "out_date_grp2_ctd", "out_date_grp3_isd", "out_date_grp4_agi_ibd", 
+        #"out_date_grp5_atv", "out_date_grp6_trd", "out_date_grp7_htd", "out_date_grp8_ind"
+    ),
+
     )
     return dynamic_variables
