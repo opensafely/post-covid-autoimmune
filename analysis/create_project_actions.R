@@ -14,7 +14,7 @@ library(dplyr)
 ## defaults ----
 defaults_list <- list(
   version = "3.0",
-  expectations= list(population_size=350000L)
+  expectations= list(population_size=150000L)
 )
 
 active_analyses <- read_rds("lib/active_analyses.rds")
@@ -27,11 +27,11 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
 
 # Simplified yaml --------------------------------------------------------------
 
-active_analyses <- active_analyses %>%
+#active_analyses <- active_analyses %>%
   # cohort
-  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
+#  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
   # for table 2,
-  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
+#  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
   # filter(!str_detect(outcome, "\\d"))
   # analysis 1
   # filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
@@ -455,14 +455,25 @@ actions_list <- splice(
   
   action(
     name = "make_table2_output",
-    run = "r:latest analysis/model/make_table2_output.R",
+    run = "r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax",
     needs = list("table2_prevax",
                  "table2_vax",
                  "table2_unvax"),
     moderately_sensitive = list(
-      table2_output_midpoint6_derived = glue("output/table2_output_midpoint6_derived.csv")
+      table2_output_rounded = glue("output/table2_output_rounded.csv")
     )
   ),
+  
+  # action(
+  #   name = "make_other_output",
+  #   run = "r:latest analysis/model/make_table2_output.R",
+  #   needs = list("table2_prevax",
+  #                "table2_vax",
+  #                "table2_unvax"),
+  #   moderately_sensitive = list(
+  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
+  #   )
+  # ),
   
   ## venn output ------------------------------------------------------------
   
@@ -520,7 +531,7 @@ actions_list <- splice(
                   function(x) table2(cohort = x)),
            recursive = FALSE
     )
-  )#,
+  ),
   
   ## Venn data -----------------------------------------------------------------
   
@@ -545,17 +556,17 @@ actions_list <- splice(
   
   ## AER table -----------------------------------------------------------------
   
-  # comment("Make absolute excess risk (AER) input"),
-  # 
-  # action(
-  #   name = "make_aer_input",
-  #   run = "r:latest analysis/model/make_aer_input.R",
-  #   needs = as.list(paste0("make_model_input-",active_analyses[grepl("-main-",active_analyses$name),]$name)),
-  #   moderately_sensitive = list(
-  #     aer_input = glue("output/aer_input-main.csv"),
-  #     aer_input_rounded = glue("output/aer_input-main-rounded.csv")
-  #   )
-  # )
+  comment("Make absolute excess risk (AER) input"),
+
+  action(
+    name = "make_aer_input",
+    run = "r:latest analysis/model/make_aer_input.R",
+    needs = as.list(paste0("make_model_input-",active_analyses[grepl("-main-",active_analyses$name),]$name)),
+    moderately_sensitive = list(
+      aer_input = glue("output/aer_input-main.csv"),
+      aer_input_rounded = glue("output/aer_input-main-rounded.csv")
+    )
+  )
   
 )
 

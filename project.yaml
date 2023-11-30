@@ -2,7 +2,7 @@ version: '3.0'
 
 expectations:
 
-  population_size: 350000
+  population_size: 150000
 
 actions:
 
@@ -174,14 +174,14 @@ actions:
         cohort: output/input_vax_stage1.rds
 
   make_table2_output:
-    run: r:latest analysis/model/make_table2_output.R
+    run: r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax
     needs:
     - table2_prevax
     - table2_vax
     - table2_unvax
     outputs:
       moderately_sensitive:
-        table2_output_midpoint6_derived: output/table2_output_midpoint6_derived.csv
+        table2_output_rounded: output/table2_output_rounded.csv
 
   ## Stage 5 - Run models 
 
@@ -4273,4 +4273,137 @@ actions:
       moderately_sensitive:
         table2: output/table2_vax.csv
         table2_midpoint6: output/table2_vax_midpoint6.csv
+
+  ## Make absolute excess risk (AER) input 
+
+  make_aer_input:
+    run: r:latest analysis/model/make_aer_input.R
+    needs:
+    - make_model_input-cohort_prevax-main-addison
+    - make_model_input-cohort_prevax-main-aha
+    - make_model_input-cohort_prevax-main-anca
+    - make_model_input-cohort_prevax-main-apa
+    - make_model_input-cohort_prevax-main-as
+    - make_model_input-cohort_prevax-main-axial
+    - make_model_input-cohort_prevax-main-celiac
+    - make_model_input-cohort_prevax-main-cis
+    - make_model_input-cohort_prevax-main-composite_ai
+    - make_model_input-cohort_prevax-main-crohn
+    - make_model_input-cohort_prevax-main-gca
+    - make_model_input-cohort_prevax-main-glb
+    - make_model_input-cohort_prevax-main-grave
+    - make_model_input-cohort_prevax-main-grp1_ifa
+    - make_model_input-cohort_prevax-main-grp2_ctd
+    - make_model_input-cohort_prevax-main-grp3_isd
+    - make_model_input-cohort_prevax-main-grp4_agi_ibd
+    - make_model_input-cohort_prevax-main-grp5_atv
+    - make_model_input-cohort_prevax-main-grp6_trd
+    - make_model_input-cohort_prevax-main-grp7_htd
+    - make_model_input-cohort_prevax-main-grp8_ind
+    - make_model_input-cohort_prevax-main-hashimoto_thyroiditis
+    - make_model_input-cohort_prevax-main-hs
+    - make_model_input-cohort_prevax-main-ibd
+    - make_model_input-cohort_prevax-main-iga_vasculitis
+    - make_model_input-cohort_prevax-main-im
+    - make_model_input-cohort_prevax-main-immune_thromb
+    - make_model_input-cohort_prevax-main-longit_myelitis
+    - make_model_input-cohort_prevax-main-mctd
+    - make_model_input-cohort_prevax-main-multiple_sclerosis
+    - make_model_input-cohort_prevax-main-myasthenia_gravis
+    - make_model_input-cohort_prevax-main-pa
+    - make_model_input-cohort_prevax-main-pernicious_anaemia
+    - make_model_input-cohort_prevax-main-pmr
+    - make_model_input-cohort_prevax-main-psoriasis
+    - make_model_input-cohort_prevax-main-ra
+    - make_model_input-cohort_prevax-main-sjs
+    - make_model_input-cohort_prevax-main-sle
+    - make_model_input-cohort_prevax-main-sss
+    - make_model_input-cohort_prevax-main-uc
+    - make_model_input-cohort_prevax-main-undiff_eia
+    - make_model_input-cohort_unvax-main-addison
+    - make_model_input-cohort_unvax-main-aha
+    - make_model_input-cohort_unvax-main-anca
+    - make_model_input-cohort_unvax-main-apa
+    - make_model_input-cohort_unvax-main-as
+    - make_model_input-cohort_unvax-main-axial
+    - make_model_input-cohort_unvax-main-celiac
+    - make_model_input-cohort_unvax-main-cis
+    - make_model_input-cohort_unvax-main-composite_ai
+    - make_model_input-cohort_unvax-main-crohn
+    - make_model_input-cohort_unvax-main-gca
+    - make_model_input-cohort_unvax-main-glb
+    - make_model_input-cohort_unvax-main-grave
+    - make_model_input-cohort_unvax-main-grp1_ifa
+    - make_model_input-cohort_unvax-main-grp2_ctd
+    - make_model_input-cohort_unvax-main-grp3_isd
+    - make_model_input-cohort_unvax-main-grp4_agi_ibd
+    - make_model_input-cohort_unvax-main-grp5_atv
+    - make_model_input-cohort_unvax-main-grp6_trd
+    - make_model_input-cohort_unvax-main-grp7_htd
+    - make_model_input-cohort_unvax-main-grp8_ind
+    - make_model_input-cohort_unvax-main-hashimoto_thyroiditis
+    - make_model_input-cohort_unvax-main-hs
+    - make_model_input-cohort_unvax-main-ibd
+    - make_model_input-cohort_unvax-main-iga_vasculitis
+    - make_model_input-cohort_unvax-main-im
+    - make_model_input-cohort_unvax-main-immune_thromb
+    - make_model_input-cohort_unvax-main-longit_myelitis
+    - make_model_input-cohort_unvax-main-mctd
+    - make_model_input-cohort_unvax-main-multiple_sclerosis
+    - make_model_input-cohort_unvax-main-myasthenia_gravis
+    - make_model_input-cohort_unvax-main-pa
+    - make_model_input-cohort_unvax-main-pernicious_anaemia
+    - make_model_input-cohort_unvax-main-pmr
+    - make_model_input-cohort_unvax-main-psoriasis
+    - make_model_input-cohort_unvax-main-ra
+    - make_model_input-cohort_unvax-main-sjs
+    - make_model_input-cohort_unvax-main-sle
+    - make_model_input-cohort_unvax-main-sss
+    - make_model_input-cohort_unvax-main-uc
+    - make_model_input-cohort_unvax-main-undiff_eia
+    - make_model_input-cohort_vax-main-addison
+    - make_model_input-cohort_vax-main-aha
+    - make_model_input-cohort_vax-main-anca
+    - make_model_input-cohort_vax-main-apa
+    - make_model_input-cohort_vax-main-as
+    - make_model_input-cohort_vax-main-axial
+    - make_model_input-cohort_vax-main-celiac
+    - make_model_input-cohort_vax-main-cis
+    - make_model_input-cohort_vax-main-composite_ai
+    - make_model_input-cohort_vax-main-crohn
+    - make_model_input-cohort_vax-main-gca
+    - make_model_input-cohort_vax-main-glb
+    - make_model_input-cohort_vax-main-grave
+    - make_model_input-cohort_vax-main-grp1_ifa
+    - make_model_input-cohort_vax-main-grp2_ctd
+    - make_model_input-cohort_vax-main-grp3_isd
+    - make_model_input-cohort_vax-main-grp4_agi_ibd
+    - make_model_input-cohort_vax-main-grp5_atv
+    - make_model_input-cohort_vax-main-grp6_trd
+    - make_model_input-cohort_vax-main-grp7_htd
+    - make_model_input-cohort_vax-main-grp8_ind
+    - make_model_input-cohort_vax-main-hashimoto_thyroiditis
+    - make_model_input-cohort_vax-main-hs
+    - make_model_input-cohort_vax-main-ibd
+    - make_model_input-cohort_vax-main-iga_vasculitis
+    - make_model_input-cohort_vax-main-im
+    - make_model_input-cohort_vax-main-immune_thromb
+    - make_model_input-cohort_vax-main-longit_myelitis
+    - make_model_input-cohort_vax-main-mctd
+    - make_model_input-cohort_vax-main-multiple_sclerosis
+    - make_model_input-cohort_vax-main-myasthenia_gravis
+    - make_model_input-cohort_vax-main-pa
+    - make_model_input-cohort_vax-main-pernicious_anaemia
+    - make_model_input-cohort_vax-main-pmr
+    - make_model_input-cohort_vax-main-psoriasis
+    - make_model_input-cohort_vax-main-ra
+    - make_model_input-cohort_vax-main-sjs
+    - make_model_input-cohort_vax-main-sle
+    - make_model_input-cohort_vax-main-sss
+    - make_model_input-cohort_vax-main-uc
+    - make_model_input-cohort_vax-main-undiff_eia
+    outputs:
+      moderately_sensitive:
+        aer_input: output/aer_input-main.csv
+        aer_input_rounded: output/aer_input-main-rounded.csv
 

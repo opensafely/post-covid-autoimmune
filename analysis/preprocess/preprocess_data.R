@@ -149,7 +149,7 @@ df[,c("sub_date_covid19_hospital")] <- NULL
 
 message("COVID19 severity determined successfully")
 
-# Create vars for neurodegenerative outcomes -----------------------------------
+# Create vars for neurodegenerative outcomes - TBC -------------------------------------------------------------
 
 # Prior diagnosis variable ("_prior") 
 # FALSE = anyone who has a diagnosis after the index date/who never has a diagnosis
@@ -207,7 +207,7 @@ df <- df %>%
     # Outcome 9: Composite autoimmune disease
     out_date_composite_ai_prior = ifelse(out_date_composite_ai > index_date_cohort | is.na(out_date_composite_ai), FALSE, TRUE))
 
-  message("Prior diagnosis variables created")
+message("Prior diagnosis variables created")
 
 # Restrict columns and save analysis dataset ---------------------------------
 

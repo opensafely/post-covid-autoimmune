@@ -836,6 +836,15 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
             },
         ),
 
+    ## 2019 outpatient rate
+    cov_num_outpatient_rate = patients.outpatient_appointment_date(
+        between = [days(study_dates["pandemic_start"], - 365), days(study_dates["pandemic_start"], -1)],
+        returning = "number_of_matches_in_period",
+        return_expectations ={
+            "int": {"distribution": "poisson", "mean": 5},
+        },
+    ),
+
     ## Healthcare worker    
     cov_bin_healthcare_worker=patients.with_healthcare_worker_flag_on_covid_vaccine_record(
         returning='binary_flag', 
