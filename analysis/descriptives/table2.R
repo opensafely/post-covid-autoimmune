@@ -21,7 +21,7 @@ print('Specify arguments')
 args <- commandArgs(trailingOnly=TRUE)
 
 if(length(args)==0){
-  cohort <- "prevax"
+  cohort <- "vax"
 } else {
   cohort <- args[[1]]
 }
