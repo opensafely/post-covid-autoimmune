@@ -70,7 +70,7 @@ stage1 <- function(cohort_name){
   # #rename(end_date = !!sym(paste0("end_date_",cohort_name)))
   # 
   
-  #input <- dplyr::rename(input, "index_date" = "index_date_cohort")
+  input <- dplyr::rename(input, "index_date" = "index_date_cohort")
   
   # NOTE: no censoring of end date for death/event at this stage
   
@@ -244,7 +244,7 @@ stage1 <- function(cohort_name){
   #----------------------------------------------------------------#
   
   #Inclusion criteria 1: Alive on the first day of follow up
-  input <- input %>% filter(index_date_cohort < death_date | is.na(death_date))
+  input <- input %>% filter(index_date < death_date | is.na(death_date))
   cohort_flow[nrow(cohort_flow)+1,] <- c(nrow(input),as.numeric(cohort_flow[nrow(cohort_flow),"N"]) - nrow(input), "Criteria 1 (Inclusion): Alive on the first day of follow up") # Feed into the cohort flow
   
   consort[nrow(consort)+1,] <- c("Inclusion criteria: Alive on the first day of follow up",
@@ -369,7 +369,7 @@ stage1 <- function(cohort_name){
                                    nrow(input))
     
     #Inclusions criteria 13: Index date is before cohort end date - will remove anyone who is not fully vaccinated by the cohort end date
-    input <- input %>% filter (!is.na(index_date_cohort) & index_date_cohort <= end_date_exposure & index_date_cohort >= start_date_delta)
+    input <- input %>% filter (!is.na(index_date) & index_date <= end_date_exposure & index_date >= start_date_delta)
     cohort_flow[nrow(cohort_flow)+1,] <- c(nrow(input),as.numeric(cohort_flow[nrow(cohort_flow),"N"]) - nrow(input), "Criteria 13 (Inclusion): Patient index date is within the study start and end dates i.e patient is fully vaccinated before the study end date")
     
     consort[nrow(consort)+1,] <- c("Inclusion criteria: Index date is before cohort end date",
@@ -381,7 +381,7 @@ stage1 <- function(cohort_name){
     #Exclusion criteria 8: Have a record of one or more vaccination prior index date
     # i.e. Have a record of a first vaccination prior index date (no more vax 2 and 3 variables available in this dataset)
     #a.Determine the vaccination status on index start date
-    input$prior_vax1 <- ifelse(input$vax_date_covid_1 <= input$index_date_cohort, 1,0)
+    input$prior_vax1 <- ifelse(input$vax_date_covid_1 <= input$index_date, 1,0)
     input$prior_vax1[is.na(input$prior_vax1)] <- 0
     
     input <- subset(input, input$prior_vax1 == 0) #Exclude people with prior vaccination
@@ -404,7 +404,7 @@ stage1 <- function(cohort_name){
                                    nrow(input))
     
     #Inclusions criteria 10: Index date is before cohort end date - will remove anyone whose eligibility date + 84 days is after study end date (only those with unknown JCVI group)
-    input <- input %>% filter (!is.na(index_date_cohort) & index_date_cohort <= end_date_exposure & index_date_cohort >= start_date_delta)
+    input <- input %>% filter (!is.na(index_date) & index_date <= end_date_exposure & index_date >= start_date_delta)
     cohort_flow[nrow(cohort_flow)+1,] <- c(nrow(input),as.numeric(cohort_flow[nrow(cohort_flow),"N"]) - nrow(input), "Criteria 10 (Inclusion): Patient index date is within the study start and end dates i.e patients eligibility date + 84 days is before the study end date")
     
   }
@@ -428,55 +428,55 @@ stage1 <- function(cohort_name){
   
   input <- input %>%
     # Outcome 1: Inflammatory arthritis
-      filter(!out_date_ra < index_date_cohort | is.na(out_date_ra)) %>%
-      filter(!out_date_undiff_eia < index_date_cohort | is.na(out_date_undiff_eia)) %>%
-      filter(!out_date_psoa < index_date_cohort | is.na(out_date_psoa)) %>%
-      filter(!out_date_axial < index_date_cohort | is.na(out_date_axial)) %>%
-      filter(!out_date_grp1_ifa < index_date_cohort | is.na(out_date_grp1_ifa)) %>%
+      filter(!out_date_ra < index_date | is.na(out_date_ra)) %>%
+      filter(!out_date_undiff_eia < index_date | is.na(out_date_undiff_eia)) %>%
+      filter(!out_date_psoa < index_date | is.na(out_date_psoa)) %>%
+      filter(!out_date_axial < index_date | is.na(out_date_axial)) %>%
+      filter(!out_date_grp1_ifa < index_date | is.na(out_date_grp1_ifa)) %>%
       # Outcome 2: Connective tissue disorders
-      filter(!out_date_sle < index_date_cohort | is.na(out_date_sle)) %>%
-      filter(!out_date_sjs < index_date_cohort | is.na(out_date_sjs)) %>%
-      filter(!out_date_sss < index_date_cohort | is.na(out_date_sss)) %>%
-      filter(!out_date_im < index_date_cohort | is.na(out_date_im)) %>%
-      filter(!out_date_as < index_date_cohort | is.na(out_date_as)) %>%
-      filter(!out_date_mctd < index_date_cohort | is.na(out_date_mctd)) %>%
-      filter(!out_date_grp2_ctd < index_date_cohort | is.na(out_date_grp2_ctd)) %>%
+      filter(!out_date_sle < index_date | is.na(out_date_sle)) %>%
+      filter(!out_date_sjs < index_date | is.na(out_date_sjs)) %>%
+      filter(!out_date_sss < index_date | is.na(out_date_sss)) %>%
+      filter(!out_date_im < index_date | is.na(out_date_im)) %>%
+      filter(!out_date_as < index_date | is.na(out_date_as)) %>%
+      filter(!out_date_mctd < index_date | is.na(out_date_mctd)) %>%
+      filter(!out_date_grp2_ctd < index_date | is.na(out_date_grp2_ctd)) %>%
       # Outcome 3: Inflammatory skin disease
-      filter(!out_date_psoriasis < index_date_cohort | is.na(out_date_psoriasis)) %>%
-      filter(!out_date_hs < index_date_cohort | is.na(out_date_hs)) %>%
-      filter(!out_date_grp3_isd < index_date_cohort | is.na(out_date_grp3_isd)) %>%
+      filter(!out_date_psoriasis < index_date | is.na(out_date_psoriasis)) %>%
+      filter(!out_date_hs < index_date | is.na(out_date_hs)) %>%
+      filter(!out_date_grp3_isd < index_date | is.na(out_date_grp3_isd)) %>%
       # Outcome 4: Autoimmune GI / Inflammatory bowel disease
-      filter(!out_date_ibd < index_date_cohort | is.na(out_date_ibd)) %>%
-      filter(!out_date_crohn < index_date_cohort | is.na(out_date_crohn)) %>%
-      filter(!out_date_uc < index_date_cohort | is.na(out_date_uc)) %>%
-      filter(!out_date_celiac < index_date_cohort | is.na(out_date_celiac)) %>%
-      filter(!out_date_grp4_agi_ibd < index_date_cohort | is.na(out_date_grp4_agi_ibd)) %>%
+      filter(!out_date_ibd < index_date | is.na(out_date_ibd)) %>%
+      filter(!out_date_crohn < index_date | is.na(out_date_crohn)) %>%
+      filter(!out_date_uc < index_date | is.na(out_date_uc)) %>%
+      filter(!out_date_celiac < index_date | is.na(out_date_celiac)) %>%
+      filter(!out_date_grp4_agi_ibd < index_date | is.na(out_date_grp4_agi_ibd)) %>%
       # Outcome 5: Thyroid diseases
-      filter(!out_date_addison < index_date_cohort | is.na(out_date_addison)) %>%
-      filter(!out_date_grave < index_date_cohort | is.na(out_date_grave)) %>%
-      filter(!out_date_hashimoto_thyroiditis < index_date_cohort | is.na(out_date_hashimoto_thyroiditis)) %>%
-      filter(!out_date_grp5_atv < index_date_cohort | is.na(out_date_grp5_atv)) %>%
+      filter(!out_date_addison < index_date | is.na(out_date_addison)) %>%
+      filter(!out_date_grave < index_date | is.na(out_date_grave)) %>%
+      filter(!out_date_hashimoto_thyroiditis < index_date | is.na(out_date_hashimoto_thyroiditis)) %>%
+      filter(!out_date_grp5_atv < index_date | is.na(out_date_grp5_atv)) %>%
       # Outcome 6: Autoimmune vasculitis
-      filter(!out_date_anca < index_date_cohort | is.na(out_date_anca)) %>%
-      filter(!out_date_gca < index_date_cohort | is.na(out_date_gca)) %>%
-      filter(!out_date_iga_vasculitis < index_date_cohort | is.na(out_date_iga_vasculitis)) %>%
-      filter(!out_date_pmr < index_date_cohort | is.na(out_date_pmr)) %>%
-      filter(!out_date_grp6_trd < index_date_cohort | is.na(out_date_grp6_trd)) %>%
+      filter(!out_date_anca < index_date | is.na(out_date_anca)) %>%
+      filter(!out_date_gca < index_date | is.na(out_date_gca)) %>%
+      filter(!out_date_iga_vasculitis < index_date | is.na(out_date_iga_vasculitis)) %>%
+      filter(!out_date_pmr < index_date | is.na(out_date_pmr)) %>%
+      filter(!out_date_grp6_trd < index_date | is.na(out_date_grp6_trd)) %>%
       # Outcome 7: Hematologic Diseases
-      filter(!out_date_immune_thromb < index_date_cohort | is.na(out_date_immune_thromb)) %>%
-      filter(!out_date_pernicious_anaemia < index_date_cohort | is.na(out_date_pernicious_anaemia)) %>%
-      filter(!out_date_apa < index_date_cohort | is.na(out_date_apa)) %>%
-      filter(!out_date_aha < index_date_cohort | is.na(out_date_aha)) %>%
-      filter(!out_date_grp7_htd < index_date_cohort | is.na(out_date_grp7_htd)) %>%
+      filter(!out_date_immune_thromb < index_date | is.na(out_date_immune_thromb)) %>%
+      filter(!out_date_pernicious_anaemia < index_date | is.na(out_date_pernicious_anaemia)) %>%
+      filter(!out_date_apa < index_date | is.na(out_date_apa)) %>%
+      filter(!out_date_aha < index_date | is.na(out_date_aha)) %>%
+      filter(!out_date_grp7_htd < index_date | is.na(out_date_grp7_htd)) %>%
       # Outcome 8: Inflammatory neuromuscular disease
-      filter(!out_date_glb < index_date_cohort | is.na(out_date_glb)) %>%
-      filter(!out_date_multiple_sclerosis < index_date_cohort | is.na(out_date_multiple_sclerosis)) %>%
-      filter(!out_date_myasthenia_gravis < index_date_cohort | is.na(out_date_myasthenia_gravis)) %>%
-      filter(!out_date_longit_myelitis < index_date_cohort | is.na(out_date_longit_myelitis)) %>%
-      filter(!out_date_cis < index_date_cohort | is.na(out_date_cis)) %>%
-      filter(!out_date_grp8_ind < index_date_cohort | is.na(out_date_grp8_ind)) %>%
+      filter(!out_date_glb < index_date | is.na(out_date_glb)) %>%
+      filter(!out_date_multiple_sclerosis < index_date | is.na(out_date_multiple_sclerosis)) %>%
+      filter(!out_date_myasthenia_gravis < index_date | is.na(out_date_myasthenia_gravis)) %>%
+      filter(!out_date_longit_myelitis < index_date | is.na(out_date_longit_myelitis)) %>%
+      filter(!out_date_cis < index_date | is.na(out_date_cis)) %>%
+      filter(!out_date_grp8_ind < index_date | is.na(out_date_grp8_ind)) %>%
       # Outcome 9: Composite autoimmune disease
-      filter(!out_date_composite_ai < index_date_cohort | is.na(out_date_composite_ai))
+      filter(!out_date_composite_ai < index_date | is.na(out_date_composite_ai))
   
   # Save consort data ------------------------------------------------------------
   print('Save consort data')
