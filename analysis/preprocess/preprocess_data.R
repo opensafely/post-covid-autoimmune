@@ -41,6 +41,7 @@ bin_cols <- c(grep("_bin", all_cols, value = TRUE),
 num_cols <- c(grep("_num", all_cols, value = TRUE),
               grep("vax_jcvi_age_", all_cols, value = TRUE))
 date_cols <- grep("_date", all_cols, value = TRUE)
+
 # Set the class of the columns with match to make sure the column match the type
 col_classes <- setNames(
   c(rep("c", length(cat_cols)),
@@ -50,35 +51,23 @@ col_classes <- setNames(
   ), 
   all_cols[match(c(cat_cols, bin_cols, num_cols, date_cols), all_cols)]
 )
-# read the input file and specify colClasses
+
+# read the input file and specify colClasses -----------------------------------
 df <- read_csv(input_path, col_types = col_classes) 
 
 df$cov_num_bmi_date_measured <- NULL
-df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in GI
+df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in AI
+
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 print("type of columns:\n")
 
-#message("Column names found")
+# Describe data ----------------------------------------------------------------
 
-# Identify columns containg "_date" --------------------------------------------
+sink(paste0("output/not-for-review/describe_",cohort_name,".txt"))
+print(Hmisc::describe(df))
+sink()
 
-#date_cols <- grep("_date", colnames(cols), value = TRUE)
-
-#message("Date columns identified")
-
-# Set class to date ------------------------------------------------------------
-
-#col_classes <- setNames(rep("Date", length(date_cols)), date_cols)
-
-#message("Column classes defined")
-
-# Read cohort dataset ---------------------------------------------------------- 
-
-# df <- fread(paste0("output/input_",cohort_name,".csv.gz", col_types = cols(patient_id = "c", death_date="D"))) %>%
-#   select(patient_id, death_date)
-# df <- df %>% inner_join(prelim_data, by = "patient_id")
-
-message(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
+message ("Cohort ",cohort_name, " description written successfully!")
 
 # Add death_date from prelim data ----------------------------------------------
 
@@ -99,21 +88,13 @@ df <- df %>%
           across(contains('_cat'), ~ as.factor(.)),
           across(contains('_bin'), ~ as.logical(.)))
 
-# Overwrite vaccination information for dummy data and vax cohort only --
+# Overwrite vaccination information for dummy data and vax cohort only ---------
 
 if(Sys.getenv("OPENSAFELY_BACKEND") %in% c("", "expectations") &&
    cohort_name %in% c("vax")) {
   source("analysis/preprocess/modify_dummy_vax_data.R")
   message("Vaccine information overwritten successfully")
 }
-
-# Describe data ----------------------------------------------------------------
-
-sink(paste0("output/not-for-review/describe_",cohort_name,".txt"))
-print(Hmisc::describe(df))
-sink()
-
-message ("Cohort ",cohort_name, " description written successfully!")
 
 #Combine BMI variables to create one history of obesity variable ---------------
 
@@ -149,7 +130,7 @@ df[,c("sub_date_covid19_hospital")] <- NULL
 
 message("COVID19 severity determined successfully")
 
-# Create vars for neurodegenerative outcomes - TBC -------------------------------------------------------------
+# Create vars for neurodegenerative outcomes - TBC -----------------------------
 
 # Restrict columns and save analysis dataset ---------------------------------
 
@@ -166,8 +147,9 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     contains("step"), # diabetes steps
                     contains("vax_date_eligible"), # Vaccination eligibility
                     contains("vax_date_"), # Vaccination dates and vax type 
-                    contains("vax_cat_")# Vaccination products
-)
+                    contains("vax_cat_") # Vaccination products
+) %>% 
+  select(-matches("tmp_"))
 
 df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
@@ -187,7 +169,7 @@ sink()
 
 df2 <- df %>% select(starts_with(c("patient_id","tmp_out_date","out_date")))
 
-# Describe data --------------------------------------------------------------
+# Describe venn --------------------------------------------------------------
 
 sink(paste0("output/not-for-review/describe_venn_",cohort_name,".txt"))
 print(Hmisc::describe(df2))
