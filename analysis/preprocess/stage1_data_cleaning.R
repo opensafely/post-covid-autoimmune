@@ -478,6 +478,8 @@ stage1 <- function(cohort_name){
       # Outcome 9: Composite autoimmune disease
       filter(!out_date_composite_ai < index_date | is.na(out_date_composite_ai))
   
+  #cohort_flow[nrow(cohort_flow)+1,] <- c(nrow(input), "Calculate manually", "Autoimmune specific criteria: Remove those with any autoimmune disease prior to index date")
+
   # Save consort data ------------------------------------------------------------
   print('Save consort data')
   

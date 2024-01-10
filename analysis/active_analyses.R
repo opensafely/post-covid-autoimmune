@@ -55,9 +55,16 @@ vax_unvax_cuts <- "1;28;197"
 #                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
 
 # "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity",
-# "cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke"
+# "cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_isch_stroke"
 
 # cov_bin_dementia;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_stroke_isch;cov_bin_depression
+
+# history variables
+
+#cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai
+
+#OLD cov list
+##"cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_isch_stroke;cov_bin_dementia",
 
 # Specify cohorts --------------------------------------------------------------
 
@@ -125,7 +132,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+                         covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -147,7 +154,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+                         covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -169,7 +176,7 @@ for (c in cohorts) {
                          strata = strata,
                          covariate_sex = covariate_sex,
                          covariate_age = covariate_age,
-                         covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+                         covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
                          cox_start = cox_start,
                          cox_stop = cox_stop,
                          study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -193,7 +200,7 @@ for (c in cohorts) {
   #                          strata = strata,
   #                          covariate_sex = covariate_sex,
   #                          covariate_age = covariate_age,
-  #                          covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                          covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                          cox_start = cox_start,
   #                          cox_stop = cox_stop,
   #                          study_start =  vax_unvax_start,
@@ -221,7 +228,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = "NULL",
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -243,7 +250,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = "NULL",
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -265,7 +272,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -287,7 +294,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -309,7 +316,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -331,7 +338,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -353,7 +360,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other ="cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -375,7 +382,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -397,7 +404,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -419,7 +426,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -441,7 +448,7 @@ for (c in cohorts) {
   #                        strata = strata,
   #                        covariate_sex = covariate_sex,
   #                        covariate_age = covariate_age,
-  #                        covariate_other = "cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;cov_bin_liver_disease;cov_bin_chronic_kidney_disease;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_chronic_obstructive_pulmonary_disease;cov_bin_ami;cov_bin_all_stroke",
+  #                        covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
   #                        cox_start = cox_start,
   #                        cox_stop = cox_stop,
   #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
@@ -453,6 +460,51 @@ for (c in cohorts) {
   #                        covariate_threshold = covariate_threshold,
   #                        age_spline = TRUE,
   #                        analysis = "sub_ethnicity_other")
+    # 
+    # ## analysis: sub_priorhistory_true --------------------------------------
+    # 
+    # df[nrow(df)+1,] <- c(cohort = c,
+    #                      exposure = exposure,
+    #                      outcome = i,
+    #                      ipw = ipw,
+    #                      strata = strata,
+    #                      covariate_sex = covariate_sex,
+    #                      covariate_age = covariate_age,
+    #                      covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
+    #                      cox_start = cox_start,
+    #                      cox_stop = cox_stop,
+    #                      study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
+    #                      study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
+    #                      cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
+    #                      controls_per_case = controls_per_case,
+    #                      total_event_threshold = total_event_threshold,
+    #                      episode_event_threshold = episode_event_threshold,
+    #                      covariate_threshold = covariate_threshold,
+    #                      age_spline = TRUE,
+    #                      analysis = "sub_priorhistory_true")
+    # 
+    # ## analysis: sub_priorhistory_false ------------------------------------
+    # 
+    # df[nrow(df)+1,] <- c(cohort = c,
+    #                      exposure = exposure,
+    #                      outcome = i,
+    #                      ipw = ipw,
+    #                      strata = strata,
+    #                      covariate_sex = covariate_sex,
+    #                      covariate_age = covariate_age,
+    #                      covariate_other = "cov_bin_history_ra;cov_bin_history_undiff_eia;cov_bin_history_psoa;cov_bin_history_axial;cov_bin_history_grp1_ifa;cov_bin_history_sle;cov_bin_history_sjs;cov_bin_history_sss;cov_bin_history_im;cov_bin_history_mctd;cov_bin_history_as;cov_bin_history_grp2_ctd;cov_bin_history_psoriasis;cov_bin_history_hs;cov_bin_history_grp3_isd;cov_bin_history_ibd;cov_bin_history_crohn;cov_bin_history_uc;cov_bin_history_celiac;cov_bin_history_grp4_agi_ibd;cov_bin_history_addison;cov_bin_history_grave;cov_bin_history_hashimoto_thyroiditis;cov_bin_history_grp5_atv;cov_bin_history_anca;cov_bin_history_gca;cov_bin_history_iga_vasculitis;cov_bin_history_pmr;cov_bin_history_grp6_trd;cov_bin_history_immune_thromb;cov_bin_history_pernicious_anaemia;cov_bin_history_apa;cov_bin_history_aha;cov_bin_history_grp7_htd;cov_bin_history_glb;cov_bin_history_multiple_sclerosis;cov_bin_history_myasthenia_gravis;cov_bin_history_longit_myelitis;cov_bin_history_cis;cov_bin_history_grp8_ind;cov_bin_history_composite_ai",
+    #                      cox_start = cox_start,
+    #                      cox_stop = cox_stop,
+    #                      study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
+    #                      study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
+    #                      cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
+    #                      controls_per_case = controls_per_case,
+    #                      total_event_threshold = total_event_threshold,
+    #                      episode_event_threshold = episode_event_threshold,
+    #                      covariate_threshold = covariate_threshold,
+    #                      age_spline = TRUE,
+    #                      analysis = "sub_priorhistory_false")
+    
   }
 }
 
