@@ -2485,14 +2485,6 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         return_expectations={"incidence": 0.1,
         },
     ),
-        # ONS
-    tmp_cov_bin_history_celiac_death=patients.with_these_codes_on_death_certificate(
-        celiac_code_icd,
-        returning="binary_flag",
-        on_or_before=f"{index_date_variable} - 1 day",
-        return_expectations={"incidence": 0.1,
-        },
-    ),
     ## Celiac disease combined
     cov_bin_history_celiac=patients.minimum_of(
         "tmp_cov_bin_history_celiac_snomed", "tmp_cov_bin_history_celiac_hes", 
