@@ -460,9 +460,9 @@ for (c in cohorts) {
   #                        covariate_threshold = covariate_threshold,
   #                        age_spline = TRUE,
   #                        analysis = "sub_ethnicity_other")
-    # 
-    # ## analysis: sub_priorhistory_true --------------------------------------
-    # 
+
+    ## analysis: sub_priorhistory_true --------------------------------------
+
     # df[nrow(df)+1,] <- c(cohort = c,
     #                      exposure = exposure,
     #                      outcome = i,
@@ -482,9 +482,9 @@ for (c in cohorts) {
     #                      covariate_threshold = covariate_threshold,
     #                      age_spline = TRUE,
     #                      analysis = "sub_priorhistory_true")
-    # 
-    # ## analysis: sub_priorhistory_false ------------------------------------
-    # 
+
+    ## analysis: sub_priorhistory_false ------------------------------------
+
     # df[nrow(df)+1,] <- c(cohort = c,
     #                      exposure = exposure,
     #                      outcome = i,
