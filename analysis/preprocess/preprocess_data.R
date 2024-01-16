@@ -18,7 +18,6 @@ if(length(args)==0){
 }
 
 fs::dir_create(here::here("output", "not-for-review"))
-fs::dir_create(here::here("output", "review"))
 
 #data set
 input_path <- paste0("output/input_",cohort_name,".csv.gz")
@@ -30,7 +29,6 @@ all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"),
                   sep = ",", 
                   nrows = 0, 
                   stringsAsFactors = FALSE) %>%
-  #select(-c(cov_num_systolic_bp_date_measured)) %>% #This column is not needed in Neuro
   names()
 
 #Get columns types based on their names
@@ -55,7 +53,6 @@ col_classes <- setNames(
 # read the input file and specify colClasses -----------------------------------
 df <- read_csv(input_path, col_types = col_classes) 
 
-df$cov_num_bmi_date_measured <- NULL
 df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in AI
 
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
@@ -101,6 +98,12 @@ if(Sys.getenv("OPENSAFELY_BACKEND") %in% c("", "expectations") &&
 df$cov_bin_obesity <- ifelse(df$cov_bin_obesity == TRUE | 
                                df$cov_cat_bmi_groups=="Obese",TRUE,FALSE)
 
+# drop BMI variables 
+
+df$cov_num_bmi_date_measured <- NULL
+df$cov_num_bmi <- NULL
+df$cov_cat_bmi_groups <- NULL
+
 # QC for consultation variable--------------------------------------------------
 #max to 365 (average of one per day)
 df <- df %>%
@@ -141,7 +144,7 @@ df <- df %>%
       cov_bin_history_pern_anaemia = cov_bin_history_pernicious_anaemia,
       cov_bin_history_ms = cov_bin_history_multiple_sclerosis,
       cov_bin_history_myasthenia = cov_bin_history_myasthenia_gravis,
-      cov_bin_history_log_myelitis = cov_bin_history_longit_myelitis
+      cov_bin_history_long_myelitis = cov_bin_history_longit_myelitis
   )
 
 # Restrict columns and save analysis dataset ---------------------------------
