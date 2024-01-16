@@ -17,9 +17,6 @@ if(length(args)==0){
   cohort_name <- args[[1]]
 }
 
-fs::dir_create(here::here("output", "not-for-review"))
-fs::dir_create(here::here("output", "review"))
-
 #data set
 input_path <- paste0("output/input_",cohort_name,".csv.gz")
 
@@ -130,7 +127,19 @@ df[,c("sub_date_covid19_hospital")] <- NULL
 
 message("COVID19 severity determined successfully")
 
-# Create vars for neurodegenerative outcomes - TBC -----------------------------
+# Create vars for autoimmune outcomes - TBC -----------------------------
+
+df %>%
+  rename(
+    cov_bin_ckd = cov_bin_chronic_kidney_disease,
+    cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease,
+    cov_bin_history_hashimoto = cov_bin_history_hashimoto_thyroiditis,
+    cov_bin_history_iga_vasc = cov_bin_history_iga_vasculitis,
+    cov_bin_history_pern_anaemia = cov_bin_history_pernicious_anaemia,
+    cov_bin_history_ms = cov_bin_history_multiple_sclerosis,
+    cov_bin_history_myasthenia = cov_bin_history_myasthenia_gravis,
+    cov_bin_log_myelitis = cov_bin_history_longit_myelitis
+  )
 
 # Restrict columns and save analysis dataset ---------------------------------
 
@@ -144,7 +153,6 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
                     contains("out_"), # Outcomes
                     contains("cov_"), # Covariates
                     contains("qa_"), # Quality assurance
-                    contains("step"), # diabetes steps
                     contains("vax_date_eligible"), # Vaccination eligibility
                     contains("vax_date_"), # Vaccination dates and vax type 
                     contains("vax_cat_") # Vaccination products

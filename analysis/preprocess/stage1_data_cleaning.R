@@ -35,9 +35,6 @@ if(length(args)==0){
   cohort <- args[[1]]
 }
 
-fs::dir_create(here::here("output", "not-for-review"))
-fs::dir_create(here::here("output", "review", "descriptives"))
-
 # Load json file containing vax study dates ------------------------------------
 print('Load json file containing vax study dates')
 
@@ -369,61 +366,6 @@ if (cohort == "vax") {
   #  Apply outcome specific exclusions criteria
   #-------------------------------------------------#
   ####INSERT OUTCOME SPECIFIC EXCLUSION HERE#######    
-  
-  input <- input %>%
-    # Outcome 1: Inflammatory arthritis
-      filter(!out_date_ra < index_date | is.na(out_date_ra)) %>%
-      filter(!out_date_undiff_eia < index_date | is.na(out_date_undiff_eia)) %>%
-      filter(!out_date_psoa < index_date | is.na(out_date_psoa)) %>%
-      filter(!out_date_axial < index_date | is.na(out_date_axial)) %>%
-      filter(!out_date_grp1_ifa < index_date | is.na(out_date_grp1_ifa)) %>%
-      # Outcome 2: Connective tissue disorders
-      filter(!out_date_sle < index_date | is.na(out_date_sle)) %>%
-      filter(!out_date_sjs < index_date | is.na(out_date_sjs)) %>%
-      filter(!out_date_sss < index_date | is.na(out_date_sss)) %>%
-      filter(!out_date_im < index_date | is.na(out_date_im)) %>%
-      filter(!out_date_as < index_date | is.na(out_date_as)) %>%
-      filter(!out_date_mctd < index_date | is.na(out_date_mctd)) %>%
-      filter(!out_date_grp2_ctd < index_date | is.na(out_date_grp2_ctd)) %>%
-      # Outcome 3: Inflammatory skin disease
-      filter(!out_date_psoriasis < index_date | is.na(out_date_psoriasis)) %>%
-      filter(!out_date_hs < index_date | is.na(out_date_hs)) %>%
-      filter(!out_date_grp3_isd < index_date | is.na(out_date_grp3_isd)) %>%
-      # Outcome 4: Autoimmune GI / Inflammatory bowel disease
-      filter(!out_date_ibd < index_date | is.na(out_date_ibd)) %>%
-      filter(!out_date_crohn < index_date | is.na(out_date_crohn)) %>%
-      filter(!out_date_uc < index_date | is.na(out_date_uc)) %>%
-      filter(!out_date_celiac < index_date | is.na(out_date_celiac)) %>%
-      filter(!out_date_grp4_agi_ibd < index_date | is.na(out_date_grp4_agi_ibd)) %>%
-      # Outcome 5: Thyroid diseases
-      filter(!out_date_addison < index_date | is.na(out_date_addison)) %>%
-      filter(!out_date_grave < index_date | is.na(out_date_grave)) %>%
-      filter(!out_date_hashimoto_thyroiditis < index_date | is.na(out_date_hashimoto_thyroiditis)) %>%
-      filter(!out_date_grp5_atv < index_date | is.na(out_date_grp5_atv)) %>%
-      # Outcome 6: Autoimmune vasculitis
-      filter(!out_date_anca < index_date | is.na(out_date_anca)) %>%
-      filter(!out_date_gca < index_date | is.na(out_date_gca)) %>%
-      filter(!out_date_iga_vasculitis < index_date | is.na(out_date_iga_vasculitis)) %>%
-      filter(!out_date_pmr < index_date | is.na(out_date_pmr)) %>%
-      filter(!out_date_grp6_trd < index_date | is.na(out_date_grp6_trd)) %>%
-      # Outcome 7: Hematologic Diseases
-      filter(!out_date_immune_thromb < index_date | is.na(out_date_immune_thromb)) %>%
-      filter(!out_date_pernicious_anaemia < index_date | is.na(out_date_pernicious_anaemia)) %>%
-      filter(!out_date_apa < index_date | is.na(out_date_apa)) %>%
-      filter(!out_date_aha < index_date | is.na(out_date_aha)) %>%
-      filter(!out_date_grp7_htd < index_date | is.na(out_date_grp7_htd)) %>%
-      # Outcome 8: Inflammatory neuromuscular disease
-      filter(!out_date_glb < index_date | is.na(out_date_glb)) %>%
-      filter(!out_date_multiple_sclerosis < index_date | is.na(out_date_multiple_sclerosis)) %>%
-      filter(!out_date_myasthenia_gravis < index_date | is.na(out_date_myasthenia_gravis)) %>%
-      filter(!out_date_longit_myelitis < index_date | is.na(out_date_longit_myelitis)) %>%
-      filter(!out_date_cis < index_date | is.na(out_date_cis)) %>%
-      filter(!out_date_grp8_ind < index_date | is.na(out_date_grp8_ind)) %>%
-      # Outcome 9: Composite autoimmune disease
-      filter(!out_date_composite_ai < index_date | is.na(out_date_composite_ai))
-  
-  consort[nrow(consort)+1,] <- c("Autoimmune specific criteria: Remore those with any autoimmune disease prior to index date",
-                                nrow(input))
 
   # Save consort data ------------------------------------------------------------
   print('Save consort data')
@@ -442,12 +384,13 @@ if (cohort == "vax") {
   consort$removed <- NULL
   consort$N <- roundmid_any(consort$N, to=threshold)
   consort$removed <- dplyr::lag(consort$N, default = dplyr::first(consort$N)) - consort$N
+  names(consort)[names(consort) == "N"] <- "N_midpoint6"
   
   # Save rounded consort data ----------------------------------------------------
   print('Save rounded consort data ')
   
   write.csv(consort, 
-            file = paste0("output/consort_",cohort, "_rounded.csv"), 
+            file = paste0("output/consort_",cohort, "_midpoint6.csv"), 
             row.names=F)
   
   # Save stage 1 dataset ---------------------------------------------------------
