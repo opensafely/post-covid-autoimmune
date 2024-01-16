@@ -17,6 +17,9 @@ if(length(args)==0){
   cohort_name <- args[[1]]
 }
 
+fs::dir_create(here::here("output", "not-for-review"))
+fs::dir_create(here::here("output", "review"))
+
 #data set
 input_path <- paste0("output/input_",cohort_name,".csv.gz")
 
