@@ -134,7 +134,7 @@ actions:
         cohort: output/input_prevax_stage1.rds
 
   describe_stage1_data_cleaning_prevax:
-    run: r:latest analysis/describe_file.R input_prevax_stage1 rds
+    run: r:latest analysis/model/describe_file.R input_prevax_stage1 rds
     needs:
     - stage1_data_cleaning_prevax
     outputs:
@@ -156,7 +156,7 @@ actions:
         cohort: output/input_unvax_stage1.rds
 
   describe_stage1_data_cleaning_unvax:
-    run: r:latest analysis/describe_file.R input_unvax_stage1 rds
+    run: r:latest analysis/model/describe_file.R input_unvax_stage1 rds
     needs:
     - stage1_data_cleaning_unvax
     outputs:
@@ -178,7 +178,7 @@ actions:
         cohort: output/input_vax_stage1.rds
 
   describe_stage1_data_cleaning_vax:
-    run: r:latest analysis/describe_file.R input_vax_stage1 rds
+    run: r:latest analysis/model/describe_file.R input_vax_stage1 rds
     needs:
     - stage1_data_cleaning_vax
     outputs:
