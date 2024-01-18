@@ -25,43 +25,6 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
 
 #names <- unique(active_analyses$names)
 
-# Simplified yaml --------------------------------------------------------------
-
-#active_analyses <- active_analyses %>%
-  # cohort
-#  filter(cohort %in% c("prevax", "vax", "unvax")) %>% #"prevax", "vax", "unvax"
-  # for table 2,
-#  filter(analysis %in% c("main","sub_covid_hospitalised", "sub_covid_nonhospitalised")) #%>%
-  # filter(!str_detect(outcome, "\\d"))
-  # analysis 1
-  # filter(analysis %in% c("main", "sub_covid_history", "sub_covid_hospitalised", "sub_covid_nonhospitalised")) %>%
-  # analysis 2
-  # filter(analysis %in% c("sub_covid_history")) %>%
-  # analysis 3: sex
-  # filter(analysis %in% c("sub_sex_male", "sub_sex_female")) %>%
-  # # analysis 4: age groups
-  # filter(analysis %in% c("sub_age_18_39", "sub_age_40_59", "sub_age_60_79", "sub_age_80_110")) %>%
-  # # # analysis 5: ethnic groups
-  # filter(analysis %in% c("sub_ethnicity_white", "sub_ethnicity_black", "sub_ethnicity_mixed", "sub_ethnicity_asian", "sub_ethnicity_other"))  %>%
-  # Outcome 1: Inflammatory arthritis
-  # filter(outcome %in% c("out_date_ra", "out_date_undiff_eia", "out_date_psoa", "out_date_axial", "out_date_grp1_ifa"))
-  # Outcome 2: Connective tissue disorders
-  # filter(outcome %in% c("out_date_sle", "out_date_sjs", "out_date_sss", "out_date_im", "out_date_as","out_date_grp2_ctd"))
-  # # Outcome 3: Inflammatory skin disease
-  # filter(outcome %in% c("out_date_psoriasis", "out_date_hs", "out_date_grp3_isd"))
-  # # Outcome 4: Autoimmune GI / Inflammatory bowel disease
-  # filter(outcome %in% c("out_date_ibd", "out_date_crohn", "out_date_uc", "out_date_celiac", "out_date_grp4_agi_ibd"))
-  # # Outcome 5: Thyroid diseases
-  # filter(outcome %in% c("out_date_addison", "out_date_grave", "out_date_hashimoto_thyroiditis", "out_date_grp5_atv"))
-  # # Outcome 6: Autoimmune vasculitis
-  # filter(outcome %in% c("out_date_anca", "out_date_gca", "out_date_iga_vasculitis", "out_date_pmr", "out_date_grp6_trd"))
-  # # Outcome 7: Hematologic Diseases
-  # filter(outcome %in% c("out_date_immune_thromb", "out_date_pernicious_anaemia", "out_date_apa", "out_date_aha", "out_date_grp7_htd"))
-  # # Outcome 8: Inflammatory neuromuscular disease
-  # filter(outcome %in% c("out_date_glb", "out_date_multiple_sclerosis", "out_date_myasthenia_gravis", "out_date_longit_myelitis", "out_date_cis", "out_date_grp8_ind"))
-  # # Outcome 9: 
-  # filter(outcome == "out_date_composite_ai")
-
 # Determine which outputs are ready --------------------------------------------
 
 success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
@@ -70,6 +33,7 @@ success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/p
                                             "text","text",
                                             "text", "text", "text", "text",
                                             "text","text","text","text","text",
+                                            #"text","text",
                                             "skip", "skip"))
 
 success <- tidyr::pivot_longer(success,
@@ -189,14 +153,18 @@ stage1_data_cleaning <- function(cohort){
       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
       moderately_sensitive = list(
         consort = glue("output/consort_{cohort}.csv"),
-        consort_rounded = glue("output/consort_{cohort}_rounded.csv"),
-        refactoring = glue("output/not-for-review/meta_data_factors_{cohort}.csv"),
-        QA_rules = glue("output/review/descriptives/QA_summary_{cohort}.csv"),
-        IE_criteria = glue("output/review/descriptives/Cohort_flow_{cohort}.csv"),
-        histograms = glue("output/not-for-review/numeric_histograms_{cohort}.svg")#,
+        consort_rounded = glue("output/consort_{cohort}_midpoint6.csv")
         ),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}_stage1.rds")
+      )
+    ),
+    action(
+      name = glue("describe_stage1_data_cleaning_{cohort}"),
+      run = glue("r:latest analysis/model/describe_file.R input_{cohort}_stage1 rds"),
+      needs = list(glue("stage1_data_cleaning_{cohort}")),
+      moderately_sensitive = list(
+        describe_model_input = glue("output/describe-input_{cohort}_stage1.txt")
       )
     )
   )
