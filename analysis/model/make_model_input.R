@@ -375,4 +375,47 @@ for (i in 1:nrow(active_analyses)) {
     rm(df)
 
   }
+  
+  # Make model input: sub_priorhistory_true -------------------------------------
+  
+  # if (grepl("sub_priorhistory_",active_analyses$analysis[i])==TRUE) {
+  #   
+  #   print(paste0('Make model input: ',active_analyses$analysis[i]))
+  #   
+  #   df <- gsub(".*sub_priorhistory_","",active_analyses$analysis[i])
+  #   
+  #   df <- input[input$sub_bin_covid19_confirmed_history==FALSE,]
+  #   #df <- dplyr::rename(df, "history" = gsub("out_date","cov_bin_history",active_analyses$outcome[i]))
+  #   #df <- df[df$history==history & !is.na(df$history),]
+  #   
+  #   df[,colnames(df)[grepl("sub_",colnames(df))]] <- NULL
+  #   
+  #   check_vitals(df)
+  #   readr::write_rds(df, file.path("output", paste0("model_input-",active_analyses$name[i],".rds")), compress = "gz")
+  #   print(paste0("Saved: output/model_input-",active_analyses$name[i],".rds"))
+  #   rm(df)
+  #   
+  # }
+  
+  # Make model input: sub_priorhistory_false ------------------------------------
+  
+  # if (grepl("sub_priorhistory_",active_analyses$analysis[i])==TRUE) {
+  #   
+  #   print(paste0('Make model input: ',active_analyses$analysis[i]))
+  #   
+  #   df <- gsub(".*sub_priorhistory_","",active_analyses$analysis[i])
+  #   
+  #   df <- input[input$sub_bin_covid19_confirmed_history==FALSE,]
+  #   #df <- dplyr::rename(df, "history" = gsub("out_date","cov_bin_history",active_analyses$outcome[i]))
+  #   #df <- df[df$history==history & !is.na(df$history),]
+  #   
+  #   df[,colnames(df)[grepl("sub_",colnames(df))]] <- NULL
+  #   
+  #   check_vitals(df)
+  #   readr::write_rds(df, file.path("output", paste0("model_input-",active_analyses$name[i],".rds")), compress = "gz")
+  #   print(paste0("Saved: output/model_input-",active_analyses$name[i],".rds"))
+  #   rm(df)
+  #   
+  # }
+  
 }
