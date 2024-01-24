@@ -147,6 +147,11 @@ df <- df %>%
       cov_bin_history_long_myelitis = cov_bin_history_longit_myelitis
   )
 
+# Create sensitivity variable
+
+df <- df %>%
+  mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
+
 # Restrict columns and save analysis dataset ---------------------------------
 
 df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
