@@ -20,11 +20,11 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 
 #data set
-input_path <- paste0("output/input_",cohort_name,".csv.gz")
+input_path <- paste0("output/input_",cohort_name,"_final.csv.gz")
 
 # Get column names -------------------------------------------------------------
 
-all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), 
+all_cols <- fread(paste0("output/input_",cohort_name,"_final.csv.gz"), 
                   header = TRUE, 
                   sep = ",", 
                   nrows = 0, 
@@ -174,7 +174,7 @@ df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
 # Repo specific preprocessing 
 
-saveRDS(df1, file = paste0("output/input_",cohort_name,".rds"), compress = "gzip")
+saveRDS(df1, file = paste0("output/input_",cohort_name,"_final.rds"), compress = "gzip")
 
 message(paste0("Input data saved successfully with N = ", nrow(df1), " rows"))
 
