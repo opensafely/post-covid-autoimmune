@@ -282,7 +282,7 @@ for (i in 1:nrow(active_analyses)) {
       filter(cov_bin_history_grave == FALSE) %>%
       select(-cov_bin_history_grave)
     
-  } else if (outcome == "out_date_hashimoto_thyroiditis") {
+  } else if (outcome == "out_date_hashimoto") {
 
     input<- input %>%
       filter(cov_bin_history_hashimoto == FALSE) %>%
@@ -308,7 +308,7 @@ for (i in 1:nrow(active_analyses)) {
       filter(cov_bin_history_gca == FALSE) %>%
       select(-cov_bin_history_gca)
     
-  } else if (outcome == "out_date_iga_vasculitis") {
+  } else if (outcome == "out_date_iga_vasc") {
 
     input<- input %>%
       filter(cov_bin_history_iga_vasc == FALSE) %>%
@@ -334,7 +334,7 @@ for (i in 1:nrow(active_analyses)) {
       filter(cov_bin_history_immune_thromb == FALSE) %>%
       select(-cov_bin_history_immune_thromb)
     
-  } else if (outcome == "out_date_pernicious_anaemia") {
+  } else if (outcome == "out_date_pern_anaemia") {
     
     input<- input %>%
       filter(cov_bin_history_pern_anaemia == FALSE) %>%
@@ -366,19 +366,19 @@ for (i in 1:nrow(active_analyses)) {
       filter(cov_bin_history_glb == FALSE) %>%
       select(-cov_bin_history_glb)
     
-  } else if (outcome == "out_date_multiple_sclerosis") {
+  } else if (outcome == "out_date_ms") {
     
     input<- input %>%
       filter(cov_bin_history_ms == FALSE) %>%
       select(-cov_bin_history_ms)
     
-  } else if (outcome == "out_date_myasthenia_gravis") {
+  } else if (outcome == "out_date_myasthenia") {
     
     input<- input %>%
       filter(cov_bin_history_myasthenia == FALSE) %>%
       select(-cov_bin_history_myasthenia)
     
-  } else if (outcome == "out_date_longit_myelitis") {
+  } else if (outcome == "out_date_long_myelitis") {
 
     input<- input %>%
       filter(cov_bin_history_long_myelitis == FALSE) %>%

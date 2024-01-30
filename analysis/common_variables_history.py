@@ -1128,15 +1128,15 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## Hashimoto’s thyroiditis combined
-    cov_bin_history_hashimoto_thyroiditis=patients.minimum_of(
+    ## Hashimoto’s thyroiditis combined - hashimoto_thyroiditis
+    cov_bin_history_hashimoto=patients.minimum_of(
         "tmp_cov_bin_history_hashimoto_thyroiditis_snomed", "tmp_cov_bin_history_hashimoto_thyroiditis_hes",
     ),
     ## Thyroid toxicosis / hyper thyroid - YW: This seems to have been taken out from the excel spreadsheet, 13/Dec/2022
 
     ## History of Outcome group 5: Thyroid diseases - to be expanded once the other outcome components are avilable
     cov_bin_history_grp5_atv=patients.minimum_of(
-        "cov_bin_history_addison", "cov_bin_history_grave", "cov_bin_history_hashimoto_thyroiditis",
+        "cov_bin_history_addison", "cov_bin_history_grave", "cov_bin_history_hashimoto",
     ),
 
     ######################################################
@@ -1198,8 +1198,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## IgA (immunoglobulin A) vasculitis - combined
-    cov_bin_history_iga_vasculitis=patients.minimum_of(
+    ## IgA (immunoglobulin A) vasculitis - combined - iga_vasculitis
+    cov_bin_history_iga_vasc=patients.minimum_of(
         "tmp_cov_bin_history_iga_vasculitis_snomed", "tmp_cov_bin_history_iga_vasculitis_hes",
     ),
     ## Polymyalgia Rheumatica (PMR) - snomed
@@ -1224,7 +1224,7 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
     ),
     ##  History of Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
     cov_bin_history_grp6_trd=patients.minimum_of(
-        "cov_bin_history_anca", "cov_bin_history_gca","cov_bin_history_iga_vasculitis","cov_bin_history_pmr",
+        "cov_bin_history_anca", "cov_bin_history_gca","cov_bin_history_iga_vasc","cov_bin_history_pmr",
     ),
 
     #####################################################
@@ -1266,8 +1266,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## Pernicious anaemia combined
-    cov_bin_history_pernicious_anaemia=patients.minimum_of(
+    ## Pernicious anaemia combined - pernicious_anaemia
+    cov_bin_history_pern_anaemia=patients.minimum_of(
         "tmp_cov_bin_history_pernicious_anaemia_snomed", "tmp_cov_bin_history_pernicious_anaemia_hes",
     ),
     ## Aplastic Anaemia - snomed
@@ -1320,7 +1320,7 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
     ),
     ## History of Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
     cov_bin_history_grp7_htd=patients.minimum_of(
-        "cov_bin_history_immune_thromb", "cov_bin_history_pernicious_anaemia", "cov_bin_history_apa", "cov_bin_history_aha",
+        "cov_bin_history_immune_thromb", "cov_bin_history_pern_anaemia", "cov_bin_history_apa", "cov_bin_history_aha",
     ),
 
     ###################################################################
@@ -1362,8 +1362,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## Multiple Sclerosis combined
-    cov_bin_history_multiple_sclerosis=patients.minimum_of(
+    ## Multiple Sclerosis combined - multiple_sclerosis
+    cov_bin_history_ms=patients.minimum_of(
         "tmp_cov_bin_history_multiple_sclerosis_ctv", "tmp_cov_bin_history_multiple_sclerosis_hes",
     ),
     ## Myasthenia gravis - snomed
@@ -1382,8 +1382,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## Myasthenia gravis combined
-    cov_bin_history_myasthenia_gravis=patients.minimum_of(
+    ## Myasthenia gravis combined - myasthenia_gravis
+    cov_bin_history_myasthenia=patients.minimum_of(
         "tmp_cov_bin_history_myasthenia_gravis_snomed", "tmp_cov_bin_history_myasthenia_gravis_hes",
     ),
     ## Longitudinal myelitis - snomed
@@ -1402,8 +1402,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
         return_expectations={"incidence": 0.1,
         },
     ),
-    ## Longitudinal myelitis combined
-    cov_bin_history_longit_myelitis=patients.minimum_of(
+    ## Longitudinal myelitis combined - longit_myelitis
+    cov_bin_history_long_myelitis=patients.minimum_of(
         "tmp_cov_bin_history_longit_myelitis_snomed", "tmp_cov_bin_history_longit_myelitis_hes",
     ),
     ## Clinically isolated syndrome - snomed
@@ -1428,8 +1428,8 @@ def generate_common_variables_history(index_date_variable, exposure_end_date_var
     ),
     ## Outcome group 8: Inflammatory neuromuscular disease - to be expanded once codelist for other outcome components are available
     cov_bin_history_grp8_ind=patients.minimum_of(
-        "cov_bin_history_glb", "cov_bin_history_multiple_sclerosis", "cov_bin_history_myasthenia_gravis",
-        "cov_bin_history_longit_myelitis", "cov_bin_history_cis",
+        "cov_bin_history_glb", "cov_bin_history_ms", "cov_bin_history_myasthenia",
+        "cov_bin_history_long_myelitis", "cov_bin_history_cis",
     ),
 
     ## Define primary outcome: composite auto-immune outcome

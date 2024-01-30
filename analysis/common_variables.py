@@ -413,8 +413,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         on_or_before=f"{index_date_variable} - 1 day",
         return_expectations={"incidence": 0.1},
     ),
-    ### Combined
-    cov_bin_chronic_kidney_disease=patients.maximum_of(
+    ### Combined - chronic_kidney_disease
+    cov_bin_ckd=patients.maximum_of(
         "tmp_cov_bin_chronic_kidney_disease_snomed", "tmp_cov_bin_chronic_kidney_disease_hes",
     ),
 
@@ -573,8 +573,8 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         on_or_before=f"{index_date_variable} - 1 day",
         return_expectations={"incidence": 0.1},
     ),
-    ### Combined
-    cov_bin_chronic_obstructive_pulmonary_disease=patients.maximum_of(
+    ### Combined - chronic_obstructive_pulmonary_disease
+    cov_bin_copd=patients.maximum_of(
         "tmp_cov_bin_chronic_obstructive_pulmonary_disease_snomed", "tmp_cov_bin_chronic_obstructive_pulmonary_disease_hes",
     ),
 
@@ -1523,14 +1523,14 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Hashimoto’s thyroiditis combined
-    out_date_hashimoto_thyroiditis=patients.minimum_of(
+    out_date_hashimoto=patients.minimum_of(
         "tmp_out_date_hashimoto_thyroiditis_snomed", "tmp_out_date_hashimoto_thyroiditis_hes", "tmp_out_date_hashimoto_thyroiditis_death",
     ),
     ## Thyroid toxicosis / hyper thyroid - YW: This seems to have been taken out from the excel spreadsheet, 13/Dec/2022
 
     ## Outcome group 5: Thyroid diseases - to be expanded once the other outcome components are avilable
     out_date_grp5_atv=patients.minimum_of(
-        "out_date_addison", "out_date_grave", "out_date_hashimoto_thyroiditis",
+        "out_date_addison", "out_date_grave", "out_date_hashimoto",
     ),
     ##################################################################################################
     ## Outcome group 6: Autoimmune vasculitis                                                       ##
@@ -1661,7 +1661,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## IgA (immunoglobulin A) vasculitis - combined
-    out_date_iga_vasculitis=patients.minimum_of(
+    out_date_iga_vasc=patients.minimum_of(
         "tmp_out_date_iga_vasculitis_snomed", "tmp_out_date_iga_vasculitis_hes", "tmp_out_date_iga_vasculitis_death",
     ),
     ## Polymyalgia Rheumatica (PMR) - snomed
@@ -1709,7 +1709,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ##  Outcome group 6: Autoimmune vasculitis - to be expanded once the other outcome components are avilable
     out_date_grp6_trd=patients.minimum_of(
-        "out_date_anca", "out_date_gca","out_date_iga_vasculitis","out_date_pmr",
+        "out_date_anca", "out_date_gca","out_date_iga_vasc","out_date_pmr",
     ),
     ##################################################################################################
     ## Outcome group 7: Hematologic Diseases                                                        ##
@@ -1797,7 +1797,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Pernicious anaemia combined
-    out_date_pernicious_anaemia=patients.minimum_of(
+    out_date_pern_anaemia=patients.minimum_of(
         "tmp_out_date_pernicious_anaemia_snomed", "tmp_out_date_pernicious_anaemia_hes", "tmp_out_date_pernicious_anaemia_death",
     ),
     ## Aplastic Anaemia - snomed
@@ -1901,7 +1901,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Outcome group 7: Hematologic Diseases - to be expanded once the other outcome components are avilable
     out_date_grp7_htd=patients.minimum_of(
-        "out_date_immune_thromb", "out_date_pernicious_anaemia", "out_date_apa", "out_date_aha",
+        "out_date_immune_thromb", "out_date_pern_anaemia", "out_date_apa", "out_date_aha",
     ),
     ##################################################################################################
     ## Outcome group 8: Inflammatory neuromuscular disease                                          ##
@@ -1989,7 +1989,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Multiple Sclerosis combined
-    out_date_multiple_sclerosis=patients.minimum_of(
+    out_date_ms=patients.minimum_of(
         "tmp_out_date_multiple_sclerosis_ctv", "tmp_out_date_multiple_sclerosis_hes", "tmp_out_date_multiple_sclerosis_death",
     ),
     ## Myasthenia gravis - snomed
@@ -2032,7 +2032,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Myasthenia gravis combined
-    out_date_myasthenia_gravis=patients.minimum_of(
+    out_date_myasthenia=patients.minimum_of(
         "tmp_out_date_myasthenia_gravis_snomed", "tmp_out_date_myasthenia_gravis_hes", "tmp_out_date_myasthenia_gravis_death",
     ),
     ## Longitudinal myelitis - snomed
@@ -2075,7 +2075,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
         },
     ),
     ## Longitudinal myelitis combined
-    out_date_longit_myelitis=patients.minimum_of(
+    out_date_long_myelitis=patients.minimum_of(
         "tmp_out_date_longit_myelitis_snomed", "tmp_out_date_longit_myelitis_hes", "tmp_out_date_longit_myelitis_death",
     ),
     ## Clinically isolated syndrome - snomed
@@ -2123,7 +2123,7 @@ def generate_common_variables(index_date_variable, exposure_end_date_variable, o
     ),
     ## Outcome group 8: Inflammatory neuromuscular disease - to be expanded once codelist for other outcome components are available
     out_date_grp8_ind=patients.minimum_of(
-        "out_date_glb", "out_date_multiple_sclerosis","out_date_myasthenia_gravis","out_date_longit_myelitis", "out_date_cis",
+        "out_date_glb", "out_date_ms","out_date_myasthenia","out_date_long_myelitis", "out_date_cis",
     ),
     
     ## Define primary outcome: composite auto-immune outcome
