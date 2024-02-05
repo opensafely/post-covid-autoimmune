@@ -138,7 +138,7 @@ join_study_definitions_data <- function(cohort){
     arguments = c(cohort),
     needs = list(glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}")),
     highly_sensitive = list(
-      cohort_final = glue("output/input_{cohort}_final.csv.gz")
+      cohort_final = glue("output/input_{cohort}_final.rds")#csv.gz
       )
     )
   )
@@ -392,7 +392,7 @@ actions_list <- splice(
                   function(x) join_study_definitions_data(cohort = x)),
            recursive = FALSE
     )
-  ),
+  )#,
   
   #Count outcomes and binary covars
   # action(
@@ -412,34 +412,34 @@ actions_list <- splice(
 
   ## Preprocess data -----------------------------------------------------------
   
-  splice(
-    unlist(lapply(cohorts,
-                  function(x) preprocess_data(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(cohorts,
+  #                 function(x) preprocess_data(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
 
   ## Stage 1 - data cleaning ---------------------------------------------------
   
-  splice(
-    unlist(lapply(cohorts,
-                  function(x) stage1_data_cleaning(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(cohorts,
+  #                 function(x) stage1_data_cleaning(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
 
   ## consort output ------------------------------------------------------------
 
-  action(
-    name = "make_consort_output",
-    run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
-    needs = list("stage1_data_cleaning_prevax",
-                 "stage1_data_cleaning_vax",
-                 "stage1_data_cleaning_unvax"),
-    moderately_sensitive = list(
-      consort_output_rounded = glue("output/consort_output_rounded.csv")
-    )
-  )#,
+  # action(
+  #   name = "make_consort_output",
+  #   run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
+  #   needs = list("stage1_data_cleaning_prevax",
+  #                "stage1_data_cleaning_vax",
+  #                "stage1_data_cleaning_unvax"),
+  #   moderately_sensitive = list(
+  #     consort_output_rounded = glue("output/consort_output_rounded.csv")
+  #   )
+  # ),
   
   ## table 1 output ------------------------------------------------------------
   

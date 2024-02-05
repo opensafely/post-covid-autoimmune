@@ -40,4 +40,6 @@ input <- left_join(input_outcome, input_history,
 # Save -------------------------------------------------------------------------
 print("Save final data set")
 
-write_csv(input, paste0("output/input_",cohort,"_final.csv.gz"))
+saveRDS(input, file = paste0("output/input_",cohort,"_final.rds"), compress = "gzip")
+
+#write_csv(input, paste0("output/input_",cohort,"_final.csv.gz"))
