@@ -135,10 +135,14 @@ join_study_definitions_data <- function(cohort){
   action(
     name = glue("join_study_definitions_{cohort}"),
     run = glue("r:latest analysis/preprocess/join_study_definitions.R"),
+    #run = glue("r:latest analysis/preprocess/history_patients.R"),
     arguments = c(cohort),
     needs = list(glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}")),
+    #needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
+    #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
     highly_sensitive = list(
       cohort_final = glue("output/input_{cohort}_final.rds")#csv.gz
+      #cohort_final = glue("output/input_{cohort}_new_stage1.rds")#csv.gz
       )
     )
   )
@@ -155,13 +159,14 @@ preprocess_data <- function(cohort){
       name = glue("preprocess_data_{cohort}"),
       run = glue("r:latest analysis/preprocess/preprocess_data.R"),
       arguments = c(cohort),
-      needs = list("generate_index_dates",glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}"), glue("join_study_definitions_{cohort}")),
+      #needs = list("generate_index_dates",glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}"), glue("join_study_definitions_{cohort}")),
+      needs = list("generate_index_dates",glue("generate_study_population_{cohort}")),
       moderately_sensitive = list(
         describe = glue("output/not-for-review/describe_input_{cohort}_stage0.txt"),
         describe_venn = glue("output/not-for-review/describe_venn_{cohort}.txt")
       ),
       highly_sensitive = list(
-        cohort = glue("output/input_{cohort}_final.rds"),
+        cohort = glue("output/input_{cohort}.rds"),#cohort = glue("output/input_{cohort}_final.rds"),
         venn = glue("output/venn_{cohort}.rds")
       )
     )
@@ -392,7 +397,7 @@ actions_list <- splice(
                   function(x) join_study_definitions_data(cohort = x)),
            recursive = FALSE
     )
-  )#,
+  ),
   
   #Count outcomes and binary covars
   # action(
@@ -412,21 +417,21 @@ actions_list <- splice(
 
   ## Preprocess data -----------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(cohorts,
-  #                 function(x) preprocess_data(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) preprocess_data(cohort = x)),
+           recursive = FALSE
+    )
+  ),
 
   ## Stage 1 - data cleaning ---------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(cohorts,
-  #                 function(x) stage1_data_cleaning(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) stage1_data_cleaning(cohort = x)),
+           recursive = FALSE
+    )
+  )#,
 
   ## consort output ------------------------------------------------------------
 

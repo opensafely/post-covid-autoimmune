@@ -20,11 +20,11 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 
 #data set
-input_path <- paste0("output/input_",cohort_name,"_final.csv.gz")
+input_path <- paste0("output/input_",cohort_name,".csv.gz") #_final
 
 # Get column names -------------------------------------------------------------
 
-all_cols <- fread(paste0("output/input_",cohort_name,"_final.csv.gz"), 
+all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), #_final
                   header = TRUE, 
                   sep = ",", 
                   nrows = 0, 
@@ -149,8 +149,8 @@ message("COVID19 severity determined successfully")
 
 # Create sensitivity variable
 
-df <- df %>%
-  mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
+# df <- df %>%
+#   mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
 
 # Restrict columns and save analysis dataset ---------------------------------
 
@@ -174,7 +174,7 @@ df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
 # Repo specific preprocessing 
 
-saveRDS(df1, file = paste0("output/input_",cohort_name,"_final.rds"), compress = "gzip")
+saveRDS(df1, file = paste0("output/input_",cohort_name,".rds"), compress = "gzip")#_final
 
 message(paste0("Input data saved successfully with N = ", nrow(df1), " rows"))
 
