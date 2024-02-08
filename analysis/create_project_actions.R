@@ -134,14 +134,14 @@ join_study_definitions_data <- function(cohort){
     comment(glue("Join study definitions - {cohort}")),
   action(
     name = glue("join_study_definitions_{cohort}"),
-    #run = glue("r:latest analysis/preprocess/join_study_definitions.R"),
-    run = glue("r:latest analysis/preprocess/history_patients.R"),
+    run = glue("r:latest analysis/preprocess/join_study_definitions.R"),
+    #run = glue("r:latest analysis/preprocess/history_patients.R"),
     arguments = c(cohort),
     needs = list(glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}")),
     #needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
     #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
     highly_sensitive = list(
-      cohort_final = glue("output/input_{cohort}_final.csv.gz")#rds csv.gz
+      cohort_final = glue("output/input_{cohort}_final.rds")#rds csv.gz
       #cohort_final = glue("output/input_{cohort}_new_stage1.rds")#csv.gz
       )
     )
