@@ -120,6 +120,7 @@ actions:
     outputs:
       highly_sensitive:
         cohort_final: output/input_prevax_final.rds
+        cohort_final_csv: output/input_prevax_final.csv.gz
 
   ## Join study definitions - unvax 
 
@@ -131,6 +132,7 @@ actions:
     outputs:
       highly_sensitive:
         cohort_final: output/input_unvax_final.rds
+        cohort_final_csv: output/input_unvax_final.csv.gz
 
   ## Join study definitions - vax 
 
@@ -142,6 +144,7 @@ actions:
     outputs:
       highly_sensitive:
         cohort_final: output/input_vax_final.rds
+        cohort_final_csv: output/input_vax_final.csv.gz
 
   ## Preprocess data - prevax 
 

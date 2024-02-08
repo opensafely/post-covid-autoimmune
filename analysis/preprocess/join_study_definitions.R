@@ -47,3 +47,7 @@ rm(input_outcome, input_history)
 print("Save final data set")
 
 saveRDS(input, file = paste0("output/input_",cohort,"_final.rds"), compress = "gzip")
+
+# Save -------------------------------------------------------------------------
+
+write_csv(input,paste0("output/input_",cohort,"_final.csv.gz"))
