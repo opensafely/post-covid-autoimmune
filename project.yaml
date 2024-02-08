@@ -113,35 +113,35 @@ actions:
   ## Join study definitions - prevax 
 
   join_study_definitions_prevax:
-    run: r:latest analysis/preprocess/join_study_definitions.R prevax
+    run: r:latest analysis/preprocess/history_patients.R prevax
     needs:
     - generate_study_population_prevax
     - generate_study_population_history_prevax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_prevax_final.rds
+        cohort_final: output/input_prevax_final.csv.gz
 
   ## Join study definitions - unvax 
 
   join_study_definitions_unvax:
-    run: r:latest analysis/preprocess/join_study_definitions.R unvax
+    run: r:latest analysis/preprocess/history_patients.R unvax
     needs:
     - generate_study_population_unvax
     - generate_study_population_history_unvax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_unvax_final.rds
+        cohort_final: output/input_unvax_final.csv.gz
 
   ## Join study definitions - vax 
 
   join_study_definitions_vax:
-    run: r:latest analysis/preprocess/join_study_definitions.R vax
+    run: r:latest analysis/preprocess/history_patients.R vax
     needs:
     - generate_study_population_vax
     - generate_study_population_history_vax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_vax_final.rds
+        cohort_final: output/input_vax_final.csv.gz
 
   ## Preprocess data - prevax 
 

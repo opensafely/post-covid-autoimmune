@@ -141,7 +141,7 @@ join_study_definitions_data <- function(cohort){
     #needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
     #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
     highly_sensitive = list(
-      cohort_final = glue("output/input_{cohort}_final.rds")#csv.gz
+      cohort_final = glue("output/input_{cohort}_final.csv.gz")#rds csv.gz
       #cohort_final = glue("output/input_{cohort}_new_stage1.rds")#csv.gz
       )
     )
