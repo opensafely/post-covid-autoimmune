@@ -103,7 +103,13 @@ print('Perform redaction')
 df[,c("N_total","N_exposed","N_events")] <- lapply(df[,c("N_total","N_exposed","N_events")],
                                                    FUN=function(y){roundmid_any(as.numeric(y), to=threshold)})
 
+# Rename columns (output redaction) --------------------------------------------
+
+names(df)[names(df) == "N_total"] <- "N_total_midpoint6"
+names(df)[names(df) == "N_exposed"] <- "N_exposed_midpoint6"
+names(df)[names(df) == "N_events"] <- "N_events_midpoint6"
+
 # Save model output ------------------------------------------------------------
 print('Save model output')
 
-readr::write_csv(df, "output/model_output_rounded.csv")
+readr::write_csv(df, "output/model_output_midpoint6.csv")

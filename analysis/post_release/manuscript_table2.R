@@ -67,47 +67,47 @@ print("Order outcomes")
 
 df$outcome_label <- factor(df$outcome_label,
                            levels = c("N",
-                                      "Rheumatoid arthritis",
-                                      "Undifferentiated inflammatory arthritis",
+                                      "Reumatoid arthritis",
+                                      "Undifferentiated inflamatory arthritis",
                                       "Psoriatic arthritis",
                                       "Axial spondyloarthritis",
+                                      "Inflammatory arthritis (Group 1)", # group 1
                                       "Systematic lupus erythematosus",
                                       "Sjogren’s syndrome",
                                       "Systemic sclerosis/scleroderma",
-                                      "Inflammatory myositis/polymyositis/dermatomyositis",
-                                      "Mixed Connective Tissue Disease",
+                                      "Inflammatory myositis/polymyositis/dermatolomyositis",
+                                      "Mixed connective tissue disease",
                                       "Antiphospholipid syndrome",
+                                      "Connective tissue disorders (Group 2)", # group 2
                                       "Psoriasis",
                                       "Hydradenitis suppurativa",
-                                      "Inflammatory bowel disease (combined UC and Crohn's)",
+                                      "Inflammatory skin disease (Group 3)", # group 3
                                       "Crohn’s disease",
                                       "Ulcerative colitis",
                                       "Celiac disease",
+                                      "Inflammatory bowel disease (combined ulcerative colitis and Crohn's)",
+                                      "Autoimmune gastrointestinal disease / Inflammatory bowel disease (Group 4)", # group 4
                                       "Addison’s disease",
                                       "Grave’s disease",
                                       "Hashimoto’s thyroiditis",
-                                      "ANCA-associated",
+                                      "Thyroid diseases (Group 5)", # group 5
+                                      "Antineutrophilic cytoplasmic antibody (ANCA)-associated",
                                       "Giant cell arteritis",
-                                      "IgA (immunoglobulin A) vasculitis",
-                                      "Polymyalgia Rheumatica (PMR)",
+                                      "immunoglobulin a (IgA) vasculitis",
+                                      "Polymyalgia rheumatica (PMR)",
+                                      "Autoimmune vasculitis (Group 6)", # group 6
                                       "Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)",
                                       "Pernicious anaemia",
                                       "Aplastic anaemia",
                                       "Autoimmune haemolytic anaemia",
-                                      "Guillain Barre",
-                                      "Multiple Sclerosis",
+                                      "Hematologic diseases (Group 7)", # group 7
+                                      "Guillain-Barré",
+                                      "Multiple sclerosis",
                                       "Myasthenia gravis",
                                       "Longitudinal myelitis",
                                       "Clinically isolated syndrome",
-                                      "Inflammatory arthritis", #group 1
-                                      "Connective tissue disorders", #group 2
-                                      "Inflammatory skin disease", #group 3
-                                      "Autoimmune GI / Inflammatory bowel disease", #group 4
-                                      "Thyroid diseases", #group 5
-                                      "Autoimmune vasculitis", #group 6
-                                      "Hematologic Diseases", #group 7
-                                      "Inflammatory neuromuscular disease", #group 8
-                                      "Composite Autoimmune"))
+                                      "Inflammatory neuromuscular disease (Group 8)", # group 8
+                                      "Composite autoimmune"))
 
 # Tidy table -------------------------------------------------------------------
 print("Tidy table")
