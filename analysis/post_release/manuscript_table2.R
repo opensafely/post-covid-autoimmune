@@ -67,8 +67,8 @@ print("Order outcomes")
 
 df$outcome_label <- factor(df$outcome_label,
                            levels = c("N",
-                                      "Reumatoid arthritis",
-                                      "Undifferentiated inflamatory arthritis",
+                                      "Rheumatoid arthritis",
+                                      "Undifferentiated inflammatory arthritis",
                                       "Psoriatic arthritis",
                                       "Axial spondyloarthritis",
                                       "Inflammatory arthritis (Group 1)", # group 1
@@ -93,7 +93,7 @@ df$outcome_label <- factor(df$outcome_label,
                                       "Thyroid diseases (Group 5)", # group 5
                                       "Antineutrophilic cytoplasmic antibody (ANCA)-associated",
                                       "Giant cell arteritis",
-                                      "immunoglobulin a (IgA) vasculitis",
+                                      "Immunoglobulin A (IgA) vasculitis",
                                       "Polymyalgia rheumatica (PMR)",
                                       "Autoimmune vasculitis (Group 6)", # group 6
                                       "Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)",

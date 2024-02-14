@@ -20,7 +20,7 @@ grave,Grave’s disease
 hashimoto_thyroiditis,Hashimoto’s thyroiditis
 anca,Antineutrophilic cytoplasmic antibody (ANCA)-associated
 gca,Giant cell arteritis
-iga_vasculitis,Immunoglobulin a (IgA) vasculitis
+iga_vasculitis,Immunoglobulin A (IgA) vasculitis
 pmr,Polymyalgia rheumatica (PMR)
 immune_thromb,Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
 pernicious_anaemia,Pernicious anaemia
@@ -72,7 +72,7 @@ cov_bin_stroke_isch,Ischaemic stroke
 cov_cat_consulation_rate,GP consultations in 2019
 cov_cat_outpatient_rate,Hospital consultations in 2019
 cov_bin_history_ra,History of rheumatoid arthritis
-cov_bin_history_undiff_eia,History of undifferentiated inflamatory arthritis
+cov_bin_history_undiff_eia,History of undifferentiated inflammatory arthritis
 cov_bin_history_psoa,History of psoriatic arthritis
 cov_bin_history_axial,History of axial spondyloarthritis
 cov_bin_history_grp1_ifa,History of inflammatory arthritis (Group 1)
@@ -97,7 +97,7 @@ cov_bin_history_hashimoto,History of Hashimoto’s thyroiditis
 cov_bin_history_grp5_atv,History of thyroid diseases (Group 5)
 cov_bin_history_anca,History of antineutrophilic cytoplasmic antibody (ANCA)-associated
 cov_bin_history_gca,History of giant cell arteritis
-cov_bin_history_iga_vasc,History of immunoglobulin a (IgA) vasculitis
+cov_bin_history_iga_vasc,History of immunoglobulin A (IgA) vasculitis
 cov_bin_history_pmr,History of polymyalgia rheumatica (PMR)
 cov_bin_history_grp6_trd,History of Autoimmune vasculitis (Group 6)
 cov_bin_history_immune_thromb,History of immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
