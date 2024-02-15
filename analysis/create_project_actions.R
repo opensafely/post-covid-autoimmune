@@ -187,7 +187,7 @@ stage1_data_cleaning <- function(cohort){
       needs = list("vax_eligibility_inputs",glue("preprocess_data_{cohort}")),
       moderately_sensitive = list(
         consort = glue("output/consort_{cohort}.csv"),
-        consort_rounded = glue("output/consort_{cohort}_midpoint6.csv")
+        consort_midpoint6 = glue("output/consort_{cohort}_midpoint6.csv")
         ),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}_stage1.rds")
@@ -216,7 +216,7 @@ table1 <- function(cohort){
       needs = list(glue("stage1_data_cleaning_{cohort}")),
       moderately_sensitive = list(
         table1 = glue("output/table1_{cohort}.csv"),
-        table1_rounded = glue("output/table1_{cohort}_rounded.csv")
+        table1_midpoint6 = glue("output/table1_{cohort}_midpoint6.csv")
       )
     ),
     action(
@@ -226,7 +226,7 @@ table1 <- function(cohort){
       needs = list(glue("stage1_data_cleaning_{cohort}")),
       moderately_sensitive = list(
         extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
-        extendedtable1_rounded = glue("output/extendedtable1_{cohort}_rounded.csv")
+        extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
       )
     )
   )
@@ -318,7 +318,7 @@ venn <- function(cohort){
                 as.list(paste0(glue("make_model_input-cohort_{cohort}-main-"),venn_outcomes))),
       moderately_sensitive = list(
         table2 = glue("output/venn_{cohort}.csv"),
-        table2_rounded = glue("output/venn_{cohort}_rounded.csv")
+        table2_midpoint6 = glue("output/venn_{cohort}_midpoint6.csv")
       )
     )
   )
@@ -442,7 +442,7 @@ actions_list <- splice(
   #                "stage1_data_cleaning_vax",
   #                "stage1_data_cleaning_unvax"),
   #   moderately_sensitive = list(
-  #     consort_output_rounded = glue("output/consort_output_rounded.csv")
+  #     consort_output_midpoint6 = glue("output/consort_output_midpoint6.csv")
   #   )
   # ),
   
@@ -455,7 +455,7 @@ actions_list <- splice(
   #                "table1_vax",
   #                "table1_unvax"),
   #   moderately_sensitive = list(
-  #     table1_output_rounded = glue("output/table1_output_rounded.csv")
+  #     table1_output_midpoint6 = glue("output/table1_output_midpoint6.csv")
   #   )
   # ),
   
@@ -468,7 +468,7 @@ actions_list <- splice(
   #                "extendedtable1_vax",
   #                "extendedtable1_unvax"),
   #   moderately_sensitive = list(
-  #     table1_output_rounded = glue("output/extendedtable1_output_rounded.csv")
+  #     table1_output_midpoint6 = glue("output/extendedtable1_output_midpoint6.csv")
   #   )
   # ),
   
@@ -492,7 +492,7 @@ actions_list <- splice(
   #                "table2_vax",
   #                "table2_unvax"),
   #   moderately_sensitive = list(
-  #     table2_output_rounded = glue("output/table2_output_rounded.csv")
+  #     table2_output_midpoint6 = glue("output/table2_output_midpoint6.csv")
   #   )
   # ),
   
@@ -505,7 +505,7 @@ actions_list <- splice(
   #                "venn_vax",
   #                "venn_unvax"),
   #   moderately_sensitive = list(
-  #     venn_output_rounded = glue("output/venn_output_rounded.csv")
+  #     venn_output_midpoint6 = glue("output/venn_output_midpoint6.csv")
   #   )
   # ),
   
@@ -571,7 +571,7 @@ actions_list <- splice(
   #   needs = as.list(paste0("cox_ipw-",success$name)),
   #   moderately_sensitive = list(
   #     model_output = glue("output/model_output.csv"),
-  #     model_output_rounded = glue("output/model_output_rounded.csv")
+  #     model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
   #   )
   # ),
   

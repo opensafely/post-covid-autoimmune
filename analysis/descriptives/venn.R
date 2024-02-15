@@ -343,7 +343,21 @@ print('Perform redaction')
 df[,setdiff(colnames(df),c("outcome"))] <- lapply(df[,setdiff(colnames(df),c("outcome"))],
                                                   FUN=function(y){roundmid_any(as.numeric(y), to=threshold)})
 
+# Rename columns (output redaction) --------------------------------------------
+
+names(df)[names(df) == "only_snomed"] <- "only_snomed_midpoint6"
+names(df)[names(df) == "only_hes"] <- "only_hes_midpoint6"
+names(df)[names(df) == "only_death"] <- "only_death_midpoint6"
+names(df)[names(df) == "snomed_hes"] <- "snomed_hes_midpoint6"
+names(df)[names(df) == "snomed_death"] <- "snomed_death_midpoint6"
+names(df)[names(df) == "hes_death"] <- "hes_death_midpoint6"
+names(df)[names(df) == "snomed_hes_death"] <- "snomed_hes_death_midpoint6"
+names(df)[names(df) == "total_snomed"] <- "total_snomed_midpoint6"
+names(df)[names(df) == "total_hes"] <- "total_hes_midpoint6"
+names(df)[names(df) == "total_death"] <- "total_death_midpoint6"
+names(df)[names(df) == "total"] <- "total_midpoint6_derived"
+
 # Save rounded Venn data -------------------------------------------------------
 print('Save rounded Venn data')
 
-write.csv(df, paste0("output/venn_",cohort,"_rounded.csv"), row.names = FALSE)
+write.csv(df, paste0("output/venn_",cohort,"_midpoint6.csv"), row.names = FALSE)
