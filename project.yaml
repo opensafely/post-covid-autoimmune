@@ -153,6 +153,8 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_prevax
+    - generate_study_population_history_prevax
+    - join_study_definitions_prevax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_prevax_stage0.txt
@@ -168,6 +170,8 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_unvax
+    - generate_study_population_history_unvax
+    - join_study_definitions_unvax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_unvax_stage0.txt
@@ -183,6 +187,8 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_vax
+    - generate_study_population_history_vax
+    - join_study_definitions_vax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_vax_stage0.txt
@@ -201,7 +207,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_prevax.csv
-        consort_rounded: output/consort_prevax_midpoint6.csv
+        consort_midpoint6: output/consort_prevax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_prevax_stage1.rds
 
@@ -223,7 +229,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_unvax.csv
-        consort_rounded: output/consort_unvax_midpoint6.csv
+        consort_midpoint6: output/consort_unvax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_unvax_stage1.rds
 
@@ -245,7 +251,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_vax.csv
-        consort_rounded: output/consort_vax_midpoint6.csv
+        consort_midpoint6: output/consort_vax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_vax_stage1.rds
 

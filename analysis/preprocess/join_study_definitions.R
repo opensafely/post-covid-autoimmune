@@ -31,6 +31,7 @@ input_history <- read_csv(paste0("output/input_",cohort,"_history.csv.gz"))
 
 input_history <- input_history %>%
   select(matches("patient_id|^cov_bin_history_"))
+  #select(patient_id, starts_with("cov_bin_history"))
   
 # merge data sets --------------------------------------------------------------
 print("Merge data sets")
