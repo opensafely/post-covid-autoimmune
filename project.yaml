@@ -119,7 +119,6 @@ actions:
     - generate_study_population_history_prevax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_prevax_final.rds
         cohort_final_csv: output/input_prevax_final.csv.gz
 
   ## Join study definitions - unvax 
@@ -131,7 +130,6 @@ actions:
     - generate_study_population_history_unvax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_unvax_final.rds
         cohort_final_csv: output/input_unvax_final.csv.gz
 
   ## Join study definitions - vax 
@@ -143,7 +141,6 @@ actions:
     - generate_study_population_history_vax
     outputs:
       highly_sensitive:
-        cohort_final: output/input_vax_final.rds
         cohort_final_csv: output/input_vax_final.csv.gz
 
   ## Preprocess data - prevax 
@@ -152,7 +149,7 @@ actions:
     run: r:latest analysis/preprocess/preprocess_data.R prevax
     needs:
     - generate_index_dates
-    - generate_study_population_prevax
+    - join_study_definitions_prevax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_prevax_stage0.txt
@@ -167,7 +164,7 @@ actions:
     run: r:latest analysis/preprocess/preprocess_data.R unvax
     needs:
     - generate_index_dates
-    - generate_study_population_unvax
+    - join_study_definitions_unvax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_unvax_stage0.txt
@@ -182,7 +179,7 @@ actions:
     run: r:latest analysis/preprocess/preprocess_data.R vax
     needs:
     - generate_index_dates
-    - generate_study_population_vax
+    - join_study_definitions_vax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_vax_stage0.txt

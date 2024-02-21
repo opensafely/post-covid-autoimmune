@@ -51,7 +51,7 @@ rm(input_outcome, input_history)
 # Save -------------------------------------------------------------------------
 print("Save final data set")
 
-saveRDS(input, file = paste0("output/input_",cohort,"_final.rds"), compress = "gzip")
+#saveRDS(input, file = paste0("output/input_",cohort,"_final.rds"), compress = "gzip")
 
 # Save -------------------------------------------------------------------------
 
