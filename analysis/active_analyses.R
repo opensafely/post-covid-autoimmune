@@ -40,7 +40,7 @@ total_event_threshold <- 50L
 episode_event_threshold <- 5L
 covariate_threshold <- 5L
 ##Dates
-study_dates <- fromJSON("output/study_dates.json")
+study_dates <- jsonlite::fromJSON("output/study_dates.json")
 
 prevax_start <- "2020-01-01"
 prevax_stop<- "2021-12-14"
@@ -81,7 +81,8 @@ outcomes_runall <- c("out_date_composite_ai",
                      "out_date_grave",
                      "out_date_pmr",
                      "out_date_immune_thromb",
-                     "out_date_pernicious",
+                     "out_date_pern_anaemia",
+                     #"out_date_pernicious",
                      "out_date_apa",
                      "out_date_ms",
                      "out_date_myasthenia"
@@ -539,7 +540,9 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+df <- df[df$analysis == "main",]# | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+
+#df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
 #df <- df[df$analysis == "main" | df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]
 

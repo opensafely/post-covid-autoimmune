@@ -29,6 +29,10 @@ input_history <- read_csv(paste0("output/input_",cohort,"_history.csv.gz"))
 
 # Keep columns of interest -----------------------------------------------------
 
+input_outcome <- input_outcome %>%
+  select(!matches("^tmp_out_|^tmp_cov_bin_|^tmp_sub_bin_|^tmp_exp_"))
+  #select(matches("patient_id|^out_date_|^cov_bin_|^cov_num_|^sub_bin_|^cov_cat_|^vax_|has_died|registered"))
+
 input_history <- input_history %>%
   select(matches("patient_id|^cov_bin_history_"))
   #select(patient_id, starts_with("cov_bin_history"))
