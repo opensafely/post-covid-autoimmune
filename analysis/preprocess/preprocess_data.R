@@ -20,11 +20,11 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 
 #data set
-input_path <- paste0("output/input_",cohort_name,"_final.csv.gz") #_final
+input_path <- paste0("output/input_",cohort_name,".csv.gz") #_final.csv.gz
 
 # Get column names -------------------------------------------------------------
 
-all_cols <- fread(paste0("output/input_",cohort_name,"_final.csv.gz"), #_final
+all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), #_final.csv.gz
                   header = TRUE, 
                   sep = ",", 
                   nrows = 0, 
@@ -149,8 +149,8 @@ message("COVID19 severity determined successfully")
 
 # Create sensitivity variable
 
-df <- df %>%
-  mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
+# df <- df %>%
+#   mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
 
 # Restrict columns and save analysis dataset ---------------------------------
 

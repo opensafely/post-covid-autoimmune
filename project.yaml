@@ -153,8 +153,6 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_prevax
-    - generate_study_population_history_prevax
-    - join_study_definitions_prevax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_prevax_stage0.txt
@@ -170,8 +168,6 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_unvax
-    - generate_study_population_history_unvax
-    - join_study_definitions_unvax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_unvax_stage0.txt
@@ -187,8 +183,6 @@ actions:
     needs:
     - generate_index_dates
     - generate_study_population_vax
-    - generate_study_population_history_vax
-    - join_study_definitions_vax
     outputs:
       moderately_sensitive:
         describe: output/not-for-review/describe_input_vax_stage0.txt
