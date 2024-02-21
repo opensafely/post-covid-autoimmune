@@ -11,35 +11,35 @@ mctd,Mixed Connective Tissue Disease
 as,Antiphospholipid syndrome
 psoriasis,Psoriasis
 hs,Hydradenitis suppurativa
-ibd,Inflammatory bowel disease (combined UC and Crohn's)
+ibd,Inflammatory bowel disease(combined ulcerative colitis and Crohn's)
 crohn,Crohn’s disease
 uc,Ulcerative colitis
 celiac,Celiac disease
 addison,Addison’s disease
 grave,Grave’s disease
 hashimoto_thyroiditis,Hashimoto’s thyroiditis
-anca,ANCA-associated
+anca,Antineutrophilic cytoplasmic antibody (ANCA)-associated
 gca,Giant cell arteritis
-iga_vasculitis,IgA (immunoglobulin A) vasculitis
-pmr,Polymyalgia Rheumatica (PMR)
+iga_vasculitis,Immunoglobulin A (IgA) vasculitis
+pmr,Polymyalgia rheumatica (PMR)
 immune_thromb,Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
 pernicious_anaemia,Pernicious anaemia
 apa,Aplastic anaemia
 aha,Autoimmune haemolytic anaemia
-glb,Guillain Barre
-multiple_sclerosis,Multiple Sclerosis
+glb,Guillain-Barré
+multiple_sclerosis,Multiple sclerosis
 myasthenia_gravis,Myasthenia gravis
 longit_myelitis,Longitudinal myelitis
 cis,Clinically isolated syndrome
-grp1_ifa,Inflammatory arthritis
-grp2_ctd,Connective tissue disorders
-grp3_isd,Inflammatory skin disease
-grp4_agi_ibd,Autoimmune GI / Inflammatory bowel disease
-grp5_atv,Thyroid diseases
-grp6_trd,Autoimmune vasculitis
-grp7_htd,Hematologic Diseases
-grp8_ind,Inflammatory neuromuscular disease
-composite_ai,Composite Autoimmune
+grp1_ifa,Inflammatory arthritis (Group 1)
+grp2_ctd,Connective tissue disorders (Group 2)
+grp3_isd,Inflammatory skin disease (Group 3)
+grp4_agi_ibd,Autoimmune gastrointestinal diseaseI / Inflammatory bowel disease (Group 4)
+grp5_atv,Thyroid diseases (Group 5)
+grp6_trd,Autoimmune vasculitis (Group 6)
+grp7_htd,Hematologic diseases (Group 7)
+grp8_ind,Inflammatory neuromuscular disease (Group 8)
+composite_ai,Composite autoimmune
 prevax,Pre-vaccination (Jan 1 2020 - Dec 14 2021)
 vax,Vaccinated (Jun 1 2021 - Dec 14 2021)
 unvax,Unvaccinated (Jun 1 2021 - Dec 14 2021)
@@ -61,13 +61,55 @@ sub_sex_male,Sex: Male
 sub_covid_history,History of COVID-19
 cov_bin_ami,Acute myocardial infarction 
 cov_bin_cancer,Cancer 
-cov_bin_chronic_kidney_disease,Chronic kidney disease 
-cov_bin_chronic_obstructive_pulmonary_disease,Chronic obstructive pulmonary disease 
+cov_bin_ckd,Chronic kidney disease 
+cov_bin_copd,Chronic obstructive pulmonary disease 
 cov_bin_diabetes,Diabetes
 cov_bin_healthcare_worker,Healthcare worker 
 cov_bin_hypertension,Hypertension 
 cov_bin_liver_disease,Liver disease 
 cov_bin_obesity,Obesity 
-cov_bin_stroke_isch,Ischaemic strike
+cov_bin_stroke_isch,Ischaemic stroke
 cov_cat_consulation_rate,GP consultations in 2019
+cov_cat_outpatient_rate,Hospital consultations in 2019
+cov_bin_history_ra,History of rheumatoid arthritis
+cov_bin_history_undiff_eia,History of undifferentiated inflammatory arthritis
+cov_bin_history_psoa,History of psoriatic arthritis
+cov_bin_history_axial,History of axial spondyloarthritis
+cov_bin_history_grp1_ifa,History of inflammatory arthritis (Group 1)
+cov_bin_history_sle,History of systematic lupus erythematosus
+cov_bin_history_sjs,History of Sjogren’s syndrome
+cov_bin_history_sss,History of systemic sclerosis/scleroderma
+cov_bin_history_im,History of inflammatory myositis/polymyositis/dermatolomyositis
+cov_bin_history_mctd,History of mixed connective tissue disease
+cov_bin_history_as,History of antiphospholipid syndrome
+cov_bin_history_grp2_ctd,History of connective tissue disorders (Group 2)
+cov_bin_history_psoriasis,History of psoriasis
+cov_bin_history_hs,History of hydradenitis suppurativa
+cov_bin_history_grp3_isd,History of inflammatory skin disease (Group 3)
+cov_bin_history_crohn,History of Crohn’s disease
+cov_bin_history_uc,History of ulcerative colitis
+cov_bin_history_celiac,History of Celiac disease
+cov_bin_history_ibd,History of inflammatory bowel disease (combined ulcerative colitis and Crohn's)
+cov_bin_history_grp4_agi_ibd,History of autoimmune gastrointestinal disease / inflammatory bowel disease (Group 4)
+cov_bin_history_addison,History of Addison’s disease
+cov_bin_history_grave,History of Grave’s disease
+cov_bin_history_hashimoto,History of Hashimoto’s thyroiditis
+cov_bin_history_grp5_atv,History of thyroid diseases (Group 5)
+cov_bin_history_anca,History of antineutrophilic cytoplasmic antibody (ANCA)-associated
+cov_bin_history_gca,History of giant cell arteritis
+cov_bin_history_iga_vasc,History of immunoglobulin A (IgA) vasculitis
+cov_bin_history_pmr,History of polymyalgia rheumatica (PMR)
+cov_bin_history_grp6_trd,History of Autoimmune vasculitis (Group 6)
+cov_bin_history_immune_thromb,History of immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
+cov_bin_history_pern_anaemia,History of pernicious anaemia
+cov_bin_history_apa,History of aplastic anaemia
+cov_bin_history_aha,History of autoimmune haemolytic anaemia
+cov_bin_history_grp7_htd,History of hematologic diseases (Group 7)
+cov_bin_history_glb,History of Guillain-Barré
+cov_bin_history_ms,History of multiple sclerosis
+cov_bin_history_myasthenia,History of myasthenia gravis
+cov_bin_history_long_myelitis,History of longitudinal myelitis
+cov_bin_history_cis,History of clinically isolated syndrome
+cov_bin_history_grp8_ind,History of inflammatory neuromuscular disease (Group 8)
+sub_bin_history_composite_ai,History of composite autoimmune
 All,All
