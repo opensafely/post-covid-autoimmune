@@ -154,10 +154,8 @@ message("COVID19 severity determined successfully")
 
 # Restrict columns and save analysis dataset ---------------------------------
 
-df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
+df1 <- df%>% select(patient_id,starts_with("index_date_"),
                     has_follow_up_previous_6months,
-                    dereg_date,
-                    #prior_diagnosis,
                     starts_with("end_date_"),
                     contains("sub_"), # Subgroups
                     contains("exp_"), # Exposures
@@ -171,6 +169,17 @@ df1 <- df%>% select(patient_id,"death_date",starts_with("index_date_"),
   select(-matches("tmp_"))
 
 df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
+
+prelim_data <- read_csv("output/index_dates.csv.gz") 
+prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
+prelim_data$patient_id <- as.character(prelim_data$patient_id) 
+prelim_data$death_date <- as.Date(prelim_data$death_date) 
+prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
+
+df1 <- df1 %>% inner_join(prelim_data,by="patient_id") 
+
+message("Death and deregistration dates added!") 
+
 
 # Repo specific preprocessing 
 
