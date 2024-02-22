@@ -20,11 +20,11 @@ if(length(args)==0){
 fs::dir_create(here::here("output", "not-for-review"))
 
 #data set
-input_path <- paste0("output/input_",cohort_name,"_final.csv.gz") #_final.csv.gz
+input_path <- paste0("output/input_",cohort_name,".csv.gz") #_final.csv.gz
 
 # Get column names -------------------------------------------------------------
 
-all_cols <- fread(paste0("output/input_",cohort_name,"_final.csv.gz"), #_final.csv.gz
+all_cols <- fread(paste0("output/input_",cohort_name,".csv.gz"), #_final.csv.gz
                   header = TRUE, 
                   sep = ",", 
                   nrows = 0, 
