@@ -7,9 +7,9 @@ library(dplyr)
 # unvax<-fread("output/input_unvax.csv.gz")
 
 #after preprocessing data 
-prevax<-readr::read_rds("output/input_prevax.rds")
-vax<-readr::read_rds("output/input_vax.rds")
-unvax<-readr::read_rds("output/input_unvax.rds")
+prevax<-readr::read_rds("output/input_prevax_final.rds")
+vax<-readr::read_rds("output/input_vax_final.rds")
+unvax<-readr::read_rds("output/input_unvax_final.rds")
 
 
 #count non na outcome and covars events 

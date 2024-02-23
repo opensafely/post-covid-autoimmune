@@ -53,7 +53,7 @@ end_date_delta <- as.Date(study_dates$omicron_date, format="%Y-%m-%d")
 # Load cohort data -------------------------------------------------------------
 print('Load cohort data')
 
-input <- read_rds(file.path("output", paste0("input_",cohort,".rds")))
+input <- read_rds(file.path("output", paste0("input_",cohort,".rds"))) #_final
 print(paste0(cohort,  " cohort: ", nrow(input), " rows in the input file"))
 
 # Rename date variables --------------------------------------------------------
@@ -252,12 +252,10 @@ input <- subset(input, input$has_follow_up_previous_6months == TRUE)
 consort[nrow(consort)+1,] <- c("Inclusion criteria: Six months follow up prior to index",
                                nrow(input))
 
-print('Inclusion criteria: Active registration')
-
-input <- input %>%
-  filter(is.na(dereg_date))
-consort[nrow(consort)+1,] <- c("Inclusion criteria: Active registration",
-                               nrow(input))
+print('Inclusion criteria: Active registration') 
+input <- input %>% 
+  filter(is.na(deregistration_date) | (!is.na(deregistration_date) & deregistration_date>=index_date)) 
+consort[nrow(consort)+1,] <- c("Inclusion criteria: Active registration", nrow(input)) 
 
 print('Inclusion criteria: Known region')
 
