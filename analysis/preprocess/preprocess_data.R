@@ -53,7 +53,7 @@ col_classes <- setNames(
 # read the input file and specify colClasses -----------------------------------
 df <- read_csv(input_path, col_types = col_classes) 
 
-df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in AI
+#df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in AI
 
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 print("type of columns:\n")
@@ -68,9 +68,15 @@ message ("Cohort ",cohort_name, " description written successfully!")
 
 # Add death_date from prelim data ----------------------------------------------
 
-prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) %>%
-  select(patient_id,death_date)
-df <- df %>% inner_join(prelim_data,by="patient_id")
+# prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) %>%
+#   select(patient_id,death_date)
+# df <- df %>% inner_join(prelim_data,by="patient_id")
+
+prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) 
+prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
+prelim_data$patient_id <- as.character(prelim_data$patient_id) 
+prelim_data$death_date <- as.Date(prelim_data$death_date) 
+prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
 
 message("Death date added!")
 message(paste0("After adding death N = ", nrow(df), " rows"))
@@ -170,11 +176,11 @@ df1 <- df%>% select(patient_id,starts_with("index_date_"),
 
 df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
-prelim_data <- read_csv("output/index_dates.csv.gz") 
-prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
-prelim_data$patient_id <- as.character(prelim_data$patient_id) 
-prelim_data$death_date <- as.Date(prelim_data$death_date) 
-prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
+# prelim_data <- read_csv("output/index_dates.csv.gz") 
+# prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
+# prelim_data$patient_id <- as.character(prelim_data$patient_id) 
+# prelim_data$death_date <- as.Date(prelim_data$death_date) 
+# prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
 
 df1 <- df1 %>% inner_join(prelim_data,by="patient_id") 
 
@@ -192,6 +198,7 @@ message(paste0("Input data saved successfully with N = ", nrow(df1), " rows"))
 sink(paste0("output/not-for-review/describe_input_",cohort_name,"_stage0.txt"))
 print(Hmisc::describe(df1))
 sink()
+rm(df1, prelim_data)
 
 # Restrict columns and save Venn diagram input dataset -----------------------
 
@@ -202,10 +209,12 @@ df2 <- df %>% select(starts_with(c("patient_id","tmp_out_date","out_date")))
 sink(paste0("output/not-for-review/describe_venn_",cohort_name,".txt"))
 print(Hmisc::describe(df2))
 sink()
+rm(df)
 
 # SAVE
 
 saveRDS(df2, file = paste0("output/venn_",cohort_name,".rds"))
+rm(df2)
 
 message("Venn diagram data saved successfully")
 tictoc::toc() 
