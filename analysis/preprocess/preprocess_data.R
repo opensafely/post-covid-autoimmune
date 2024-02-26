@@ -68,18 +68,17 @@ message ("Cohort ",cohort_name, " description written successfully!")
 
 # Add death_date from prelim data ----------------------------------------------
 
-# prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) %>%
-#   select(patient_id,death_date)
-# df <- df %>% inner_join(prelim_data,by="patient_id")
-
-prelim_data <- read_csv("output/index_dates.csv.gz") 
+prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) 
 prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
 prelim_data$patient_id <- as.character(prelim_data$patient_id) 
 prelim_data$death_date <- as.Date(prelim_data$death_date) 
 prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
 
-message("Death date added!")
-message(paste0("After adding death N = ", nrow(df), " rows"))
+df <- df %>% inner_join(prelim_data,by="patient_id")
+
+message("Death and deregistration dates format update")
+# message("Death date added!")
+# message(paste0("After adding death N = ", nrow(df), " rows"))
 
 # Format columns ---------------------------------------------------------------
 # dates, numerics, factors, logicals
@@ -160,8 +159,9 @@ df <- df %>%
 
 # Restrict columns and save analysis dataset ---------------------------------
 
-df1 <- df%>% select(patient_id, starts_with("index_date_"),
+df1 <- df%>% select(patient_id, "death_date", starts_with("index_date_"),
                     has_follow_up_previous_6months,
+                    deregistration_date,
                     starts_with("end_date_"),
                     contains("sub_"), # Subgroups
                     contains("exp_"), # Exposures
@@ -174,19 +174,7 @@ df1 <- df%>% select(patient_id, starts_with("index_date_"),
 ) %>% 
   select(-matches("tmp_"))
 
-#df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
-
-# prelim_data <- read_csv("output/index_dates.csv.gz") 
-# prelim_data <- prelim_data[,c("patient_id","death_date","deregistration_date")] 
-# prelim_data$patient_id <- as.character(prelim_data$patient_id) 
-# prelim_data$death_date <- as.Date(prelim_data$death_date) 
-# prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
-
-# Add death_date from prelim data ----------------------------------------------
-
-df1 <- df1 %>% inner_join(prelim_data,by="patient_id") 
-
-message("Death and deregistration dates added!") 
+# df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
 
 # Repo specific preprocessing 
 
