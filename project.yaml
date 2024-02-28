@@ -74,6 +74,42 @@ actions:
       highly_sensitive:
         cohort: output/input_vax.csv.gz
 
+  ## Generate study population history - prevax 
+
+  generate_study_population_history_prevax:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_prevax_history
+      --output-format csv.gz
+    needs:
+    - vax_eligibility_inputs
+    - generate_index_dates
+    outputs:
+      highly_sensitive:
+        cohort: output/input_prevax_history.csv.gz
+
+  ## Generate study population history - unvax 
+
+  generate_study_population_history_unvax:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_unvax_history
+      --output-format csv.gz
+    needs:
+    - vax_eligibility_inputs
+    - generate_index_dates
+    outputs:
+      highly_sensitive:
+        cohort: output/input_unvax_history.csv.gz
+
+  ## Generate study population history - vax 
+
+  generate_study_population_history_vax:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_vax_history
+      --output-format csv.gz
+    needs:
+    - vax_eligibility_inputs
+    - generate_index_dates
+    outputs:
+      highly_sensitive:
+        cohort: output/input_vax_history.csv.gz
+
   ## Preprocess data - prevax 
 
   preprocess_data_prevax:
@@ -129,7 +165,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_prevax.csv
-        consort_rounded: output/consort_prevax_midpoint6.csv
+        consort_midpoint6: output/consort_prevax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_prevax_stage1.rds
 
@@ -151,7 +187,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_unvax.csv
-        consort_rounded: output/consort_unvax_midpoint6.csv
+        consort_midpoint6: output/consort_unvax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_unvax_stage1.rds
 
@@ -173,7 +209,7 @@ actions:
     outputs:
       moderately_sensitive:
         consort: output/consort_vax.csv
-        consort_rounded: output/consort_vax_midpoint6.csv
+        consort_midpoint6: output/consort_vax_midpoint6.csv
       highly_sensitive:
         cohort: output/input_vax_stage1.rds
 
@@ -193,7 +229,7 @@ actions:
     - table2_unvax
     outputs:
       moderately_sensitive:
-        table2_output_rounded: output/table2_output_midpoint6.csv
+        table2_output_midpoint6: output/table2_output_midpoint6.csv
 
   ## Stage 5 - Run models 
 
@@ -4417,5 +4453,5 @@ actions:
     outputs:
       moderately_sensitive:
         aer_input: output/aer_input-main.csv
-        aer_input_rounded: output/aer_input-main-midpoint6.csv
+        aer_input_midpoint6: output/aer_input-main-midpoint6.csv
 
