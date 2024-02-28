@@ -20,10 +20,6 @@ defaults_list <- list(
 active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
  cohorts <- unique(active_analyses$cohort)
-#cohorts <- "prevax"
-# active_analyses[active_analyses$cohort == "prevax",] #vax, unvax
-
-#names <- unique(active_analyses$names)
 
 # Determine which outputs are ready --------------------------------------------
 
@@ -101,6 +97,7 @@ convert_comment_actions <-function(yaml.txt){
 # Create function to generate study population ---------------------------------
 ################################################################################
 
+# Main study definitions
 generate_study_population <- function(cohort){
   splice(
     comment(glue("Generate study population - {cohort}")),
@@ -110,6 +107,21 @@ generate_study_population <- function(cohort){
       needs = list("vax_eligibility_inputs","generate_index_dates"),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}.csv.gz")
+      )
+    )
+  )
+}
+
+# History of... study definitions
+generate_study_population_history <- function(cohort){
+  splice(
+    comment(glue("Generate study population history - {cohort}")),
+    action(
+      name = glue("generate_study_population_history_{cohort}"),
+      run = glue("cohortextractor:latest generate_cohort --study-definition study_definition_{cohort}_history --output-format csv.gz"),
+      needs = list("vax_eligibility_inputs","generate_index_dates"),
+      highly_sensitive = list(
+        cohort = glue("output/input_{cohort}_history.csv.gz")
       )
     )
   )
@@ -214,7 +226,6 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     action(
       name = glue("make_model_input-{name}"),
       run = glue("r:latest analysis/model/make_model_input.R {name}"),
-      #needs = list("stage1_data_cleaning_prevax"),
       needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
@@ -233,7 +244,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     # comment(glue("Cox model for {outcome} - {cohort}")),
     # action(
     #   name = glue("cox_ipw-{name}"),
-    #   run = glue("cox-ipw:v0.0.27 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+    #   run = glue("cox-ipw:v0.0.31 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
     #   needs = list(glue("make_model_input-{name}")),
     #   moderately_sensitive = list(
     #     model_output = glue("output/model_output-{name}.csv"))
@@ -347,6 +358,15 @@ actions_list <- splice(
     )
   ),
   
+  # Generate study population history ------------------------------------------
+  
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) generate_study_population_history(cohort = x)),
+           recursive = FALSE
+    )
+  ),
+  
   
   ## Preprocess data -----------------------------------------------------------
   
@@ -357,20 +377,6 @@ actions_list <- splice(
     )
   ),
   
-  #Count outcomes and binary covars
-  # action(
-  #   name = "count_study_def_variables",
-  #   run = "r:latest analysis/descriptives/initial_input_counts.R",
-  #   needs = list("generate_study_population_prevax","generate_study_population_unvax","generate_study_population_vax","preprocess_data_prevax","preprocess_data_unvax","preprocess_data_vax"),
-  #   moderately_sensitive=list(
-  #     counts = glue("output/not-for-review/study_counts_prepro.txt"),
-  #     vax_summary = glue("output/not-for-review/describe_prepro_vax.txt"),
-  #     prevax_summary = glue("output/not-for-review/describe_prepro_prevax.txt"),
-  #     unvax_summary = glue("output/not-for-review/describe_prepro_unvax.txt")
-  # 
-  #   )
-  # ),
-
   ## Stage 1 - data cleaning -----------------------------------------------------------
   
   splice(
