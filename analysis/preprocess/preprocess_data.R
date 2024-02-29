@@ -140,22 +140,22 @@ message("COVID19 severity determined successfully")
 
 # Create vars for autoimmune outcomes - TBC -----------------------------
 
-df <- df %>%
-    rename(
-      cov_bin_ckd = cov_bin_chronic_kidney_disease,
-      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease,
-      cov_bin_history_hashimoto = cov_bin_history_hashimoto_thyroiditis,
-      cov_bin_history_iga_vasc = cov_bin_history_iga_vasculitis,
-      cov_bin_history_pern_anaemia = cov_bin_history_pernicious_anaemia,
-      cov_bin_history_ms = cov_bin_history_multiple_sclerosis,
-      cov_bin_history_myasthenia = cov_bin_history_myasthenia_gravis,
-      cov_bin_history_long_myelitis = cov_bin_history_longit_myelitis
-  )
+# df <- df %>%
+#     rename(
+#       cov_bin_ckd = cov_bin_chronic_kidney_disease,
+#       cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease,
+#       cov_bin_history_hashimoto = cov_bin_history_hashimoto_thyroiditis,
+#       cov_bin_history_iga_vasc = cov_bin_history_iga_vasculitis,
+#       cov_bin_history_pern_anaemia = cov_bin_history_pernicious_anaemia,
+#       cov_bin_history_ms = cov_bin_history_multiple_sclerosis,
+#       cov_bin_history_myasthenia = cov_bin_history_myasthenia_gravis,
+#       cov_bin_history_long_myelitis = cov_bin_history_longit_myelitis
+#   )
 
 # Create sensitivity variable
 
-df <- df %>%
-  mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
+# df <- df %>%
+#   mutate(sub_bin_history_composite_ai = cov_bin_history_composite_ai)
 
 # Restrict columns and save analysis dataset ---------------------------------
 
