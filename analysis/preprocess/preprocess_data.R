@@ -143,11 +143,11 @@ message("COVID19 severity determined successfully")
 
 # Create vars for autoimmune outcomes - TBC -----------------------------
 
-df <- df %>%
-    rename(
-      cov_bin_ckd = cov_bin_chronic_kidney_disease,
-      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease
-  )
+# df <- df %>%
+#     rename(
+#       cov_bin_ckd = cov_bin_chronic_kidney_disease,
+#       cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease
+#   )
 
 # Create sensitivity variable
 
