@@ -110,39 +110,6 @@ actions:
       highly_sensitive:
         cohort: output/input_vax_history.csv.gz
 
-  ## Join stage1 and history data - prevax 
-
-  stage1_data_cleaning_history_prevax:
-    run: r:latest analysis/preprocess/stage1_history_patients.R prevax
-    needs:
-    - stage1_data_cleaning_prevax
-    - generate_study_population_history_prevax
-    outputs:
-      highly_sensitive:
-        cohort_final: output/input_prevax_new_stage1.rds
-
-  ## Join stage1 and history data - unvax 
-
-  stage1_data_cleaning_history_unvax:
-    run: r:latest analysis/preprocess/stage1_history_patients.R unvax
-    needs:
-    - stage1_data_cleaning_unvax
-    - generate_study_population_history_unvax
-    outputs:
-      highly_sensitive:
-        cohort_final: output/input_unvax_new_stage1.rds
-
-  ## Join stage1 and history data - vax 
-
-  stage1_data_cleaning_history_vax:
-    run: r:latest analysis/preprocess/stage1_history_patients.R vax
-    needs:
-    - stage1_data_cleaning_vax
-    - generate_study_population_history_vax
-    outputs:
-      highly_sensitive:
-        cohort_final: output/input_vax_new_stage1.rds
-
   ## Preprocess data - prevax 
 
   preprocess_data_prevax:

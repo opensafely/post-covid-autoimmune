@@ -413,12 +413,12 @@ actions_list <- splice(
   
   ## Join stage1 and history data ----------------------------------------------
   
-  splice(
-    unlist(lapply(cohorts,
-                  function(x) stage1_history_data(cohort = x)),
-           recursive = FALSE
-    )
-  ),
+  # splice(
+  #   unlist(lapply(cohorts,
+  #                 function(x) stage1_history_data(cohort = x)),
+  #          recursive = FALSE
+  #   )
+  # ),
   
   ## Join study definitions ----------------------------------------------------
   
