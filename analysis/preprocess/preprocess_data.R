@@ -179,9 +179,9 @@ df1 <- df%>% select(patient_id, "death_date", starts_with("index_date_"),
 # prelim_data$death_date <- as.Date(prelim_data$death_date) 
 # prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date) 
 
-df1 <- df1 %>% inner_join(prelim_data,by="patient_id") 
+#df1 <- df1 %>% inner_join(prelim_data,by="patient_id") 
 
-message("Death and deregistration dates added!") 
+#message("Death and deregistration dates added!") 
 
 # Repo specific preprocessing 
 
