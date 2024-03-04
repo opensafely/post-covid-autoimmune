@@ -129,20 +129,40 @@ generate_study_population_history <- function(cohort){
   )
 }
 
-join_study_definitions_data <- function(cohort){
+# join_study_definitions_data <- function(cohort){
+#   splice(
+#     comment(glue("Join study definitions - {cohort}")),
+#   action(
+#     name = glue("join_study_definitions_{cohort}"),
+#     run = glue("r:latest analysis/preprocess/join_study_definitions.R"),
+#     #run = glue("r:latest analysis/preprocess/history_patients.R"),
+#     arguments = c(cohort),
+#     needs = list(glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}")),
+#     #needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
+#     #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
+#     highly_sensitive = list(
+#       #cohort_final = glue("output/input_{cohort}_final.rds"),#rds csv.gz
+#       cohort_final_csv = glue("output/input_{cohort}_final.csv.gz")#csv.gz rds
+#       )
+#     )
+#   )
+# }
+
+################################################################################
+# Join stage1 and history data -------------------------------------------------
+################################################################################
+
+stage1_history_data <- function(cohort){
   splice(
-    comment(glue("Join study definitions - {cohort}")),
-  action(
-    name = glue("join_study_definitions_{cohort}"),
-    run = glue("r:latest analysis/preprocess/join_study_definitions.R"),
-    #run = glue("r:latest analysis/preprocess/history_patients.R"),
-    arguments = c(cohort),
-    needs = list(glue("generate_study_population_{cohort}"), glue("generate_study_population_history_{cohort}")),
-    #needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
-    #needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
-    highly_sensitive = list(
-      #cohort_final = glue("output/input_{cohort}_final.rds"),#rds csv.gz
-      cohort_final_csv = glue("output/input_{cohort}_final.csv.gz")#csv.gz rds
+    comment(glue("Join stage1 and history data - {cohort}")),
+    action(
+      name = glue("stage1_data_cleaning_history_{cohort}"),
+      run = glue("r:latest analysis/preprocess/stage1_history_patients.R"),
+      #run = glue("r:latest analysis/preprocess/history_patients.R"),
+      arguments = c(cohort),
+      needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
+      highly_sensitive = list(
+        cohort_final = glue("output/input_{cohort}_new_stage1.rds")
       )
     )
   )
@@ -161,11 +181,11 @@ preprocess_data <- function(cohort){
       arguments = c(cohort),
       #needs = list("generate_index_dates",glue("generate_study_population_{cohort}")),#, glue("generate_study_population_history_{cohort}"), glue("join_study_definitions_{cohort}")),
       needs = list("generate_index_dates",glue("generate_study_population_{cohort}")),
-      #needs = list("generate_index_dates",glue("join_study_definitions_{cohort}")),
-      moderately_sensitive = list(
-        describe = glue("output/not-for-review/describe_input_{cohort}_stage0.txt"),
-        describe_venn = glue("output/not-for-review/describe_venn_{cohort}.txt")
-      ),
+      # #needs = list("generate_index_dates",glue("join_study_definitions_{cohort}")),
+      # moderately_sensitive = list(
+      #   describe = glue("output/not-for-review/describe_input_{cohort}_stage0.txt"),
+      #   describe_venn = glue("output/not-for-review/describe_venn_{cohort}.txt")
+      # ),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}.rds"),#cohort = glue("output/input_{cohort}_final.rds"),
         venn = glue("output/venn_{cohort}.rds")
@@ -193,15 +213,15 @@ stage1_data_cleaning <- function(cohort){
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}_stage1.rds")
       )
-    ),
-    action(
-      name = glue("describe_stage1_data_cleaning_{cohort}"),
-      run = glue("r:latest analysis/model/describe_file.R input_{cohort}_stage1 rds"),
-      needs = list(glue("stage1_data_cleaning_{cohort}")),
-      moderately_sensitive = list(
-        describe_model_input = glue("output/describe-input_{cohort}_stage1.txt")
-      )
-    )
+    )#,
+    # action(
+    #   name = glue("describe_stage1_data_cleaning_{cohort}"),
+    #   run = glue("r:latest analysis/model/describe_file.R input_{cohort}_stage1 rds"),
+    #   needs = list(glue("stage1_data_cleaning_{cohort}")),
+    #   moderately_sensitive = list(
+    #     describe_model_input = glue("output/describe-input_{cohort}_stage1.txt")
+      # )
+    # )
   )
 }
 
@@ -387,6 +407,15 @@ actions_list <- splice(
   splice(
     unlist(lapply(cohorts,
                   function(x) generate_study_population_history(cohort = x)),
+           recursive = FALSE
+    )
+  ),
+  
+  ## Join stage1 and history data ----------------------------------------------
+  
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) stage1_history_data(cohort = x)),
            recursive = FALSE
     )
   ),
