@@ -131,7 +131,13 @@ message("COVID19 severity determined successfully")
 df <- df %>%
     rename(
       cov_bin_ckd = cov_bin_chronic_kidney_disease,
-      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease
+      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease,
+      out_date_pern_anaemia = out_date_pernicious_anaemia,
+      out_date_ms = out_date_multiple_sclerosis,
+      out_date_myasthenia = out_date_myasthenia_gravis,
+      out_date_hashimoto = out_date_hashimoto_thyroiditis,
+      out_date_iga_vasc = out_date_iga_vasculitis,
+      out_date_long_myelitis = out_date_longit_myelitis
   )
 
 # Restrict columns and save analysis dataset ---------------------------------
