@@ -39,6 +39,20 @@ input_history <- input_history %>%
          sub_bin_history_composite_ai = cov_bin_history_composite_ai
          )
 
+# Set reference level for binaries ---------------------------------------------
+print('Set reference level for binaries')
+
+bin_factors <- colnames(input_history)[grepl("_bin_",colnames(input_history))]
+
+input_history[,bin_factors] <- lapply(input_history[,bin_factors], 
+                                      function(x) factor(x, levels = c("FALSE","TRUE")))
+
+# input_history <- input_history %>%
+#   mutate(across(contains('_bin'), ~ as.logical(.)),
+#          # sensitivity variable
+#          #sub_bin_history_composite_ai = cov_bin_history_composite_ai
+#          )
+
 # Filter history patients ------------------------------------------------------
 print("Filter history patients")
 
@@ -47,7 +61,7 @@ input_history <- input_history[input_history$patient_id %in% stage1$patient_id,]
 # merge data sets --------------------------------------------------------------
 print("Merge data sets")
 
-input <- inner_join(stage1, input_history, 
+input <- left_join(stage1, input_history, 
                    by = "patient_id") 
 
 # Remove datasets from the environment -----------------------------------------
