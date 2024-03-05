@@ -152,12 +152,12 @@ generate_study_population_history <- function(cohort){
 # Join stage1 and history data -------------------------------------------------
 ################################################################################
 
-stage1_history_data <- function(cohort){
+preprocess_stage1_data_cleaning_history <- function(cohort){
   splice(
     comment(glue("Join stage1 and history data - {cohort}")),
     action(
-      name = glue("stage1_data_cleaning_history_{cohort}"),
-      run = glue("r:latest analysis/preprocess/stage1_history_patients.R"),
+      name = glue("preprocess_stage1_data_cleaning_history_{cohort}"),
+      run = glue("r:latest analysis/preprocess/preprocess_stage1_history_patients.R"),
       #run = glue("r:latest analysis/preprocess/history_patients.R"),
       arguments = c(cohort),
       needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
@@ -413,12 +413,12 @@ actions_list <- splice(
   
   ## Join stage1 and history data ----------------------------------------------
   
-  # splice(
-  #   unlist(lapply(cohorts,
-  #                 function(x) stage1_history_data(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) preprocess_stage1_data_cleaning_history(cohort = x)),
+           recursive = FALSE
+    )
+  ),
   
   ## Join study definitions ----------------------------------------------------
   
