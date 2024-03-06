@@ -81,10 +81,10 @@ outcomes_runall <- c("out_date_composite_ai",
                      "out_date_grave",
                      "out_date_pmr",
                      "out_date_immune_thromb",
-                     "out_date_pernicious_anaemia",
+                     "out_date_pern_anaemia",
                      "out_date_apa",
-                     "out_date_multiple_sclerosis",
-                     "out_date_myasthenia_gravis"
+                     "out_date_ms",
+                     "out_date_myasthenia"
                      )
 
 outcomes_runmain <- c("out_date_undiff_eia",
@@ -94,13 +94,13 @@ outcomes_runmain <- c("out_date_undiff_eia",
                      "out_date_sss",
                      "out_date_im",
                      "out_date_mctd",
-                     "out_date_hashimoto_thyroiditis",
+                     "out_date_hashimoto",
                      "out_date_anca",
                      "out_date_gca",
-                     "out_date_iga_vasculitis",
+                     "out_date_iga_vasc",
                      "out_date_aha",
                      "out_date_glb",
-                     "out_date_longit_myelitis",
+                     "out_date_long_myelitis",
                      "out_date_cis")
 
 #cov_num_outpatient_rate;

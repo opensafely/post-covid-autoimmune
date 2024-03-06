@@ -139,11 +139,7 @@ preprocess_data <- function(cohort){
       run = glue("r:latest analysis/preprocess/preprocess_data.R"),
       arguments = c(cohort),
       needs = list("generate_index_dates",glue("generate_study_population_{cohort}")),
-      moderately_sensitive = list(
-        describe = glue("output/not-for-review/describe_input_{cohort}_stage0.txt"),
-        describe_venn = glue("output/not-for-review/describe_venn_{cohort}.txt")
-      ),
-      highly_sensitive = list(
+     highly_sensitive = list(
         cohort = glue("output/input_{cohort}.rds"),
         venn = glue("output/venn_{cohort}.rds")
       )

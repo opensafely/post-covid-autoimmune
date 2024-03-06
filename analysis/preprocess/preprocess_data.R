@@ -17,8 +17,6 @@ if(length(args)==0){
   cohort_name <- args[[1]]
 }
 
-fs::dir_create(here::here("output", "not-for-review"))
-
 #data set
 input_path <- paste0("output/input_",cohort_name,".csv.gz")
 
@@ -58,14 +56,6 @@ df$cov_num_systolic_bp_date_measured <- NULL#This column is not needed in AI
 print(paste0("Dataset has been read successfully with N = ", nrow(df), " rows"))
 print("type of columns:\n")
 
-# Describe data ----------------------------------------------------------------
-
-sink(paste0("output/not-for-review/describe_",cohort_name,".txt"))
-print(Hmisc::describe(df))
-sink()
-
-message ("Cohort ",cohort_name, " description written successfully!")
-
 # Add death_date from prelim data ----------------------------------------------
 
 prelim_data <- read_csv("output/index_dates.csv.gz",col_types=cols(patient_id = "c",death_date="D")) 
@@ -77,8 +67,6 @@ prelim_data$deregistration_date <- as.Date(prelim_data$deregistration_date)
 df <- df %>% inner_join(prelim_data,by="patient_id")
 
 message("Death and deregistration dates format update")
-# message("Death date added!")
-# message(paste0("After adding death N = ", nrow(df), " rows"))
 
 # Format columns ---------------------------------------------------------------
 # dates, numerics, factors, logicals
@@ -143,7 +131,13 @@ message("COVID19 severity determined successfully")
 df <- df %>%
     rename(
       cov_bin_ckd = cov_bin_chronic_kidney_disease,
-      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease
+      cov_bin_copd = cov_bin_chronic_obstructive_pulmonary_disease,
+      out_date_pern_anaemia = out_date_pernicious_anaemia,
+      out_date_ms = out_date_multiple_sclerosis,
+      out_date_myasthenia = out_date_myasthenia_gravis,
+      out_date_hashimoto = out_date_hashimoto_thyroiditis,
+      out_date_iga_vasc = out_date_iga_vasculitis,
+      out_date_long_myelitis = out_date_longit_myelitis
   )
 
 # Restrict columns and save analysis dataset ---------------------------------
@@ -163,33 +157,20 @@ df1 <- df%>% select(patient_id, "death_date", starts_with("index_date_"),
 ) %>% 
   select(-matches("tmp_"))
 
-# df1[,colnames(df)[grepl("tmp_",colnames(df))]] <- NULL
-
-# Repo specific preprocessing 
+# Repo specific preprocessing --------------------------------------------------
 
 saveRDS(df1, file = paste0("output/input_",cohort_name,".rds"), compress = "gzip")
 
 message(paste0("Input data saved successfully with N = ", nrow(df1), " rows"))
-
-# Describe data --------------------------------------------------------------
-
-sink(paste0("output/not-for-review/describe_input_",cohort_name,"_stage0.txt"))
-print(Hmisc::describe(df1))
-sink()
 rm(df1, prelim_data)
 
-# Restrict columns and save Venn diagram input dataset -----------------------
+# Restrict columns and save Venn diagram input dataset -------------------------
 
 df2 <- df %>% select(starts_with(c("patient_id","tmp_out_date","out_date")))
 rm(df)
+gc()
 
-# Describe venn --------------------------------------------------------------
-
-sink(paste0("output/not-for-review/describe_venn_",cohort_name,".txt"))
-print(Hmisc::describe(df2))
-sink()
-
-# SAVE
+# SAVE -------------------------------------------------------------------------
 
 saveRDS(df2, file = paste0("output/venn_",cohort_name,".rds"))
 rm(df2)
