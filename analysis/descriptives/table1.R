@@ -27,12 +27,12 @@ if(length(args)==0){
 # Load data --------------------------------------------------------------------
 print("Load data")
 
-df <- readr::read_rds(paste0("output/input_",cohort,"_stage1.rds"))
+df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds"))
 
 # Create exposure indicator ----------------------------------------------------
 print("Create exposure indicator")
 
-df$exposed_midpoint6 <- !is.na(df$exp_date_covid19_confirmed)
+df$exposed <- !is.na(df$exp_date_covid19_confirmed)
 
 # Define age groups ------------------------------------------------------------
 print("Define age groups")
@@ -51,7 +51,7 @@ df$cov_cat_age_group <- ifelse(df$cov_num_age>=90, "90+", df$cov_cat_age_group)
 print("Filter data")
 
 df <- df[,c("patient_id",
-            "exposed_midpoint6",
+            "exposed",
             "cov_cat_sex",
             "cov_cat_age_group",
             "cov_cat_ethnicity",
@@ -200,6 +200,12 @@ print('Perform redaction')
 
 df[,setdiff(colnames(df),c("characteristic","subcharacteristic"))] <- lapply(df[,setdiff(colnames(df),c("characteristic","subcharacteristic"))],
                                                                              FUN=function(y){roundmid_any(as.numeric(y), to=threshold)})
+
+# Rename columns (output redaction) --------------------------------------------
+print("Rename columns for output redaction")
+
+names(df)[names(df) == "total"] <- "total_midpoint6"
+names(df)[names(df) == "exposed"] <- "exposed_midpoint6"
 
 # Calculate column percentages -------------------------------------------------
 
