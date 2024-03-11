@@ -178,7 +178,28 @@ stage1_data_cleaning <- function(cohort){
   )
 }
 
-# Create function for table1 --------------------------------------------
+################################################################################
+# Join stage1 and history data -------------------------------------------------
+################################################################################
+
+preprocess_stage1_history_data_cleaning <- function(cohort){
+  splice(
+    comment(glue("Join stage1 and history data - {cohort}")),
+    action(
+      name = glue("preprocess_stage1_history_data_cleaning_{cohort}"),
+      run = glue("r:latest analysis/preprocess/preprocess_stage1_history_data_cleaning.R"),
+      arguments = c(cohort),
+      needs = list(glue("stage1_data_cleaning_{cohort}"), glue("generate_study_population_history_{cohort}")),
+      highly_sensitive = list(
+        cohort_final = glue("output/input_{cohort}_new_stage1.rds")
+      )
+    )
+  )
+}
+
+################################################################################
+# Create function for table1 ---------------------------------------------------
+################################################################################
 
 table1 <- function(cohort){
   splice(
@@ -187,22 +208,22 @@ table1 <- function(cohort){
       name = glue("table1_{cohort}"),
       run = "r:latest analysis/descriptives/table1.R",
       arguments = c(cohort),
-      needs = list(glue("stage1_data_cleaning_{cohort}")),
+      needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
       moderately_sensitive = list(
         table1 = glue("output/table1_{cohort}.csv"),
         table1_midpoint6 = glue("output/table1_{cohort}_midpoint6.csv")
       )
-    ),
-    action(
-      name = glue("extendedtable1_{cohort}"),
-      run = "r:latest analysis/descriptives/extendedtable1.R",
-      arguments = c(cohort),
-      needs = list(glue("stage1_data_cleaning_{cohort}")),
-      moderately_sensitive = list(
-        extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
-        extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
-      )
-    )
+    )#,
+    # action(
+    #   name = glue("extendedtable1_{cohort}"),
+    #   run = "r:latest analysis/descriptives/extendedtable1.R",
+    #   arguments = c(cohort),
+    #   needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
+    #   moderately_sensitive = list(
+    #     extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
+    #     extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
+    #   )
+    # )
   )
 }
 
@@ -222,7 +243,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     action(
       name = glue("make_model_input-{name}"),
       run = glue("r:latest analysis/model/make_model_input.R {name}"),
-      needs = list("stage1_data_cleaning_prevax", "stage1_data_cleaning_vax", "stage1_data_cleaning_unvax"),
+      needs = list("preprocess_stage1_history_data_cleaning_prevax", "preprocess_stage1_history_data_cleaning_vax", "preprocess_stage1_history_data_cleaning_unvax"),
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
       )
@@ -345,7 +366,7 @@ actions_list <- splice(
     )
   ),
   
-  # Generate study population -------------------------------------------------
+  # Generate study population --------------------------------------------------
 
   splice(
     unlist(lapply(cohorts,
@@ -363,7 +384,6 @@ actions_list <- splice(
     )
   ),
   
-  
   ## Preprocess data -----------------------------------------------------------
   
   splice(
@@ -373,7 +393,7 @@ actions_list <- splice(
     )
   ),
   
-  ## Stage 1 - data cleaning -----------------------------------------------------------
+  ## Stage 1 - data cleaning ---------------------------------------------------
   
   splice(
     unlist(lapply(cohorts,
@@ -382,33 +402,42 @@ actions_list <- splice(
     )
   ),
   
+  ## Join stage1 and history data ----------------------------------------------
+  
+  splice(
+    unlist(lapply(cohorts,
+                  function(x) preprocess_stage1_history_data_cleaning(cohort = x)),
+           recursive = FALSE
+    )
+  ),
+  
   ## consort output ------------------------------------------------------------
   
-  # action(
-  #   name = "make_consort_output",
-  #   run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
-  #   needs = list("stage1_data_cleaning_prevax",
-  #                "stage1_data_cleaning_vax",
-  #                "stage1_data_cleaning_unvax"),
-  #   moderately_sensitive = list(
-  #     consort_output_midpoint6 = glue("output/consort_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_consort_output",
+    run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
+    needs = list("stage1_data_cleaning_prevax",
+                 "stage1_data_cleaning_vax",
+                 "stage1_data_cleaning_unvax"),
+    moderately_sensitive = list(
+      consort_output_midpoint6 = glue("output/consort_output_midpoint6.csv")
+    )
+  ),
   
   ## table 1 output ------------------------------------------------------------
   
-  # action(
-  #   name = "make_table1_output",
-  #   run = "r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax",
-  #   needs = list("table1_prevax",
-  #                "table1_vax",
-  #                "table1_unvax"),
-  #   moderately_sensitive = list(
-  #     table1_output_midpoint6 = glue("output/table1_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_table1_output",
+    run = "r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax",
+    needs = list("table1_prevax",
+                 "table1_vax",
+                 "table1_unvax"),
+    moderately_sensitive = list(
+      table1_output_midpoint6 = glue("output/table1_output_midpoint6.csv")
+    )
+  ),
   
-  ## extend table 1output ------------------------------------------------------------
+  ## extend table 1output ------------------------------------------------------
   
   # action(
   #   name = "make_extendedtable1_output",
@@ -445,7 +474,7 @@ actions_list <- splice(
   #   )
   # ),
   
-  ## venn output ------------------------------------------------------------
+  ## venn output ---------------------------------------------------------------
   
   # action(
   #   name = "make_venn_output",
@@ -460,12 +489,12 @@ actions_list <- splice(
   
   ## Table 1 -------------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) table1(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) table1(cohort = x)),
+           recursive = FALSE
+    )
+  ),
   
   ## Run models ----------------------------------------------------------------
   comment("Stage 5 - Run models"),
