@@ -54,7 +54,7 @@ for (i in 1:nrow(active_analyses)) {
   print(paste0("Load data for ",active_analyses$name[i]))
   
   
-  input <- dplyr::as_tibble(readr::read_rds(paste0("output/input_",active_analyses$cohort[i],"_stage1.rds")))
+  input <- dplyr::as_tibble(readr::read_rds(paste0("output/input_",active_analyses$cohort[i],"_new_stage1.rds")))
   
   # Restrict to required variables -----------------------------------------------
   print('Restrict to required variables')
@@ -144,265 +144,224 @@ for (i in 1:nrow(active_analyses)) {
   
   if (outcome == "out_date_ra") {
 
-    input<- input %>%
-      filter(cov_bin_history_ra == FALSE) %>%
-      select(-cov_bin_history_ra)
+    input <- input[input$cov_bin_history_ra == FALSE,]
+    input$cov_bin_history_ra <- NULL 
 
   } else if (outcome == "out_date_undiff_eia") {
 
-    input<- input %>%
-      filter(cov_bin_history_undiff_eia == FALSE) %>%
-      select(-cov_bin_history_undiff_eia)
-
+    input <- input[input$cov_bin_history_undiff_eia == FALSE,]
+    input$cov_bin_history_undiff_eia <- NULL 
+    
   } else if (outcome == "out_date_psoa") {
 
-    input<- input %>%
-      filter(cov_bin_history_psoa == FALSE) %>%
-      select(-cov_bin_history_psoa)
+    input <- input[input$cov_bin_history_psoa == FALSE,]
+    input$cov_bin_history_psoa <- NULL 
 
   } else if (outcome == "out_date_axial") {
 
-    input<- input %>%
-      filter(cov_bin_history_axial == FALSE) %>%
-      select(-cov_bin_history_axial) 
+    input <- input[input$cov_bin_history_axial == FALSE,]
+    input$cov_bin_history_axial <- NULL 
 
   } else if (outcome == "out_date_grp1_ifa") {
 
-    input<- input %>%
-      filter(cov_bin_history_grp1_ifa == FALSE) %>%
-      select(-cov_bin_history_grp1_ifa)
-    
+    input <- input[input$cov_bin_history_grp1_ifa == FALSE,]
+    input$cov_bin_history_grp1_ifa <- NULL 
+
   # Outcome group 2  
 
   } else if (outcome == "out_date_sle") {
 
-    input<- input %>%
-      filter(cov_bin_history_sle == FALSE) %>%
-      select(-cov_bin_history_sle)
+    input <- input[input$cov_bin_history_sle == FALSE,]
+    input$cov_bin_history_sle <- NULL 
 
   } else if (outcome == "out_date_sjs") {
 
-    input<- input %>%
-      filter(cov_bin_history_sjs == FALSE) %>%
-      select(-cov_bin_history_sjs)
+    input <- input[input$cov_bin_history_sjs == FALSE,]
+    input$cov_bin_history_sjs <- NULL 
 
   } else if (outcome == "out_date_sss") {
 
-    input<- input %>%
-      filter(cov_bin_history_sss == FALSE) %>%
-      select(-cov_bin_history_sss)
+    input <- input[input$cov_bin_history_sss == FALSE,]
+    input$cov_bin_history_sss <- NULL 
 
   } else if (outcome == "out_date_im") {
 
-    input<- input %>%
-      filter(cov_bin_history_im == FALSE) %>%
-      select(-cov_bin_history_im)
+    input <- input[input$cov_bin_history_im == FALSE,]
+    input$cov_bin_history_im <- NULL 
 
   } else if (outcome == "out_date_mctd") {
 
-    input<- input %>%
-      filter(cov_bin_history_mctd == FALSE) %>%
-      select(-cov_bin_history_mctd)
-    
+    input <- input[input$cov_bin_history_mctd == FALSE,]
+    input$cov_bin_history_mctd <- NULL 
+
   } else if (outcome == "out_date_as") {
 
-    input<- input %>%
-      filter(cov_bin_history_as == FALSE) %>%
-      select(-cov_bin_history_as)
-    
+    input <- input[input$cov_bin_history_as == FALSE,]
+    input$cov_bin_history_as <- NULL 
+
   } else if (outcome == "out_date_grp2_ctd") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp2_ctd == FALSE) %>%
-      select(-cov_bin_history_grp2_ctd)
-    
+    input <- input[input$cov_bin_history_grp2_ctd == FALSE,]
+    input$cov_bin_history_grp2_ctd <- NULL 
+
   # Outcome group 3
     
   } else if (outcome == "out_date_psoriasis") {
     
-    input<- input %>%
-      filter(cov_bin_history_psoriasis == FALSE) %>%
-      select(-cov_bin_history_psoriasis)
-    
+    input <- input[input$cov_bin_history_psoriasis == FALSE,]
+    input$cov_bin_history_psoriasis <- NULL 
+
   } else if (outcome == "out_date_hs") {
     
-    input<- input %>%
-      filter(cov_bin_history_hs == FALSE) %>%
-      select(-cov_bin_history_hs)
-    
+    input <- input[input$cov_bin_history_hs == FALSE,]
+    input$cov_bin_history_hs <- NULL 
+
   } else if (outcome == "out_date_grp3_isd") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp3_isd == FALSE) %>%
-      select(-cov_bin_history_grp3_isd)
-    
+    input <- input[input$cov_bin_history_grp3_isd == FALSE,]
+    input$cov_bin_history_grp3_isd <- NULL 
+
   # Outcome group 4
     
   } else if (outcome == "out_date_ibd") {
     
-    input<- input %>%
-      filter(cov_bin_history_ibd == FALSE) %>%
-      select(-cov_bin_history_ibd)
-    
+    input <- input[input$cov_bin_history_ibd == FALSE,]
+    input$cov_bin_history_ibd <- NULL 
+
   } else if (outcome == "out_date_crohn") {
     
-    input<- input %>%
-      filter(cov_bin_history_crohn == FALSE) %>%
-      select(-cov_bin_history_crohn)
-    
+    input <- input[input$cov_bin_history_crohn == FALSE,]
+    input$cov_bin_history_crohn <- NULL 
+
   } else if (outcome == "out_date_uc") {
     
-    input<- input %>%
-      filter(cov_bin_history_uc == FALSE) %>%
-      select(-cov_bin_history_uc)
-    
+    input <- input[input$cov_bin_history_uc == FALSE,]
+    input$cov_bin_history_uc <- NULL 
+
   } else if (outcome == "out_date_celiac") {
     
-    input<- input %>%
-      filter(cov_bin_history_celiac == FALSE) %>%
-      select(-cov_bin_history_celiac)
-    
+    input <- input[input$cov_bin_history_celiac == FALSE,]
+    input$cov_bin_history_celiac <- NULL 
+
   } else if (outcome == "out_date_grp4_agi_ibd") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp4_agi_ibd == FALSE) %>%
-      select(-cov_bin_history_grp4_agi_ibd)
-    
+    input <- input[input$cov_bin_history_grp4_agi_ibd == FALSE,]
+    input$cov_bin_history_grp4_agi_ibd <- NULL 
+
   # Outcome group 5
     
   } else if (outcome == "out_date_addison") {
     
-    input<- input %>%
-      filter(cov_bin_history_addison == FALSE) %>%
-      select(-cov_bin_history_addison)
-    
+    input <- input[input$cov_bin_history_addison == FALSE,]
+    input$cov_bin_history_addison <- NULL 
+
   } else if (outcome == "out_date_grave") {
     
-    input<- input %>%
-      filter(cov_bin_history_grave == FALSE) %>%
-      select(-cov_bin_history_grave)
-    
+    input <- input[input$cov_bin_history_grave == FALSE,]
+    input$cov_bin_history_grave <- NULL 
+
   } else if (outcome == "out_date_hashimoto") {
 
-    input<- input %>%
-      filter(cov_bin_history_hashimoto == FALSE) %>%
-      select(-cov_bin_history_hashimoto)
-    
+    input <- input[input$cov_bin_history_hashimoto == FALSE,]
+    input$cov_bin_history_hashimoto <- NULL 
+
   } else if (outcome == "out_date_grp5_atv") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp5_atv == FALSE) %>%
-      select(-cov_bin_history_grp5_atv)
-  
+    input <- input[input$cov_bin_history_grp5_atv == FALSE,]
+    input$cov_bin_history_grp5_atv <- NULL 
+
   # Outcome group 6
     
   } else if (outcome == "out_date_anca") {
 
-    input<- input %>%
-      filter(cov_bin_history_anca == FALSE) %>%
-      select(-cov_bin_history_anca)
-    
+    input <- input[input$cov_bin_history_anca == FALSE,]
+    input$cov_bin_history_anca <- NULL 
+
   } else if (outcome == "out_date_gca") {
 
-    input<- input %>%
-      filter(cov_bin_history_gca == FALSE) %>%
-      select(-cov_bin_history_gca)
-    
+    input <- input[input$cov_bin_history_gca == FALSE,]
+    input$cov_bin_history_gca <- NULL 
+
   } else if (outcome == "out_date_iga_vasc") {
 
-    input<- input %>%
-      filter(cov_bin_history_iga_vasc == FALSE) %>%
-      select(-cov_bin_history_iga_vasc)
-    
+    input <- input[input$cov_bin_history_iga_vasc == FALSE,]
+    input$cov_bin_history_iga_vasc <- NULL 
+
   } else if (outcome == "out_date_pmr") {
     
-    input<- input %>%
-      filter(cov_bin_history_pmr == FALSE) %>%
-      select(-cov_bin_history_pmr)
-    
+    input <- input[input$cov_bin_history_pmr == FALSE,]
+    input$cov_bin_history_pmr <- NULL 
+
   } else if (outcome == "out_date_grp6_trd") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp6_trd == FALSE) %>%
-      select(-cov_bin_history_grp6_trd)
-  
+    input <- input[input$cov_bin_history_grp6_trd == FALSE,]
+    input$cov_bin_history_grp6_trd <- NULL 
+
   # Outcome group 7
     
   } else if (outcome == "out_date_immune_thromb") {
     
-    input<- input %>%
-      filter(cov_bin_history_immune_thromb == FALSE) %>%
-      select(-cov_bin_history_immune_thromb)
-    
+    input <- input[input$cov_bin_history_immune_thromb == FALSE,]
+    input$cov_bin_history_immune_thromb <- NULL 
+
   } else if (outcome == "out_date_pern_anaemia") {
     
-    input<- input %>%
-      filter(cov_bin_history_pern_anaemia == FALSE) %>%
-      select(-cov_bin_history_pern_anaemia)
-    
+    input <- input[input$cov_bin_history_pern_anaemia == FALSE,]
+    input$cov_bin_history_pern_anaemia <- NULL 
+
   } else if (outcome == "out_date_apa") {
     
-    input<- input %>%
-      filter(cov_bin_history_apa == FALSE) %>%
-      select(-cov_bin_history_apa)
-    
+    input <- input[input$cov_bin_history_apa == FALSE,]
+    input$cov_bin_history_apa <- NULL 
+
   } else if (outcome == "out_date_aha") {
 
-    input<- input %>%
-      filter(cov_bin_history_aha == FALSE) %>%
-      select(-cov_bin_history_aha)
-    
+    input <- input[input$cov_bin_history_aha == FALSE,]
+    input$cov_bin_history_aha <- NULL 
+
   } else if (outcome == "out_date_grp7_htd") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp7_htd == FALSE) %>%
-      select(-cov_bin_history_grp7_htd)
-  
+    input <- input[input$cov_bin_history_grp7_htd == FALSE,]
+    input$cov_bin_history_grp7_htd <- NULL 
+
   # Outcome group 8
     
   } else if (outcome == "out_date_glb") {
 
-    input<- input %>%
-      filter(cov_bin_history_glb == FALSE) %>%
-      select(-cov_bin_history_glb)
-    
+    input <- input[input$cov_bin_history_glb == FALSE,]
+    input$cov_bin_history_glb <- NULL 
+
   } else if (outcome == "out_date_ms") {
     
-    input<- input %>%
-      filter(cov_bin_history_ms == FALSE) %>%
-      select(-cov_bin_history_ms)
-    
+    input <- input[input$cov_bin_history_ms == FALSE,]
+    input$cov_bin_history_ms <- NULL 
+
   } else if (outcome == "out_date_myasthenia") {
     
-    input<- input %>%
-      filter(cov_bin_history_myasthenia == FALSE) %>%
-      select(-cov_bin_history_myasthenia)
-    
+    input <- input[input$cov_bin_history_myasthenia == FALSE,]
+    input$cov_bin_history_myasthenia <- NULL 
+
   } else if (outcome == "out_date_long_myelitis") {
 
-    input<- input %>%
-      filter(cov_bin_history_long_myelitis == FALSE) %>%
-      select(-cov_bin_history_long_myelitis)
-    
+    input <- input[input$cov_bin_history_long_myelitis == FALSE,]
+    input$cov_bin_history_long_myelitis <- NULL 
+
   } else if (outcome == "out_date_cis") {
 
-    input<- input %>%
-      filter(cov_bin_history_cis == FALSE) %>%
-      select(-cov_bin_history_cis)
-    
+    input <- input[input$cov_bin_history_cis == FALSE,]
+    input$cov_bin_history_cis <- NULL 
+
   } else if (outcome == "out_date_grp8_ind") {
     
-    input<- input %>%
-      filter(cov_bin_history_grp8_ind == FALSE) %>%
-      select(-cov_bin_history_grp8_ind)
-    
+    input <- input[input$cov_bin_history_grp8_ind == FALSE,]
+    input$cov_bin_history_grp8_ind <- NULL 
+
   # Composite outcome
     
   } else if (outcome == "out_date_composite_ai") {
 
-    input<- input %>%
-      filter(cov_bin_history_composite_ai == FALSE) %>%
-      select(-cov_bin_history_composite_ai)
+    input <- input[input$cov_bin_history_composite_ai == FALSE,]
+    input$cov_bin_history_composite_ai <- NULL 
 
   }
   

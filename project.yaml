@@ -221,3 +221,1233 @@ actions:
       highly_sensitive:
         cohort: output/input_vax_stage1.rds
 
+  make_model_input-cohort_prevax-main-addison:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-addison
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-addison.rds
+
+  make_model_input-cohort_prevax-main-aha:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-aha
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-aha.rds
+
+  make_model_input-cohort_prevax-main-anca:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-anca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-anca.rds
+
+  make_model_input-cohort_prevax-main-apa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-apa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-apa.rds
+
+  make_model_input-cohort_prevax-main-as:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-as
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-as.rds
+
+  make_model_input-cohort_prevax-main-axial:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-axial
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-axial.rds
+
+  make_model_input-cohort_prevax-main-celiac:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-celiac
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-celiac.rds
+
+  make_model_input-cohort_prevax-main-cis:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-cis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-cis.rds
+
+  make_model_input-cohort_prevax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-composite_ai
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-composite_ai.rds
+
+  make_model_input-cohort_prevax-main-crohn:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-crohn
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-crohn.rds
+
+  make_model_input-cohort_prevax-main-gca:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-gca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-gca.rds
+
+  make_model_input-cohort_prevax-main-glb:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-glb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-glb.rds
+
+  make_model_input-cohort_prevax-main-grave:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grave
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grave.rds
+
+  make_model_input-cohort_prevax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp1_ifa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp1_ifa.rds
+
+  make_model_input-cohort_prevax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp2_ctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp2_ctd.rds
+
+  make_model_input-cohort_prevax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp3_isd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp3_isd.rds
+
+  make_model_input-cohort_prevax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp4_agi_ibd.rds
+
+  make_model_input-cohort_prevax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp5_atv
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp5_atv.rds
+
+  make_model_input-cohort_prevax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp6_trd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp6_trd.rds
+
+  make_model_input-cohort_prevax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp7_htd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp7_htd.rds
+
+  make_model_input-cohort_prevax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp8_ind
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp8_ind.rds
+
+  make_model_input-cohort_prevax-main-hashimoto:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-hashimoto
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-hashimoto.rds
+
+  make_model_input-cohort_prevax-main-hs:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-hs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-hs.rds
+
+  make_model_input-cohort_prevax-main-ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-ibd.rds
+
+  make_model_input-cohort_prevax-main-iga_vasc:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-iga_vasc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-iga_vasc.rds
+
+  make_model_input-cohort_prevax-main-im:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-im
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-im.rds
+
+  make_model_input-cohort_prevax-main-immune_thromb:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-immune_thromb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-immune_thromb.rds
+
+  make_model_input-cohort_prevax-main-long_myelitis:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-long_myelitis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-long_myelitis.rds
+
+  make_model_input-cohort_prevax-main-mctd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-mctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-mctd.rds
+
+  make_model_input-cohort_prevax-main-ms:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-ms
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-ms.rds
+
+  make_model_input-cohort_prevax-main-myasthenia:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-myasthenia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-myasthenia.rds
+
+  make_model_input-cohort_prevax-main-pern_anaemia:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-pern_anaemia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-pern_anaemia.rds
+
+  make_model_input-cohort_prevax-main-pmr:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-pmr
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-pmr.rds
+
+  make_model_input-cohort_prevax-main-psoa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-psoa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-psoa.rds
+
+  make_model_input-cohort_prevax-main-psoriasis:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-psoriasis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-psoriasis.rds
+
+  make_model_input-cohort_prevax-main-ra:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-ra
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-ra.rds
+
+  make_model_input-cohort_prevax-main-sjs:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-sjs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-sjs.rds
+
+  make_model_input-cohort_prevax-main-sle:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-sle
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-sle.rds
+
+  make_model_input-cohort_prevax-main-sss:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-sss
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-sss.rds
+
+  make_model_input-cohort_prevax-main-uc:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-uc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-uc.rds
+
+  make_model_input-cohort_prevax-main-undiff_eia:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-undiff_eia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-undiff_eia.rds
+
+  make_model_input-cohort_unvax-main-addison:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-addison
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-addison.rds
+
+  make_model_input-cohort_unvax-main-aha:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-aha
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-aha.rds
+
+  make_model_input-cohort_unvax-main-anca:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-anca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-anca.rds
+
+  make_model_input-cohort_unvax-main-apa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-apa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-apa.rds
+
+  make_model_input-cohort_unvax-main-as:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-as
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-as.rds
+
+  make_model_input-cohort_unvax-main-axial:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-axial
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-axial.rds
+
+  make_model_input-cohort_unvax-main-celiac:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-celiac
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-celiac.rds
+
+  make_model_input-cohort_unvax-main-cis:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-cis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-cis.rds
+
+  make_model_input-cohort_unvax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-composite_ai
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-composite_ai.rds
+
+  make_model_input-cohort_unvax-main-crohn:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-crohn
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-crohn.rds
+
+  make_model_input-cohort_unvax-main-gca:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-gca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-gca.rds
+
+  make_model_input-cohort_unvax-main-glb:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-glb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-glb.rds
+
+  make_model_input-cohort_unvax-main-grave:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grave
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grave.rds
+
+  make_model_input-cohort_unvax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp1_ifa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp1_ifa.rds
+
+  make_model_input-cohort_unvax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp2_ctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp2_ctd.rds
+
+  make_model_input-cohort_unvax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp3_isd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp3_isd.rds
+
+  make_model_input-cohort_unvax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp4_agi_ibd.rds
+
+  make_model_input-cohort_unvax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp5_atv
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp5_atv.rds
+
+  make_model_input-cohort_unvax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp6_trd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp6_trd.rds
+
+  make_model_input-cohort_unvax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp7_htd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp7_htd.rds
+
+  make_model_input-cohort_unvax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp8_ind
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp8_ind.rds
+
+  make_model_input-cohort_unvax-main-hashimoto:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-hashimoto
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-hashimoto.rds
+
+  make_model_input-cohort_unvax-main-hs:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-hs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-hs.rds
+
+  make_model_input-cohort_unvax-main-ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-ibd.rds
+
+  make_model_input-cohort_unvax-main-iga_vasc:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-iga_vasc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-iga_vasc.rds
+
+  make_model_input-cohort_unvax-main-im:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-im
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-im.rds
+
+  make_model_input-cohort_unvax-main-immune_thromb:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-immune_thromb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-immune_thromb.rds
+
+  make_model_input-cohort_unvax-main-long_myelitis:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-long_myelitis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-long_myelitis.rds
+
+  make_model_input-cohort_unvax-main-mctd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-mctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-mctd.rds
+
+  make_model_input-cohort_unvax-main-ms:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-ms
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-ms.rds
+
+  make_model_input-cohort_unvax-main-myasthenia:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-myasthenia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-myasthenia.rds
+
+  make_model_input-cohort_unvax-main-pern_anaemia:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-pern_anaemia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-pern_anaemia.rds
+
+  make_model_input-cohort_unvax-main-pmr:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-pmr
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-pmr.rds
+
+  make_model_input-cohort_unvax-main-psoa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-psoa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-psoa.rds
+
+  make_model_input-cohort_unvax-main-psoriasis:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-psoriasis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-psoriasis.rds
+
+  make_model_input-cohort_unvax-main-ra:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-ra
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-ra.rds
+
+  make_model_input-cohort_unvax-main-sjs:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-sjs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-sjs.rds
+
+  make_model_input-cohort_unvax-main-sle:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-sle
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-sle.rds
+
+  make_model_input-cohort_unvax-main-sss:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-sss
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-sss.rds
+
+  make_model_input-cohort_unvax-main-uc:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-uc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-uc.rds
+
+  make_model_input-cohort_unvax-main-undiff_eia:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-undiff_eia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-undiff_eia.rds
+
+  make_model_input-cohort_vax-main-addison:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-addison
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-addison.rds
+
+  make_model_input-cohort_vax-main-aha:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-aha
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-aha.rds
+
+  make_model_input-cohort_vax-main-anca:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-anca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-anca.rds
+
+  make_model_input-cohort_vax-main-apa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-apa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-apa.rds
+
+  make_model_input-cohort_vax-main-as:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-as
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-as.rds
+
+  make_model_input-cohort_vax-main-axial:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-axial
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-axial.rds
+
+  make_model_input-cohort_vax-main-celiac:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-celiac
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-celiac.rds
+
+  make_model_input-cohort_vax-main-cis:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-cis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-cis.rds
+
+  make_model_input-cohort_vax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-composite_ai
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-composite_ai.rds
+
+  make_model_input-cohort_vax-main-crohn:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-crohn
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-crohn.rds
+
+  make_model_input-cohort_vax-main-gca:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-gca
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-gca.rds
+
+  make_model_input-cohort_vax-main-glb:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-glb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-glb.rds
+
+  make_model_input-cohort_vax-main-grave:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grave
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grave.rds
+
+  make_model_input-cohort_vax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp1_ifa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp1_ifa.rds
+
+  make_model_input-cohort_vax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp2_ctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp2_ctd.rds
+
+  make_model_input-cohort_vax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp3_isd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp3_isd.rds
+
+  make_model_input-cohort_vax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp4_agi_ibd.rds
+
+  make_model_input-cohort_vax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp5_atv
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp5_atv.rds
+
+  make_model_input-cohort_vax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp6_trd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp6_trd.rds
+
+  make_model_input-cohort_vax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp7_htd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp7_htd.rds
+
+  make_model_input-cohort_vax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp8_ind
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp8_ind.rds
+
+  make_model_input-cohort_vax-main-hashimoto:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-hashimoto
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-hashimoto.rds
+
+  make_model_input-cohort_vax-main-hs:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-hs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-hs.rds
+
+  make_model_input-cohort_vax-main-ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-ibd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-ibd.rds
+
+  make_model_input-cohort_vax-main-iga_vasc:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-iga_vasc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-iga_vasc.rds
+
+  make_model_input-cohort_vax-main-im:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-im
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-im.rds
+
+  make_model_input-cohort_vax-main-immune_thromb:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-immune_thromb
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-immune_thromb.rds
+
+  make_model_input-cohort_vax-main-long_myelitis:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-long_myelitis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-long_myelitis.rds
+
+  make_model_input-cohort_vax-main-mctd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-mctd
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-mctd.rds
+
+  make_model_input-cohort_vax-main-ms:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-ms
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-ms.rds
+
+  make_model_input-cohort_vax-main-myasthenia:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-myasthenia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-myasthenia.rds
+
+  make_model_input-cohort_vax-main-pern_anaemia:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-pern_anaemia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-pern_anaemia.rds
+
+  make_model_input-cohort_vax-main-pmr:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-pmr
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-pmr.rds
+
+  make_model_input-cohort_vax-main-psoa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-psoa
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-psoa.rds
+
+  make_model_input-cohort_vax-main-psoriasis:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-psoriasis
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-psoriasis.rds
+
+  make_model_input-cohort_vax-main-ra:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-ra
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-ra.rds
+
+  make_model_input-cohort_vax-main-sjs:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-sjs
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-sjs.rds
+
+  make_model_input-cohort_vax-main-sle:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-sle
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-sle.rds
+
+  make_model_input-cohort_vax-main-sss:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-sss
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-sss.rds
+
+  make_model_input-cohort_vax-main-uc:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-uc
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-uc.rds
+
+  make_model_input-cohort_vax-main-undiff_eia:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-undiff_eia
+    needs:
+    - preprocess_stage1_data_cleaning_history_prevax
+    - preprocess_stage1_data_cleaning_history_vax
+    - preprocess_stage1_data_cleaning_history_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-undiff_eia.rds
+
