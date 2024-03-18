@@ -28,7 +28,7 @@ if(length(args)==0){
 # Load data --------------------------------------------------------------------
 print("Load data")
 
-df <- readr::read_rds(paste0("output/input_",cohort,"_stage1.rds"))
+df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds"))
 
 # Remove people with history of COVID-19 ---------------------------------------
 print("Remove people with history of COVID-19")
@@ -99,13 +99,19 @@ print('Perform redaction')
 df[,setdiff(colnames(df),c("characteristic","subcharacteristic"))] <- lapply(df[,setdiff(colnames(df),c("characteristic","subcharacteristic"))],
                                                                              FUN=function(y){roundmid_any(as.numeric(y), to=threshold)})
 
+# Rename columns (output redaction) --------------------------------------------
+print("Rename columns for output redaction")
+
+names(df)[names(df) == "total"] <- "total_midpoint6"
+names(df)[names(df) == "exposed"] <- "exposed_midpoint6"
+
 # Calculate column percentages -------------------------------------------------
 
 df$Npercent <- paste0(df$total,ifelse(df$characteristic=="All","",
-                                      paste0(" (",round(100*(df$total / df[df$characteristic=="All","total"]),1),"%)")))
+                                      paste0(" (",round(100*(df$total_midpoint6 / df[df$characteristic=="All","total_midpoint6"]),1),"%)")))
 
-df <- df[,c("characteristic","subcharacteristic","Npercent","exposed")]
-colnames(df) <- c("Characteristic","Subcharacteristic","N (%) derived","COVID-19 diagnoses midpoint6")
+df <- df[,c("characteristic","subcharacteristic","Npercent","exposed_midpoint6")]
+colnames(df) <- c("Characteristic","Subcharacteristic","N (%) midpoint6 derived","COVID-19 diagnoses midpoint6")
 
 # Save Table 1 -----------------------------------------------------------------
 print('Save rounded Table 1')

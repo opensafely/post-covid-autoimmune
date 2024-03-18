@@ -213,17 +213,17 @@ table1 <- function(cohort){
         table1 = glue("output/table1_{cohort}.csv"),
         table1_midpoint6 = glue("output/table1_{cohort}_midpoint6.csv")
       )
-    )#,
-    # action(
-    #   name = glue("extendedtable1_{cohort}"),
-    #   run = "r:latest analysis/descriptives/extendedtable1.R",
-    #   arguments = c(cohort),
-    #   needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
-    #   moderately_sensitive = list(
-    #     extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
-    #     extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
-    #   )
-    # )
+    ),
+    action(
+      name = glue("extendedtable1_{cohort}"),
+      run = "r:latest analysis/descriptives/extendedtable1.R",
+      arguments = c(cohort),
+      needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
+      moderately_sensitive = list(
+        extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
+        extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
+      )
+    )
   )
 }
 
@@ -247,7 +247,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
       highly_sensitive = list(
         model_input = glue("output/model_input-{name}.rds")
       )
-    )#,
+    ),
 
     # action(
     #   name = glue("describe_model_input-{name}"),
@@ -258,14 +258,14 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     #   )
     # ),
 
-    # comment(glue("Cox model for {outcome} - {cohort}")),
-    # action(
-    #   name = glue("cox_ipw-{name}"),
-    #   run = glue("cox-ipw:v0.0.31 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
-    #   needs = list(glue("make_model_input-{name}")),
-    #   moderately_sensitive = list(
-    #     model_output = glue("output/model_output-{name}.csv"))
-    # )
+    #comment(glue("Cox model for {outcome} - {cohort}")),
+    action(
+      name = glue("cox_ipw-{name}"),
+      run = glue("cox-ipw:v0.0.31 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --df_output=model_output-{name}.csv"),
+      needs = list(glue("make_model_input-{name}")),
+      moderately_sensitive = list(
+        model_output = glue("output/model_output-{name}.csv"))
+    )
   )
 }
 
@@ -439,16 +439,16 @@ actions_list <- splice(
   
   ## extend table 1output ------------------------------------------------------
   
-  # action(
-  #   name = "make_extendedtable1_output",
-  #   run = "r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax",
-  #   needs = list("extendedtable1_prevax",
-  #                "extendedtable1_vax",
-  #                "extendedtable1_unvax"),
-  #   moderately_sensitive = list(
-  #     table1_output_midpoint6 = glue("output/extendedtable1_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_extendedtable1_output",
+    run = "r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax",
+    needs = list("extendedtable1_prevax",
+                 "extendedtable1_vax",
+                 "extendedtable1_unvax"),
+    moderately_sensitive = list(
+      table1_output_midpoint6 = glue("output/extendedtable1_output_midpoint6.csv")
+    )
+  ),
   
   ## table 2 output ------------------------------------------------------------
   
@@ -546,13 +546,13 @@ actions_list <- splice(
   # action(
   #   name = "make_model_output",
   #   run = "r:latest analysis/model/make_model_output.R",
-  #   needs = as.list(paste0("cox_ipw-",success$name)),
+  #   needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
   #   moderately_sensitive = list(
   #     model_output = glue("output/model_output.csv"),
   #     model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
   #   )
   # ),
-  
+  # 
   ## AER table -----------------------------------------------------------------
   
   comment("Make absolute excess risk (AER) input"),
