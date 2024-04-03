@@ -265,15 +265,25 @@ actions:
       moderately_sensitive:
         table1_output_midpoint6: output/table1_output_midpoint6.csv
 
-  make_extendedtable1_output:
-    run: r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax
+  make_extendedtable1_part1_output:
+    run: r:latest analysis/model/make_other_output.R extendedtable1_part1 prevax;vax;unvax
     needs:
-    - extendedtable1_prevax
-    - extendedtable1_vax
-    - extendedtable1_unvax
+    - extendedtable1_part1_prevax
+    - extendedtable1_part1_vax
+    - extendedtable1_part1_unvax
     outputs:
       moderately_sensitive:
-        table1_output_midpoint6: output/extendedtable1_output_midpoint6.csv
+        table1_output_midpoint6: output/extendedtable1_part1_output_midpoint6.csv
+
+  make_extendedtable1_part2_output:
+    run: r:latest analysis/model/make_other_output.R extendedtable1_part2 prevax;vax;unvax
+    needs:
+    - extendedtable1_part2_prevax
+    - extendedtable1_part2_vax
+    - extendedtable1_part2_unvax
+    outputs:
+      moderately_sensitive:
+        table1_output_midpoint6: output/extendedtable1_part2_output_midpoint6.csv
 
   make_table2_output:
     run: r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax
@@ -296,14 +306,23 @@ actions:
         table1: output/table1_prevax.csv
         table1_midpoint6: output/table1_prevax_midpoint6.csv
 
-  extendedtable1_prevax:
-    run: r:latest analysis/descriptives/extendedtable1.R prevax
+  extendedtable1_part1_prevax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R prevax
     needs:
     - preprocess_stage1_history_data_cleaning_prevax
     outputs:
       moderately_sensitive:
-        extendedtable1: output/extendedtable1_prevax.csv
-        extendedtable1_midpoint6: output/extendedtable1_prevax_midpoint6.csv
+        extendedtable1_part1: output/extendedtable1_part1_prevax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_prevax_midpoint6.csv
+
+  extendedtable1_part2_prevax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R prevax
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_prevax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_prevax_midpoint6.csv
 
   ## Table 1 - unvax 
 
@@ -316,14 +335,23 @@ actions:
         table1: output/table1_unvax.csv
         table1_midpoint6: output/table1_unvax_midpoint6.csv
 
-  extendedtable1_unvax:
-    run: r:latest analysis/descriptives/extendedtable1.R unvax
+  extendedtable1_part1_unvax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R unvax
     needs:
     - preprocess_stage1_history_data_cleaning_unvax
     outputs:
       moderately_sensitive:
-        extendedtable1: output/extendedtable1_unvax.csv
-        extendedtable1_midpoint6: output/extendedtable1_unvax_midpoint6.csv
+        extendedtable1_part1: output/extendedtable1_part1_unvax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_unvax_midpoint6.csv
+
+  extendedtable1_part2_unvax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R unvax
+    needs:
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_unvax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_unvax_midpoint6.csv
 
   ## Table 1 - vax 
 
@@ -336,14 +364,23 @@ actions:
         table1: output/table1_vax.csv
         table1_midpoint6: output/table1_vax_midpoint6.csv
 
-  extendedtable1_vax:
-    run: r:latest analysis/descriptives/extendedtable1.R vax
+  extendedtable1_part1_vax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R vax
     needs:
     - preprocess_stage1_history_data_cleaning_vax
     outputs:
       moderately_sensitive:
-        extendedtable1: output/extendedtable1_vax.csv
-        extendedtable1_midpoint6: output/extendedtable1_vax_midpoint6.csv
+        extendedtable1_part1: output/extendedtable1_part1_vax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_vax_midpoint6.csv
+
+  extendedtable1_part2_vax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R vax
+    needs:
+    - preprocess_stage1_history_data_cleaning_vax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_vax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_vax_midpoint6.csv
 
   ## Stage 5 - Run models 
 
