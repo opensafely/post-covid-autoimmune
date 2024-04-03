@@ -543,16 +543,17 @@ actions_list <- splice(
 
   # comment("Stage 6 - make model output"),
 
-  # action(
-  #   name = "make_model_output",
-  #   run = "r:latest analysis/model/make_model_output.R",
-  #   needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-  #   moderately_sensitive = list(
-  #     model_output = glue("output/model_output.csv"),
-  #     model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
-  #   )
-  # ),
-  # 
+  action(
+    name = "make_model_output",
+    run = "r:latest analysis/model/make_model_output.R",
+    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
+    needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+    moderately_sensitive = list(
+      model_output = glue("output/model_output.csv"),
+      model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
+    )
+  ),
+
   ## AER table -----------------------------------------------------------------
   
   comment("Make absolute excess risk (AER) input"),
