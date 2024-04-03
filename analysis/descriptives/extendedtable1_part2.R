@@ -27,15 +27,15 @@ if(length(args)==0){
 # Load data --------------------------------------------------------------------
 print("Load data")
 
-df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds")) #123
+df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds")) 
 
 # Select variables of interest -------------------------------------------------
 
-df <- df[grepl("cov_bin_|cov_num_|exposed|sub_bin_|exp_date_", names(df))] #68
+df <- df[grepl("cov_bin_|cov_num_|exposed|sub_bin_|exp_date_", names(df))] 
 
 # Remove columns ---------------------------------------------------------------
 
-df <- df[!grepl("_diabetes_type1_|_diabetes_type2_|_diabetes_other|_diabetes_gestational|_prediabetes|_contraceptive_pill|_replacement_", names(df))] #59
+df <- df[!grepl("_diabetes_type1_|_diabetes_type2_|_diabetes_other|_diabetes_gestational|_prediabetes|_contraceptive_pill|_replacement_", names(df))] 
 
 # Remove people with history of COVID-19 ---------------------------------------
 print("Remove people with history of COVID-19")
@@ -50,56 +50,12 @@ df$sub_bin_covid19_confirmed_history <- as.factor(df$sub_bin_covid19_confirmed_h
 # Create exposure indicator ----------------------------------------------------
 print("Create exposure indicator")
 
-df$exposed <- !is.na(df$exp_date_covid19_confirmed) #60
-
-# Define consultation rate groups ----------------------------------------------
-print("Define consultation rate groups")
-
-df$cov_cat_consulation_rate <- ""
-df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate==0, "0", df$cov_cat_consulation_rate)
-df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate>=1 & df$cov_num_consulation_rate<=5, "1-5", df$cov_cat_consulation_rate)
-df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate>=6, "6+", df$cov_cat_consulation_rate) #61
-
-# Define outpatient rate groups ------------------------------------------------
-print("Define outpatient rate groups")
-
-df$cov_cat_outpatient_rate <- ""
-df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate==0, "0", df$cov_cat_outpatient_rate)
-df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate>=1 & df$cov_num_outpatient_rate<=5, "1-5", df$cov_cat_outpatient_rate)
-df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate>=6, "6+", df$cov_cat_outpatient_rate) #62
+df$exposed <- !is.na(df$exp_date_covid19_confirmed) 
 
 # Filter data ------------------------------------------------------------------
 print("Filter data")
 
 df <- df[,c("exposed",
-            "cov_cat_consulation_rate",
-            "cov_cat_outpatient_rate",
-            "cov_bin_healthcare_worker",
-            "cov_bin_liver_disease",
-            "cov_bin_ckd",
-            "cov_bin_cancer",
-            "cov_bin_hypertension",
-            "cov_bin_diabetes",
-            "cov_bin_obesity",
-            "cov_bin_copd",
-            "cov_bin_ami",
-            "cov_bin_isch_stroke",
-            "sub_bin_covid19_confirmed_history", 
-            "cov_bin_history_ra",
-            "cov_bin_history_undiff_eia",
-            "cov_bin_history_psoa",
-            "cov_bin_history_axial",
-            "cov_bin_history_grp1_ifa",
-            "cov_bin_history_sle",
-            "cov_bin_history_sjs",
-            "cov_bin_history_sss",
-            "cov_bin_history_im",
-            "cov_bin_history_mctd",
-            "cov_bin_history_as",
-            "cov_bin_history_grp2_ctd", #26
-            "cov_bin_history_psoriasis",#27
-            "cov_bin_history_hs",#28
-            "cov_bin_history_grp3_isd",#29
             "cov_bin_history_ibd",
             "cov_bin_history_crohn",
             "cov_bin_history_uc",
@@ -127,7 +83,7 @@ df <- df[,c("exposed",
             "cov_bin_history_grp8_ind",
             "cov_bin_history_composite_ai")]
 
-df$All <- "All" #56
+df$All <- "All" 
 
 # Aggregate data ---------------------------------------------------------------
 print("Aggregate data")
@@ -151,34 +107,6 @@ print("Sort characteristics")
 
 df$characteristic <- factor(df$characteristic,
                             levels = c("All",
-                                       "cov_cat_consulation_rate",
-                                       "cov_cat_outpatient_rate",
-                                       "cov_bin_healthcare_worker",
-                                       "cov_bin_liver_disease",
-                                       "cov_bin_ckd",
-                                       "cov_bin_cancer",
-                                       "cov_bin_hypertension",
-                                       "cov_bin_diabetes",
-                                       "cov_bin_obesity",
-                                       "cov_bin_copd",
-                                       "cov_bin_ami",
-                                       "cov_bin_isch_stroke",
-                                       "sub_bin_covid19_confirmed_history", 
-                                       "cov_bin_history_ra",
-                                       "cov_bin_history_undiff_eia",
-                                       "cov_bin_history_psoa",
-                                       "cov_bin_history_axial",
-                                       "cov_bin_history_grp1_ifa",
-                                       "cov_bin_history_sle",
-                                       "cov_bin_history_sjs",
-                                       "cov_bin_history_sss",
-                                       "cov_bin_history_im",
-                                       "cov_bin_history_mctd",
-                                       "cov_bin_history_as",
-                                       "cov_bin_history_grp2_ctd",
-                                       "cov_bin_history_psoriasis",
-                                       "cov_bin_history_hs",
-                                       "cov_bin_history_grp3_isd",
                                        "cov_bin_history_ibd",
                                        "cov_bin_history_crohn",
                                        "cov_bin_history_uc",
@@ -206,34 +134,6 @@ df$characteristic <- factor(df$characteristic,
                                        "cov_bin_history_grp8_ind",
                                        "cov_bin_history_composite_ai"),
                             labels = c("All",
-                                       "Consultation rate",
-                                       "Outpatient rate",
-                                       "Health care worker",
-                                       "Liver disease",
-                                       "Chronic kidney disease",
-                                       "Cancer",
-                                       "Hypertension",
-                                       "Diabetes",
-                                       "Obesity",
-                                       "Chronic obstructive pulmonary disease (COPD)",
-                                       "Acute myocardial infarction",
-                                       "Ischaemic stroke",
-                                       "History of COVID-19",
-                                       "History of rheumatoid arthritis",
-                                       "History of undifferentiated inflammatory arthritis",
-                                       "History of psoriatic arthritis",
-                                       "History of axial spondylarthritis",
-                                       "History of inflammatory arthritis (Group 1)",
-                                       "History of systematic lupus erythematosus",
-                                       "History of Sjogren’s syndrome",
-                                       "History of Systemic sclerosis/scleroderma",
-                                       "History of inflammatory myositis/polymyositis/dermatomyositis",
-                                       "History of mixed connective tissue disease",
-                                       "History of antiphospholipid syndrome",
-                                       "History of connective tissue disorders (Group 2)",
-                                       "History of psoriasis",
-                                       "History of hydradenitis suppurativa",
-                                       "History of inflammatory skin disease (Group 3)",
                                        "History of inflammatory bowel disease(combined ulcerative colitis and Crohn's)",
                                        "History of Crohn’s disease",
                                        "History of ulcerative colitis",
@@ -266,17 +166,9 @@ print("Sort subcharacteristics")
 
 df$subcharacteristic <- factor(df$subcharacteristic, 
                                levels = c("All",
-                                          "0",
-                                          "1-5",
-                                          "6+",
-                                          "Healthcare worker",
                                           "TRUE", "FALSE",
                                           "Missing"),
                                labels = c("All",
-                                          "0",
-                                          "1-5",
-                                          "6+",
-                                          "Healthcare worker",
                                           "TRUE", "FALSE", 
                                           "Missing")) 
 
@@ -289,7 +181,7 @@ df <- df[order(df$characteristic),]
 # Save Table 1 -----------------------------------------------------------------
 print('Save Table 1')
 
-write.csv(df, paste0("output/extendedtable1_",cohort,".csv"), row.names = FALSE)
+write.csv(df, paste0("output/extendedtable1_part2_",cohort,".csv"), row.names = FALSE)
 
 # Perform redaction ------------------------------------------------------------
 print('Perform redaction')
@@ -314,4 +206,4 @@ colnames(df) <- c("Characteristic","Subcharacteristic","N (%) midpoint6 derived"
 # Save Table 1 -----------------------------------------------------------------
 print('Save rounded extended table 1')
 
-write.csv(df, paste0("output/extendedtable1_",cohort,"_midpoint6.csv"), row.names = FALSE)
+write.csv(df, paste0("output/extendedtable1_part2_",cohort,"_midpoint6.csv"), row.names = FALSE)

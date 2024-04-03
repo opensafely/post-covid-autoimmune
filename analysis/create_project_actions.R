@@ -215,13 +215,23 @@ table1 <- function(cohort){
       )
     ),
     action(
-      name = glue("extendedtable1_{cohort}"),
-      run = "r:latest analysis/descriptives/extendedtable1.R",
+      name = glue("extendedtable1_part1_{cohort}"),
+      run = "r:latest analysis/descriptives/extendedtable1_part1.R",
       arguments = c(cohort),
       needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
       moderately_sensitive = list(
-        extendedtable1 = glue("output/extendedtable1_{cohort}.csv"),
-        extendedtable1_midpoint6 = glue("output/extendedtable1_{cohort}_midpoint6.csv")
+        extendedtable1_part1 = glue("output/extendedtable1_part1_{cohort}.csv"),
+        extendedtable1_part1_midpoint6 = glue("output/extendedtable1_part1_{cohort}_midpoint6.csv")
+      )
+    ),
+    action(
+      name = glue("extendedtable1_part2_{cohort}"),
+      run = "r:latest analysis/descriptives/extendedtable1_part2.R",
+      arguments = c(cohort),
+      needs = list(glue("preprocess_stage1_history_data_cleaning_{cohort}")),
+      moderately_sensitive = list(
+        extendedtable1_part2 = glue("output/extendedtable1_part2_{cohort}.csv"),
+        extendedtable1_part2_midpoint6 = glue("output/extendedtable1_part2_{cohort}_midpoint6.csv")
       )
     )
   )
@@ -437,16 +447,29 @@ actions_list <- splice(
     )
   ),
   
-  ## extend table 1output ------------------------------------------------------
+  ## extend table 1 (part 1) output --------------------------------------------
   
   action(
-    name = "make_extendedtable1_output",
-    run = "r:latest analysis/model/make_other_output.R extendedtable1 prevax;vax;unvax",
-    needs = list("extendedtable1_prevax",
-                 "extendedtable1_vax",
-                 "extendedtable1_unvax"),
+    name = "make_extendedtable1_part1_output",
+    run = "r:latest analysis/model/make_other_output.R extendedtable1_part1 prevax;vax;unvax",
+    needs = list("extendedtable1_part1_prevax",
+                 "extendedtable1_part1_vax",
+                 "extendedtable1_part1_unvax"),
     moderately_sensitive = list(
-      table1_output_midpoint6 = glue("output/extendedtable1_output_midpoint6.csv")
+      table1_output_midpoint6 = glue("output/extendedtable1_part1_output_midpoint6.csv")
+    )
+  ),
+  
+  ## extend table 1 (part 2) output --------------------------------------------
+  
+  action(
+    name = "make_extendedtable1_part2_output",
+    run = "r:latest analysis/model/make_other_output.R extendedtable1_part2 prevax;vax;unvax",
+    needs = list("extendedtable1_part2_prevax",
+                 "extendedtable1_part2_vax",
+                 "extendedtable1_part2_unvax"),
+    moderately_sensitive = list(
+      table1_output_midpoint6 = glue("output/extendedtable1_part2_output_midpoint6.csv")
     )
   ),
   
