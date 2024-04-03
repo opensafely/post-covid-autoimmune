@@ -2,7 +2,6 @@
 print('Load libraries')
 
 library(magrittr)
-#library(dplyr)
 
 # Specify redaction threshold --------------------------------------------------
 print('Specify redaction threshold')
@@ -28,22 +27,30 @@ if(length(args)==0){
 # Load data --------------------------------------------------------------------
 print("Load data")
 
-df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds"))
+df <- readr::read_rds(paste0("output/input_",cohort,"_new_stage1.rds")) #123
 
-# Format columns ---------------------------------------------------------------
-# dates, numerics, factors, logicals
+# Select variables of interest -------------------------------------------------
 
-df$sub_bin_covid19_confirmed_history <- as.factor(df$sub_bin_covid19_confirmed_history) 
+df <- df[grepl("cov_bin_|cov_num_|exposed|sub_bin_|exp_date_", names(df))] #68
+
+# Remove columns ---------------------------------------------------------------
+
+df <- df[!grepl("_diabetes_type1_|_diabetes_type2_|_diabetes_other|_diabetes_gestational|_prediabetes|_contraceptive_pill|_replacement_", names(df))] #59
 
 # Remove people with history of COVID-19 ---------------------------------------
 print("Remove people with history of COVID-19")
 
 df <- df[df$sub_bin_covid19_confirmed_history==FALSE,]
 
+# Format columns ---------------------------------------------------------------
+# dates, numerics, factors, logicals
+
+df$sub_bin_covid19_confirmed_history <- as.factor(df$sub_bin_covid19_confirmed_history) 
+
 # Create exposure indicator ----------------------------------------------------
 print("Create exposure indicator")
 
-df$exposed <- !is.na(df$exp_date_covid19_confirmed)
+df$exposed <- !is.na(df$exp_date_covid19_confirmed) #60
 
 # Define consultation rate groups ----------------------------------------------
 print("Define consultation rate groups")
@@ -51,7 +58,7 @@ print("Define consultation rate groups")
 df$cov_cat_consulation_rate <- ""
 df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate==0, "0", df$cov_cat_consulation_rate)
 df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate>=1 & df$cov_num_consulation_rate<=5, "1-5", df$cov_cat_consulation_rate)
-df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate>=6, "6+", df$cov_cat_consulation_rate)
+df$cov_cat_consulation_rate <- ifelse(df$cov_num_consulation_rate>=6, "6+", df$cov_cat_consulation_rate) #61
 
 # Define outpatient rate groups ------------------------------------------------
 print("Define outpatient rate groups")
@@ -59,7 +66,7 @@ print("Define outpatient rate groups")
 df$cov_cat_outpatient_rate <- ""
 df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate==0, "0", df$cov_cat_outpatient_rate)
 df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate>=1 & df$cov_num_outpatient_rate<=5, "1-5", df$cov_cat_outpatient_rate)
-df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate>=6, "6+", df$cov_cat_outpatient_rate)
+df$cov_cat_outpatient_rate <- ifelse(df$cov_num_outpatient_rate>=6, "6+", df$cov_cat_outpatient_rate) #62
 
 # Filter data ------------------------------------------------------------------
 print("Filter data")
@@ -89,10 +96,10 @@ df <- df[,c("exposed",
             "cov_bin_history_im",
             "cov_bin_history_mctd",
             "cov_bin_history_as",
-            "cov_bin_history_grp2_ctd",
-            "cov_bin_history_psoriasis",
-            "cov_bin_history_hs",
-            "cov_bin_history_grp3_isd",
+            "cov_bin_history_grp2_ctd", #26
+            "cov_bin_history_psoriasis",#27
+            "cov_bin_history_hs",#28
+            "cov_bin_history_grp3_isd",#29
             "cov_bin_history_ibd",
             "cov_bin_history_crohn",
             "cov_bin_history_uc",
@@ -120,7 +127,7 @@ df <- df[,c("exposed",
             "cov_bin_history_grp8_ind",
             "cov_bin_history_composite_ai")]
 
-df$All <- "All"
+df$All <- "All" #56
 
 # Aggregate data ---------------------------------------------------------------
 print("Aggregate data")
@@ -305,6 +312,6 @@ df <- df[,c("characteristic","subcharacteristic","Npercent","exposed_midpoint6")
 colnames(df) <- c("Characteristic","Subcharacteristic","N (%) midpoint6 derived","COVID-19 diagnoses midpoint6")
 
 # Save Table 1 -----------------------------------------------------------------
-print('Save rounded Table 1')
+print('Save rounded extended table 1')
 
 write.csv(df, paste0("output/extendedtable1_",cohort,"_midpoint6.csv"), row.names = FALSE)
