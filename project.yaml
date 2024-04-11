@@ -8994,6 +8994,31 @@ actions:
       moderately_sensitive:
         model_output: output/model_output-cohort_vax-sub_covid_nonhospitalised-undiff_eia.csv
 
+  ## Run failed models with stata 
+
+  ready-cohort_prevax-sub_covid_hospitalised-grp8_ind:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-sub_covid_hospitalised-grp8_ind.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-sub_covid_hospitalised-grp8_ind.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_covid_hospitalised-grp8_ind
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-sub_covid_hospitalised-grp8_ind.csv.gz
+
+  stata_cox_model_cohort_prevax-sub_covid_hospitalised-grp8_ind:
+    run: stata-mp:latest analysis/stata/cox_model.do
+    needs:
+    - ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-sub_covid_hospitalised-grp8_ind_median_fup.csv
+        stata_output: output/ready-cohort_prevax-sub_covid_hospitalised-grp8_ind_cox_model.txt
+
   ## Table 2 - prevax 
 
   table2_prevax:
@@ -9523,6 +9548,25 @@ actions:
       moderately_sensitive:
         model_output: output/model_output.csv
         model_output_midpoint6: output/model_output_midpoint6.csv
+
+  make_stata_model_output:
+    run: r:latest analysis/stata/make_stata_model_output.R
+    needs:
+    - stata_cox_model_cohort_prevax-sub_covid_hospitalised-grp8_ind
+    outputs:
+      moderately_sensitive:
+        stata_model_output: output/stata_model_output.csv
+        stata_model_output_midpoint6: output/stata_model_output_midpoint6.csv
+
+  median_iqr_age:
+    run: r:latest analysis/median_iqr_age.R
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        model_output: output/median_iqr_age.csv
 
   ## Make absolute excess risk (AER) input 
 
