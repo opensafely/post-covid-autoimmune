@@ -539,11 +539,11 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+# df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
 #df <- df[df$analysis == "main" | df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]
 
-# df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
+df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
 # df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
 # 
