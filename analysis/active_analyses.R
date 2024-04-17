@@ -458,27 +458,27 @@ for (c in cohorts) {
                          age_spline = TRUE,
                          analysis = "sub_ethnicity_other")
     
-    ## analysis: sub_ethnicity_asian -------------------------------------------
-    
-    df[nrow(df)+1,] <- c(cohort = c,
-                         exposure = exposure,
-                         outcome = i,
-                         ipw = ipw,
-                         strata = strata,
-                         covariate_sex = covariate_sex,
-                         covariate_age = covariate_age,
-                         covariate_other = gsub("cov_cat_ethnicity;","",all_covars),
-                         cox_start = cox_start,
-                         cox_stop = cox_stop,
-                         study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
-                         study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
-                         cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
-                         controls_per_case = controls_per_case,
-                         total_event_threshold = total_event_threshold,
-                         episode_event_threshold = episode_event_threshold,
-                         covariate_threshold = covariate_threshold,
-                         age_spline = TRUE,
-                         analysis = "sub_ethnicity_asian")
+    # ## analysis: sub_ethnicity_asian -------------------------------------------
+    # 
+    # df[nrow(df)+1,] <- c(cohort = c,
+    #                      exposure = exposure,
+    #                      outcome = i,
+    #                      ipw = ipw,
+    #                      strata = strata,
+    #                      covariate_sex = covariate_sex,
+    #                      covariate_age = covariate_age,
+    #                      covariate_other = gsub("cov_cat_ethnicity;","",all_covars),
+    #                      cox_start = cox_start,
+    #                      cox_stop = cox_stop,
+    #                      study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
+    #                      study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
+    #                      cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
+    #                      controls_per_case = controls_per_case,
+    #                      total_event_threshold = total_event_threshold,
+    #                      episode_event_threshold = episode_event_threshold,
+    #                      covariate_threshold = covariate_threshold,
+    #                      age_spline = TRUE,
+    #                      analysis = "sub_ethnicity_asian")
     
 #  }
   
@@ -545,9 +545,9 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
-df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
+# df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
 # 
-# df <- df[df$analysis == "sub_ethnicity_white" | df$analysis == "sub_ethnicity_black" | df$analysis == "sub_ethnicity_mixed" | df$analysis == "sub_ethnicity_asian" | df$analysis == "sub_ethnicity_other",]
+df <- df[df$analysis == "sub_ethnicity_white" | df$analysis == "sub_ethnicity_black" | df$analysis == "sub_ethnicity_mixed" | df$analysis == "sub_ethnicity_asian" | df$analysis == "sub_ethnicity_other",]
 
 # Check names are unique and save active analyses list -------------------------
 
