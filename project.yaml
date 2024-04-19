@@ -8994,7 +8994,237 @@ actions:
       moderately_sensitive:
         model_output: output/model_output-cohort_vax-sub_covid_nonhospitalised-undiff_eia.csv
 
-  ## Run failed models with stata 
+  ## Run models with stata 
+
+  ready-cohort_prevax-main-apa:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-apa.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-apa.csv
+    needs:
+    - make_model_input-cohort_prevax-main-apa
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-apa.csv.gz
+
+  stata_cox_model-cohort_prevax-main-apa:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-apa
+    needs:
+    - ready-cohort_prevax-main-apa
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-apa_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-apa_cox_model.txt
+
+  ready-cohort_prevax-main-cis:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-cis.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-cis.csv
+    needs:
+    - make_model_input-cohort_prevax-main-cis
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-cis.csv.gz
+
+  stata_cox_model-cohort_prevax-main-cis:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-cis
+    needs:
+    - ready-cohort_prevax-main-cis
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-cis_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-cis_cox_model.txt
+
+  ready-cohort_prevax-main-glb:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-glb.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-glb.csv
+    needs:
+    - make_model_input-cohort_prevax-main-glb
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-glb.csv.gz
+
+  stata_cox_model-cohort_prevax-main-glb:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-glb
+    needs:
+    - ready-cohort_prevax-main-glb
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-glb_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-glb_cox_model.txt
+
+  ready-cohort_prevax-main-grp7_htd:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-grp7_htd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-grp7_htd.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp7_htd
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-grp7_htd.csv.gz
+
+  stata_cox_model-cohort_prevax-main-grp7_htd:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp7_htd
+    needs:
+    - ready-cohort_prevax-main-grp7_htd
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-grp7_htd_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-grp7_htd_cox_model.txt
+
+  ready-cohort_prevax-main-grp8_ind:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-grp8_ind.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-grp8_ind.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp8_ind
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-grp8_ind.csv.gz
+
+  stata_cox_model-cohort_prevax-main-grp8_ind:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp8_ind
+    needs:
+    - ready-cohort_prevax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-grp8_ind_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-grp8_ind_cox_model.txt
+
+  ready-cohort_prevax-main-hashimoto:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-hashimoto.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-hashimoto.csv
+    needs:
+    - make_model_input-cohort_prevax-main-hashimoto
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-hashimoto.csv.gz
+
+  stata_cox_model-cohort_prevax-main-hashimoto:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hashimoto
+    needs:
+    - ready-cohort_prevax-main-hashimoto
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-hashimoto_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-hashimoto_cox_model.txt
+
+  ready-cohort_prevax-main-hs:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-hs.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-hs.csv
+    needs:
+    - make_model_input-cohort_prevax-main-hs
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-hs.csv.gz
+
+  stata_cox_model-cohort_prevax-main-hs:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hs
+    needs:
+    - ready-cohort_prevax-main-hs
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-hs_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-hs_cox_model.txt
+
+  ready-cohort_prevax-main-pmr:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-pmr.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-pmr.csv
+    needs:
+    - make_model_input-cohort_prevax-main-pmr
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-pmr.csv.gz
+
+  stata_cox_model-cohort_prevax-main-pmr:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-pmr
+    needs:
+    - ready-cohort_prevax-main-pmr
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-pmr_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-pmr_cox_model.txt
+
+  ready-cohort_prevax-main-sjs:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-sjs.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-sjs.csv
+    needs:
+    - make_model_input-cohort_prevax-main-sjs
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-sjs.csv.gz
+
+  stata_cox_model-cohort_prevax-main-sjs:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-sjs
+    needs:
+    - ready-cohort_prevax-main-sjs
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-sjs_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-sjs_cox_model.txt
+
+  ready-cohort_vax-main-grp7_htd:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_vax-main-grp7_htd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;28;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --save_analysis_ready=TRUE
+      --run_analysis=FALSE --df_output=model_output-cohort_vax-main-grp7_htd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp7_htd
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_vax-main-grp7_htd.csv.gz
+
+  stata_cox_model-cohort_vax-main-grp7_htd:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_vax-main-grp7_htd
+    needs:
+    - ready-cohort_vax-main-grp7_htd
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_vax-main-grp7_htd_median_fup.csv
+        stata_output: output/ready-cohort_vax-main-grp7_htd_cox_model.txt
 
   ready-cohort_prevax-sub_covid_hospitalised-grp8_ind:
     run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-sub_covid_hospitalised-grp8_ind.rds
@@ -9010,8 +9240,8 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-sub_covid_hospitalised-grp8_ind.csv.gz
 
-  stata_cox_model_cohort_prevax-sub_covid_hospitalised-grp8_ind:
-    run: stata-mp:latest analysis/stata/cox_model.do
+  stata_cox_model-cohort_prevax-sub_covid_hospitalised-grp8_ind:
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
     needs:
     - ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
     outputs:
@@ -9552,7 +9782,17 @@ actions:
   make_stata_model_output:
     run: r:latest analysis/stata/make_stata_model_output.R
     needs:
-    - stata_cox_model_cohort_prevax-sub_covid_hospitalised-grp8_ind
+    - stata_cox_model-cohort_prevax-main-apa
+    - stata_cox_model-cohort_prevax-main-cis
+    - stata_cox_model-cohort_prevax-main-glb
+    - stata_cox_model-cohort_prevax-main-grp7_htd
+    - stata_cox_model-cohort_prevax-main-grp8_ind
+    - stata_cox_model-cohort_prevax-main-hashimoto
+    - stata_cox_model-cohort_prevax-main-hs
+    - stata_cox_model-cohort_prevax-main-pmr
+    - stata_cox_model-cohort_prevax-main-sjs
+    - stata_cox_model-cohort_vax-main-grp7_htd
+    - stata_cox_model-cohort_prevax-sub_covid_hospitalised-grp8_ind
     outputs:
       moderately_sensitive:
         stata_model_output: output/stata_model_output.csv

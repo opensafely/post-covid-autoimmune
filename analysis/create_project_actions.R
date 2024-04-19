@@ -22,7 +22,19 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
 cohorts <- unique(active_analyses$cohort)
  
 # List of models to run in Stata
-run_stata <- c("cohort_prevax-sub_covid_hospitalised-grp8_ind")
+run_stata <- c(
+  "cohort_prevax-main-apa",
+  "cohort_prevax-main-cis",
+  "cohort_prevax-main-hashimoto",
+  "cohort_prevax-main-hs",
+  "cohort_prevax-main-glb",
+  "cohort_prevax-main-pmr",
+  "cohort_prevax-main-sjs",
+  "cohort_prevax-main-grp7_htd",
+  "cohort_vax-main-grp7_htd",
+  "cohort_prevax-main-grp8_ind",
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind"
+  )
 
 # create Stata file
 stata <- active_analyses[active_analyses$name %in% run_stata,]
@@ -306,18 +318,16 @@ apply_stata_model_function <- function(name, cohort, analysis, ipw, strata,
         analysis_ready = glue("output/ready-{name}.csv.gz"))
     ),
     action(
-      name = glue("stata_cox_model_{name}"),
-      run = glue("stata-mp:latest analysis/stata/cox_model.do"),# ready-{name}TRUE TRUE"),
+      name = glue("stata_cox_model-{name}"),
+      run = glue("stata-mp:latest analysis/stata/cox_model.do ready-{name}"),# ready-{name}TRUE TRUE"),
       needs = list(glue("ready-{name}")),
       moderately_sensitive = list(
         medianfup = glue("output/ready-{name}_median_fup.csv"),
         stata_output = glue("output/ready-{name}_cox_model.txt")
         #stata_output = glue("output/stata_model_output-{name}.txt") 
       )
-      
     )
   )
-  
 }
 
 ################################################################################
@@ -587,9 +597,9 @@ actions_list <- splice(
     )
   ),
   
-  ## Stata re-run failed models to save sampled data ---------------------------
+  ## Run models with Stata -----------------------------------------------------
   
-  comment("Run failed models with stata"),
+  comment("Run models with stata"),
   
   splice(
     unlist(lapply(1:nrow(stata), 
@@ -650,7 +660,7 @@ actions_list <- splice(
   action(
     name = "make_stata_model_output",
     run = "r:latest analysis/stata/make_stata_model_output.R",
-    needs = as.list(paste0("stata_cox_model_",stata$name)),
+    needs = as.list(paste0("stata_cox_model-",stata$name)),
     moderately_sensitive = list(
       stata_model_output = glue("output/stata_model_output.csv"),
       stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
