@@ -545,9 +545,9 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
-# df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
+df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
 # 
-df <- df[df$analysis == "sub_ethnicity_white" | df$analysis == "sub_ethnicity_black" | df$analysis == "sub_ethnicity_mixed" | df$analysis == "sub_ethnicity_asian" | df$analysis == "sub_ethnicity_other",]
+# df <- df[df$analysis == "sub_ethnicity_white" | df$analysis == "sub_ethnicity_black" | df$analysis == "sub_ethnicity_mixed" | df$analysis == "sub_ethnicity_asian" | df$analysis == "sub_ethnicity_other",]
 
 # Check names are unique and save active analyses list -------------------------
 
