@@ -318,7 +318,7 @@ apply_stata_model_function <- function(name, cohort, analysis, ipw, strata,
         analysis_ready = glue("output/ready-{name}.csv.gz"))
     ),
     action(
-      name = glue("stata_cox_model-{name}"),
+      name = glue("stata_cox_ipw-{name}"),
       run = glue("stata-mp:latest analysis/stata/cox_model.do ready-{name}"),# ready-{name}TRUE TRUE"),
       needs = list(glue("ready-{name}")),
       moderately_sensitive = list(
@@ -655,12 +655,12 @@ actions_list <- splice(
     )
   ),
   
-  # comment ("Stata models"), STATA ANALYSES
+  # comment ("Stata models"), Stata Analyses
   
   action(
     name = "make_stata_model_output",
     run = "r:latest analysis/stata/make_stata_model_output.R",
-    needs = as.list(paste0("stata_cox_model-",stata$name)),
+    needs = as.list(paste0("stata_cox_ipw-",stata$name)),
     moderately_sensitive = list(
       stata_model_output = glue("output/stata_model_output.csv"),
       stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")

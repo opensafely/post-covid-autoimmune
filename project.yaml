@@ -9010,7 +9010,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-apa.csv.gz
 
-  stata_cox_model-cohort_prevax-main-apa:
+  stata_cox_ipw-cohort_prevax-main-apa:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-apa
     needs:
     - ready-cohort_prevax-main-apa
@@ -9033,7 +9033,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-cis.csv.gz
 
-  stata_cox_model-cohort_prevax-main-cis:
+  stata_cox_ipw-cohort_prevax-main-cis:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-cis
     needs:
     - ready-cohort_prevax-main-cis
@@ -9056,7 +9056,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-glb.csv.gz
 
-  stata_cox_model-cohort_prevax-main-glb:
+  stata_cox_ipw-cohort_prevax-main-glb:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-glb
     needs:
     - ready-cohort_prevax-main-glb
@@ -9079,7 +9079,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-grp7_htd.csv.gz
 
-  stata_cox_model-cohort_prevax-main-grp7_htd:
+  stata_cox_ipw-cohort_prevax-main-grp7_htd:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp7_htd
     needs:
     - ready-cohort_prevax-main-grp7_htd
@@ -9102,7 +9102,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-grp8_ind.csv.gz
 
-  stata_cox_model-cohort_prevax-main-grp8_ind:
+  stata_cox_ipw-cohort_prevax-main-grp8_ind:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp8_ind
     needs:
     - ready-cohort_prevax-main-grp8_ind
@@ -9125,7 +9125,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-hashimoto.csv.gz
 
-  stata_cox_model-cohort_prevax-main-hashimoto:
+  stata_cox_ipw-cohort_prevax-main-hashimoto:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hashimoto
     needs:
     - ready-cohort_prevax-main-hashimoto
@@ -9148,7 +9148,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-hs.csv.gz
 
-  stata_cox_model-cohort_prevax-main-hs:
+  stata_cox_ipw-cohort_prevax-main-hs:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hs
     needs:
     - ready-cohort_prevax-main-hs
@@ -9171,7 +9171,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-pmr.csv.gz
 
-  stata_cox_model-cohort_prevax-main-pmr:
+  stata_cox_ipw-cohort_prevax-main-pmr:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-pmr
     needs:
     - ready-cohort_prevax-main-pmr
@@ -9194,7 +9194,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-main-sjs.csv.gz
 
-  stata_cox_model-cohort_prevax-main-sjs:
+  stata_cox_ipw-cohort_prevax-main-sjs:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-sjs
     needs:
     - ready-cohort_prevax-main-sjs
@@ -9217,7 +9217,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_vax-main-grp7_htd.csv.gz
 
-  stata_cox_model-cohort_vax-main-grp7_htd:
+  stata_cox_ipw-cohort_vax-main-grp7_htd:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_vax-main-grp7_htd
     needs:
     - ready-cohort_vax-main-grp7_htd
@@ -9240,7 +9240,7 @@ actions:
       highly_sensitive:
         analysis_ready: output/ready-cohort_prevax-sub_covid_hospitalised-grp8_ind.csv.gz
 
-  stata_cox_model-cohort_prevax-sub_covid_hospitalised-grp8_ind:
+  stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp8_ind:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
     needs:
     - ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
@@ -9782,17 +9782,17 @@ actions:
   make_stata_model_output:
     run: r:latest analysis/stata/make_stata_model_output.R
     needs:
-    - stata_cox_model-cohort_prevax-main-apa
-    - stata_cox_model-cohort_prevax-main-cis
-    - stata_cox_model-cohort_prevax-main-glb
-    - stata_cox_model-cohort_prevax-main-grp7_htd
-    - stata_cox_model-cohort_prevax-main-grp8_ind
-    - stata_cox_model-cohort_prevax-main-hashimoto
-    - stata_cox_model-cohort_prevax-main-hs
-    - stata_cox_model-cohort_prevax-main-pmr
-    - stata_cox_model-cohort_prevax-main-sjs
-    - stata_cox_model-cohort_vax-main-grp7_htd
-    - stata_cox_model-cohort_prevax-sub_covid_hospitalised-grp8_ind
+    - stata_cox_ipw-cohort_prevax-main-apa
+    - stata_cox_ipw-cohort_prevax-main-cis
+    - stata_cox_ipw-cohort_prevax-main-glb
+    - stata_cox_ipw-cohort_prevax-main-grp7_htd
+    - stata_cox_ipw-cohort_prevax-main-grp8_ind
+    - stata_cox_ipw-cohort_prevax-main-hashimoto
+    - stata_cox_ipw-cohort_prevax-main-hs
+    - stata_cox_ipw-cohort_prevax-main-pmr
+    - stata_cox_ipw-cohort_prevax-main-sjs
+    - stata_cox_ipw-cohort_vax-main-grp7_htd
+    - stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp8_ind
     outputs:
       moderately_sensitive:
         stata_model_output: output/stata_model_output.csv
