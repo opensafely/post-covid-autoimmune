@@ -29,7 +29,7 @@ success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/p
                                             "text","text",
                                             "text", "text", "text", "text",
                                             "text","text","text","text","text",
-                                            #"text","text",
+                                            "text","text",
                                             "skip", "skip"))
 
 success <- tidyr::pivot_longer(success,
@@ -423,16 +423,16 @@ actions_list <- splice(
   
   ## consort output ------------------------------------------------------------
   
-  action(
-    name = "make_consort_output",
-    run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
-    needs = list("stage1_data_cleaning_prevax",
-                 "stage1_data_cleaning_vax",
-                 "stage1_data_cleaning_unvax"),
-    moderately_sensitive = list(
-      consort_output_midpoint6 = glue("output/consort_output_midpoint6.csv")
-    )
-  ),
+  # action(
+  #   name = "make_consort_output",
+  #   run = "r:latest analysis/model/make_other_output.R consort prevax;vax;unvax",
+  #   needs = list("stage1_data_cleaning_prevax",
+  #                "stage1_data_cleaning_vax",
+  #                "stage1_data_cleaning_unvax"),
+  #   moderately_sensitive = list(
+  #     consort_output_midpoint6 = glue("output/consort_output_midpoint6.csv")
+  #   )
+  # ),
   
   # ## table 1 output ------------------------------------------------------------
   # 
