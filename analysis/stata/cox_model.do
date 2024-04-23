@@ -79,7 +79,7 @@ foreach var of varlist region cov_bin* cov_cat* {
 }
 
 * Shorten covariates names 
-*/ capture confirm variable cov_bin_overall_gi_and_symptoms
+/*capture confirm variable cov_bin_overall_gi_and_symptoms
 if !_rc {
  	rename cov_bin_overall_gi_and_symptoms cov_bin_gi_sym
 	}*/
