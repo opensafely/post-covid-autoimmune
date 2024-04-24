@@ -480,9 +480,8 @@ for (c in cohorts) {
     #                      age_spline = TRUE,
     #                      analysis = "sub_ethnicity_asian")
     
-#  }
-  
-#  for (i in c(outcomes_runmain, outcomes_runall)) { #in composite_ai_sub_out
+ }
+  for (i in composite_ai_sub_out) { #
     
     ## analysis: sub_history_composite_ai_true ---------------------------------
     
@@ -529,6 +528,7 @@ for (c in cohorts) {
                          analysis = "sub_bin_history_composite_ai_false")
   }
 }
+#}
 
 
 # Assign unique name -----------------------------------------------------------
@@ -541,11 +541,11 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
-# df <- df[df$analysis == "main" | df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]
+df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
-df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
+# df <- df[df$analysis == "sub_age_18_39" | df$analysis == "sub_age_40_59" | df$analysis == "sub_age_60_79" | df$analysis == "sub_age_80_110",]
 # 
 # df <- df[df$analysis == "sub_ethnicity_white" | df$analysis == "sub_ethnicity_black" | df$analysis == "sub_ethnicity_mixed" | df$analysis == "sub_ethnicity_asian" | df$analysis == "sub_ethnicity_other",]
 
