@@ -703,7 +703,7 @@ for (i in 1:nrow(active_analyses)) {
     df <- input[input$sub_bin_covid19_confirmed_history==FALSE &
                   input$sub_bin_history_composite_ai==TRUE,]
 
-    df[,colnames(df)[grepl("sub_",colnames(df))]] <- NULL
+    df[,c(colnames(df)[grepl("sub_",colnames(df))],"cov_bin_history_composite_ai")] <- NULL
 
     check_vitals(df)
     readr::write_rds(df, file.path("output", paste0("model_input-",active_analyses$name[i],".rds")),compress="gz")
@@ -721,7 +721,7 @@ for (i in 1:nrow(active_analyses)) {
     df <- input[input$sub_bin_covid19_confirmed_history==FALSE &
                   input$sub_bin_history_composite_ai==FALSE,]
 
-    df[,colnames(df)[grepl("sub_",colnames(df))]] <- NULL
+    df[,c(colnames(df)[grepl("sub_",colnames(df))],"cov_bin_history_composite_ai")] <- NULL
 
     check_vitals(df)
     readr::write_rds(df, file.path("output", paste0("model_input-",active_analyses$name[i],".rds")),compress="gz")
