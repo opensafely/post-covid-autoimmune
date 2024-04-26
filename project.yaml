@@ -9012,6 +9012,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-apa:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-apa
+      cohort_prevax-main-apa
     needs:
     - ready-cohort_prevax-main-apa
     outputs:
@@ -9035,6 +9036,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-cis:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-cis
+      cohort_prevax-main-cis
     needs:
     - ready-cohort_prevax-main-cis
     outputs:
@@ -9058,6 +9060,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-glb:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-glb
+      cohort_prevax-main-glb
     needs:
     - ready-cohort_prevax-main-glb
     outputs:
@@ -9081,6 +9084,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-grp7_htd:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp7_htd
+      cohort_prevax-main-grp7_htd
     needs:
     - ready-cohort_prevax-main-grp7_htd
     outputs:
@@ -9104,6 +9108,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-grp8_ind:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-grp8_ind
+      cohort_prevax-main-grp8_ind
     needs:
     - ready-cohort_prevax-main-grp8_ind
     outputs:
@@ -9127,6 +9132,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-hashimoto:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hashimoto
+      cohort_prevax-main-hashimoto
     needs:
     - ready-cohort_prevax-main-hashimoto
     outputs:
@@ -9149,7 +9155,7 @@ actions:
         analysis_ready: output/ready-cohort_prevax-main-hs.csv.gz
 
   stata_cox_ipw-cohort_prevax-main-hs:
-    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hs
+    run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-hs cohort_prevax-main-hs
     needs:
     - ready-cohort_prevax-main-hs
     outputs:
@@ -9173,6 +9179,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-pmr:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-pmr
+      cohort_prevax-main-pmr
     needs:
     - ready-cohort_prevax-main-pmr
     outputs:
@@ -9196,6 +9203,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-main-sjs:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-main-sjs
+      cohort_prevax-main-sjs
     needs:
     - ready-cohort_prevax-main-sjs
     outputs:
@@ -9219,6 +9227,7 @@ actions:
 
   stata_cox_ipw-cohort_vax-main-grp7_htd:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_vax-main-grp7_htd
+      cohort_vax-main-grp7_htd
     needs:
     - ready-cohort_vax-main-grp7_htd
     outputs:
@@ -9242,6 +9251,7 @@ actions:
 
   stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp8_ind:
     run: stata-mp:latest analysis/stata/cox_model.do ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
+      cohort_prevax-sub_covid_hospitalised-grp8_ind
     needs:
     - ready-cohort_prevax-sub_covid_hospitalised-grp8_ind
     outputs:
@@ -9654,15 +9664,12 @@ actions:
     - cox_ipw-cohort_prevax-main-addison
     - cox_ipw-cohort_prevax-main-aha
     - cox_ipw-cohort_prevax-main-anca
-    - cox_ipw-cohort_prevax-main-apa
     - cox_ipw-cohort_prevax-main-as
     - cox_ipw-cohort_prevax-main-axial
     - cox_ipw-cohort_prevax-main-celiac
-    - cox_ipw-cohort_prevax-main-cis
     - cox_ipw-cohort_prevax-main-composite_ai
     - cox_ipw-cohort_prevax-main-crohn
     - cox_ipw-cohort_prevax-main-gca
-    - cox_ipw-cohort_prevax-main-glb
     - cox_ipw-cohort_prevax-main-grave
     - cox_ipw-cohort_prevax-main-grp1_ifa
     - cox_ipw-cohort_prevax-main-grp2_ctd
@@ -9670,10 +9677,6 @@ actions:
     - cox_ipw-cohort_prevax-main-grp4_agi_ibd
     - cox_ipw-cohort_prevax-main-grp5_atv
     - cox_ipw-cohort_prevax-main-grp6_trd
-    - cox_ipw-cohort_prevax-main-grp7_htd
-    - cox_ipw-cohort_prevax-main-grp8_ind
-    - cox_ipw-cohort_prevax-main-hashimoto
-    - cox_ipw-cohort_prevax-main-hs
     - cox_ipw-cohort_prevax-main-ibd
     - cox_ipw-cohort_prevax-main-iga_vasc
     - cox_ipw-cohort_prevax-main-im
@@ -9683,11 +9686,9 @@ actions:
     - cox_ipw-cohort_prevax-main-ms
     - cox_ipw-cohort_prevax-main-myasthenia
     - cox_ipw-cohort_prevax-main-pern_anaemia
-    - cox_ipw-cohort_prevax-main-pmr
     - cox_ipw-cohort_prevax-main-psoa
     - cox_ipw-cohort_prevax-main-psoriasis
     - cox_ipw-cohort_prevax-main-ra
-    - cox_ipw-cohort_prevax-main-sjs
     - cox_ipw-cohort_prevax-main-sle
     - cox_ipw-cohort_prevax-main-sss
     - cox_ipw-cohort_prevax-main-uc
@@ -9752,7 +9753,6 @@ actions:
     - cox_ipw-cohort_vax-main-grp4_agi_ibd
     - cox_ipw-cohort_vax-main-grp5_atv
     - cox_ipw-cohort_vax-main-grp6_trd
-    - cox_ipw-cohort_vax-main-grp7_htd
     - cox_ipw-cohort_vax-main-grp8_ind
     - cox_ipw-cohort_vax-main-hashimoto
     - cox_ipw-cohort_vax-main-hs
@@ -9774,14 +9774,251 @@ actions:
     - cox_ipw-cohort_vax-main-sss
     - cox_ipw-cohort_vax-main-uc
     - cox_ipw-cohort_vax-main-undiff_eia
-    outputs:
-      moderately_sensitive:
-        model_output: output/model_output.csv
-        model_output_midpoint6: output/model_output_midpoint6.csv
-
-  make_stata_model_output:
-    run: r:latest analysis/stata/make_stata_model_output.R
-    needs:
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-addison
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-aha
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-anca
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-apa
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-as
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-axial
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-celiac
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-cis
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-crohn
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-gca
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-glb
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grave
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-hashimoto
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-hs
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-ibd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-iga_vasc
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-im
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-immune_thromb
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-long_myelitis
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-mctd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-ms
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-myasthenia
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-pern_anaemia
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-pmr
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-psoa
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-psoriasis
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-ra
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-sjs
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-sle
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-sss
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-uc
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-undiff_eia
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-addison
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-aha
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-anca
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-apa
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-as
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-axial
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-celiac
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-cis
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-crohn
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-gca
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-glb
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grave
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp8_ind
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-hashimoto
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-hs
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-ibd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-iga_vasc
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-im
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-immune_thromb
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-long_myelitis
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-mctd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-ms
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-myasthenia
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-pern_anaemia
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-pmr
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-psoa
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-psoriasis
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-ra
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-sjs
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-sle
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-sss
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-uc
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-undiff_eia
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-addison
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-aha
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-anca
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-apa
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-as
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-axial
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-celiac
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-cis
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-crohn
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-gca
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-glb
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grave
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp8_ind
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-hashimoto
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-hs
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-ibd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-iga_vasc
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-im
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-immune_thromb
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-long_myelitis
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-mctd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-ms
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-myasthenia
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-pern_anaemia
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-pmr
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-psoa
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-psoriasis
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-ra
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-sjs
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-sle
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-sss
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-uc
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-undiff_eia
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-addison
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-aha
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-anca
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-apa
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-as
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-axial
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-celiac
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-cis
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-crohn
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-gca
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-glb
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grave
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp8_ind
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-hashimoto
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-hs
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-ibd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-iga_vasc
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-im
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-immune_thromb
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-long_myelitis
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-mctd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-ms
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-myasthenia
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-pern_anaemia
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-pmr
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-psoa
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-psoriasis
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-ra
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-sjs
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-sle
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-sss
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-uc
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-undiff_eia
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-addison
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-aha
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-anca
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-apa
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-as
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-axial
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-celiac
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-cis
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-crohn
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-gca
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-glb
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grave
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp8_ind
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-hashimoto
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-hs
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-ibd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-iga_vasc
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-im
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-immune_thromb
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-long_myelitis
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-mctd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-ms
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-myasthenia
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-pern_anaemia
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-pmr
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-psoa
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-psoriasis
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-ra
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-sjs
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-sle
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-sss
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-uc
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-undiff_eia
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-addison
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-aha
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-anca
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-apa
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-as
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-axial
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-celiac
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-cis
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-crohn
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-gca
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-glb
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grave
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp8_ind
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-hashimoto
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-hs
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-ibd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-iga_vasc
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-im
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-immune_thromb
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-long_myelitis
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-mctd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-ms
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-myasthenia
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-pern_anaemia
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-pmr
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-psoa
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-psoriasis
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-ra
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-sjs
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-sle
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-sss
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-uc
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-undiff_eia
     - stata_cox_ipw-cohort_prevax-main-apa
     - stata_cox_ipw-cohort_prevax-main-cis
     - stata_cox_ipw-cohort_prevax-main-glb
@@ -9795,8 +10032,8 @@ actions:
     - stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp8_ind
     outputs:
       moderately_sensitive:
-        stata_model_output: output/stata_model_output.csv
-        stata_model_output_midpoint6: output/stata_model_output_midpoint6.csv
+        model_output: output/model_output.csv
+        model_output_midpoint6: output/model_output_midpoint6.csv
 
   median_iqr_age:
     run: r:latest analysis/median_iqr_age.R

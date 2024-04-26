@@ -39,6 +39,7 @@ run_stata <- c(
 # create Stata file
 stata <- active_analyses[active_analyses$name %in% run_stata,]
 stata$save_analysis_ready <- TRUE
+stata$day0 <- grepl("1;",stata$cut_points)
 
 # Determine which outputs are ready --------------------------------------------
 
@@ -307,7 +308,7 @@ apply_stata_model_function <- function(name, cohort, analysis, ipw, strata,
                                              cox_start, cox_stop, study_start, study_stop,
                                              cut_points, controls_per_case,
                                              total_event_threshold, episode_event_threshold,
-                                             covariate_threshold, age_spline){
+                                             covariate_threshold, age_spline, day0){
   splice(
     
     action(
@@ -319,7 +320,8 @@ apply_stata_model_function <- function(name, cohort, analysis, ipw, strata,
     ),
     action(
       name = glue("stata_cox_ipw-{name}"),
-      run = glue("stata-mp:latest analysis/stata/cox_model.do ready-{name}"),# ready-{name}TRUE TRUE"),
+      run = glue("stata-mp:latest analysis/stata/cox_model.do"),# ready-{name}TRUE TRUE"),  ready-{name}
+      arguments = c(name, day0),
       needs = list(glue("ready-{name}")),
       moderately_sensitive = list(
         medianfup = glue("output/ready-{name}_median_fup.csv"),
@@ -620,7 +622,8 @@ actions_list <- splice(
                                                          total_event_threshold = stata$total_event_threshold[x],
                                                          episode_event_threshold = stata$episode_event_threshold[x],
                                                          covariate_threshold = stata$covariate_threshold[x],
-                                                         age_spline = stata$age_spline[x])), recursive = FALSE
+                                                         age_spline = stata$age_spline[x],
+                                                         day0 = stata$day0[x])), recursive = FALSE
     )
   ),
   
@@ -648,7 +651,9 @@ actions_list <- splice(
     name = "make_model_output",
     run = "r:latest analysis/model/make_model_output.R",
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-    needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+    needs = as.list(c(paste0("cox_ipw-",setdiff(active_analyses$name,stata$name)),
+                      paste0("stata_cox_ipw-",stata$name))),
     moderately_sensitive = list(
       model_output = glue("output/model_output.csv"),
       model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
@@ -657,15 +662,15 @@ actions_list <- splice(
   
   # comment ("Stata models"), Stata Analyses
   
-  action(
-    name = "make_stata_model_output",
-    run = "r:latest analysis/stata/make_stata_model_output.R",
-    needs = as.list(paste0("stata_cox_ipw-",stata$name)),
-    moderately_sensitive = list(
-      stata_model_output = glue("output/stata_model_output.csv"),
-      stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
-    )
-  ),
+  # action(
+  #   name = "make_stata_model_output",
+  #   run = "r:latest analysis/stata/make_stata_model_output.R",
+  #   needs = as.list(paste0("stata_cox_ipw-",stata$name)),
+  #   moderately_sensitive = list(
+  #     stata_model_output = glue("output/stata_model_output.csv"),
+  #     stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
+  #   )
+  # ),
   
   # comment("Calculate median (IQR) for age"),
   
