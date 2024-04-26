@@ -457,34 +457,12 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "sub_ethnicity_other")
-    
-    # ## analysis: sub_ethnicity_asian -------------------------------------------
-    # 
-    # df[nrow(df)+1,] <- c(cohort = c,
-    #                      exposure = exposure,
-    #                      outcome = i,
-    #                      ipw = ipw,
-    #                      strata = strata,
-    #                      covariate_sex = covariate_sex,
-    #                      covariate_age = covariate_age,
-    #                      covariate_other = gsub("cov_cat_ethnicity;","",all_covars),
-    #                      cox_start = cox_start,
-    #                      cox_stop = cox_stop,
-    #                      study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
-    #                      study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
-    #                      cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
-    #                      controls_per_case = controls_per_case,
-    #                      total_event_threshold = total_event_threshold,
-    #                      episode_event_threshold = episode_event_threshold,
-    #                      covariate_threshold = covariate_threshold,
-    #                      age_spline = TRUE,
-    #                      analysis = "sub_ethnicity_asian")
-    
- }
+
+}
   for (i in composite_ai_sub_out) { #
-    
+
     ## analysis: sub_history_composite_ai_true ---------------------------------
-    
+
     df[nrow(df)+1,] <- c(cohort = c,
                          exposure = exposure,
                          outcome = i,
@@ -504,9 +482,9 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "sub_bin_history_composite_ai_true")
-    
+
     ## analysis: sub_history_composite_ai_false --------------------------------
-    
+
     df[nrow(df)+1,] <- c(cohort = c,
                          exposure = exposure,
                          outcome = i,
@@ -541,7 +519,7 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
-df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
+# df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
