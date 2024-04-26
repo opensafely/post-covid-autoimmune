@@ -21,6 +21,22 @@ active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
  cohorts <- unique(active_analyses$cohort)
 
+failed_models <- c(
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind",
+  "cohort_unvax-sub_age_80_110-psoa",
+  "cohort_unvax-sub_age_80_110-axial",
+  "cohort_unvax-sub_age_80_110-grp2_ctd",
+  "cohort_unvax-sub_age_80_110-hs",
+  "cohort_unvax-sub_age_80_110-crohn",
+  "cohort_unvax-sub_age_80_110-ms",
+  "cohort_unvax-sub_ethnicity_other-apa",
+  "cohort_prevax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_prevax-sub_bin_history_composite_ai_false-composite_ai",
+  "cohort_vax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_vax-sub_bin_history_composite_ai_false-composite_ai",
+  "cohort_unvax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_unvax-sub_bin_history_composite_ai_false-composite_ai") 
+ 
 # Determine which outputs are ready --------------------------------------------
 
 success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
@@ -544,7 +560,7 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  )#,
+  ),
   
   # ## Table 2 -------------------------------------------------------------------
   # 
@@ -564,19 +580,20 @@ actions_list <- splice(
   #   )
   # ),
 
-  # # comment("Stage 6 - make model output"),
-  # 
-  # action(
-  #   name = "make_model_output",
-  #   run = "r:latest analysis/model/make_model_output.R",
-  #   #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-  #   needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-  #   moderately_sensitive = list(
-  #     model_output = glue("output/model_output.csv"),
-  #     model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
-  #   )
-  # ),
-  # 
+  # comment("Stage 6 - make model output"),
+
+  action(
+    name = "make_model_output",
+    run = "r:latest analysis/model/make_model_output.R",
+    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
+    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+    needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
+    moderately_sensitive = list(
+      model_output = glue("output/model_output.csv"),
+      model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
+    )
+  )#,
+
   # ## AER table -----------------------------------------------------------------
   # 
   # comment("Make absolute excess risk (AER) input"),

@@ -460,7 +460,8 @@ for (c in cohorts) {
                          age_spline = TRUE,
                          analysis = "sub_ethnicity_other")
     
- }
+  }
+  
   for (i in composite_ai_sub_out) { #
     
     ## analysis: sub_bin_history_composite_ai_true -----------------------------
@@ -521,7 +522,7 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
-df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
+#df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
