@@ -275,14 +275,14 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
       )
     ),
 
-    # action(
-    #   name = glue("describe_model_input-{name}"),
-    #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
-    #   needs = list(glue("make_model_input-{name}")),
-    #   moderately_sensitive = list(
-    #     describe_model_input = glue("output/describe-model_input-{name}.txt")
-    #   )
-    # ),
+    action(
+      name = glue("describe_model_input-{name}"),
+      run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
+      needs = list(glue("make_model_input-{name}")),
+      moderately_sensitive = list(
+        describe_model_input = glue("output/describe-model_input-{name}.txt")
+      )
+    ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
     action(
@@ -560,7 +560,7 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  ),
+  )#,
   
   # ## Table 2 -------------------------------------------------------------------
   # 
@@ -582,17 +582,17 @@ actions_list <- splice(
 
   # comment("Stage 6 - make model output"),
 
-  action(
-    name = "make_model_output",
-    run = "r:latest analysis/model/make_model_output.R",
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-    needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
-    moderately_sensitive = list(
-      model_output = glue("output/model_output.csv"),
-      model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
-    )
-  )#,
+  # action(
+  #   name = "make_model_output",
+  #   run = "r:latest analysis/model/make_model_output.R",
+  #   #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
+  #   #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+  #   needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
+  #   moderately_sensitive = list(
+  #     model_output = glue("output/model_output.csv"),
+  #     model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
+  #   )
+  # ),
 
   # ## AER table -----------------------------------------------------------------
   # 

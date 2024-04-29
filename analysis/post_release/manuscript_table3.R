@@ -87,46 +87,46 @@ df$analysis_label <- factor(df$analysis_label,
 print("Order outcomes")
 
 df$outcome_label <- factor(df$outcome_label,
-                           levels = c("Rheumatoid arthritis",
+                           levels = c("Inflammatory arthritis (Group 1)", # group 1
+                                      "Rheumatoid arthritis",
                                       "Undifferentiated inflammatory arthritis",
                                       "Psoriatic arthritis",
                                       "Axial spondyloarthritis",
-                                      "Inflammatory arthritis (Group 1)", # group 1
+                                      "Connective tissue disorders (Group 2)", # group 2
                                       "Systematic lupus erythematosus",
                                       "Sjogren’s syndrome",
                                       "Systemic sclerosis/scleroderma",
                                       "Inflammatory myositis/polymyositis/dermatolomyositis",
                                       "Mixed connective tissue disease",
                                       "Antiphospholipid syndrome",
-                                      "Connective tissue disorders (Group 2)", # group 2
+                                      "Inflammatory skin disease (Group 3)", # group 3
                                       "Psoriasis",
                                       "Hydradenitis suppurativa",
-                                      "Inflammatory skin disease (Group 3)", # group 3
+                                      "Autoimmune gastrointestinal disease / Inflammatory bowel disease (Group 4)", # group 4
                                       "Crohn’s disease",
                                       "Ulcerative colitis",
                                       "Celiac disease",
                                       "Inflammatory bowel disease (combined ulcerative colitis and Crohn's)",
-                                      "Autoimmune gastrointestinal disease / Inflammatory bowel disease (Group 4)", # group 4
+                                      "Thyroid diseases (Group 5)", # group 5
                                       "Addison’s disease",
                                       "Grave’s disease",
                                       "Hashimoto’s thyroiditis",
-                                      "Thyroid diseases (Group 5)", # group 5
+                                      "Autoimmune vasculitis (Group 6)", # group 6
                                       "Antineutrophilic cytoplasmic antibody (ANCA)-associated",
                                       "Giant cell arteritis",
                                       "Immunoglobulin A (IgA) vasculitis",
                                       "Polymyalgia rheumatica (PMR)",
-                                      "Autoimmune vasculitis (Group 6)", # group 6
+                                      "Hematologic diseases (Group 7)", # group 7
                                       "Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)",
                                       "Pernicious anaemia",
                                       "Aplastic anaemia",
                                       "Autoimmune haemolytic anaemia",
-                                      "Hematologic diseases (Group 7)", # group 7
+                                      "Inflammatory neuromuscular disease (Group 8)", # group 8
                                       "Guillain-Barré",
                                       "Multiple sclerosis",
                                       "Myasthenia gravis",
                                       "Longitudinal myelitis",
                                       "Clinically isolated syndrome",
-                                      "Inflammatory neuromuscular disease (Group 8)", # group 8
                                       "Composite autoimmune"))
 
 # Tidy table -------------------------------------------------------------------

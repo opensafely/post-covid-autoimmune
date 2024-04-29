@@ -20,16 +20,16 @@ grave,Grave’s disease
 hashimoto_thyroiditis,Hashimoto’s thyroiditis
 anca,Antineutrophilic cytoplasmic antibody (ANCA)-associated
 gca,Giant cell arteritis
-iga_vasculitis,Immunoglobulin A (IgA) vasculitis
+iga_vasc,Immunoglobulin A (IgA) vasculitis
 pmr,Polymyalgia rheumatica (PMR)
 immune_thromb,Immune thrombocytopenia (formerly known as idiopathic thrombocytopenic purpura)
-pernicious_anaemia,Pernicious anaemia
+pern_anaemia,Pernicious anaemia
 apa,Aplastic anaemia
 aha,Autoimmune haemolytic anaemia
 glb,Guillain-Barré
-multiple_sclerosis,Multiple sclerosis
-myasthenia_gravis,Myasthenia gravis
-longit_myelitis,Longitudinal myelitis
+ms,Multiple sclerosis
+myasthenia,Myasthenia gravis
+long_myelitis,Longitudinal myelitis
 cis,Clinically isolated syndrome
 grp1_ifa,Inflammatory arthritis (Group 1)
 grp2_ctd,Connective tissue disorders (Group 2)

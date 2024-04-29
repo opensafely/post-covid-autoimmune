@@ -6,28 +6,7 @@ df <- read.csv("output/post_release/lifetables_compiled.csv")
 # Filter data ------------------------------------------------------------------
 print("Filter data")
 
-# Autoimmune outcomes
-
-# df <- df[df$outcome %in% c(#group 1
-#                           "ra", "undiff_eia", "pa", "axial",
-#                            #group 2
-#                            "sle", "sjs", "sss", "im", "mctd", "as", 
-#                            #group 3
-#                            "psoriasis", "hs", 
-#                            #group 4
-#                            "ibd", "crohn", "uc", "celiac", 
-#                            #group 5
-#                            "addison", "grave", "hashimoto_thyroiditis", 
-#                            #group 6
-#                            "anca", "gca", "iga_vasculitis", "pmr", 
-#                            #group 7 
-#                            "immune_thromb", "pernicious_anaemia", "apa", "aha", 
-#                            #group 8 
-#                            "glb", "multiple_sclerosis", "myasthenia_gravis", "longit_myelitis", "cis", 
-#                            #grouped outcomes 
-#                            "grp1_ifa", "grp2_ctd", "grp3_isd", "grp4_agi_ibd", "grp5_atv", "grp6_trd", "grp7_htd", "grp8_ind", 
-#                            #composite
-#                            "composite_ai"),]
+#df <- df[df$outcome %in% c(""),]
 
 # Format aer_age ---------------------------------------------------------------
 print("Format aer_age")
