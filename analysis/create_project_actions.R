@@ -295,14 +295,14 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
       )
     ),
 
-    action(
-      name = glue("describe_model_input-{name}"),
-      run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
-      needs = list(glue("make_model_input-{name}")),
-      moderately_sensitive = list(
-        describe_model_input = glue("output/describe-model_input-{name}.txt")
-      )
-    ),
+    # action(
+    #   name = glue("describe_model_input-{name}"),
+    #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     describe_model_input = glue("output/describe-model_input-{name}.txt")
+    #   )
+    # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
     action(
@@ -613,7 +613,7 @@ actions_list <- splice(
                                                    covariate_threshold = active_analyses$covariate_threshold[x],
                                                    age_spline = active_analyses$age_spline[x])), recursive = FALSE
     )
-  )#,
+  ),
   
   ## Run models with Stata -----------------------------------------------------
   
@@ -677,15 +677,15 @@ actions_list <- splice(
   
   # comment ("Stata models"), Stata Analyses
   
-  # action(
-  #   name = "make_stata_model_output",
-  #   run = "r:latest analysis/stata/make_stata_model_output.R",
-  #   needs = as.list(paste0("stata_cox_ipw-",stata$name)),
-  #   moderately_sensitive = list(
-  #     stata_model_output = glue("output/stata_model_output.csv"),
-  #     stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_stata_model_output",
+    run = "r:latest analysis/stata/make_stata_model_output.R",
+    needs = as.list(paste0("stata_cox_ipw-",stata$name)),
+    moderately_sensitive = list(
+      stata_model_output = glue("output/stata_model_output.csv"),
+      stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
+    )
+  ),
   
   # comment("Calculate median (IQR) for age"),
   
@@ -698,7 +698,7 @@ actions_list <- splice(
     moderately_sensitive = list(
       model_output = glue("output/median_iqr_age.csv")
     )
-  ),
+  )#,
 
   # ## AER table -----------------------------------------------------------------
   # 
