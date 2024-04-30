@@ -14,13 +14,13 @@ print("Pivot table")
 
 df <- df %>%
   dplyr::group_by(Description,cohort) %>%
-  dplyr::mutate(N = min(N)) %>%
+  dplyr::mutate(N = min(N_midpoint6)) %>%
   dplyr::ungroup() %>%
   unique()
 
 df <- tidyr::pivot_wider(df, 
                          names_from = "cohort",
-                         values_from = c("N"))
+                         values_from = c("N_midpoint6"))
 
 # Save table -------------------------------------------------------------------
 print("Save table")

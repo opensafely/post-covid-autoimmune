@@ -11,7 +11,7 @@ df <- df[grepl("day",df$term) &
            df$model=="mdl_max_adj",
          c("cohort","analysis","outcome","outcome_time_median","term","hr","conf_low","conf_high")]
 
-df <- df[df$term!="days_pre",]
+df <- df[!(df$term %in% c("days_pre","days0_1")),]
 
 # Make columns numeric ---------------------------------------------------------
 print("Make columns numeric")
