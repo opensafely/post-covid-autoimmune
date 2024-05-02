@@ -275,14 +275,14 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
       )
     ),
 
-    action(
-      name = glue("describe_model_input-{name}"),
-      run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
-      needs = list(glue("make_model_input-{name}")),
-      moderately_sensitive = list(
-        describe_model_input = glue("output/describe-model_input-{name}.txt")
-      )
-    ),
+    # action(
+    #   name = glue("describe_model_input-{name}"),
+    #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
+    #   needs = list(glue("make_model_input-{name}")),
+    #   moderately_sensitive = list(
+    #     describe_model_input = glue("output/describe-model_input-{name}.txt")
+    #   )
+    # ),
 
     #comment(glue("Cox model for {outcome} - {cohort}")),
     action(

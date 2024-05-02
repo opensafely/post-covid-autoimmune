@@ -47,8 +47,9 @@ prevax_stop<- "2021-12-14"
 vax_unvax_start<-"2021-06-01"
 vax_unvax_stop <-"2021-12-14"
 ##Cut points 
-prevax_cuts <- "1;28;197;365;714"
-vax_unvax_cuts <- "1;28;197"
+prevax_cuts <- "1;714"    #"1;28;197;365;714"
+vax_unvax_cuts <- "1;197"   #"1;28;197"
+
 
 # all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
 #                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
@@ -59,50 +60,60 @@ cohorts <- c("vax","unvax","prevax")
 
 # Specify outcomes -------------------------------------------------------------
 
-outcomes_runall <- c("out_date_composite_ai",
-                     "out_date_grp1_ifa",
-                     "out_date_grp2_ctd",
-                     "out_date_grp3_isd",
-                     "out_date_grp4_agi_ibd",
-                     "out_date_grp5_atv",
-                     "out_date_grp6_trd",
-                     "out_date_grp7_htd",
-                     "out_date_grp8_ind",
-                     "out_date_ra",
-                     "out_date_psoa",#change to psoa/pa
-                     "out_date_axial",
-                     "out_date_psoriasis",
-                     "out_date_hs",
-                     "out_date_ibd",
-                     "out_date_crohn",
-                     "out_date_uc",
-                     "out_date_celiac",
-                     "out_date_addison",
-                     "out_date_grave",
-                     "out_date_pmr",
-                     "out_date_immune_thromb",
-                     "out_date_pern_anaemia",
-                     "out_date_apa",
-                     "out_date_ms",
-                     "out_date_myasthenia"
-                     )
+outcomes_runall <- "out_date_composite_ai"
 
-outcomes_runmain <- c("out_date_undiff_eia",
-                      "out_date_as",
-                     "out_date_sle",
-                     "out_date_sjs",
-                     "out_date_sss",
-                     "out_date_im",
-                     "out_date_mctd",
-                     "out_date_hashimoto",
-                     "out_date_anca",
-                     "out_date_gca",
-                     "out_date_iga_vasc",
-                     "out_date_aha",
-                     "out_date_glb",
-                     "out_date_long_myelitis",
-                     "out_date_cis")
+                    # c("out_date_composite_ai",
+                    #   "out_date_grp1_ifa",
+                    #   "out_date_grp2_ctd",
+                    #   "out_date_grp3_isd",
+                    #   "out_date_grp4_agi_ibd",
+                    #   "out_date_grp5_atv",
+                    #   "out_date_grp6_trd",
+                    #   "out_date_grp7_htd",
+                    #   "out_date_grp8_ind",
+                    #   "out_date_ra",
+                    #   "out_date_psoa",#change to psoa/pa
+                    #   "out_date_axial",
+                    #   "out_date_psoriasis",
+                    #   "out_date_hs",
+                    #   "out_date_ibd",
+                    #   "out_date_crohn",
+                    #   "out_date_uc",
+                    #   "out_date_celiac",
+                    #   "out_date_addison",
+                    #   "out_date_grave",
+                    #   "out_date_pmr",
+                    #   "out_date_immune_thromb",
+                    #   "out_date_pern_anaemia",
+                    #   "out_date_apa",
+                    #   "out_date_ms",
+                    #   "out_date_myasthenia"
+                    # )
+outcomes_runmain <-  c("out_date_grp1_ifa",
+                       "out_date_grp2_ctd",
+                       "out_date_grp3_isd",
+                       "out_date_grp4_agi_ibd",
+                       "out_date_grp5_atv",
+                       "out_date_grp6_trd",
+                       "out_date_grp7_htd",
+                       "out_date_grp8_ind")
 
+                      # c("out_date_undiff_eia",
+                      #   "out_date_as",
+                      #   "out_date_sle",
+                      #   "out_date_sjs",
+                      #   "out_date_sss",
+                      #   "out_date_im",
+                      #   "out_date_mctd",
+                      #   "out_date_hashimoto",
+                      #   "out_date_anca",
+                      #   "out_date_gca",
+                      #   "out_date_iga_vasc",
+                      #   "out_date_aha",
+                      #   "out_date_glb",
+                      #   "out_date_long_myelitis",
+                      #   "out_date_cis")
+  
 #cov_num_outpatient_rate;
 #cov_cat_ethnicity;
 
@@ -520,9 +531,9 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-# df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
-df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
+# df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
 # df <- df[df$analysis == "sub_covid_history" | df$analysis == "sub_sex_male" | df$analysis == "sub_sex_female",]
 # 
