@@ -245,199 +245,1841 @@ actions:
       highly_sensitive:
         cohort_final: output/input_vax_new_stage1.rds
 
+  make_consort_output:
+    run: r:latest analysis/model/make_other_output.R consort prevax;vax;unvax
+    needs:
+    - stage1_data_cleaning_prevax
+    - stage1_data_cleaning_vax
+    - stage1_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        consort_output_midpoint6: output/consort_output_midpoint6.csv
+
+  make_table1_output:
+    run: r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax
+    needs:
+    - table1_prevax
+    - table1_vax
+    - table1_unvax
+    outputs:
+      moderately_sensitive:
+        table1_output_midpoint6: output/table1_output_midpoint6.csv
+
+  make_extendedtable1_part1_output:
+    run: r:latest analysis/model/make_other_output.R extendedtable1_part1 prevax;vax;unvax
+    needs:
+    - extendedtable1_part1_prevax
+    - extendedtable1_part1_vax
+    - extendedtable1_part1_unvax
+    outputs:
+      moderately_sensitive:
+        table1_output_midpoint6: output/extendedtable1_part1_output_midpoint6.csv
+
+  make_extendedtable1_part2_output:
+    run: r:latest analysis/model/make_other_output.R extendedtable1_part2 prevax;vax;unvax
+    needs:
+    - extendedtable1_part2_prevax
+    - extendedtable1_part2_vax
+    - extendedtable1_part2_unvax
+    outputs:
+      moderately_sensitive:
+        table1_output_midpoint6: output/extendedtable1_part2_output_midpoint6.csv
+
+  make_table2_output:
+    run: r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax
+    needs:
+    - table2_prevax
+    - table2_vax
+    - table2_unvax
+    outputs:
+      moderately_sensitive:
+        table2_output_midpoint6: output/table2_output_midpoint6.csv
+
+  ## Table 1 - prevax 
+
+  table1_prevax:
+    run: r:latest analysis/descriptives/table1.R prevax
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    outputs:
+      moderately_sensitive:
+        table1: output/table1_prevax.csv
+        table1_midpoint6: output/table1_prevax_midpoint6.csv
+
+  extendedtable1_part1_prevax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R prevax
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part1: output/extendedtable1_part1_prevax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_prevax_midpoint6.csv
+
+  extendedtable1_part2_prevax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R prevax
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_prevax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_prevax_midpoint6.csv
+
+  ## Table 1 - unvax 
+
+  table1_unvax:
+    run: r:latest analysis/descriptives/table1.R unvax
+    needs:
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        table1: output/table1_unvax.csv
+        table1_midpoint6: output/table1_unvax_midpoint6.csv
+
+  extendedtable1_part1_unvax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R unvax
+    needs:
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part1: output/extendedtable1_part1_unvax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_unvax_midpoint6.csv
+
+  extendedtable1_part2_unvax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R unvax
+    needs:
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_unvax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_unvax_midpoint6.csv
+
+  ## Table 1 - vax 
+
+  table1_vax:
+    run: r:latest analysis/descriptives/table1.R vax
+    needs:
+    - preprocess_stage1_history_data_cleaning_vax
+    outputs:
+      moderately_sensitive:
+        table1: output/table1_vax.csv
+        table1_midpoint6: output/table1_vax_midpoint6.csv
+
+  extendedtable1_part1_vax:
+    run: r:latest analysis/descriptives/extendedtable1_part1.R vax
+    needs:
+    - preprocess_stage1_history_data_cleaning_vax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part1: output/extendedtable1_part1_vax.csv
+        extendedtable1_part1_midpoint6: output/extendedtable1_part1_vax_midpoint6.csv
+
+  extendedtable1_part2_vax:
+    run: r:latest analysis/descriptives/extendedtable1_part2.R vax
+    needs:
+    - preprocess_stage1_history_data_cleaning_vax
+    outputs:
+      moderately_sensitive:
+        extendedtable1_part2: output/extendedtable1_part2_vax.csv
+        extendedtable1_part2_midpoint6: output/extendedtable1_part2_vax_midpoint6.csv
+
   ## Stage 5 - Run models 
 
-  make_model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_bin_history_composite_ai_false-composite_ai
+  make_model_input-cohort_prevax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-composite_ai
     needs:
     - preprocess_stage1_history_data_cleaning_prevax
     - preprocess_stage1_history_data_cleaning_vax
     - preprocess_stage1_history_data_cleaning_unvax
     outputs:
       highly_sensitive:
-        model_input: output/model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai.rds
+        model_input: output/model_input-cohort_prevax-main-composite_ai.rds
 
-  describe_model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai
-      rds
-    needs:
-    - make_model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai
-    outputs:
-      moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai.txt
-
-  cox_ipw-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai.rds
+  cox_ipw-cohort_prevax-main-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-composite_ai.rds
       --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
       --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
-      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
-      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
-      --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai.csv
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-composite_ai.csv
     needs:
-    - make_model_input-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai
+    - make_model_input-cohort_prevax-main-composite_ai
     outputs:
       moderately_sensitive:
-        model_output: output/model_output-cohort_prevax-sub_bin_history_composite_ai_false-composite_ai.csv
+        model_output: output/model_output-cohort_prevax-main-composite_ai.csv
 
-  make_model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_bin_history_composite_ai_false-composite_ai
+  make_model_input-cohort_prevax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp1_ifa
     needs:
     - preprocess_stage1_history_data_cleaning_prevax
     - preprocess_stage1_history_data_cleaning_vax
     - preprocess_stage1_history_data_cleaning_unvax
     outputs:
       highly_sensitive:
-        model_input: output/model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai.rds
+        model_input: output/model_input-cohort_prevax-main-grp1_ifa.rds
 
-  describe_model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai
-      rds
-    needs:
-    - make_model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai
-    outputs:
-      moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai.txt
-
-  cox_ipw-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai.rds
-      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
-      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
-      --study_stop=2021-12-14 --cut_points=1;28;197 --controls_per_case=20 --total_event_threshold=50
-      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai.csv
-    needs:
-    - make_model_input-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai
-    outputs:
-      moderately_sensitive:
-        model_output: output/model_output-cohort_unvax-sub_bin_history_composite_ai_false-composite_ai.csv
-
-  make_model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_bin_history_composite_ai_false-composite_ai
-    needs:
-    - preprocess_stage1_history_data_cleaning_prevax
-    - preprocess_stage1_history_data_cleaning_vax
-    - preprocess_stage1_history_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai.rds
-
-  describe_model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai
-      rds
-    needs:
-    - make_model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai
-    outputs:
-      moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai.txt
-
-  cox_ipw-cohort_vax-sub_bin_history_composite_ai_false-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai.rds
-      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
-      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
-      --study_stop=2021-12-14 --cut_points=1;28;197 --controls_per_case=20 --total_event_threshold=50
-      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_bin_history_composite_ai_false-composite_ai.csv
-    needs:
-    - make_model_input-cohort_vax-sub_bin_history_composite_ai_false-composite_ai
-    outputs:
-      moderately_sensitive:
-        model_output: output/model_output-cohort_vax-sub_bin_history_composite_ai_false-composite_ai.csv
-
-  make_model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_bin_history_composite_ai_true-composite_ai
-    needs:
-    - preprocess_stage1_history_data_cleaning_prevax
-    - preprocess_stage1_history_data_cleaning_vax
-    - preprocess_stage1_history_data_cleaning_unvax
-    outputs:
-      highly_sensitive:
-        model_input: output/model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai.rds
-
-  describe_model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai
-      rds
-    needs:
-    - make_model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai
-    outputs:
-      moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai.txt
-
-  cox_ipw-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai.rds
-      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
+  cox_ipw-cohort_prevax-main-grp1_ifa:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp1_ifa.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
       --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
-      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
-      --total_event_threshold=50 --episode_event_threshold=5 --covariate_threshold=5
-      --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai.csv
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp1_ifa.csv
     needs:
-    - make_model_input-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai
+    - make_model_input-cohort_prevax-main-grp1_ifa
     outputs:
       moderately_sensitive:
-        model_output: output/model_output-cohort_prevax-sub_bin_history_composite_ai_true-composite_ai.csv
+        model_output: output/model_output-cohort_prevax-main-grp1_ifa.csv
 
-  make_model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_bin_history_composite_ai_true-composite_ai
+  make_model_input-cohort_prevax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp2_ctd
     needs:
     - preprocess_stage1_history_data_cleaning_prevax
     - preprocess_stage1_history_data_cleaning_vax
     - preprocess_stage1_history_data_cleaning_unvax
     outputs:
       highly_sensitive:
-        model_input: output/model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai.rds
+        model_input: output/model_input-cohort_prevax-main-grp2_ctd.rds
 
-  describe_model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai
-      rds
+  cox_ipw-cohort_prevax-main-grp2_ctd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp2_ctd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp2_ctd.csv
     needs:
-    - make_model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai
+    - make_model_input-cohort_prevax-main-grp2_ctd
     outputs:
       moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai.txt
+        model_output: output/model_output-cohort_prevax-main-grp2_ctd.csv
 
-  cox_ipw-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai.rds
-      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
-      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
-      --study_stop=2021-12-14 --cut_points=1;28;197 --controls_per_case=20 --total_event_threshold=50
-      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai.csv
-    needs:
-    - make_model_input-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai
-    outputs:
-      moderately_sensitive:
-        model_output: output/model_output-cohort_unvax-sub_bin_history_composite_ai_true-composite_ai.csv
-
-  make_model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_bin_history_composite_ai_true-composite_ai
+  make_model_input-cohort_prevax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp3_isd
     needs:
     - preprocess_stage1_history_data_cleaning_prevax
     - preprocess_stage1_history_data_cleaning_vax
     - preprocess_stage1_history_data_cleaning_unvax
     outputs:
       highly_sensitive:
-        model_input: output/model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai.rds
+        model_input: output/model_input-cohort_prevax-main-grp3_isd.rds
 
-  describe_model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai:
-    run: r:latest analysis/model/describe_file.R model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai
-      rds
+  cox_ipw-cohort_prevax-main-grp3_isd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp3_isd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp3_isd.csv
     needs:
-    - make_model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai
+    - make_model_input-cohort_prevax-main-grp3_isd
     outputs:
       moderately_sensitive:
-        describe_model_input: output/describe-model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai.txt
+        model_output: output/model_output-cohort_prevax-main-grp3_isd.csv
 
-  cox_ipw-cohort_vax-sub_bin_history_composite_ai_true-composite_ai:
-    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai.rds
+  make_model_input-cohort_prevax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp4_agi_ibd.rds
+
+  cox_ipw-cohort_prevax-main-grp4_agi_ibd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp4_agi_ibd.rds
       --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
-      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke;cov_bin_history_composite_ai
-      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
-      --study_stop=2021-12-14 --cut_points=1;28;197 --controls_per_case=20 --total_event_threshold=50
-      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_bin_history_composite_ai_true-composite_ai.csv
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp4_agi_ibd.csv
     needs:
-    - make_model_input-cohort_vax-sub_bin_history_composite_ai_true-composite_ai
+    - make_model_input-cohort_prevax-main-grp4_agi_ibd
     outputs:
       moderately_sensitive:
-        model_output: output/model_output-cohort_vax-sub_bin_history_composite_ai_true-composite_ai.csv
+        model_output: output/model_output-cohort_prevax-main-grp4_agi_ibd.csv
+
+  make_model_input-cohort_prevax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp5_atv
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp5_atv.rds
+
+  cox_ipw-cohort_prevax-main-grp5_atv:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp5_atv.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp5_atv.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp5_atv
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-main-grp5_atv.csv
+
+  make_model_input-cohort_prevax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp6_trd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp6_trd.rds
+
+  cox_ipw-cohort_prevax-main-grp6_trd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp6_trd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp6_trd.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp6_trd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-main-grp6_trd.csv
+
+  make_model_input-cohort_prevax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp7_htd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp7_htd.rds
+
+  cox_ipw-cohort_prevax-main-grp7_htd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp7_htd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp7_htd.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp7_htd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-main-grp7_htd.csv
+
+  make_model_input-cohort_prevax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-main-grp8_ind
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-main-grp8_ind.rds
+
+  cox_ipw-cohort_prevax-main-grp8_ind:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-main-grp8_ind.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-main-grp8_ind.csv
+    needs:
+    - make_model_input-cohort_prevax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-main-grp8_ind.csv
+
+  make_model_input-cohort_unvax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-composite_ai.rds
+
+  cox_ipw-cohort_unvax-main-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-main-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-composite_ai.csv
+
+  make_model_input-cohort_unvax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp1_ifa
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp1_ifa.rds
+
+  cox_ipw-cohort_unvax-main-grp1_ifa:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp1_ifa.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp1_ifa.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp1_ifa
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp1_ifa.csv
+
+  make_model_input-cohort_unvax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp2_ctd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp2_ctd.rds
+
+  cox_ipw-cohort_unvax-main-grp2_ctd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp2_ctd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp2_ctd.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp2_ctd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp2_ctd.csv
+
+  make_model_input-cohort_unvax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp3_isd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp3_isd.rds
+
+  cox_ipw-cohort_unvax-main-grp3_isd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp3_isd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp3_isd.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp3_isd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp3_isd.csv
+
+  make_model_input-cohort_unvax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp4_agi_ibd.rds
+
+  cox_ipw-cohort_unvax-main-grp4_agi_ibd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp4_agi_ibd.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp4_agi_ibd.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp4_agi_ibd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp4_agi_ibd.csv
+
+  make_model_input-cohort_unvax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp5_atv
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp5_atv.rds
+
+  cox_ipw-cohort_unvax-main-grp5_atv:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp5_atv.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp5_atv.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp5_atv
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp5_atv.csv
+
+  make_model_input-cohort_unvax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp6_trd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp6_trd.rds
+
+  cox_ipw-cohort_unvax-main-grp6_trd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp6_trd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp6_trd.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp6_trd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp6_trd.csv
+
+  make_model_input-cohort_unvax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp7_htd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp7_htd.rds
+
+  cox_ipw-cohort_unvax-main-grp7_htd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp7_htd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp7_htd.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp7_htd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp7_htd.csv
+
+  make_model_input-cohort_unvax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-main-grp8_ind
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-main-grp8_ind.rds
+
+  cox_ipw-cohort_unvax-main-grp8_ind:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-main-grp8_ind.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-main-grp8_ind.csv
+    needs:
+    - make_model_input-cohort_unvax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-main-grp8_ind.csv
+
+  make_model_input-cohort_vax-main-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-composite_ai.rds
+
+  cox_ipw-cohort_vax-main-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-composite_ai.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-main-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-composite_ai.csv
+
+  make_model_input-cohort_vax-main-grp1_ifa:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp1_ifa
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp1_ifa.rds
+
+  cox_ipw-cohort_vax-main-grp1_ifa:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp1_ifa.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp1_ifa.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp1_ifa
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp1_ifa.csv
+
+  make_model_input-cohort_vax-main-grp2_ctd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp2_ctd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp2_ctd.rds
+
+  cox_ipw-cohort_vax-main-grp2_ctd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp2_ctd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp2_ctd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp2_ctd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp2_ctd.csv
+
+  make_model_input-cohort_vax-main-grp3_isd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp3_isd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp3_isd.rds
+
+  cox_ipw-cohort_vax-main-grp3_isd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp3_isd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp3_isd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp3_isd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp3_isd.csv
+
+  make_model_input-cohort_vax-main-grp4_agi_ibd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp4_agi_ibd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp4_agi_ibd.rds
+
+  cox_ipw-cohort_vax-main-grp4_agi_ibd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp4_agi_ibd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp4_agi_ibd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp4_agi_ibd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp4_agi_ibd.csv
+
+  make_model_input-cohort_vax-main-grp5_atv:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp5_atv
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp5_atv.rds
+
+  cox_ipw-cohort_vax-main-grp5_atv:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp5_atv.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp5_atv.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp5_atv
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp5_atv.csv
+
+  make_model_input-cohort_vax-main-grp6_trd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp6_trd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp6_trd.rds
+
+  cox_ipw-cohort_vax-main-grp6_trd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp6_trd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp6_trd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp6_trd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp6_trd.csv
+
+  make_model_input-cohort_vax-main-grp7_htd:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp7_htd
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp7_htd.rds
+
+  cox_ipw-cohort_vax-main-grp7_htd:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp7_htd.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp7_htd.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp7_htd
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp7_htd.csv
+
+  make_model_input-cohort_vax-main-grp8_ind:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-main-grp8_ind
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-main-grp8_ind.rds
+
+  cox_ipw-cohort_vax-main-grp8_ind:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-main-grp8_ind.rds --ipw=TRUE
+      --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-main-grp8_ind.csv
+    needs:
+    - make_model_input-cohort_vax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-main-grp8_ind.csv
+
+  make_model_input-cohort_prevax-sub_age_18_39-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_age_18_39-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_age_18_39-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_age_18_39-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_age_18_39-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_prevax-sub_age_18_39-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_age_18_39-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_age_18_39-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_age_18_39-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_age_18_39-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_age_18_39-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_age_18_39-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_age_18_39-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_unvax-sub_age_18_39-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_age_18_39-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_age_18_39-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_age_18_39-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_age_18_39-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_age_18_39-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_age_18_39-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_age_18_39-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_vax-sub_age_18_39-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_age_18_39-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_age_18_39-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_age_40_59-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_age_40_59-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_age_40_59-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_age_40_59-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_age_40_59-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_prevax-sub_age_40_59-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_age_40_59-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_age_40_59-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_age_40_59-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_age_40_59-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_age_40_59-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_age_40_59-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_age_40_59-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_unvax-sub_age_40_59-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_age_40_59-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_age_40_59-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_age_40_59-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_age_40_59-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_age_40_59-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_age_40_59-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_age_40_59-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_vax-sub_age_40_59-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_age_40_59-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_age_40_59-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_age_60_79-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_age_60_79-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_age_60_79-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_age_60_79-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_age_60_79-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_prevax-sub_age_60_79-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_age_60_79-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_age_60_79-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_age_60_79-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_age_60_79-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_age_60_79-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_age_60_79-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_age_60_79-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_unvax-sub_age_60_79-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_age_60_79-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_age_60_79-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_age_60_79-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_age_60_79-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_age_60_79-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_age_60_79-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_age_60_79-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_vax-sub_age_60_79-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_age_60_79-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_age_60_79-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_age_80_110-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_age_80_110-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_age_80_110-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_age_80_110-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_age_80_110-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_prevax-sub_age_80_110-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_age_80_110-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_age_80_110-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_age_80_110-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_age_80_110-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_age_80_110-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_age_80_110-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_age_80_110-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_unvax-sub_age_80_110-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_age_80_110-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_age_80_110-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_age_80_110-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_age_80_110-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_age_80_110-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_age_80_110-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_age_80_110-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=FALSE --df_output=model_output-cohort_vax-sub_age_80_110-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_age_80_110-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_age_80_110-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_covid_history-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_history-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_covid_history-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_covid_history-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_covid_history-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_covid_history-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_covid_history-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_covid_history-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_covid_history-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_history-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_covid_history-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_covid_history-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_covid_history-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_covid_history-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_covid_history-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_covid_history-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_covid_hospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_hospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_covid_hospitalised-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_covid_hospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_covid_hospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_covid_hospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_covid_hospitalised-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_covid_hospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_hospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_covid_hospitalised-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_covid_hospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_covid_hospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_covid_hospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_covid_hospitalised-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_covid_hospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_hospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_covid_hospitalised-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_covid_hospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_covid_hospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_covid_hospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_covid_hospitalised-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_covid_nonhospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_covid_nonhospitalised-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_covid_nonhospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_covid_nonhospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_covid_nonhospitalised-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_covid_nonhospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_covid_nonhospitalised-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_covid_nonhospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_covid_nonhospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_covid_nonhospitalised-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_covid_nonhospitalised-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_covid_nonhospitalised-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_covid_nonhospitalised-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_covid_nonhospitalised-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_covid_nonhospitalised-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_covid_nonhospitalised-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_ethnicity_asian-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_ethnicity_asian-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_ethnicity_asian-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_ethnicity_asian-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_ethnicity_asian-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_ethnicity_asian-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_ethnicity_asian-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_ethnicity_asian-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_ethnicity_asian-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_ethnicity_asian-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_ethnicity_asian-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_ethnicity_asian-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_ethnicity_asian-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_ethnicity_asian-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_ethnicity_asian-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_ethnicity_asian-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_ethnicity_asian-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_ethnicity_asian-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_ethnicity_asian-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_ethnicity_asian-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_ethnicity_asian-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_ethnicity_asian-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_ethnicity_asian-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_ethnicity_asian-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_ethnicity_black-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_ethnicity_black-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_ethnicity_black-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_ethnicity_black-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_ethnicity_black-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_ethnicity_black-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_ethnicity_black-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_ethnicity_black-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_ethnicity_black-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_ethnicity_black-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_ethnicity_black-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_ethnicity_black-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_ethnicity_black-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_ethnicity_black-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_ethnicity_black-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_ethnicity_black-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_ethnicity_black-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_ethnicity_black-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_ethnicity_black-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_ethnicity_black-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_ethnicity_black-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_ethnicity_black-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_ethnicity_black-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_ethnicity_black-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_ethnicity_mixed-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_ethnicity_mixed-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_ethnicity_mixed-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_ethnicity_mixed-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_ethnicity_mixed-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_ethnicity_mixed-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_ethnicity_mixed-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_ethnicity_mixed-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_ethnicity_mixed-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_ethnicity_mixed-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_ethnicity_mixed-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_ethnicity_mixed-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_ethnicity_mixed-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_ethnicity_mixed-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_ethnicity_mixed-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_ethnicity_mixed-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_ethnicity_mixed-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_ethnicity_mixed-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_ethnicity_mixed-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_ethnicity_mixed-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_ethnicity_mixed-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_ethnicity_mixed-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_ethnicity_mixed-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_ethnicity_mixed-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_ethnicity_other-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_ethnicity_other-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_ethnicity_other-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_ethnicity_other-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_ethnicity_other-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_ethnicity_other-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_ethnicity_other-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_ethnicity_other-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_ethnicity_other-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_ethnicity_other-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_ethnicity_other-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_ethnicity_other-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_ethnicity_other-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_ethnicity_other-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_ethnicity_other-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_ethnicity_other-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_ethnicity_other-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_ethnicity_other-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_ethnicity_other-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_ethnicity_other-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_ethnicity_other-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_ethnicity_other-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_ethnicity_other-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_ethnicity_other-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_ethnicity_white-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_ethnicity_white-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_ethnicity_white-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_ethnicity_white-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_ethnicity_white-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_ethnicity_white-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_ethnicity_white-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_ethnicity_white-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_ethnicity_white-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_ethnicity_white-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_ethnicity_white-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_ethnicity_white-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_ethnicity_white-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_ethnicity_white-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_ethnicity_white-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_ethnicity_white-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_ethnicity_white-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_ethnicity_white-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_ethnicity_white-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_ethnicity_white-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_ethnicity_white-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_ethnicity_white-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_ethnicity_white-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_ethnicity_white-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_sex_female-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_sex_female-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_sex_female-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_sex_female-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_sex_female-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_sex_female-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_sex_female-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_sex_female-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_sex_female-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_sex_female-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_sex_female-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_sex_female-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_sex_female-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_sex_female-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_sex_female-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_sex_female-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_sex_female-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_sex_female-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_sex_female-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_sex_female-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_sex_female-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_sex_female-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_sex_female-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_sex_female-composite_ai.csv
+
+  make_model_input-cohort_prevax-sub_sex_male-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_prevax-sub_sex_male-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_prevax-sub_sex_male-composite_ai.rds
+
+  cox_ipw-cohort_prevax-sub_sex_male-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_prevax-sub_sex_male-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;714 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_prevax-sub_sex_male-composite_ai.csv
+    needs:
+    - make_model_input-cohort_prevax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_prevax-sub_sex_male-composite_ai.csv
+
+  make_model_input-cohort_unvax-sub_sex_male-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_unvax-sub_sex_male-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_unvax-sub_sex_male-composite_ai.rds
+
+  cox_ipw-cohort_unvax-sub_sex_male-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_unvax-sub_sex_male-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_unvax-sub_sex_male-composite_ai.csv
+    needs:
+    - make_model_input-cohort_unvax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_unvax-sub_sex_male-composite_ai.csv
+
+  make_model_input-cohort_vax-sub_sex_male-composite_ai:
+    run: r:latest analysis/model/make_model_input.R cohort_vax-sub_sex_male-composite_ai
+    needs:
+    - preprocess_stage1_history_data_cleaning_prevax
+    - preprocess_stage1_history_data_cleaning_vax
+    - preprocess_stage1_history_data_cleaning_unvax
+    outputs:
+      highly_sensitive:
+        model_input: output/model_input-cohort_vax-sub_sex_male-composite_ai.rds
+
+  cox_ipw-cohort_vax-sub_sex_male-composite_ai:
+    run: cox-ipw:v0.0.31 --df_input=model_input-cohort_vax-sub_sex_male-composite_ai.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=NULL
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2021-06-01
+      --study_stop=2021-12-14 --cut_points=1;197 --controls_per_case=20 --total_event_threshold=50
+      --episode_event_threshold=5 --covariate_threshold=5 --age_spline=TRUE --df_output=model_output-cohort_vax-sub_sex_male-composite_ai.csv
+    needs:
+    - make_model_input-cohort_vax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output-cohort_vax-sub_sex_male-composite_ai.csv
+
+  ## Table 2 - prevax 
+
+  table2_prevax:
+    run: r:latest analysis/descriptives/table2.R prevax
+    needs:
+    - make_model_input-cohort_prevax-main-composite_ai
+    - make_model_input-cohort_prevax-main-grp1_ifa
+    - make_model_input-cohort_prevax-main-grp2_ctd
+    - make_model_input-cohort_prevax-main-grp3_isd
+    - make_model_input-cohort_prevax-main-grp4_agi_ibd
+    - make_model_input-cohort_prevax-main-grp5_atv
+    - make_model_input-cohort_prevax-main-grp6_trd
+    - make_model_input-cohort_prevax-main-grp7_htd
+    - make_model_input-cohort_prevax-main-grp8_ind
+    - make_model_input-cohort_prevax-sub_age_18_39-composite_ai
+    - make_model_input-cohort_prevax-sub_age_40_59-composite_ai
+    - make_model_input-cohort_prevax-sub_age_60_79-composite_ai
+    - make_model_input-cohort_prevax-sub_age_80_110-composite_ai
+    - make_model_input-cohort_prevax-sub_covid_hospitalised-composite_ai
+    - make_model_input-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    - make_model_input-cohort_prevax-sub_ethnicity_asian-composite_ai
+    - make_model_input-cohort_prevax-sub_ethnicity_black-composite_ai
+    - make_model_input-cohort_prevax-sub_ethnicity_mixed-composite_ai
+    - make_model_input-cohort_prevax-sub_ethnicity_other-composite_ai
+    - make_model_input-cohort_prevax-sub_ethnicity_white-composite_ai
+    - make_model_input-cohort_prevax-sub_sex_female-composite_ai
+    - make_model_input-cohort_prevax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        table2: output/table2_prevax.csv
+        table2_midpoint6: output/table2_prevax_midpoint6.csv
+
+  ## Table 2 - unvax 
+
+  table2_unvax:
+    run: r:latest analysis/descriptives/table2.R unvax
+    needs:
+    - make_model_input-cohort_unvax-main-composite_ai
+    - make_model_input-cohort_unvax-main-grp1_ifa
+    - make_model_input-cohort_unvax-main-grp2_ctd
+    - make_model_input-cohort_unvax-main-grp3_isd
+    - make_model_input-cohort_unvax-main-grp4_agi_ibd
+    - make_model_input-cohort_unvax-main-grp5_atv
+    - make_model_input-cohort_unvax-main-grp6_trd
+    - make_model_input-cohort_unvax-main-grp7_htd
+    - make_model_input-cohort_unvax-main-grp8_ind
+    - make_model_input-cohort_unvax-sub_age_18_39-composite_ai
+    - make_model_input-cohort_unvax-sub_age_40_59-composite_ai
+    - make_model_input-cohort_unvax-sub_age_60_79-composite_ai
+    - make_model_input-cohort_unvax-sub_age_80_110-composite_ai
+    - make_model_input-cohort_unvax-sub_covid_history-composite_ai
+    - make_model_input-cohort_unvax-sub_covid_hospitalised-composite_ai
+    - make_model_input-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    - make_model_input-cohort_unvax-sub_ethnicity_asian-composite_ai
+    - make_model_input-cohort_unvax-sub_ethnicity_black-composite_ai
+    - make_model_input-cohort_unvax-sub_ethnicity_mixed-composite_ai
+    - make_model_input-cohort_unvax-sub_ethnicity_other-composite_ai
+    - make_model_input-cohort_unvax-sub_ethnicity_white-composite_ai
+    - make_model_input-cohort_unvax-sub_sex_female-composite_ai
+    - make_model_input-cohort_unvax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        table2: output/table2_unvax.csv
+        table2_midpoint6: output/table2_unvax_midpoint6.csv
+
+  ## Table 2 - vax 
+
+  table2_vax:
+    run: r:latest analysis/descriptives/table2.R vax
+    needs:
+    - make_model_input-cohort_vax-main-composite_ai
+    - make_model_input-cohort_vax-main-grp1_ifa
+    - make_model_input-cohort_vax-main-grp2_ctd
+    - make_model_input-cohort_vax-main-grp3_isd
+    - make_model_input-cohort_vax-main-grp4_agi_ibd
+    - make_model_input-cohort_vax-main-grp5_atv
+    - make_model_input-cohort_vax-main-grp6_trd
+    - make_model_input-cohort_vax-main-grp7_htd
+    - make_model_input-cohort_vax-main-grp8_ind
+    - make_model_input-cohort_vax-sub_age_18_39-composite_ai
+    - make_model_input-cohort_vax-sub_age_40_59-composite_ai
+    - make_model_input-cohort_vax-sub_age_60_79-composite_ai
+    - make_model_input-cohort_vax-sub_age_80_110-composite_ai
+    - make_model_input-cohort_vax-sub_covid_history-composite_ai
+    - make_model_input-cohort_vax-sub_covid_hospitalised-composite_ai
+    - make_model_input-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    - make_model_input-cohort_vax-sub_ethnicity_asian-composite_ai
+    - make_model_input-cohort_vax-sub_ethnicity_black-composite_ai
+    - make_model_input-cohort_vax-sub_ethnicity_mixed-composite_ai
+    - make_model_input-cohort_vax-sub_ethnicity_other-composite_ai
+    - make_model_input-cohort_vax-sub_ethnicity_white-composite_ai
+    - make_model_input-cohort_vax-sub_sex_female-composite_ai
+    - make_model_input-cohort_vax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        table2: output/table2_vax.csv
+        table2_midpoint6: output/table2_vax_midpoint6.csv
+
+  ## Make absolute excess risk (AER) input 
+
+  make_aer_input:
+    run: r:latest analysis/model/make_aer_input.R
+    needs:
+    - make_model_input-cohort_prevax-main-composite_ai
+    - make_model_input-cohort_prevax-main-grp1_ifa
+    - make_model_input-cohort_prevax-main-grp2_ctd
+    - make_model_input-cohort_prevax-main-grp3_isd
+    - make_model_input-cohort_prevax-main-grp4_agi_ibd
+    - make_model_input-cohort_prevax-main-grp5_atv
+    - make_model_input-cohort_prevax-main-grp6_trd
+    - make_model_input-cohort_prevax-main-grp7_htd
+    - make_model_input-cohort_prevax-main-grp8_ind
+    - make_model_input-cohort_unvax-main-composite_ai
+    - make_model_input-cohort_unvax-main-grp1_ifa
+    - make_model_input-cohort_unvax-main-grp2_ctd
+    - make_model_input-cohort_unvax-main-grp3_isd
+    - make_model_input-cohort_unvax-main-grp4_agi_ibd
+    - make_model_input-cohort_unvax-main-grp5_atv
+    - make_model_input-cohort_unvax-main-grp6_trd
+    - make_model_input-cohort_unvax-main-grp7_htd
+    - make_model_input-cohort_unvax-main-grp8_ind
+    - make_model_input-cohort_vax-main-composite_ai
+    - make_model_input-cohort_vax-main-grp1_ifa
+    - make_model_input-cohort_vax-main-grp2_ctd
+    - make_model_input-cohort_vax-main-grp3_isd
+    - make_model_input-cohort_vax-main-grp4_agi_ibd
+    - make_model_input-cohort_vax-main-grp5_atv
+    - make_model_input-cohort_vax-main-grp6_trd
+    - make_model_input-cohort_vax-main-grp7_htd
+    - make_model_input-cohort_vax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        aer_input: output/aer_input-main.csv
+        aer_input_midpoint6: output/aer_input-main-midpoint6.csv
 
