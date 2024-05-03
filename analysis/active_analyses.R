@@ -154,6 +154,11 @@ for (c in cohorts) {
                          age_spline = TRUE,
                          analysis = "main")
     
+
+  }
+
+  for (i in outcomes_runall) {
+    
     ## analysis: sub_covid_hospitalised ----------------------------------------
     
     df[nrow(df)+1,] <- c(cohort = c,
@@ -201,7 +206,7 @@ for (c in cohorts) {
     ## analysis: sub_covid_history ---------------------------------------------
     
     if (c!="prevax") {
-
+      
       df[nrow(df)+1,] <- c(cohort = c,
                            exposure = exposure,
                            outcome = i,
@@ -221,12 +226,8 @@ for (c in cohorts) {
                            covariate_threshold = covariate_threshold,
                            age_spline = TRUE,
                            analysis = "sub_covid_history")
-
+      
     }
-
-  }
-
-  for (i in outcomes_runall) {
 
     ## analysis: sub_sex_female ------------------------------------------------
 

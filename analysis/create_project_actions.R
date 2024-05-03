@@ -40,7 +40,7 @@ failed_models <- c(
 # Determine which outputs are ready --------------------------------------------
 
 success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
-                              sheet = "autoimmune",
+                              sheet = "autoimmune-v3",
                               col_types = c("text","text", "text", "text", "text", "text",
                                             "text","text",
                                             "text", "text", "text", "text",
