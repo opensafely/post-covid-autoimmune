@@ -48,8 +48,7 @@ vax_unvax_start<-"2021-06-01"
 vax_unvax_stop <-"2021-12-14"
 ##Cut points 
 prevax_cuts <- "1;714"    #"1;28;197;365;714"
-vax_unvax_cuts <- "1;197"   #"1;28;197"
-
+vax_unvax_cuts <- "1;197" #"1;28;197"
 
 # all_covars <- paste0("cov_cat_ethnicity;cov_cat_deprivation;cov_cat_smoking_status;cov_bin_carehome_status;",
 #                      "cov_num_consulation_rate;cov_bin_healthcare_worker;cov_bin_obesity;")
@@ -60,7 +59,7 @@ cohorts <- c("vax","unvax","prevax")
 
 # Specify outcomes -------------------------------------------------------------
 
-outcomes_runall <- "out_date_composite_ai"
+outcomes_runall <- c("out_date_composite_ai")
 
                     # c("out_date_composite_ai",
                     #   "out_date_grp1_ifa",
@@ -473,52 +472,52 @@ for (c in cohorts) {
     
   }
   
-  for (i in composite_ai_sub_out) { #
-    
-    ## analysis: sub_bin_history_composite_ai_true -----------------------------
-    
-    df[nrow(df)+1,] <- c(cohort = c,
-                         exposure = exposure,
-                         outcome = i,
-                         ipw = ipw,
-                         strata = strata,
-                         covariate_sex = covariate_sex,
-                         covariate_age = covariate_age,
-                         covariate_other = sensitivity_covars, #gsub("cov_bin_history_composite_ai;","",sensitivity_covars),
-                         cox_start = cox_start,
-                         cox_stop = cox_stop,
-                         study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
-                         study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
-                         cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
-                         controls_per_case = controls_per_case,
-                         total_event_threshold = total_event_threshold,
-                         episode_event_threshold = episode_event_threshold,
-                         covariate_threshold = covariate_threshold,
-                         age_spline = TRUE,
-                         analysis = "sub_bin_history_composite_ai_true")
-    
-    ## analysis: sub_bin_history_composite_ai_false ----------------------------
-    
-    df[nrow(df)+1,] <- c(cohort = c,
-                         exposure = exposure,
-                         outcome = i,
-                         ipw = ipw,
-                         strata = strata,
-                         covariate_sex = covariate_sex,
-                         covariate_age = covariate_age,
-                         covariate_other = sensitivity_covars, #gsub("cov_bin_history_composite_ai;","",sensitivity_covars),
-                         cox_start = cox_start,
-                         cox_stop = cox_stop,
-                         study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
-                         study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
-                         cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
-                         controls_per_case = controls_per_case,
-                         total_event_threshold = total_event_threshold,
-                         episode_event_threshold = episode_event_threshold,
-                         covariate_threshold = covariate_threshold,
-                         age_spline = TRUE,
-                         analysis = "sub_bin_history_composite_ai_false")
-  }
+  # for (i in composite_ai_sub_out) { #
+  #   
+  #   ## analysis: sub_bin_history_composite_ai_true -----------------------------
+  #   
+  #   df[nrow(df)+1,] <- c(cohort = c,
+  #                        exposure = exposure,
+  #                        outcome = i,
+  #                        ipw = ipw,
+  #                        strata = strata,
+  #                        covariate_sex = covariate_sex,
+  #                        covariate_age = covariate_age,
+  #                        covariate_other = sensitivity_covars, #gsub("cov_bin_history_composite_ai;","",sensitivity_covars),
+  #                        cox_start = cox_start,
+  #                        cox_stop = cox_stop,
+  #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
+  #                        study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
+  #                        cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
+  #                        controls_per_case = controls_per_case,
+  #                        total_event_threshold = total_event_threshold,
+  #                        episode_event_threshold = episode_event_threshold,
+  #                        covariate_threshold = covariate_threshold,
+  #                        age_spline = TRUE,
+  #                        analysis = "sub_bin_history_composite_ai_true")
+  #   
+  #   ## analysis: sub_bin_history_composite_ai_false ----------------------------
+  #   
+  #   df[nrow(df)+1,] <- c(cohort = c,
+  #                        exposure = exposure,
+  #                        outcome = i,
+  #                        ipw = ipw,
+  #                        strata = strata,
+  #                        covariate_sex = covariate_sex,
+  #                        covariate_age = covariate_age,
+  #                        covariate_other = sensitivity_covars, #gsub("cov_bin_history_composite_ai;","",sensitivity_covars),
+  #                        cox_start = cox_start,
+  #                        cox_stop = cox_stop,
+  #                        study_start = ifelse(c=="prevax", prevax_start, vax_unvax_start),
+  #                        study_stop = ifelse(c=="prevax", prevax_stop, vax_unvax_stop),
+  #                        cut_points = ifelse(c=="prevax", prevax_cuts, vax_unvax_cuts),
+  #                        controls_per_case = controls_per_case,
+  #                        total_event_threshold = total_event_threshold,
+  #                        episode_event_threshold = episode_event_threshold,
+  #                        covariate_threshold = covariate_threshold,
+  #                        age_spline = TRUE,
+  #                        analysis = "sub_bin_history_composite_ai_false")
+  # }
 }
 #}
 
@@ -531,7 +530,7 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+# df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
 
 # df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
