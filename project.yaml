@@ -2046,6 +2046,82 @@ actions:
         table2: output/table2_vax.csv
         table2_midpoint6: output/table2_vax_midpoint6.csv
 
+  make_model_output:
+    run: r:latest analysis/model/make_model_output.R
+    needs:
+    - cox_ipw-cohort_prevax-main-composite_ai
+    - cox_ipw-cohort_prevax-main-grp1_ifa
+    - cox_ipw-cohort_prevax-main-grp2_ctd
+    - cox_ipw-cohort_prevax-main-grp3_isd
+    - cox_ipw-cohort_prevax-main-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-main-grp5_atv
+    - cox_ipw-cohort_prevax-main-grp6_trd
+    - cox_ipw-cohort_prevax-main-grp7_htd
+    - cox_ipw-cohort_prevax-main-grp8_ind
+    - cox_ipw-cohort_unvax-main-composite_ai
+    - cox_ipw-cohort_unvax-main-grp1_ifa
+    - cox_ipw-cohort_unvax-main-grp2_ctd
+    - cox_ipw-cohort_unvax-main-grp3_isd
+    - cox_ipw-cohort_unvax-main-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-main-grp5_atv
+    - cox_ipw-cohort_unvax-main-grp6_trd
+    - cox_ipw-cohort_unvax-main-grp7_htd
+    - cox_ipw-cohort_unvax-main-grp8_ind
+    - cox_ipw-cohort_vax-main-composite_ai
+    - cox_ipw-cohort_vax-main-grp1_ifa
+    - cox_ipw-cohort_vax-main-grp2_ctd
+    - cox_ipw-cohort_vax-main-grp3_isd
+    - cox_ipw-cohort_vax-main-grp4_agi_ibd
+    - cox_ipw-cohort_vax-main-grp5_atv
+    - cox_ipw-cohort_vax-main-grp6_trd
+    - cox_ipw-cohort_vax-main-grp7_htd
+    - cox_ipw-cohort_vax-main-grp8_ind
+    - cox_ipw-cohort_prevax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_vax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_vax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_vax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_vax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_history-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_history-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_ethnicity_asian-composite_ai
+    - cox_ipw-cohort_unvax-sub_ethnicity_asian-composite_ai
+    - cox_ipw-cohort_vax-sub_ethnicity_asian-composite_ai
+    - cox_ipw-cohort_prevax-sub_ethnicity_black-composite_ai
+    - cox_ipw-cohort_unvax-sub_ethnicity_black-composite_ai
+    - cox_ipw-cohort_vax-sub_ethnicity_black-composite_ai
+    - cox_ipw-cohort_prevax-sub_ethnicity_mixed-composite_ai
+    - cox_ipw-cohort_unvax-sub_ethnicity_mixed-composite_ai
+    - cox_ipw-cohort_vax-sub_ethnicity_mixed-composite_ai
+    - cox_ipw-cohort_prevax-sub_ethnicity_other-composite_ai
+    - cox_ipw-cohort_unvax-sub_ethnicity_other-composite_ai
+    - cox_ipw-cohort_vax-sub_ethnicity_other-composite_ai
+    - cox_ipw-cohort_prevax-sub_ethnicity_white-composite_ai
+    - cox_ipw-cohort_unvax-sub_ethnicity_white-composite_ai
+    - cox_ipw-cohort_vax-sub_ethnicity_white-composite_ai
+    - cox_ipw-cohort_prevax-sub_sex_female-composite_ai
+    - cox_ipw-cohort_unvax-sub_sex_female-composite_ai
+    - cox_ipw-cohort_vax-sub_sex_female-composite_ai
+    - cox_ipw-cohort_prevax-sub_sex_male-composite_ai
+    - cox_ipw-cohort_unvax-sub_sex_male-composite_ai
+    - cox_ipw-cohort_vax-sub_sex_male-composite_ai
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output.csv
+        model_output_midpoint6: output/model_output_midpoint6.csv
+
   ## Make absolute excess risk (AER) input 
 
   make_aer_input:
