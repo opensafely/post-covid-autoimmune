@@ -573,12 +573,12 @@ actions_list <- splice(
   
   ## Venn data -----------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) venn(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) venn(cohort = x)),
+           recursive = FALSE
+    )
+  ),
 
   # comment("Stage 6 - make model output"),
 

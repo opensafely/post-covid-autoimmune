@@ -2046,6 +2046,66 @@ actions:
         table2: output/table2_vax.csv
         table2_midpoint6: output/table2_vax_midpoint6.csv
 
+  ## Venn - prevax 
+
+  venn_prevax:
+    run: r:latest analysis/descriptives/venn.R prevax
+    needs:
+    - preprocess_data_prevax
+    - make_model_input-cohort_prevax-main-composite_ai
+    - make_model_input-cohort_prevax-main-grp1_ifa
+    - make_model_input-cohort_prevax-main-grp2_ctd
+    - make_model_input-cohort_prevax-main-grp3_isd
+    - make_model_input-cohort_prevax-main-grp4_agi_ibd
+    - make_model_input-cohort_prevax-main-grp5_atv
+    - make_model_input-cohort_prevax-main-grp6_trd
+    - make_model_input-cohort_prevax-main-grp7_htd
+    - make_model_input-cohort_prevax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        table2: output/venn_prevax.csv
+        table2_midpoint6: output/venn_prevax_midpoint6.csv
+
+  ## Venn - unvax 
+
+  venn_unvax:
+    run: r:latest analysis/descriptives/venn.R unvax
+    needs:
+    - preprocess_data_unvax
+    - make_model_input-cohort_unvax-main-composite_ai
+    - make_model_input-cohort_unvax-main-grp1_ifa
+    - make_model_input-cohort_unvax-main-grp2_ctd
+    - make_model_input-cohort_unvax-main-grp3_isd
+    - make_model_input-cohort_unvax-main-grp4_agi_ibd
+    - make_model_input-cohort_unvax-main-grp5_atv
+    - make_model_input-cohort_unvax-main-grp6_trd
+    - make_model_input-cohort_unvax-main-grp7_htd
+    - make_model_input-cohort_unvax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        table2: output/venn_unvax.csv
+        table2_midpoint6: output/venn_unvax_midpoint6.csv
+
+  ## Venn - vax 
+
+  venn_vax:
+    run: r:latest analysis/descriptives/venn.R vax
+    needs:
+    - preprocess_data_vax
+    - make_model_input-cohort_vax-main-composite_ai
+    - make_model_input-cohort_vax-main-grp1_ifa
+    - make_model_input-cohort_vax-main-grp2_ctd
+    - make_model_input-cohort_vax-main-grp3_isd
+    - make_model_input-cohort_vax-main-grp4_agi_ibd
+    - make_model_input-cohort_vax-main-grp5_atv
+    - make_model_input-cohort_vax-main-grp6_trd
+    - make_model_input-cohort_vax-main-grp7_htd
+    - make_model_input-cohort_vax-main-grp8_ind
+    outputs:
+      moderately_sensitive:
+        table2: output/venn_vax.csv
+        table2_midpoint6: output/venn_vax_midpoint6.csv
+
   make_model_output:
     run: r:latest analysis/model/make_model_output.R
     needs:
