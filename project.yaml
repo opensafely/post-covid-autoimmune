@@ -30687,9 +30687,9 @@ actions:
   median_iqr_age:
     run: r:latest analysis/median_iqr_age.R
     needs:
-    - stage1_data_cleaning_prevax_extf
+    - stage1_data_cleaning_prevax
     - stage1_data_cleaning_vax
-    - stage1_data_cleaning_unvax_extf
+    - stage1_data_cleaning_unvax
     outputs:
       moderately_sensitive:
         model_output: output/median_iqr_age.csv
