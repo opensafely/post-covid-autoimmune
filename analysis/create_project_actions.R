@@ -40,7 +40,7 @@ failed_models <- c(
 # Determine which outputs are ready --------------------------------------------
 
 success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
-                              sheet = "autoimmune-v3",
+                              sheet = "autoimmune",
                               col_types = c("text","text", "text", "text", "text", "text",
                                             "text","text",
                                             "text", "text", "text", "text",
@@ -580,7 +580,7 @@ actions_list <- splice(
     )
   ),
 
-  # comment("Stage 6 - make model output"),
+  #comment("Stage 6 - make model output"),
 
   action(
     name = "make_model_output",
@@ -594,6 +594,21 @@ actions_list <- splice(
       model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
     )
   ),
+  
+  ## median (IQR) for age -----------------------------------------------------
+  comment("Calculate median (IQR) for age"),
+  
+  action(
+    name = "median_iqr_age",
+    run = "r:latest analysis/median_iqr_age.R",
+    needs = list("stage1_data_cleaning_prevax",
+                 "stage1_data_cleaning_vax",
+                 "stage1_data_cleaning_unvax"),
+    moderately_sensitive = list(
+      model_output = glue("output/median_iqr_age.csv")
+    )
+  ),
+  
 
   ## AER table -----------------------------------------------------------------
 
