@@ -4,14 +4,19 @@ print("Load data")
 df <- readr::read_csv(path_extendedtable1,
                       show_col_types = FALSE)
 
+# Rename columns for Results pack ----------------------------------------------
+print("Rename columns")
+
+df <- dplyr::rename(df,
+                    "N (%)" = "N (%) midpoint6 derived",
+                    "COVID-19 diagnoses" = "COVID-19 diagnoses midpoint6")
+
 # Pivot table ------------------------------------------------------------------
 print("Pivot table")
 
 df <- tidyr::pivot_wider(df, 
                          names_from = "cohort",
                          values_from = c("N (%)","COVID-19 diagnoses"))
-
-
 
 # Remove diabetes components ---------------------------------------------------
 print("Remove diabetes components")

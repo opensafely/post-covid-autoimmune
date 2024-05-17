@@ -19,58 +19,44 @@ defaults_list <- list(
 
 active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
-cohorts <- unique(active_analyses$cohort)
+ cohorts <- unique(active_analyses$cohort)
 
-# List of models to run in Stata
-run_stata <- c(
-  "cohort_prevax-main-grp7_htd",
-  "cohort_prevax-main-grp8_ind",
-  "cohort_prevax-sub_covid_hospitalised-composite_ai",
-  "cohort_prevax-sub_age_80_110-composite_ai",
-  "cohort_unvax-sub_ethnicity_black-composite_ai"
-)
-
-# create Stata file
-stata <- active_analyses[active_analyses$name %in% run_stata,]
-stata$save_analysis_ready <- TRUE
-stata$day0 <- grepl("1;",stata$cut_points)
-
-# failed_models <- c(
-#   "cohort_prevax-sub_covid_hospitalised-grp8_ind",
-#   "cohort_unvax-sub_age_80_110-psoa",
-#   "cohort_unvax-sub_age_80_110-axial",
-#   "cohort_unvax-sub_age_80_110-grp2_ctd",
-#   "cohort_unvax-sub_age_80_110-hs",
-#   "cohort_unvax-sub_age_80_110-crohn",
-#   "cohort_unvax-sub_age_80_110-ms",
-#   "cohort_unvax-sub_ethnicity_other-apa",
-#   "cohort_prevax-sub_bin_history_composite_ai_true-composite_ai",
-#   "cohort_prevax-sub_bin_history_composite_ai_false-composite_ai",
-#   "cohort_vax-sub_bin_history_composite_ai_true-composite_ai",
-#   "cohort_vax-sub_bin_history_composite_ai_false-composite_ai",
-#   "cohort_unvax-sub_bin_history_composite_ai_true-composite_ai",
-#   "cohort_unvax-sub_bin_history_composite_ai_false-composite_ai") 
-
+failed_models <- c(
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind",
+  "cohort_unvax-sub_age_80_110-psoa",
+  "cohort_unvax-sub_age_80_110-axial",
+  "cohort_unvax-sub_age_80_110-grp2_ctd",
+  "cohort_unvax-sub_age_80_110-hs",
+  "cohort_unvax-sub_age_80_110-crohn",
+  "cohort_unvax-sub_age_80_110-ms",
+  "cohort_unvax-sub_ethnicity_other-apa",
+  "cohort_prevax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_prevax-sub_bin_history_composite_ai_false-composite_ai",
+  "cohort_vax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_vax-sub_bin_history_composite_ai_false-composite_ai",
+  "cohort_unvax-sub_bin_history_composite_ai_true-composite_ai",
+  "cohort_unvax-sub_bin_history_composite_ai_false-composite_ai") 
+ 
 # Determine which outputs are ready --------------------------------------------
 
-# success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
-#                               sheet = "autoimmune-v3",
-#                               col_types = c("text","text", "text", "text", "text", "text",
-#                                             "text","text",
-#                                             "text", "text", "text", "text",
-#                                             "text","text","text","text","text",
-#                                             "text","text",
-#                                             "skip", "skip"))
-# 
-# success <- tidyr::pivot_longer(success,
-#                                cols = setdiff(colnames(success),c("outcome","cohort")),
-#                                names_to = "analysis")
-# 
-# success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
-# 
-# success <- success[grepl("success",success$value, ignore.case = TRUE),]
-# 
-# cohort <- c("prevax", "vax", "unvax")
+success <- readxl::read_excel("../../OneDrive - University of Bristol/Projects/post-covid-outcome-tracker.xlsx",
+                              sheet = "autoimmune",
+                              col_types = c("text","text", "text", "text", "text", "text",
+                                            "text","text",
+                                            "text", "text", "text", "text",
+                                            "text","text","text","text","text",
+                                            "text","text",
+                                            "skip", "skip"))
+
+success <- tidyr::pivot_longer(success,
+                               cols = setdiff(colnames(success),c("outcome","cohort")),
+                               names_to = "analysis")
+
+success$name <- paste0("cohort_",success$cohort, "-",success$analysis, "-",success$outcome)
+
+success <- success[grepl("success",success$value, ignore.case = TRUE),]
+
+cohort <- c("prevax", "vax", "unvax")
 
 # create action functions ----
 
@@ -169,7 +155,7 @@ preprocess_data <- function(cohort){
       run = glue("r:latest analysis/preprocess/preprocess_data.R"),
       arguments = c(cohort),
       needs = list("generate_index_dates",glue("generate_study_population_{cohort}")),
-      highly_sensitive = list(
+     highly_sensitive = list(
         cohort = glue("output/input_{cohort}.rds"),
         venn = glue("output/venn_{cohort}.rds")
       )
@@ -192,7 +178,7 @@ stage1_data_cleaning <- function(cohort){
       moderately_sensitive = list(
         consort = glue("output/consort_{cohort}.csv"),
         consort_midpoint6 = glue("output/consort_{cohort}_midpoint6.csv")
-      ),
+        ),
       highly_sensitive = list(
         cohort = glue("output/input_{cohort}_stage1.rds")
       )
@@ -278,7 +264,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
                                  cut_points, controls_per_case,
                                  total_event_threshold, episode_event_threshold,
                                  covariate_threshold, age_spline){
-  
+
   splice(
     action(
       name = glue("make_model_input-{name}"),
@@ -288,7 +274,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
         model_input = glue("output/model_input-{name}.rds")
       )
     ),
-    
+
     # action(
     #   name = glue("describe_model_input-{name}"),
     #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
@@ -297,7 +283,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
     #     describe_model_input = glue("output/describe-model_input-{name}.txt")
     #   )
     # ),
-    
+
     #comment(glue("Cox model for {outcome} - {cohort}")),
     action(
       name = glue("cox_ipw-{name}"),
@@ -310,48 +296,15 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
 }
 
 ################################################################################
-# Save analyses ready for running stata and run stata --------------------------
-################################################################################
-
-apply_stata_model_function <- function(name, cohort, analysis, ipw, strata, 
-                                       covariate_sex, covariate_age, covariate_other, 
-                                       cox_start, cox_stop, study_start, study_stop,
-                                       cut_points, controls_per_case,
-                                       total_event_threshold, episode_event_threshold,
-                                       covariate_threshold, age_spline, day0){
-  splice(
-    
-    action(
-      name = glue("{name}"),
-      run = glue("cox-ipw:v0.0.30 --df_input=model_input-{name}.rds --ipw={ipw} --exposure=exp_date --outcome=out_date --strata={strata} --covariate_sex={covariate_sex} --covariate_age={covariate_age} --covariate_other={covariate_other} --cox_start={cox_start} --cox_stop={cox_stop} --study_start={study_start} --study_stop={study_stop} --cut_points={cut_points} --controls_per_case={controls_per_case} --total_event_threshold={total_event_threshold} --episode_event_threshold={episode_event_threshold} --covariate_threshold={covariate_threshold} --age_spline={age_spline} --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-{name}.csv"),
-      needs = list(glue("make_model_input-{name}")),
-      highly_sensitive = list(
-        analysis_ready = glue("output/{name}.csv.gz"))
-    ),
-    action(
-      name = glue("stata_cox_ipw-{name}"),
-      run = glue("stata-mp:latest analysis/stata/cox_model.do"),# ready-{name}TRUE TRUE"),  ready-{name}
-      arguments = c(name, day0),
-      needs = list(glue("{name}")),
-      moderately_sensitive = list(
-        medianfup = glue("output/{name}_median_fup.csv"),
-        stata_output = glue("output/{name}_cox_model.txt")
-        #stata_output = glue("output/stata_model_output-{name}.txt") 
-      )
-    )
-  )
-}
-
-################################################################################
 # Create function to make Table 2 ----------------------------------------------
 ################################################################################
 
 table2 <- function(cohort){
-  
+
   table2_names <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$name))
   #table2_names <- table2_names[grepl("-main-",table2_names)]
   #table2_names <- table2_names[grepl("-main-|_hospitalised-|_nonhospitalised-",table2_names)]
-  
+
   splice(
     comment(glue("Table 2 - {cohort}")),
     action(
@@ -372,9 +325,9 @@ table2 <- function(cohort){
 ################################################################################
 
 venn <- function(cohort){
-  
+
   venn_outcomes <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$outcome))
-  
+
   splice(
     comment(glue("Venn - {cohort}")),
     action(
@@ -440,7 +393,7 @@ actions_list <- splice(
   ),
   
   # Generate study population --------------------------------------------------
-  
+
   splice(
     unlist(lapply(cohorts,
                   function(x) generate_study_population(cohort = x)),
@@ -498,7 +451,7 @@ actions_list <- splice(
   ),
   
   ## table 1 output ------------------------------------------------------------
-  
+
   action(
     name = "make_table1_output",
     run = "r:latest analysis/model/make_other_output.R table1 prevax;vax;unvax",
@@ -511,7 +464,7 @@ actions_list <- splice(
   ),
   
   ## extend table 1 (part 1) output --------------------------------------------
-  
+
   action(
     name = "make_extendedtable1_part1_output",
     run = "r:latest analysis/model/make_other_output.R extendedtable1_part1 prevax;vax;unvax",
@@ -524,7 +477,7 @@ actions_list <- splice(
   ),
   
   ## extend table 1 (part 2) output --------------------------------------------
-  
+
   action(
     name = "make_extendedtable1_part2_output",
     run = "r:latest analysis/model/make_other_output.R extendedtable1_part2 prevax;vax;unvax",
@@ -537,7 +490,7 @@ actions_list <- splice(
   ),
   
   ## table 2 output ------------------------------------------------------------
-  
+
   action(
     name = "make_table2_output",
     run = "r:latest analysis/model/make_other_output.R table2 prevax;vax;unvax",
@@ -574,7 +527,7 @@ actions_list <- splice(
   # ),
   
   ## Table 1 -------------------------------------------------------------------
-  
+
   splice(
     unlist(lapply(unique(active_analyses$cohort),
                   function(x) table1(cohort = x)),
@@ -584,7 +537,7 @@ actions_list <- splice(
   
   ## Run models ----------------------------------------------------------------
   comment("Stage 5 - Run models"),
-  
+
   splice(
     # over outcomes
     unlist(lapply(1:nrow(active_analyses),
@@ -609,36 +562,8 @@ actions_list <- splice(
     )
   ),
   
-  ## Run models with Stata -----------------------------------------------------
-  
-  comment("Run models with stata"),
-  
-  splice(
-    unlist(lapply(1:nrow(stata), 
-                  function(x) apply_stata_model_function(name = stata$name[x],
-                                                         cohort = stata$cohort[x],
-                                                         analysis = stata$analysis[x],
-                                                         ipw = stata$ipw[x],
-                                                         strata = stata$strata[x],
-                                                         covariate_sex = stata$covariate_sex[x],
-                                                         covariate_age = stata$covariate_age[x],
-                                                         covariate_other = stata$covariate_other[x],
-                                                         cox_start = stata$cox_start[x],
-                                                         cox_stop = stata$cox_stop[x],
-                                                         study_start = stata$study_start[x],
-                                                         study_stop = stata$study_stop[x],
-                                                         cut_points = stata$cut_points[x],
-                                                         controls_per_case = stata$controls_per_case[x],
-                                                         total_event_threshold = stata$total_event_threshold[x],
-                                                         episode_event_threshold = stata$episode_event_threshold[x],
-                                                         covariate_threshold = stata$covariate_threshold[x],
-                                                         age_spline = stata$age_spline[x],
-                                                         day0 = stata$day0[x])), recursive = FALSE
-    )
-  ),
-  
   ## Table 2 -------------------------------------------------------------------
-  
+
   splice(
     unlist(lapply(unique(active_analyses$cohort),
                   function(x) table2(cohort = x)),
@@ -648,43 +573,30 @@ actions_list <- splice(
   
   ## Venn data -----------------------------------------------------------------
   
-  # splice(
-  #   unlist(lapply(unique(active_analyses$cohort),
-  #                 function(x) venn(cohort = x)),
-  #          recursive = FALSE
-  #   )
-  # ),
-  
-  # comment("Stage 6 - make model output"),
-  
+  splice(
+    unlist(lapply(unique(active_analyses$cohort),
+                  function(x) venn(cohort = x)),
+           recursive = FALSE
+    )
+  ),
+
+  #comment("Stage 6 - make model output"),
+
   action(
     name = "make_model_output",
     run = "r:latest analysis/model/make_model_output.R",
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
+    needs = as.list(paste0("cox_ipw-",active_analyses$name)),
     #needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
-    needs = as.list(c(paste0("cox_ipw-",setdiff(active_analyses$name,stata$name)),
-                      paste0("stata_cox_ipw-",stata$name))),
     moderately_sensitive = list(
       model_output = glue("output/model_output.csv"),
       model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
     )
   ),
   
-  # comment ("Stata models"), Stata Analyses
-  
-  action(
-    name = "make_stata_model_output",
-    run = "r:latest analysis/stata/make_stata_model_output.R",
-    needs = as.list(paste0("stata_cox_ipw-",stata$name)),
-    moderately_sensitive = list(
-      stata_model_output = glue("output/stata_model_output.csv"),
-      stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
-    )
-  ),
-  
-  # comment("Calculate median (IQR) for age"),
+  ## median (IQR) for age -----------------------------------------------------
+  comment("Calculate median (IQR) for age"),
   
   action(
     name = "median_iqr_age",
@@ -697,10 +609,11 @@ actions_list <- splice(
     )
   ),
   
+
   ## AER table -----------------------------------------------------------------
-  
+
   comment("Make absolute excess risk (AER) input"),
-  
+
   action(
     name = "make_aer_input",
     run = "r:latest analysis/model/make_aer_input.R",
