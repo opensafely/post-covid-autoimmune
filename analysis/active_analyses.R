@@ -116,17 +116,6 @@ outcomes_runmain <- c("out_date_grp1_ifa",
                     #   "out_date_glb",
                     #   "out_date_long_myelitis",
                     #   "out_date_cis") 
-                     
-                     # previously
-                     c("out_date_grp1_ifa",
-                       "out_date_grp2_ctd",
-                       "out_date_grp3_isd",
-                       "out_date_grp4_agi_ibd",
-                       "out_date_grp5_atv",
-                       "out_date_grp6_trd",
-                       "out_date_grp7_htd",
-                       "out_date_grp8_ind")
-
 
   
 #cov_num_outpatient_rate;
@@ -169,11 +158,6 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "main")
-    
-
-  }
-
-  for (i in outcomes_runall) {
     
     ## analysis: sub_covid_hospitalised ----------------------------------------
     
@@ -218,6 +202,10 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "sub_covid_nonhospitalised")
+    
+  }
+
+  for (i in outcomes_runall) {
     
     ## analysis: sub_covid_history ---------------------------------------------
     
