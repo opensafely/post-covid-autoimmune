@@ -587,7 +587,8 @@ actions_list <- splice(
     run = "r:latest analysis/model/make_model_output.R",
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-    needs = as.list(paste0("cox_ipw-",active_analyses$name)),
+    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
+    needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
     #needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
     moderately_sensitive = list(
       model_output = glue("output/model_output.csv"),
