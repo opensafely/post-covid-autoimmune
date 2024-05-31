@@ -98,7 +98,39 @@ outcomes_runmain <- c("out_date_grp1_ifa",
                       "out_date_grp5_atv",
                       "out_date_grp6_trd",
                       "out_date_grp7_htd",
-                      "out_date_grp8_ind")
+                      "out_date_grp8_ind",
+                      "out_date_ra",
+                      "out_date_undiff_eia",
+                      "out_date_psoa",
+                      "out_date_axial",
+                      "out_date_sle",
+                      "out_date_sjs",
+                      "out_date_sss",
+                      "out_date_im",
+                      "out_date_mctd",
+                      "out_date_as",
+                      "out_date_psoriasis",
+                      "out_date_hs",
+                      "out_date_ibd",
+                      "out_date_crohn",
+                      "out_date_uc",
+                      "out_date_celiac",
+                      "out_date_addison",
+                      "out_date_grave",
+                      "out_date_hashimoto",
+                      "out_date_anca",
+                      "out_date_gca",
+                      "out_date_iga_vasc",
+                      "out_date_pmr",
+                      "out_date_immune_thromb",
+                      "out_date_pern_anaemia",
+                      "out_date_apa",
+                      "out_date_aha",
+                      "out_date_glb",
+                      "out_date_ms",
+                      "out_date_myasthenia",
+                      "out_date_long_myelitis",
+                      "out_date_cis")
 
                     # previously
                     # c("out_date_undiff_eia",
@@ -116,17 +148,6 @@ outcomes_runmain <- c("out_date_grp1_ifa",
                     #   "out_date_glb",
                     #   "out_date_long_myelitis",
                     #   "out_date_cis") 
-                     
-                     # previously
-                     c("out_date_grp1_ifa",
-                       "out_date_grp2_ctd",
-                       "out_date_grp3_isd",
-                       "out_date_grp4_agi_ibd",
-                       "out_date_grp5_atv",
-                       "out_date_grp6_trd",
-                       "out_date_grp7_htd",
-                       "out_date_grp8_ind")
-
 
   
 #cov_num_outpatient_rate;
@@ -169,11 +190,6 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "main")
-    
-
-  }
-
-  for (i in outcomes_runall) {
     
     ## analysis: sub_covid_hospitalised ----------------------------------------
     
@@ -218,6 +234,10 @@ for (c in cohorts) {
                          covariate_threshold = covariate_threshold,
                          age_spline = TRUE,
                          analysis = "sub_covid_nonhospitalised")
+    
+  }
+
+  for (i in outcomes_runall) {
     
     ## analysis: sub_covid_history ---------------------------------------------
     

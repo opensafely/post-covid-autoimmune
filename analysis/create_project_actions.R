@@ -345,9 +345,9 @@ apply_stata_model_function <- function(name, cohort, analysis, ipw, strata,
 table2 <- function(cohort){
 
   table2_names <- gsub("out_date_","",unique(active_analyses[active_analyses$cohort=={cohort},]$name))
+  table2_names <- table2_names[grepl("-main-|-sub_covid_nonhospitalised-|-sub_covid_hospitalised-",table2_names)]
   #table2_names <- table2_names[grepl("-main-",table2_names)]
-  #table2_names <- table2_names[grepl("-main-|_hospitalised-|_nonhospitalised-",table2_names)]
-
+  
   splice(
     comment(glue("Table 2 - {cohort}")),
     action(
@@ -659,6 +659,7 @@ actions_list <- splice(
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
+    needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
     #needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
     needs = as.list(c(paste0("cox_ipw-",setdiff(active_analyses$name,stata$name)),
                       paste0("stata_cox_ipw-",stata$name))),
