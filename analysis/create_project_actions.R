@@ -22,20 +22,20 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
  cohorts <- unique(active_analyses$cohort)
 
 failed_models <- c(
-  "cohort_prevax-sub_covid_hospitalised-grp8_ind",
-  "cohort_unvax-sub_age_80_110-psoa",
-  "cohort_unvax-sub_age_80_110-axial",
-  "cohort_unvax-sub_age_80_110-grp2_ctd",
-  "cohort_unvax-sub_age_80_110-hs",
-  "cohort_unvax-sub_age_80_110-crohn",
-  "cohort_unvax-sub_age_80_110-ms",
-  "cohort_unvax-sub_ethnicity_other-apa",
-  "cohort_prevax-sub_bin_history_composite_ai_true-composite_ai",
-  "cohort_prevax-sub_bin_history_composite_ai_false-composite_ai",
-  "cohort_vax-sub_bin_history_composite_ai_true-composite_ai",
-  "cohort_vax-sub_bin_history_composite_ai_false-composite_ai",
-  "cohort_unvax-sub_bin_history_composite_ai_true-composite_ai",
-  "cohort_unvax-sub_bin_history_composite_ai_false-composite_ai") 
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind")#,
+  # "cohort_unvax-sub_age_80_110-psoa",
+  # "cohort_unvax-sub_age_80_110-axial",
+  # "cohort_unvax-sub_age_80_110-grp2_ctd",
+  # "cohort_unvax-sub_age_80_110-hs",
+  # "cohort_unvax-sub_age_80_110-crohn",
+  # "cohort_unvax-sub_age_80_110-ms",
+  # "cohort_unvax-sub_ethnicity_other-apa",
+  # "cohort_prevax-sub_bin_history_composite_ai_true-composite_ai",
+  # "cohort_prevax-sub_bin_history_composite_ai_false-composite_ai",
+  # "cohort_vax-sub_bin_history_composite_ai_true-composite_ai",
+  # "cohort_vax-sub_bin_history_composite_ai_false-composite_ai",
+  # "cohort_unvax-sub_bin_history_composite_ai_true-composite_ai",
+  # "cohort_unvax-sub_bin_history_composite_ai_false-composite_ai") 
  
 # Determine which outputs are ready --------------------------------------------
 
@@ -588,8 +588,8 @@ actions_list <- splice(
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
-    needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
-    #needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
+    #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
+    needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
     moderately_sensitive = list(
       model_output = glue("output/model_output.csv"),
       model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
