@@ -250,77 +250,55 @@ for (outcome in outcomes) {
 
 # remove outcomes of interest --------------------------------------------------
 
-# df <- df[!grepl("grp1_ifa|grp2_ctd|grp3_isd|grp4_agi_ibd|grp5_atv|grp6_trd|grp7_htd|grp8_ind|composite_ai", df$outcome),]
-# df_grp <- df[grepl("grp1_ifa|grp2_ctd|grp3_isd|grp4_agi_ibd|grp5_atv|grp6_trd|grp7_htd|grp8_ind|composite_ai", df$outcome),]
-# 
-# # character to numeric ---------------------------------------------------------
-# 
-# df <- df %>%
-#   mutate_at(vars(matches("snomed|ctv|hes|death|total")),function(x) as.numeric(as.character(x)))
-# 
-# # Create grouped outcomes contribution counts ----------------------------------
-# 
-# df_grp <- function(df){
-#   
-#   grp1_ifa <- df[grep("^ra|undiff_eia|psoa|axial", df$outcome),]
-#   grp1_ifa <- grp1_ifa %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp1_ifa$outcome <- "grp1_ifa"
-#   
-#   grp2_ctd <- df[grep("^sle|^sjs|^sss|^im|^mctd|^as", df$outcome),] 
-#   grp2_ctd <- grp2_ctd[grp2_ctd$outcom != "immune_thromb",]
-#   
-#   grp2_ctd <- grp2_ctd %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp2_ctd$outcome <- "grp2_ctd"
-#   
-#   grp3_isd <- df[grep("psoriasis|hs", df$outcome),] 
-#   grp3_isd <- grp3_isd %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp3_isd$outcome <- "grp3_isd"
-#   
-#   grp4_ibd <- df[grep("ibd|crohn|uc|celiac", df$outcome),] 
-#   grp4_ibd <- grp4_ibd %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp4_ibd$outcome <- "grp4_ibd"
-#   
-#   grp5_atv <- df[grep("addison|grave|hashimoto", df$outcome),] 
-#   grp5_atv <- grp5_atv %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp5_atv$outcome <- "grp5_atv"
-#   
-#   grp6_trd <- df[grep("anca|gca|iga_vasc|pmr", df$outcome),] 
-#   grp6_trd <- grp6_trd %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp6_trd$outcome <- "grp6_trd"
-#   
-#   grp7_thd <- df[grep("immune_thromb|pern_anaemia|apa|aha", df$outcome),] 
-#   grp7_thd <- grp7_thd %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp7_thd$outcome <- "grp7_thd"
-#   
-#   grp8_ind <- df[grep("glb|ms|myasthenia|long_myelitis|cis", df$outcome),] 
-#   grp8_ind <- grp8_ind %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   grp8_ind$outcome <- "grp8_ind"
-#   
-#   composite_ai <- df %>%
-#     summarise_if(is.numeric, sum, na.rm = T)
-#   composite_ai$outcome <- "composite_ai"
-#   
-#   # bind each grouped df
-#   df_grp <- bind_rows(grp1_ifa, grp2_ctd, grp3_isd, grp4_ibd, grp5_atv, grp6_trd, grp7_thd, grp8_ind, composite_ai)
-#   # add error column
-#   df_grp$error <- "" #NA
-#   # relocate columns
-#   df_grp <- relocate(df_grp, outcome)
-# 
-# }
-# 
-# # Apply function
-# df_full <- df_grp(df) 
-# # Bind original df with grouped df
-# df <- bind_rows(df, df_full)
+df <- df[!grepl("grp[0-9]|composite_ai", df$outcome),]
+
+# character to numeric ---------------------------------------------------------
+
+df <- df %>%
+  mutate_at(vars(matches("snomed|ctv|hes|death|total")),function(x) as.numeric(as.character(x)))
+
+# Create grouped outcomes contribution counts ----------------------------------
+
+df_grp <- function(df){
+
+  # Create group variable
+  df <- as_tibble(df) %>%
+    mutate(grp = case_when(
+      outcome %in% c("ra","undiff_eia","psoa","axial") ~  "grp1_ifa", 
+      outcome %in% c("sle","sjs","sss","im","mctd","as") ~ "grp2_ctd",
+      outcome %in% c("psoriasis","hs") ~ "grp3_isd", 
+      outcome %in% c("ibd","crohn","uc","celiac") ~ "grp4_agi_ibd", 
+      outcome %in% c("addison","grave","hashimoto") ~ "grp5_atv", 
+      outcome %in% c("anca","gca","iga_vasc","pmr") ~ "grp6_trd", 
+      outcome %in% c("immune_thromb","pern_anaemia","apa","aha") ~ "grp7_htd", 
+      outcome %in% c("glb","ms","myasthenia","long_myelitis","cis") ~ "grp8_ind"))
+  
+  # Summarise by group
+  df <- df %>%
+    group_by(grp) %>%
+    summarise_if(is.numeric, sum, na.rm = T) %>%
+    ungroup()
+  
+  # Summarise composite autoimmune components 
+  composite_ai <- df %>%
+    summarise_if(is.numeric, sum, na.rm = T)
+  composite_ai$grp <- "composite_ai"
+
+  # Bind grouped and composite dataframes
+  df_grp <- rbind(df, composite_ai)
+  
+  # add error column
+  df_grp$error <- "" #NA
+  
+  # Rename column
+  df_grp <- rename(df_grp, outcome = grp)
+  
+}
+
+# Apply function
+df_full <- df_grp(df)
+# Bind original df with grouped df
+df <- bind_rows(df, df_full)
 
 # Record cohort ----------------------------------------------------------------
 print('Record cohort')
@@ -341,16 +319,44 @@ df[,setdiff(colnames(df),c("outcome"))] <- lapply(df[,setdiff(colnames(df),c("ou
 # Rename columns (output redaction) --------------------------------------------
 
 names(df)[names(df) == "only_snomed"] <- "only_snomed_midpoint6"
+names(df)[names(df) == "only_ctv"] <- "only_ctv_midpoint6"
 names(df)[names(df) == "only_hes"] <- "only_hes_midpoint6"
 names(df)[names(df) == "only_death"] <- "only_death_midpoint6"
 names(df)[names(df) == "snomed_hes"] <- "snomed_hes_midpoint6"
+names(df)[names(df) == "snomed_ctv"] <- "snomed_ctv_midpoint6"
 names(df)[names(df) == "snomed_death"] <- "snomed_death_midpoint6"
+names(df)[names(df) == "ctv_hes"] <- "ctv_hes_midpoint6"
 names(df)[names(df) == "hes_death"] <- "hes_death_midpoint6"
-names(df)[names(df) == "snomed_hes_death"] <- "snomed_hes_death_midpoint6"
-names(df)[names(df) == "total_snomed"] <- "total_snomed_midpoint6"
-names(df)[names(df) == "total_hes"] <- "total_hes_midpoint6"
-names(df)[names(df) == "total_death"] <- "total_death_midpoint6"
-names(df)[names(df) == "total"] <- "total_midpoint6_derived"
+names(df)[names(df) == "ctv_death"] <- "ctv_death_midpoint6"
+names(df)[names(df) == "snomed_ctv_hes_death"] <- "snomed_ctv_hes_death_midpoint6"
+
+# Recalculate sources totals and total midpoint6 derived column ----------------
+print("Recalculate total (midpoint6 derived) column")
+
+df$total_snomed_midpoint6 <- rowSums(df[,c("only_snomed", "snomed_ctv", "snomed_death", "snomed_ctv_hes_death")], na.rm = T)
+  
+df$total_ctv_midpoint6 <- rowSums(df[,c("only_ctv", "snomed_ctv", "ctv_hes", "ctv_death", "snomed_ctv_hes_death")], na.rm = T)
+
+df$total_hes_midpoint6 <- rowSums(df[,c("only_hes", "snomed_ctv", "snomed_hes", "hes_death", "snomed_ctv_hes_death")], na.rm = T)
+  
+df$total_death_midpoint6 <- rowSums(df[,c("only_death", "snomed_death", "hes_death", "ctv_death", "snomed_ctv_hes_death")], na.rm = T)
+
+df$total_midpoint6_derived <- rowSums(df[,c("total_ctv", "total_snomed", "total_hes", "total_death")], na.rm = T)
+
+# Remove total columns ---------------------------------------------------------
+print("Remove total columns")
+
+df$total_ctv <- NULL 
+df$total_snomed <- NULL
+df$total_hes <- NULL
+df$total_death <- NULL
+df$total <- NULL
+
+# Relocate columns -------------------------------------------------------------
+print("Relocate columns following empty df")
+
+df <- df %>%
+  relocate(total_midpoint6_derived, .after = total_death)
 
 # Save rounded Venn data -------------------------------------------------------
 print('Save rounded Venn data')
