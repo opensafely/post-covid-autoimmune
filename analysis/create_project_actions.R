@@ -274,7 +274,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
         model_input = glue("output/model_input-{name}.rds")
       )
     ),
-
+    
     # action(
     #   name = glue("describe_model_input-{name}"),
     #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
@@ -515,16 +515,16 @@ actions_list <- splice(
   
   ## venn output ---------------------------------------------------------------
   
-  # action(
-  #   name = "make_venn_output",
-  #   run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
-  #   needs = list("venn_prevax",
-  #                "venn_vax",
-  #                "venn_unvax"),
-  #   moderately_sensitive = list(
-  #     venn_output_midpoint6 = glue("output/venn_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_venn_output",
+    run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
+    needs = list("venn_prevax",
+                 "venn_vax",
+                 "venn_unvax"),
+    moderately_sensitive = list(
+      venn_output_midpoint6 = glue("output/venn_output_midpoint6.csv")
+    )
+  ),
   
   ## Table 1 -------------------------------------------------------------------
 

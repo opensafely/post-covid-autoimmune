@@ -248,16 +248,19 @@ for (outcome in outcomes) {
   
 }
 
-# remove outcomes of interest --------------------------------------------------
+# Remove grouped and composite outcomes ----------------------------------------
+print("Remove grouped and composite outcomes")
 
 df <- df[!grepl("grp[0-9]|composite_ai", df$outcome),]
 
-# character to numeric ---------------------------------------------------------
+# Character to numeric ---------------------------------------------------------
+print("Character to numeric")
 
 df <- df %>%
   mutate_at(vars(matches("snomed|ctv|hes|death|total")),function(x) as.numeric(as.character(x)))
 
-# Create grouped outcomes contribution counts ----------------------------------
+# Create grouped outcomes contribution counts function -------------------------
+print("Create function for grouped and composite outcomes")
 
 df_grp <- function(df){
 
@@ -282,6 +285,8 @@ df_grp <- function(df){
   # Summarise composite autoimmune components 
   composite_ai <- df %>%
     summarise_if(is.numeric, sum, na.rm = T)
+  
+  # Add outcome (grp) column and name 
   composite_ai$grp <- "composite_ai"
 
   # Bind grouped and composite dataframes
@@ -297,6 +302,7 @@ df_grp <- function(df){
 
 # Apply function
 df_full <- df_grp(df)
+
 # Bind original df with grouped df
 df <- bind_rows(df, df_full)
 
@@ -333,15 +339,17 @@ names(df)[names(df) == "snomed_ctv_hes_death"] <- "snomed_ctv_hes_death_midpoint
 # Recalculate sources totals and total midpoint6 derived column ----------------
 print("Recalculate total (midpoint6 derived) column")
 
-df$total_snomed_midpoint6 <- rowSums(df[,c("only_snomed", "snomed_ctv", "snomed_death", "snomed_ctv_hes_death")], na.rm = T)
+df$total_snomed_midpoint6 <- rowSums(df[,c("only_snomed_midpoint6", "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
   
-df$total_ctv_midpoint6 <- rowSums(df[,c("only_ctv", "snomed_ctv", "ctv_hes", "ctv_death", "snomed_ctv_hes_death")], na.rm = T)
+df$total_ctv_midpoint6 <- rowSums(df[,c("only_ctv_midpoint6", "snomed_ctv_midpoint6", "ctv_hes_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
 
-df$total_hes_midpoint6 <- rowSums(df[,c("only_hes", "snomed_ctv", "snomed_hes", "hes_death", "snomed_ctv_hes_death")], na.rm = T)
+df$total_hes_midpoint6 <- rowSums(df[,c("only_hes_midpoint6", "snomed_hes_midpoint6",  "ctv_hes_midpoint6", "hes_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
   
-df$total_death_midpoint6 <- rowSums(df[,c("only_death", "snomed_death", "hes_death", "ctv_death", "snomed_ctv_hes_death")], na.rm = T)
+df$total_death_midpoint6 <- rowSums(df[,c("only_death_midpoint6", "snomed_death_midpoint6", "hes_death_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
 
-df$total_midpoint6_derived <- rowSums(df[,c("total_ctv", "total_snomed", "total_hes", "total_death")], na.rm = T)
+df$total_midpoint6_derived <- rowSums(df[,c("only_ctv_midpoint6", "only_snomed_midpoint6", "only_hes_midpoint6", "only_death_midpoint6", 
+                                            "ctv_hes_midpoint6", "ctv_death_midpoint6", "hes_death_midpoint6",
+                                            "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
 
 # Remove total columns ---------------------------------------------------------
 print("Remove total columns")
@@ -356,7 +364,13 @@ df$total <- NULL
 print("Relocate columns following empty df")
 
 df <- df %>%
-  relocate(total_midpoint6_derived, .after = total_death)
+  relocate(c(total_snomed_midpoint6, total_ctv_midpoint6, total_hes_midpoint6, total_death_midpoint6), .after = snomed_ctv_hes_death_midpoint6) %>%
+  relocate(total_midpoint6_derived, .before = error)
+
+# Record cohort ----------------------------------------------------------------
+print('Record cohort')
+
+df$cohort <- cohort
 
 # Save rounded Venn data -------------------------------------------------------
 print('Save rounded Venn data')

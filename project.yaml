@@ -295,6 +295,16 @@ actions:
       moderately_sensitive:
         table2_output_midpoint6: output/table2_output_midpoint6.csv
 
+  make_venn_output:
+    run: r:latest analysis/model/make_other_output.R venn prevax;vax;unvax
+    needs:
+    - venn_prevax
+    - venn_vax
+    - venn_unvax
+    outputs:
+      moderately_sensitive:
+        venn_output_midpoint6: output/venn_output_midpoint6.csv
+
   ## Table 1 - prevax 
 
   table1_prevax:
