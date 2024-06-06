@@ -18,6 +18,8 @@ print('Load active analyses')
 
 active_analyses <- readr::read_rds("lib/active_analyses.rds")
 
+active_analyses <- active_analyses[grepl("-grp|composite_ai",active_analyses$name),]
+
 # List available model outputs -------------------------------------------------
 print('List available model outputs')
 
@@ -112,6 +114,6 @@ names(df)[names(df) == "N_events"] <- "N_events_midpoint6"
 # Grouped outcomes -------------------------------------------------------------
 print("Save grouped model output")
 
-df_grouped <- df[grepl("-grp|composite_ai",active_analyses$name),]
+df <- df[grepl("-grp|composite_ai",df$name),]
 
-readr::write_csv(df_grouped, "output/model_output_grouped_midpoint6.csv")
+readr::write_csv(df, "output/model_output_grouped_midpoint6.csv")

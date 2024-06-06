@@ -589,7 +589,7 @@ actions_list <- splice(
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
     #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
-    needs = as.list(paste0("cox_ipw-",active_analyses[!grepl("-grp|composite_ai",active_analyses$name) &!active_analyses$name %in% failed_models,]$name)),#grepl("-grp|composite_ai",active_analyses$name) & 
+    needs = as.list(paste0("cox_ipw-",active_analyses[!grepl("-grp|composite_ai",active_analyses$name),]$name)),#grepl("-grp|composite_ai",active_analyses$name) & 
     moderately_sensitive = list(
       model_output = glue("output/model_output_single.csv"),
       model_output_single_midpoint6 = glue("output/model_output_single_midpoint6.csv")
@@ -605,7 +605,7 @@ actions_list <- splice(
     #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
     needs = as.list(paste0("cox_ipw-",active_analyses[grepl("-grp|composite_ai",active_analyses$name) & !active_analyses$name %in% failed_models,]$name)),# 
     moderately_sensitive = list(
-      model_output = glue("output/model_output_output.csv"),
+      model_output = glue("output/model_output_grouped.csv"),
       model_output_grouped_midpoint6 = glue("output/model_output_grouped_midpoint6.csv")
     )
   ),
