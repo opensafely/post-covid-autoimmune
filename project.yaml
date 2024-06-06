@@ -10375,8 +10375,8 @@ actions:
         table2: output/venn_vax.csv
         table2_midpoint6: output/venn_vax_midpoint6.csv
 
-  make_model_output:
-    run: r:latest analysis/model/make_model_output.R
+  make_model_single_output:
+    run: r:latest analysis/model/make_model_single_output.R
     needs:
     - cox_ipw-cohort_prevax-main-addison
     - cox_ipw-cohort_prevax-main-aha
@@ -10386,19 +10386,10 @@ actions:
     - cox_ipw-cohort_prevax-main-axial
     - cox_ipw-cohort_prevax-main-celiac
     - cox_ipw-cohort_prevax-main-cis
-    - cox_ipw-cohort_prevax-main-composite_ai
     - cox_ipw-cohort_prevax-main-crohn
     - cox_ipw-cohort_prevax-main-gca
     - cox_ipw-cohort_prevax-main-glb
     - cox_ipw-cohort_prevax-main-grave
-    - cox_ipw-cohort_prevax-main-grp1_ifa
-    - cox_ipw-cohort_prevax-main-grp2_ctd
-    - cox_ipw-cohort_prevax-main-grp3_isd
-    - cox_ipw-cohort_prevax-main-grp4_agi_ibd
-    - cox_ipw-cohort_prevax-main-grp5_atv
-    - cox_ipw-cohort_prevax-main-grp6_trd
-    - cox_ipw-cohort_prevax-main-grp7_htd
-    - cox_ipw-cohort_prevax-main-grp8_ind
     - cox_ipw-cohort_prevax-main-hashimoto
     - cox_ipw-cohort_prevax-main-hs
     - cox_ipw-cohort_prevax-main-ibd
@@ -10427,19 +10418,10 @@ actions:
     - cox_ipw-cohort_unvax-main-axial
     - cox_ipw-cohort_unvax-main-celiac
     - cox_ipw-cohort_unvax-main-cis
-    - cox_ipw-cohort_unvax-main-composite_ai
     - cox_ipw-cohort_unvax-main-crohn
     - cox_ipw-cohort_unvax-main-gca
     - cox_ipw-cohort_unvax-main-glb
     - cox_ipw-cohort_unvax-main-grave
-    - cox_ipw-cohort_unvax-main-grp1_ifa
-    - cox_ipw-cohort_unvax-main-grp2_ctd
-    - cox_ipw-cohort_unvax-main-grp3_isd
-    - cox_ipw-cohort_unvax-main-grp4_agi_ibd
-    - cox_ipw-cohort_unvax-main-grp5_atv
-    - cox_ipw-cohort_unvax-main-grp6_trd
-    - cox_ipw-cohort_unvax-main-grp7_htd
-    - cox_ipw-cohort_unvax-main-grp8_ind
     - cox_ipw-cohort_unvax-main-hashimoto
     - cox_ipw-cohort_unvax-main-hs
     - cox_ipw-cohort_unvax-main-ibd
@@ -10468,19 +10450,10 @@ actions:
     - cox_ipw-cohort_vax-main-axial
     - cox_ipw-cohort_vax-main-celiac
     - cox_ipw-cohort_vax-main-cis
-    - cox_ipw-cohort_vax-main-composite_ai
     - cox_ipw-cohort_vax-main-crohn
     - cox_ipw-cohort_vax-main-gca
     - cox_ipw-cohort_vax-main-glb
     - cox_ipw-cohort_vax-main-grave
-    - cox_ipw-cohort_vax-main-grp1_ifa
-    - cox_ipw-cohort_vax-main-grp2_ctd
-    - cox_ipw-cohort_vax-main-grp3_isd
-    - cox_ipw-cohort_vax-main-grp4_agi_ibd
-    - cox_ipw-cohort_vax-main-grp5_atv
-    - cox_ipw-cohort_vax-main-grp6_trd
-    - cox_ipw-cohort_vax-main-grp7_htd
-    - cox_ipw-cohort_vax-main-grp8_ind
     - cox_ipw-cohort_vax-main-hashimoto
     - cox_ipw-cohort_vax-main-hs
     - cox_ipw-cohort_vax-main-ibd
@@ -10501,20 +10474,6 @@ actions:
     - cox_ipw-cohort_vax-main-sss
     - cox_ipw-cohort_vax-main-uc
     - cox_ipw-cohort_vax-main-undiff_eia
-    - cox_ipw-cohort_prevax-sub_age_18_39-composite_ai
-    - cox_ipw-cohort_unvax-sub_age_18_39-composite_ai
-    - cox_ipw-cohort_vax-sub_age_18_39-composite_ai
-    - cox_ipw-cohort_prevax-sub_age_40_59-composite_ai
-    - cox_ipw-cohort_unvax-sub_age_40_59-composite_ai
-    - cox_ipw-cohort_vax-sub_age_40_59-composite_ai
-    - cox_ipw-cohort_prevax-sub_age_60_79-composite_ai
-    - cox_ipw-cohort_unvax-sub_age_60_79-composite_ai
-    - cox_ipw-cohort_vax-sub_age_60_79-composite_ai
-    - cox_ipw-cohort_prevax-sub_age_80_110-composite_ai
-    - cox_ipw-cohort_unvax-sub_age_80_110-composite_ai
-    - cox_ipw-cohort_vax-sub_age_80_110-composite_ai
-    - cox_ipw-cohort_unvax-sub_covid_history-composite_ai
-    - cox_ipw-cohort_vax-sub_covid_history-composite_ai
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-addison
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-aha
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-anca
@@ -10523,18 +10482,10 @@ actions:
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-axial
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-celiac
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-cis
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-crohn
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-gca
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-glb
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-grave
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp1_ifa
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp2_ctd
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp3_isd
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp5_atv
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp6_trd
-    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp7_htd
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-hashimoto
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-hs
     - cox_ipw-cohort_prevax-sub_covid_hospitalised-ibd
@@ -10563,19 +10514,10 @@ actions:
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-axial
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-celiac
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-cis
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-crohn
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-gca
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-glb
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-grave
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp1_ifa
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp2_ctd
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp3_isd
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp5_atv
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp6_trd
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp7_htd
-    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp8_ind
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-hashimoto
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-hs
     - cox_ipw-cohort_unvax-sub_covid_hospitalised-ibd
@@ -10604,19 +10546,10 @@ actions:
     - cox_ipw-cohort_vax-sub_covid_hospitalised-axial
     - cox_ipw-cohort_vax-sub_covid_hospitalised-celiac
     - cox_ipw-cohort_vax-sub_covid_hospitalised-cis
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai
     - cox_ipw-cohort_vax-sub_covid_hospitalised-crohn
     - cox_ipw-cohort_vax-sub_covid_hospitalised-gca
     - cox_ipw-cohort_vax-sub_covid_hospitalised-glb
     - cox_ipw-cohort_vax-sub_covid_hospitalised-grave
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp1_ifa
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp2_ctd
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp3_isd
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp5_atv
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp6_trd
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp7_htd
-    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp8_ind
     - cox_ipw-cohort_vax-sub_covid_hospitalised-hashimoto
     - cox_ipw-cohort_vax-sub_covid_hospitalised-hs
     - cox_ipw-cohort_vax-sub_covid_hospitalised-ibd
@@ -10645,19 +10578,10 @@ actions:
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-axial
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-celiac
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-cis
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-crohn
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-gca
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-glb
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grave
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp1_ifa
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp2_ctd
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp3_isd
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp5_atv
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp6_trd
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp7_htd
-    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp8_ind
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-hashimoto
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-hs
     - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-ibd
@@ -10686,19 +10610,10 @@ actions:
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-axial
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-celiac
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-cis
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-crohn
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-gca
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-glb
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grave
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp1_ifa
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp2_ctd
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp3_isd
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp5_atv
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp6_trd
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp7_htd
-    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp8_ind
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-hashimoto
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-hs
     - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-ibd
@@ -10727,19 +10642,10 @@ actions:
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-axial
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-celiac
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-cis
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-crohn
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-gca
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-glb
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grave
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp1_ifa
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp2_ctd
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp3_isd
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp4_agi_ibd
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp5_atv
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp6_trd
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp7_htd
-    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp8_ind
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-hashimoto
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-hs
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-ibd
@@ -10760,6 +10666,108 @@ actions:
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-sss
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-uc
     - cox_ipw-cohort_vax-sub_covid_nonhospitalised-undiff_eia
+    outputs:
+      moderately_sensitive:
+        model_output: output/model_output_single.csv
+        model_output_single_midpoint6: output/model_output_single_midpoint6.csv
+
+  make_model_grouped_output:
+    run: r:latest analysis/model/make_model_grouped_output.R
+    needs:
+    - cox_ipw-cohort_prevax-main-composite_ai
+    - cox_ipw-cohort_prevax-main-grp1_ifa
+    - cox_ipw-cohort_prevax-main-grp2_ctd
+    - cox_ipw-cohort_prevax-main-grp3_isd
+    - cox_ipw-cohort_prevax-main-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-main-grp5_atv
+    - cox_ipw-cohort_prevax-main-grp6_trd
+    - cox_ipw-cohort_prevax-main-grp7_htd
+    - cox_ipw-cohort_prevax-main-grp8_ind
+    - cox_ipw-cohort_unvax-main-composite_ai
+    - cox_ipw-cohort_unvax-main-grp1_ifa
+    - cox_ipw-cohort_unvax-main-grp2_ctd
+    - cox_ipw-cohort_unvax-main-grp3_isd
+    - cox_ipw-cohort_unvax-main-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-main-grp5_atv
+    - cox_ipw-cohort_unvax-main-grp6_trd
+    - cox_ipw-cohort_unvax-main-grp7_htd
+    - cox_ipw-cohort_unvax-main-grp8_ind
+    - cox_ipw-cohort_vax-main-composite_ai
+    - cox_ipw-cohort_vax-main-grp1_ifa
+    - cox_ipw-cohort_vax-main-grp2_ctd
+    - cox_ipw-cohort_vax-main-grp3_isd
+    - cox_ipw-cohort_vax-main-grp4_agi_ibd
+    - cox_ipw-cohort_vax-main-grp5_atv
+    - cox_ipw-cohort_vax-main-grp6_trd
+    - cox_ipw-cohort_vax-main-grp7_htd
+    - cox_ipw-cohort_vax-main-grp8_ind
+    - cox_ipw-cohort_prevax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_vax-sub_age_18_39-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_vax-sub_age_40_59-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_vax-sub_age_60_79-composite_ai
+    - cox_ipw-cohort_prevax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_unvax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_vax-sub_age_80_110-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_history-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_history-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_prevax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_unvax-sub_covid_hospitalised-grp8_ind
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp1_ifa
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp2_ctd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp3_isd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp5_atv
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp6_trd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp7_htd
+    - cox_ipw-cohort_vax-sub_covid_hospitalised-grp8_ind
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_prevax-sub_covid_nonhospitalised-grp8_ind
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_unvax-sub_covid_nonhospitalised-grp8_ind
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-composite_ai
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp1_ifa
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp2_ctd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp3_isd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp4_agi_ibd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp5_atv
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp6_trd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp7_htd
+    - cox_ipw-cohort_vax-sub_covid_nonhospitalised-grp8_ind
     - cox_ipw-cohort_prevax-sub_ethnicity_asian-composite_ai
     - cox_ipw-cohort_unvax-sub_ethnicity_asian-composite_ai
     - cox_ipw-cohort_vax-sub_ethnicity_asian-composite_ai
@@ -10783,8 +10791,8 @@ actions:
     - cox_ipw-cohort_vax-sub_sex_male-composite_ai
     outputs:
       moderately_sensitive:
-        model_output: output/model_output.csv
-        model_output_midpoint6: output/model_output_midpoint6.csv
+        model_output: output/model_output_output.csv
+        model_output_grouped_midpoint6: output/model_output_grouped_midpoint6.csv
 
   ## Calculate median (IQR) for age 
 
