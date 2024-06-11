@@ -21,29 +21,28 @@ active_analyses <- read_rds("lib/active_analyses.rds")
 active_analyses <- active_analyses[order(active_analyses$analysis,active_analyses$cohort,active_analyses$outcome),]
  cohorts <- unique(active_analyses$cohort)
 
+failed_models <- c("cohort_prevax-sub_covid_hospitalised-grp8_ind") 
+ 
 run_stata <- c(
-  "cohort_prevax-main-grp7_htd",
-  "cohort_prevax-main-grp8_ind",
-  "cohort_prevax-sub_age_18_39-grp8_ind",
-  "cohort_prevax-sub_age_40_59-grp3_isd",
-  "cohort_prevax-sub_age_40_59-grp8_ind",
-  "cohort_prevax-sub_age_60_79-grp5_atv",
-  "cohort_prevax-sub_age_60_79-grp7_htd",
-  "cohort_prevax-sub_age_60_79-grp8_ind",
-  "cohort_prevax-sub_age_80_110-grp7_htd",
-  "cohort_prevax-sub_covid_hospitalised-composite_ai",
   "cohort_prevax-sub_covid_hospitalised-grp3_isd",
+  "cohort_prevax-sub_covid_hospitalised-ibd",
+  "cohort_prevax-sub_covid_hospitalised-uc",
+  "cohort_prevax-main-anca",
+  "cohort_prevax-sub_covid_nonhospitalised-anca",
+  "cohort_prevax-main-apa",
+  "cohort_prevax-sub_covid_nonhospitalised-apa",
+  "cohort_prevax-main-grp7_htd",
   "cohort_prevax-sub_covid_hospitalised-grp7_htd",
-  "cohort_prevax-sub_covid_hospitalised-grp8_ind",#
   "cohort_prevax-sub_covid_nonhospitalised-grp7_htd",
+  "cohort_prevax-main-glb",
+  "cohort_prevax-sub_covid_nonhospitalised-glb",
+  "cohort_prevax-main-longit_myelitis",
+  "cohort_prevax-main-cis",
+  "cohort_prevax-main-grp8_ind",
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind",
   "cohort_prevax-sub_covid_nonhospitalised-grp8_ind",
-  "cohort_prevax-sub_ethnicity_white-grp7_htd",
-  "cohort_prevax-sub_ethnicity_white-grp8_ind",
-  "cohort_prevax-sub_sex_female-grp8_ind",
-  "cohort_prevax-sub_sex_male-grp7_htd",
-  "cohort_prevax-sub_sex_male-grp8_ind",
-  "cohort_vax-sub_age_40_59-grp1_ifa",
-  "cohort_unvax-sub_age_80_110-grp2_ctd")#
+  "cohort_prevax-sub_covid_hospitalised-composite_ai"
+  )
 
 stata <- active_analyses[active_analyses$name %in% run_stata,]
 stata$save_analysis_ready <- TRUE
@@ -681,6 +680,19 @@ actions_list <- splice(
     )
   ),
   
+  # Test locally
+  # comment ("Stata models"), Stata Analyses
+  
+  action(
+    name = "make_stata_model_output",
+    run = "r:latest analysis/stata/make_stata_model_output.R",
+    needs = as.list(paste0("stata_cox_ipw-",stata$name)),
+    moderately_sensitive = list(
+      stata_model_output = glue("output/stata_model_output.csv"),
+      stata_model_output_midpoint6 = glue("output/stata_model_output_midpoint6.csv")
+    )
+  ),
+  
   ## median (IQR) for age -----------------------------------------------------
   comment("Calculate median (IQR) for age"),
   
@@ -695,7 +707,6 @@ actions_list <- splice(
     )
   ),
   
-
   ## AER table -----------------------------------------------------------------
 
   comment("Make absolute excess risk (AER) input"),
@@ -709,7 +720,6 @@ actions_list <- splice(
       aer_input_midpoint6 = glue("output/aer_input-main-midpoint6.csv")
     )
   )
-  
 )
 
 ## combine everything ----
