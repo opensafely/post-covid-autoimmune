@@ -286,7 +286,7 @@ apply_model_function <- function(name, cohort, analysis, ipw, strata,
         model_input = glue("output/model_input-{name}.rds")
       )
     ),
-
+    
     # action(
     #   name = glue("describe_model_input-{name}"),
     #   run = glue("r:latest analysis/model/describe_file.R model_input-{name} rds"),
@@ -558,16 +558,16 @@ actions_list <- splice(
   
   ## venn output ---------------------------------------------------------------
   
-  # action(
-  #   name = "make_venn_output",
-  #   run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
-  #   needs = list("venn_prevax",
-  #                "venn_vax",
-  #                "venn_unvax"),
-  #   moderately_sensitive = list(
-  #     venn_output_midpoint6 = glue("output/venn_output_midpoint6.csv")
-  #   )
-  # ),
+  action(
+    name = "make_venn_output",
+    run = "r:latest analysis/model/make_other_output.R venn prevax;vax;unvax",
+    needs = list("venn_prevax",
+                 "venn_vax",
+                 "venn_unvax"),
+    moderately_sensitive = list(
+      venn_output_midpoint6 = glue("output/venn_output_midpoint6.csv")
+    )
+  ),
   
   ## Table 1 -------------------------------------------------------------------
 
@@ -654,18 +654,30 @@ actions_list <- splice(
   #comment("Stage 6 - make model output"),
 
   action(
-    name = "make_model_output",
-    run = "r:latest analysis/model/make_model_output.R",
+    name = "make_model_single_output",
+    run = "r:latest analysis/model/make_model_single_output.R",
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
     #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
     #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
-    needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
-    #needs = as.list(paste0("cox_ipw-",active_analyses[!active_analyses$name %in% failed_models,]$name)),
-    needs = as.list(c(paste0("cox_ipw-",setdiff(active_analyses$name,stata$name)),
-                      paste0("stata_cox_ipw-",stata$name))),
+    #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
+    needs = as.list(paste0("cox_ipw-",active_analyses[!grepl("-grp|composite_ai",active_analyses$name),]$name)),#grepl("-grp|composite_ai",active_analyses$name) & 
     moderately_sensitive = list(
-      model_output = glue("output/model_output.csv"),
-      model_output_midpoint6 = glue("output/model_output_midpoint6.csv")
+      model_output = glue("output/model_output_single.csv"),
+      model_output_single_midpoint6 = glue("output/model_output_single_midpoint6.csv")
+    )
+  ),
+  
+  action(
+    name = "make_model_grouped_output",
+    run = "r:latest analysis/model/make_model_grouped_output.R",
+    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
+    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
+    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
+    #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
+    needs = as.list(paste0("cox_ipw-",active_analyses[grepl("-grp|composite_ai",active_analyses$name) & !active_analyses$name %in% failed_models,]$name)),# 
+    moderately_sensitive = list(
+      model_output = glue("output/model_output_grouped.csv"),
+      model_output_grouped_midpoint6 = glue("output/model_output_grouped_midpoint6.csv")
     )
   ),
   

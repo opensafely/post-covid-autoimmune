@@ -18,6 +18,8 @@ print('Load active analyses')
 
 active_analyses <- readr::read_rds("lib/active_analyses.rds")
 
+active_analyses <- active_analyses[!grepl("-grp|composite_ai",active_analyses$name),]
+
 # List available model outputs -------------------------------------------------
 print('List available model outputs')
 
@@ -94,7 +96,7 @@ df <- df[,c("name","cohort","outcome","analysis","error","model","term",
             "N_total","N_exposed","N_events","person_time_total",
             "outcome_time_median","strata_warning","surv_formula")]
 
-readr::write_csv(df, "output/model_output.csv")
+readr::write_csv(df, "output/model_output_single.csv")
 
 
 # Perform redaction ------------------------------------------------------------
@@ -109,7 +111,9 @@ names(df)[names(df) == "N_total"] <- "N_total_midpoint6"
 names(df)[names(df) == "N_exposed"] <- "N_exposed_midpoint6"
 names(df)[names(df) == "N_events"] <- "N_events_midpoint6"
 
-# Save model output ------------------------------------------------------------
-print('Save model output')
+# Single outcomes  ------------------------------------------------------------
+print('Save single model output')
 
-readr::write_csv(df, "output/model_output_midpoint6.csv")
+df <- df[!grepl("-grp|composite_ai",df$name),]
+
+readr::write_csv(df, "output/model_output_single_midpoint6.csv")
