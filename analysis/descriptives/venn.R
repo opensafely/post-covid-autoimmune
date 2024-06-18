@@ -336,47 +336,36 @@ names(df)[names(df) == "hes_death"] <- "hes_death_midpoint6"
 names(df)[names(df) == "ctv_death"] <- "ctv_death_midpoint6"
 names(df)[names(df) == "snomed_ctv_hes_death"] <- "snomed_ctv_hes_death_midpoint6"
 
-# To be removed (use to test)
-names(df)[names(df) == "total_snomed"] <- "total_snomed_midpoint6"
-names(df)[names(df) == "total_hes"] <- "total_hes_midpoint6"
-names(df)[names(df) == "total_death"] <- "total_death_midpoint6"
-names(df)[names(df) == "total"] <- "total_midpoint6"
-
 # Recalculate sources totals and total midpoint6 derived column ----------------
 print("Recalculate total (midpoint6 derived) column")
 
-# df$total_snomed_midpoint6 <- rowSums(df[,c("only_snomed_midpoint6", "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
-#   
-# df$total_ctv_midpoint6 <- rowSums(df[,c("only_ctv_midpoint6", "snomed_ctv_midpoint6", "ctv_hes_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
-# 
-# df$total_hes_midpoint6 <- rowSums(df[,c("only_hes_midpoint6", "snomed_hes_midpoint6",  "ctv_hes_midpoint6", "hes_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
-#   
-# df$total_death_midpoint6 <- rowSums(df[,c("only_death_midpoint6", "snomed_death_midpoint6", "hes_death_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
-# 
-# df$total_midpoint6_derived <- rowSums(df[,c("only_ctv_midpoint6", "only_snomed_midpoint6", "only_hes_midpoint6", "only_death_midpoint6", 
-#                                             "ctv_hes_midpoint6", "ctv_death_midpoint6", "hes_death_midpoint6",
-#                                             "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
+df$total_snomed_midpoint6_derived <- rowSums(df[,c("only_snomed_midpoint6", "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
+
+df$total_ctv_midpoint6_derived <- rowSums(df[,c("only_ctv_midpoint6", "snomed_ctv_midpoint6", "ctv_hes_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
+
+df$total_hes_midpoint6_derived <- rowSums(df[,c("only_hes_midpoint6", "snomed_hes_midpoint6",  "ctv_hes_midpoint6", "hes_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
+
+df$total_death_midpoint6_derived <- rowSums(df[,c("only_death_midpoint6", "snomed_death_midpoint6", "hes_death_midpoint6", "ctv_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
+
+df$total_midpoint6_derived <- rowSums(df[,c("only_ctv_midpoint6", "only_snomed_midpoint6", "only_hes_midpoint6", "only_death_midpoint6",
+                                            "ctv_hes_midpoint6", "ctv_death_midpoint6", "hes_death_midpoint6",
+                                            "snomed_ctv_midpoint6", "snomed_hes_midpoint6", "snomed_death_midpoint6", "snomed_ctv_hes_death_midpoint6")], na.rm = T)
 
 # Remove total columns ---------------------------------------------------------
 print("Remove total columns")
 
-# df$total_ctv <- NULL 
-# df$total_snomed <- NULL
-# df$total_hes <- NULL
-# df$total_death <- NULL
-# df$total <- NULL
+df$total_ctv <- NULL
+df$total_snomed <- NULL
+df$total_hes <- NULL
+df$total_death <- NULL
+df$total <- NULL
 
 # Relocate columns -------------------------------------------------------------
 print("Relocate columns following empty df")
 
-# df <- df %>%
-#   relocate(c(total_snomed_midpoint6, total_ctv_midpoint6, total_hes_midpoint6, total_death_midpoint6), .after = snomed_ctv_hes_death_midpoint6) %>%
-#   relocate(total_midpoint6_derived, .before = error)
-
-# Record cohort ----------------------------------------------------------------
-print('Record cohort')
-
-df$cohort <- cohort
+df <- df %>%
+  relocate(c(total_snomed_midpoint6_derived, total_ctv_midpoint6_derived, total_hes_midpoint6_derived, total_death_midpoint6_derived, total_midpoint6_derived), 
+           .before = error)
 
 # Save rounded Venn data -------------------------------------------------------
 print('Save rounded Venn data')
