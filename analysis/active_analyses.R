@@ -567,7 +567,7 @@ df$name <- paste0("cohort_",df$cohort, "-",
 
 # Select certain models --------------------------------------------------------
 
-# df <- df[df$analysis == "main" | df$analysis == "sub_covid_hospitalised" | df$analysis == "sub_covid_nonhospitalised",]
+# df <- df[df$analysis == "main",]
 
 # df <- df[df$analysis == "sub_bin_history_composite_ai_true" | df$analysis == "sub_bin_history_composite_ai_false",]#df$analysis == "main" | 
 
