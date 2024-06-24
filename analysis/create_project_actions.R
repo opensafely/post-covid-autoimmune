@@ -24,24 +24,26 @@ active_analyses <- active_analyses[order(active_analyses$analysis,active_analyse
 failed_models <- c("cohort_prevax-sub_covid_hospitalised-grp8_ind") 
  
 run_stata <- c(
-  "cohort_prevax-sub_covid_hospitalised-grp3_isd",
+  # single
+  "cohort_prevax-main-anca",
+  "cohort_prevax-main-apa",
+  "cohort_prevax-main-cis",
+  "cohort_prevax-main-glb",
+  "cohort_prevax-main-long_myelitis",
   "cohort_prevax-sub_covid_hospitalised-ibd",
   "cohort_prevax-sub_covid_hospitalised-uc",
-  "cohort_prevax-main-anca",
   "cohort_prevax-sub_covid_nonhospitalised-anca",
-  "cohort_prevax-main-apa",
   "cohort_prevax-sub_covid_nonhospitalised-apa",
+  "cohort_prevax-sub_covid_nonhospitalised-glb", 
+  # grouped
   "cohort_prevax-main-grp7_htd",
-  "cohort_prevax-sub_covid_hospitalised-grp7_htd",
-  "cohort_prevax-sub_covid_nonhospitalised-grp7_htd",
-  "cohort_prevax-main-glb",
-  "cohort_prevax-sub_covid_nonhospitalised-glb",
-  "cohort_prevax-main-longit_myelitis",
-  "cohort_prevax-main-cis",
   "cohort_prevax-main-grp8_ind",
-  "cohort_prevax-sub_covid_hospitalised-grp8_ind",
-  "cohort_prevax-sub_covid_nonhospitalised-grp8_ind",
-  "cohort_prevax-sub_covid_hospitalised-composite_ai"
+  "cohort_prevax-sub_covid_hospitalised-composite_ai",
+  "cohort_prevax-sub_covid_hospitalised-grp3_isd",
+  "cohort_prevax-sub_covid_hospitalised-grp7_htd",
+  "cohort_prevax-sub_covid_hospitalised-grp8_ind", #
+  "cohort_prevax-sub_covid_nonhospitalised-grp7_htd",
+  "cohort_prevax-sub_covid_nonhospitalised-grp8_ind" 
   )
 
 stata <- active_analyses[active_analyses$name %in% run_stata,]
@@ -655,11 +657,7 @@ actions_list <- splice(
   action(
     name = "make_model_single_output",
     run = "r:latest analysis/model/make_model_single_output.R",
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
-    #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
-    needs = as.list(paste0("cox_ipw-",active_analyses[!grepl("-grp|composite_ai",active_analyses$name),]$name)),#grepl("-grp|composite_ai",active_analyses$name) & 
+    needs = as.list(paste0("cox_ipw-",active_analyses[!grepl("-grp|composite_ai",active_analyses$name),]$name)),
     moderately_sensitive = list(
       model_output = glue("output/model_output_single.csv"),
       model_output_single_midpoint6 = glue("output/model_output_single_midpoint6.csv")
@@ -669,11 +667,7 @@ actions_list <- splice(
   action(
     name = "make_model_grouped_output",
     run = "r:latest analysis/model/make_model_grouped_output.R",
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),#success$name
-    #needs = as.list(paste0("cox_ipw-",active_analyses[active_analyses$analysis=="main",]$name)),
-    #needs = as.list(paste0("cox_ipw-",active_analyses$name)),
-    #needs = as.list(c(paste0("cox_ipw-", active_analyses[grepl("-grp|-composite_ai", active_analyses$name),]$name))),
-    needs = as.list(paste0("cox_ipw-",active_analyses[grepl("-grp|composite_ai",active_analyses$name) & !active_analyses$name %in% failed_models,]$name)),# 
+    needs = as.list(paste0("cox_ipw-",active_analyses[grepl("-grp|composite_ai",active_analyses$name) & !active_analyses$name %in% failed_models,]$name)),
     moderately_sensitive = list(
       model_output = glue("output/model_output_grouped.csv"),
       model_output_grouped_midpoint6 = glue("output/model_output_grouped_midpoint6.csv")

@@ -9960,6 +9960,30 @@ actions:
         medianfup: output/ready-cohort_prevax-main-grp8_ind_median_fup.csv
         stata_output: output/ready-cohort_prevax-main-grp8_ind_cox_model.txt
 
+  ready-cohort_prevax-main-long_myelitis:
+    run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-main-long_myelitis.rds
+      --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
+      --covariate_age=cov_num_age --covariate_other=cov_cat_ethnicity;cov_cat_deprivation;cov_num_consulation_rate;cov_num_outpatient_rate;cov_cat_smoking_status;cov_bin_healthcare_worker;cov_bin_carehome_status;cov_bin_dementia;cov_bin_liver_disease;cov_bin_ckd;cov_bin_cancer;cov_bin_hypertension;cov_bin_diabetes;cov_bin_obesity;cov_bin_copd;cov_bin_ami;cov_bin_isch_stroke
+      --cox_start=index_date --cox_stop=end_date_outcome --study_start=2020-01-01
+      --study_stop=2021-12-14 --cut_points=1;28;197;365;714 --controls_per_case=20
+      --total_event_threshold=40 --episode_event_threshold=5 --covariate_threshold=5
+      --age_spline=TRUE --save_analysis_ready=TRUE --run_analysis=FALSE --df_output=model_output-cohort_prevax-main-long_myelitis.csv
+    needs:
+    - make_model_input-cohort_prevax-main-long_myelitis
+    outputs:
+      highly_sensitive:
+        analysis_ready: output/ready-cohort_prevax-main-long_myelitis.csv.gz
+
+  stata_cox_ipw-cohort_prevax-main-long_myelitis:
+    run: stata-mp:latest analysis/stata/cox_model.do cohort_prevax-main-long_myelitis
+      TRUE
+    needs:
+    - ready-cohort_prevax-main-long_myelitis
+    outputs:
+      moderately_sensitive:
+        medianfup: output/ready-cohort_prevax-main-long_myelitis_median_fup.csv
+        stata_output: output/ready-cohort_prevax-main-long_myelitis_cox_model.txt
+
   ready-cohort_prevax-sub_covid_hospitalised-composite_ai:
     run: cox-ipw:v0.0.30 --df_input=model_input-cohort_prevax-sub_covid_hospitalised-composite_ai.rds
       --ipw=TRUE --exposure=exp_date --outcome=out_date --strata=cov_cat_region --covariate_sex=cov_cat_sex
@@ -11207,6 +11231,7 @@ actions:
     - stata_cox_ipw-cohort_prevax-main-glb
     - stata_cox_ipw-cohort_prevax-main-grp7_htd
     - stata_cox_ipw-cohort_prevax-main-grp8_ind
+    - stata_cox_ipw-cohort_prevax-main-long_myelitis
     - stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-composite_ai
     - stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp3_isd
     - stata_cox_ipw-cohort_prevax-sub_covid_hospitalised-grp7_htd
